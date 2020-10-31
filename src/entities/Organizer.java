@@ -1,0 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Organizer extends User {
+    private List<String> eventNames;
+
+    public Organizer (String email, String password) {
+        super(email, password);
+        this.eventNames = new ArrayList<>();
+    }
+}
