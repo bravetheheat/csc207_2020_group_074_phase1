@@ -1,3 +1,5 @@
+package main.entities;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.UUID;

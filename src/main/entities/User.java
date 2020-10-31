@@ -1,3 +1,5 @@
+package main.entities;
+
 public abstract class User {
     private String uuid;
     private String password;
