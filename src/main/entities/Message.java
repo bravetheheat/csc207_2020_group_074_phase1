@@ -1,6 +1,6 @@
 package main.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -14,7 +14,7 @@ class Message {
 
     private final UUID id = UUID.randomUUID();
     private final String text;
-    private final Date time;
+    private final LocalDateTime time = LocalDateTime.now();
     private final UUID sender;
 
     /**
@@ -26,7 +26,6 @@ class Message {
     public Message(String text, UUID sender) {
         this.text = text;
         this.sender = sender;
-        this.time = new Date();
     }
 
     /**
@@ -52,7 +51,7 @@ class Message {
      *
      * @return the date the message was created
      */
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return this.time;
     }
 
