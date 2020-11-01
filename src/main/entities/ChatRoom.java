@@ -2,6 +2,7 @@ package main.entities;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -14,8 +15,8 @@ import java.util.UUID;
 public class ChatRoom {
 
     private final UUID id = UUID.randomUUID();
-    private final LinkedList<UUID> messages = new LinkedList<UUID>();
-    private final ArrayList<UUID> participants = new ArrayList<UUID>();
+    private final List<UUID> messages = new LinkedList<UUID>();
+    private final List<UUID> participants = new ArrayList<UUID>();
 
     /**
      * Class constructor that defaults to an empty chatroom.
@@ -28,7 +29,7 @@ public class ChatRoom {
      *
      * @param participants A list of the UUIDS of the participants in the chatroom
      */
-    public ChatRoom(ArrayList<UUID> participants) {
+    public ChatRoom(List<UUID> participants) {
         this.participants.addAll(participants);
     }
 
@@ -57,7 +58,7 @@ public class ChatRoom {
      *
      * @return the list of UUIDs of the participants in chatroom
      */
-    public ArrayList<UUID> getParticipants() {
+    public List<UUID> getParticipants() {
         return this.participants;
     }
 
@@ -84,7 +85,7 @@ public class ChatRoom {
      *
      * @return list of UUIDs of the messages in the room.
      */
-    public LinkedList<UUID> getMessages() {
+    public List<UUID> getMessages() {
         return this.messages;
     }
 
