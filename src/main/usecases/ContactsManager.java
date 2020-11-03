@@ -17,10 +17,17 @@ import java.util.UUID;
 public class ContactsManager {
 
     private Dictionary<UUID, ArrayList<User>> contactListsofUsers;
-    private ArrayList<User> contactList;
 
+    /**
+     * A user is added to the contact manager system with user id(UUID). The initial contact list of
+     * the user is empty because the user does not have any contact except the user himself/herself
+     * when the user account is initially created.
+     * @param user that added to the contact manager
+     */
     public ContactsManager(User user){
-        this.contactList = new ArrayList<User>();
+        ArrayList<User> contactList = new ArrayList<User>();
+        contactList.add(user);
+        contactListsofUsers.put(user.getId(), contactList);
     }
 
     public ArrayList<User> getContactList(User user) {
