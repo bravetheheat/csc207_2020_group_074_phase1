@@ -30,6 +30,17 @@ public class ContactsManager {
         contactListsofUsers.put(user.getId(), contactList);
     }
 
+    /**
+     * Add a friend to the user's contactList
+     * @param user in the contactsListofUsers
+     * @param friend that should be added to the contact list of the user
+     */
+    public void addUser(User user, User friend) {
+        ArrayList<User> friends = contactListsofUsers.get(user.getId());
+        friends.add(friend);
+        contactListsofUsers.put(user.getId(), friends);
+    }
+
     public ArrayList<User> getContactList(User user) {
         return contactListsofUsers.get(user.getId());
     }
