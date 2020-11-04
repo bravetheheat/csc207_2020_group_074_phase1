@@ -14,16 +14,21 @@ public class UsersManager {
     private Dictionary<UUID, ArrayList<User>> ListsofUsers;
     private ArrayList<User> registeredUser;
 
+    public ArrayList<User> getRegisteredUser() {
+        return registeredUser;
+    }
+
     public boolean authenticateUser(User newUser){
 
         return false;
     }
 
     public void deleteUser(User user){
+        UUID deletedID = user.getId();
 
     }
     public void addUser(User user){
-
+        
     }
 
 }
