@@ -2,7 +2,7 @@ package main.entities;
 
 import java.util.UUID;
 
-public abstract class User {
+public class User {
     private String username;
     private String password;
     private UUID id = UUID.randomUUID();
@@ -11,6 +11,7 @@ public abstract class User {
         this.username = email;
         this.password = password;
     }
+    public String getUsername() { return username; }
 
     public String getPassword() {
         return password;
