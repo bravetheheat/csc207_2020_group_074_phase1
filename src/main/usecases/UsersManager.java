@@ -11,15 +11,14 @@ import java.util.*;
  */
 
 public class UsersManager {
-    private Dictionary<UUID, ArrayList<User>> ListsofUsers;
     private static ArrayList<User> registeredUser;
 
     /**
-     * Verify the authentication of new user.
+     * Verify the authentication of new user with username, password and type of users.
      *
-     * @param newUser that should be verified authentication.
+     * @param username that is the user name of the user.
      */
-    public boolean authenticateUser(User newUser){
+    public boolean authenticateUser(String username, String password, String userType){
 
         return false;
     }
@@ -40,9 +39,11 @@ public class UsersManager {
     /**
      * Add a user to the list of registered users
      *
-     * @param user that should be added to the list of registered users
+     * @param username that is the username of the user
+     * @param password that is the password of the user
      */
-    public void addUser(User user){
+    public void addUser(String username, String password){
+        User user = new User(username, password);
         registeredUser.add(user);
     }
 
@@ -53,17 +54,27 @@ public class UsersManager {
      * @param newUser that is checked for avoiding conflicts.
      */
     public boolean checkConflicts(User newUser){
-        //String newUsername = newUser.getName();
-        return false;
+        String newUsername = newUser.getUsername();
+        for (User user : registeredUser) {
+            if (user.getUsername().equals(newUsername)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
-     * Return the information of a user.
+     * Return the information of all Users which include user's UUID, username and password.
      *
      */
     public String toString() {
-        return "UsersManager{" +
-                "ListsofUsers=" + ListsofUsers +
-                '}';
+        StringBuilder usersInfo;
+        usersInfo = new StringBuilder("Events: \n");
+        for (User user : registeredUser) {
+            String userInfo = "User #:" + user.getId() +"\n" + "Username :" + user.getUsername()
+                    + "\n" + "Password :" + user.getPassword() + "\n";
+            usersInfo.append(userInfo);
+        }
+        return usersInfo.toString();
     }
 }
