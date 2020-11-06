@@ -1,6 +1,12 @@
 package main.usecases;
+
+import main.entities.Attendee;
+import main.entities.Organizer;
+import main.entities.Speaker;
 import main.entities.User;
-import java.util.*;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * The UsersManager holds a list of users and modifies info for ...
@@ -11,17 +17,26 @@ import java.util.*;
  */
 
 public class UsersManager {
-    private static ArrayList<User> registeredUser;
+    private static List<User> registeredUser;
 
     /**
      * Verify the authentication of new user with username, password and type of users.
      *
      * @param username that is the user name of the user.
+     * @param password that is the password of the user.
+     * @param userType that is the type of the user which are attendees, organizer and speaker.
      */
-    public boolean authenticateUser(String username, String password, String userType){
-
+    public boolean authenticateUser(String username, String password, String userType) {
+        for (User user : registeredUser) {
+            if (user.getUsername().equals(username) & user.getPassword().equals(password)) {
+                if(userType.equals("Attendee") & user instanceof Attendee){ return true; }
+                else if(userType.equals("Organizer") & user instanceof Organizer){return true;}
+                else if(userType.equals("Speaker") & user instanceof Speaker){return true;}
+            }
+        }
         return false;
     }
+
 
     /**
      * Remove a user to the list of registered users
@@ -42,8 +57,9 @@ public class UsersManager {
      * @param username that is the username of the user
      * @param password that is the password of the user
      */
-    public void addUser(String username, String password){
-        User user = new User(username, password);
+    public void addUser(String username, String password, String userType){
+        UserFactory userFactory = new UserFactory();
+        User user = userFactory.getUser(username, password, userType);
         registeredUser.add(user);
     }
 
