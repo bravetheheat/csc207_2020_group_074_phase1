@@ -25,6 +25,7 @@ public class UsersManager {
      * @param username that is the user name of the user.
      * @param password that is the password of the user.
      * @param userType that is the type of the user which are attendees, organizer and speaker.
+     * @return check for authentication of user
      */
     public boolean authenticateUser(String username, String password, String userType) {
         for (User user : registeredUser) {
@@ -56,23 +57,28 @@ public class UsersManager {
      *
      * @param username that is the username of the user
      * @param password that is the password of the user
+     * @return check if user is added
      */
-    public void addUser(String username, String password, String userType){
+    public boolean addUser(String username, String password, String userType){
+        if (checkConflicts(username)){
+            return false;
+        }
         UserFactory userFactory = new UserFactory();
         User user = userFactory.getUser(username, password, userType);
         registeredUser.add(user);
+        return true;
     }
 
     /**
      * Check conflicts for new user to avoid user have same usernames with other
      * registered users
      *
-     * @param newUser that is checked for avoiding conflicts.
+     * @param userName that is checked for avoiding conflicts.
+     * @return check for conflicts
      */
-    public boolean checkConflicts(User newUser){
-        String newUsername = newUser.getUsername();
+    public boolean checkConflicts(String userName){
         for (User user : registeredUser) {
-            if (user.getUsername().equals(newUsername)) {
+            if (user.getUsername().equals(userName)) {
                 return false;
             }
         }
@@ -82,6 +88,7 @@ public class UsersManager {
     /**
      * Return the information of all Users which include user's UUID, username and password.
      *
+     * @return String representation of registered users
      */
     public String toString() {
         StringBuilder usersInfo;
