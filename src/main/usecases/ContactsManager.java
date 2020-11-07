@@ -2,6 +2,7 @@ package main.usecases;
 
 import main.entities.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.UUID;
@@ -31,25 +32,36 @@ public class ContactsManager {
     }
 
     /**
-     * Add a friend to the user's contactList
+     * Add a friend to the user's contactList and add user to friend's contactList as well
      * @param user in the contactsListofUsers
      * @param friend that should be added to the contact list of the user
+     *
+     * Precondition: A user can add friend to his/her contact list iff friend is a valid user.
      */
     public void addUser(User user, User friend) {
-        ArrayList<User> friends = contactListsofUsers.get(user.getId());
-        friends.add(friend);
-        contactListsofUsers.put(user.getId(), friends);
+        ArrayList<User> friend1 = contactListsofUsers.get(user.getId());
+        friend1.add(friend);
+        contactListsofUsers.put(user.getId(), friend1);
+        ArrayList<User> friend2 = contactListsofUsers.get(friend.getId());
+        friend2.add(user);
+        contactListsofUsers.put(friend.getId(), friend2);
     }
 
     /**
-     * Remove a friend from the user's contactList
+     * Remove a friend from the user's contactList and remove user from the friend's contactList as well.
      * @param user in the contactsListofUsers
      * @param friend that should be removed from the contact list of the user
+     *
+     * Precondition: A user can remove friend from his/her contact list iff friend is a valid user and the friend
+     *               is in the contactList of user.
      */
     public void removeUser(User user, User friend){
-        ArrayList<User> friends = contactListsofUsers.get(user.getId());
-        friends.remove(friend);
-        contactListsofUsers.put(user.getId(), friends);
+        ArrayList<User> friend1 = contactListsofUsers.get(user.getId());
+        friend1.remove(friend);
+        contactListsofUsers.put(user.getId(), friend1);
+        ArrayList<User> friend2 = contactListsofUsers.get(friend.getId());
+        friend2.remove(user);
+        contactListsofUsers.put(friend.getId(), friend2);
     }
 
     /**
@@ -62,11 +74,12 @@ public class ContactsManager {
 
     /**
      * Return True iff a user can message to friend.
-     * A user can send a message to friend iff friend is in the contact list of the user.
+     * A user can send a message to friend iff friend is in the contact list of the user and user is also in
+     * the contact list of friend.
      * @param user in the contactsListofUsers
      */
     public boolean checkPermission(User user, User friend){
-        ArrayList<User> friends = contactListsofUsers.get(user.getId());
-        return friends.contains(friend);
+        ArrayList<User> friend1 = contactListsofUsers.get(user.getId());
+        return friend1.contains(friend);
     }
 }
