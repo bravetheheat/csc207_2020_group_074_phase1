@@ -22,6 +22,17 @@ public class UserAuthTest {
     }
 
     @Test
+    public void shouldReturnNotLoggedInIfNotLoggedIn() {
+        boolean isLoggedIn = this.authController.isLoggedIn();
+        Assert.assertFalse(isLoggedIn);
+    }
+
+//    @Test
+//    public void shouldReturnLoggedInIfLoggedIn() {
+//
+//    }
+
+    @Test
     public void testAddAttendee() {
         String username = "james@gmail.com";
         String password = "ShakenNotStirred";
