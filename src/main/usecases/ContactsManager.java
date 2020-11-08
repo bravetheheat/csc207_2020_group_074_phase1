@@ -3,9 +3,7 @@ package main.usecases;
 import main.entities.User;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The ContactsManager holds a dictionary of lists of contacts of users.
@@ -17,7 +15,7 @@ import java.util.UUID;
 
 public class ContactsManager {
 
-    private Dictionary<UUID, ArrayList<UUID>> contactListsofUsers;
+    private Map<UUID, ArrayList<UUID>> contactListsofUsers;
 
     /**
      * A user is added to the contact manager system with user id(UUID). The initial contact list of
