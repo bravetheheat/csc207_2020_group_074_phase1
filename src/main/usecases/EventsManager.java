@@ -99,4 +99,12 @@ public class EventsManager {
         }
         return s;
     }
+
+    /**
+     * A getter of the schedule stored in EventsManager.
+     * @return the schedule of EventsManager
+     */
+    public Map<UUID, Event> getSchedule() {
+        return schedule;
+    }
 }
