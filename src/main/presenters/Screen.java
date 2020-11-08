@@ -16,12 +16,13 @@ public abstract class Screen {
 
     abstract public void start();
 
-    abstract public void end();
+    public void end() {
+        this.programController.nextScreen();
+    };
 
     public void returnToMain() {
         System.out.println("You will now be returned to the main screen.");
         System.out.println();
         this.programController.setScreen(new MainScreen(this.programController));
-        this.programController.nextScreen();
     }
 }

@@ -41,7 +41,7 @@ public class MainScreen extends Screen{
     }
 
     public void end() {
-        this.programController.nextScreen();
+        return;
     }
 
 }

@@ -22,6 +22,7 @@ public class UserControlScreen extends Screen {
 
     public void end() {
         this.returnToMain();
+        super.end();
     }
 
     private void listUsers() {

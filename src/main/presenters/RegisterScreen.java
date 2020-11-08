@@ -26,7 +26,6 @@ public class RegisterScreen extends Screen {
 
     public void start() {
         this.register();
-        this.returnToMain();
         this.end();
     }
 
@@ -53,7 +52,8 @@ public class RegisterScreen extends Screen {
     }
 
     public void end() {
-        this.programController.nextScreen();
+        this.returnToMain();
+        super.end();
 
     }
 
