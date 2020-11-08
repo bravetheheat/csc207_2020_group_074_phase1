@@ -1,8 +1,5 @@
 package main.usecases;
 
-import main.entities.Attendee;
-import main.entities.Organizer;
-import main.entities.Speaker;
 import main.entities.User;
 
 import java.util.HashMap;
@@ -22,15 +19,16 @@ public class UsersManager {
     private static Map<UUID, User> registeredUsers;
 
     public UsersManager() {
-        this.registeredUsers = new HashMap<>();
+        registeredUsers = new HashMap<>();
     }
 
     public UsersManager(List<User> userList) {
-        this.registeredUsers = new HashMap<>();
-        for (User user: userList) {
-            this.registeredUsers.put(user.getId(), user);
+        registeredUsers = new HashMap<>();
+        for (User user : userList) {
+            registeredUsers.put(user.getId(), user);
         }
     }
+
 
     /**
      * Verify the authentication of new user with username, password and type of users.
@@ -42,7 +40,7 @@ public class UsersManager {
     public UUID authenticateUser(String username, String password) {
         for (User user : registeredUsers.values()) {
             if (user.getUsername().equals(username) & user.getPassword().equals(password)) {
-             return user.getId();
+                return user.getId();
             }
         }
         return null;
@@ -54,9 +52,10 @@ public class UsersManager {
      *
      * @param userId that should be deleted from the list of registered users
      */
-    public void removeUser(UUID userId){
-        this.registeredUsers.remove(userId);
+    public void removeUser(UUID userId) {
+        registeredUsers.remove(userId);
     }
+
     /**
      * Add a user to the list of registered users
      *
@@ -64,15 +63,24 @@ public class UsersManager {
      * @param password that is the password of the user
      * @return check if user is added
      */
-    public boolean addUser(String username, String password, String userType){
+    public boolean addUser(String username, String password, String userType) {
 
-        if (checkConflicts(username)){
+        if (checkConflicts(username)) {
             return false;
         }
         UserFactory userFactory = new UserFactory();
         User user = userFactory.getUser(username, password, userType);
-        this.registeredUsers.put(user.getId(), user);
+        registeredUsers.put(user.getId(), user);
         return true;
+    }
+
+    /**
+     * Adds a user to the list of registered users
+     *
+     * @param user A User object
+     */
+    public void addUser(User user) {
+        registeredUsers.put(user.getId(), user);
     }
 
     /**
@@ -80,10 +88,10 @@ public class UsersManager {
      * registered users
      *
      * @param userName that is checked for avoiding conflicts.
-     * @return check for conflicts
+     * @return whether there is a conflict
      */
-    public boolean checkConflicts(String userName){
-        for (User user : this.registeredUsers.values()) {
+    public boolean checkConflicts(String userName) {
+        for (User user : registeredUsers.values()) {
             if (user.getUsername().equals(userName)) {
                 return true;
             }
@@ -91,8 +99,15 @@ public class UsersManager {
         return false;
     }
 
+
+    /**
+     * Fetches the User object associated with the UUID
+     *
+     * @param userId UUID of User object
+     * @return a User object
+     */
     public User fetchUser(UUID userId) {
-        return this.registeredUsers.get(userId);
+        return registeredUsers.get(userId);
     }
 
     /**
@@ -103,8 +118,8 @@ public class UsersManager {
     public String toString() {
         StringBuilder usersInfo;
         usersInfo = new StringBuilder("Events: \n");
-        for (User user : this.registeredUsers.values()) {
-            String userInfo = "User #:" + user.getId() +"\n" + "Username :" + user.getUsername()
+        for (User user : registeredUsers.values()) {
+            String userInfo = "User #:" + user.getId() + "\n" + "Username :" + user.getUsername()
                     + "\n" + "Password :" + user.getPassword() + "\n";
             usersInfo.append(userInfo);
         }
