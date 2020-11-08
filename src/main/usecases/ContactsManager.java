@@ -3,9 +3,7 @@ package main.usecases;
 import main.entities.User;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The ContactsManager holds a dictionary of lists of contacts of users.
@@ -17,7 +15,7 @@ import java.util.UUID;
 
 public class ContactsManager {
 
-    private Dictionary<UUID, ArrayList<User>> contactListsofUsers;
+    private Map<UUID, ArrayList<UUID>> contactListsofUsers;
 
     /**
      * A user is added to the contact manager system with user id(UUID). The initial contact list of
@@ -26,8 +24,8 @@ public class ContactsManager {
      * @param user that added to the contact manager
      */
     public ContactsManager(User user){
-        ArrayList<User> contactList = new ArrayList<User>();
-        contactList.add(user);
+        ArrayList<UUID> contactList = new ArrayList<UUID>();
+        contactList.add(user.getId());
         contactListsofUsers.put(user.getId(), contactList);
     }
 
@@ -39,11 +37,11 @@ public class ContactsManager {
      * Precondition: A user can add friend to his/her contact list iff friend is a valid user.
      */
     public void addUser(User user, User friend) {
-        ArrayList<User> friend1 = contactListsofUsers.get(user.getId());
-        friend1.add(friend);
+        ArrayList<UUID> friend1 = contactListsofUsers.get(user.getId());
+        friend1.add(friend.getId());
         contactListsofUsers.put(user.getId(), friend1);
-        ArrayList<User> friend2 = contactListsofUsers.get(friend.getId());
-        friend2.add(user);
+        ArrayList<UUID> friend2 = contactListsofUsers.get(friend.getId());
+        friend2.add(user.getId());
         contactListsofUsers.put(friend.getId(), friend2);
     }
 
@@ -56,11 +54,11 @@ public class ContactsManager {
      *               is in the contactList of user.
      */
     public void removeUser(User user, User friend){
-        ArrayList<User> friend1 = contactListsofUsers.get(user.getId());
-        friend1.remove(friend);
+        ArrayList<UUID> friend1 = contactListsofUsers.get(user.getId());
+        friend1.remove(friend.getId());
         contactListsofUsers.put(user.getId(), friend1);
-        ArrayList<User> friend2 = contactListsofUsers.get(friend.getId());
-        friend2.remove(user);
+        ArrayList<UUID> friend2 = contactListsofUsers.get(friend.getId());
+        friend2.remove(user.getId());
         contactListsofUsers.put(friend.getId(), friend2);
     }
 
@@ -68,7 +66,7 @@ public class ContactsManager {
      * Return a contact list of a user stored in contactListsofUsers
      * @param user in the contactsListofUsers
      */
-    public ArrayList<User> getContactList(User user) {
+    public ArrayList<UUID> getContactList(User user) {
         return contactListsofUsers.get(user.getId());
     }
 
@@ -79,7 +77,7 @@ public class ContactsManager {
      * @param user in the contactsListofUsers
      */
     public boolean checkPermission(User user, User friend){
-        ArrayList<User> friend1 = contactListsofUsers.get(user.getId());
-        return friend1.contains(friend);
+        ArrayList<UUID> friend1 = contactListsofUsers.get(user.getId());
+        return friend1.contains(friend.getId());
     }
 }
