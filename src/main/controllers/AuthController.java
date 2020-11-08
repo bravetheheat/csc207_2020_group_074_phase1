@@ -1,5 +1,8 @@
 package main.controllers;
 
+import main.entities.Speaker;
+import main.entities.User;
+import main.usecases.UserInformationManager;
 import main.usecases.UsersManager;
 
 import java.util.UUID;
@@ -89,9 +92,18 @@ public class AuthController {
         return this.usersManager.addUser(username, password, userType);
     }
 
-    /**
-     Todo: Return appropriate controllers
-     */
+    public UserController retrieveController() {
+        User currentUser = this.usersManager.fetchUser(this.loggedInUser);
+        UserInformationManager userInfo = new UserInformationManager(currentUser);
+        String userRole = userInfo.getType();
+
+        switch(userRole){
+            case "Attendee": return new AttendeeController();
+            case "Organizer": return new OrganizerController();
+            case "Speaker": return new SpeakerController();
+            default: return null;
+        }
+    }
 
 
 }

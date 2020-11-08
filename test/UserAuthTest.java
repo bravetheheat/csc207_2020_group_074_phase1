@@ -1,3 +1,4 @@
+import main.controllers.AuthController;
 import main.entities.Attendee;
 import main.entities.Organizer;
 import main.entities.Speaker;
@@ -6,8 +7,6 @@ import main.usecases.UsersManager;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import main.controllers.AuthController;
 
 import java.util.UUID;
 
@@ -26,11 +25,6 @@ public class UserAuthTest {
         boolean isLoggedIn = this.authController.isLoggedIn();
         Assert.assertFalse(isLoggedIn);
     }
-
-//    @Test
-//    public void shouldReturnLoggedInIfLoggedIn() {
-//
-//    }
 
     @Test
     public void testAddAttendee() {
@@ -52,6 +46,7 @@ public class UserAuthTest {
         Assert.assertTrue(createdUser instanceof Attendee);
 
     }
+
     @Test
     public void testAddSpeaker() {
         String username = "james@gmail.com";
@@ -72,6 +67,7 @@ public class UserAuthTest {
         Assert.assertTrue(createdUser instanceof Speaker);
 
     }
+
     @Test
     public void testAddOrganizer() {
         String username = "james@gmail.com";
@@ -101,11 +97,13 @@ public class UserAuthTest {
         this.usersManager.addUser(newUser);
 
         boolean loginSuccess = this.authController.login(username, password);
+        boolean isLoggedIn = this.authController.isLoggedIn();
         UUID loggedInUserId = this.authController.fetchLoggedInUser();
         this.authController.logout();
         UUID loggedOutUserId = this.authController.fetchLoggedInUser();
 
         Assert.assertTrue(loginSuccess);
+        Assert.assertTrue(isLoggedIn);
         Assert.assertEquals(newUser.getId(), loggedInUserId);
         Assert.assertNull(loggedOutUserId);
     }
