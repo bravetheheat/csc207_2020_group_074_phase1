@@ -90,7 +90,41 @@ public class UserAuthTest {
         Assert.assertEquals(createdUser.getUsername(), username);
         Assert.assertEquals(createdUser.getPassword(), password);
         Assert.assertTrue(createdUser instanceof Organizer);
+    }
 
+    @Test
+    public void testLoginAndLogout() {
+        String username = "james@gmail.com";
+        String password = "ShakenNotStirred";
+
+        User newUser = new User(username, password);
+        this.usersManager.addUser(newUser);
+
+        boolean loginSuccess = this.authController.login(username, password);
+        UUID loggedInUserId = this.authController.fetchLoggedInUser();
+        this.authController.logout();
+        UUID loggedOutUserId = this.authController.fetchLoggedInUser();
+
+        Assert.assertTrue(loginSuccess);
+        Assert.assertEquals(newUser.getId(), loggedInUserId);
+        Assert.assertNull(loggedOutUserId);
+    }
+
+
+    @Test
+    public void testAddAndDeleteUser() {
+        String username = "james@gmail.com";
+        String password = "ShakenNotStirred";
+
+        User newUser = new User(username, password);
+        UUID newUserId = newUser.getId();
+        this.usersManager.addUser(newUser);
+        User addedUser = this.usersManager.fetchUser(newUserId);
+        this.usersManager.removeUser(newUserId);
+        User removedUser = this.usersManager.fetchUser(newUserId);
+
+        Assert.assertEquals(addedUser, newUser);
+        Assert.assertNull(removedUser);
     }
 
 }
