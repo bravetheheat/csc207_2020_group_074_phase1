@@ -1,42 +1,44 @@
 package main.presenters;
 import main.controllers.AuthController;
+import main.controllers.ProgramController;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class RegisterScreen implements Screen {
+public class RegisterScreen extends Screen {
 
     AuthController authController;
-    Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Builder pattern
+     */
     String username;
     String password;
     String userType;
 
 
-    public RegisterScreen(AuthController authController) {
-        this.authController = authController;
+    public RegisterScreen(ProgramController programController) {
+        super(programController);
+        this.authController = programController.getAuthController();
 
     }
 
     public void start() {
         this.register();
+        this.returnToMain();
         this.end();
-
-
     }
 
     private void register() {
         System.out.println("Registration Screen");
         this.createUser();
-
     }
 
     private void createUser() {
         System.out.println();
         System.out.println("Please enter the following required fields");
-        System.out.print("Enter your username");
+        System.out.println("Enter your username");
         this.username = this.scanner.nextLine();
         System.out.println("Enter your password");
         this.password = this.scanner.nextLine();
@@ -50,7 +52,8 @@ public class RegisterScreen implements Screen {
         this.createUser();
     }
 
-    private void end() {
+    public void end() {
+        this.programController.nextScreen();
 
     }
 
