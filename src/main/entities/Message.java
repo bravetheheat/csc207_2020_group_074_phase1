@@ -10,7 +10,7 @@ import java.util.UUID;
  * @version 1.0
  * @since 2020-10-31
  */
-class Message {
+public class Message {
 
     private final UUID id = UUID.randomUUID();
     private final String text;

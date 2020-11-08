@@ -1,59 +1,60 @@
 package main.usecases;
 
-import main.entities.ChatRoom;
+import main.entities.Message;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * <code>MessageManager</code> adds messages to each user's chat rooms
  *
- * @author Steven Yuan
- * @version 1.1
+ * @author Steven Yuan, David Zhao
+ * @version 1.2
  * @since 2020-11-03
  */
 public class MessageManager {
 
-    private List<ChatRoom> chatRoomList;
-    private Map<UUID, List<ChatRoom>> usersToChatRoom;
+    private final Map<UUID, Message> messageList;
 
     /**
      * Default constructor that instantiates a <code>MessageManager</code> object
      */
     public MessageManager() {
-
+        this.messageList = new HashMap<>();
     }
 
-    /**
-     * Class constructor that creates a <code>Hashmap</code> that
-     * maps user id to chat rooms
-     *
-     * @param chatRoomList A list of chat rooms for all the users
-     */
-    public MessageManager(List<ChatRoom> chatRoomList) {
-        this.chatRoomList = chatRoomList;
-        usersToChatRoom = new HashMap<>();
-        for (ChatRoom chatRoom : chatRoomList) {
-            for (UUID participant : chatRoom.getParticipants()) {
-                if (!usersToChatRoom.containsKey(participant)) {
-                    List<ChatRoom> chatRooms = new ArrayList<>();
-                    chatRooms.add(chatRoom);
-                    usersToChatRoom.put(participant, chatRooms);
-                } else {
-                    usersToChatRoom.get(participant).add(chatRoom);
-                }
-            }
+    public MessageManager(List<Message> messageList) {
+        this.messageList = new HashMap<>();
+        for (Message message : messageList) {
+            UUID messageId = message.getId();
+            this.messageList.put(messageId, message);
         }
     }
 
-    /**
-     * Store messages for all the users in each chat room
-     * @param message ID of the message
-     */
-    public void addMessages(UUID message) {
-        for (UUID participant : usersToChatRoom.keySet()) {
-            for (ChatRoom chatRoom : usersToChatRoom.get(participant)) {
-                chatRoom.addMessage(message);
-            }
-        }
+    public UUID createMessage(String text, UUID sender) {
+        Message newMessage = new Message(text, sender);
+        UUID newMessageId = newMessage.getId();
+        this.messageList.put(newMessageId, newMessage);
+        return newMessageId;
     }
+
+    public String retrieveMessageText(UUID messageId) {
+        Message message = this.messageList.get(messageId);
+        return message.getText();
+    }
+
+    public LocalDateTime retrieveMessageDate(UUID messageId) {
+        Message message = this.messageList.get(messageId);
+        return message.getDate();
+    }
+
+    public UUID retrieveMessageSender(UUID messageId) {
+        Message message = this.messageList.get(messageId);
+        return message.getSender();
+    }
+
+
 }
