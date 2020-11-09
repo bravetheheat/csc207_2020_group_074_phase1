@@ -12,7 +12,7 @@ import java.util.UUID;
  * The EventInfoManager modifies info for a particular Event given event id.
  *
  * @author Haoze Huang
- * @version 2.0
+ * @version 2.1
  * @since 2020-10-31
  */
 
@@ -93,12 +93,12 @@ public class EventInfoManager {
 
 
     /**
-     * Get event given event id
+     * Get event info to string
      *
-     * @return event
+     * @return eventInfo
      */
-    public Event getEvent() {
-        return event;
+    public String getEvent() {
+        return event.toString();
     }
 
 }
