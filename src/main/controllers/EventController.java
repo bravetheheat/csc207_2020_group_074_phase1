@@ -81,4 +81,30 @@ public class EventController {
         EventInfoManager eventInfoManager = new EventInfoManager(event.getId(), schedule);
         return eventInfoManager.removeUser(userid);
     }
+
+    public boolean signupEvent(UUID eventid, UUID userid){
+        Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
+        return eventinfomanager.addUser(userid);
+    }
+
+    /**
+     * A cancellation method for an attendee User
+     * @param eventid of Event an attendee wants to attend
+     * @param userid of the attendee User
+     * @return true iff the attendee User has successfully cancelled the spot
+     */
+    public boolean cancelEvent(UUID eventid, UUID userid){
+        Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
+        return eventinfomanager.removeUser(userid);
+    }
+
+    /**
+     * A Attendee is able to view all the information of the Events scheduled as a string
+     * @return a string representation of all the events scheduled
+     */
+    public String getEventsInfo(){
+        return this.eventsmanager.toString();
+    }
 }
