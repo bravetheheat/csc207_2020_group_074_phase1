@@ -12,7 +12,7 @@ import java.util.UUID;
  * The EventInfoManager modifies info for a particular Event given event id.
  *
  * @author Haoze Huang
- * @version 1.0
+ * @version 2.0
  * @since 2020-10-31
  */
 
@@ -90,4 +90,15 @@ public class EventInfoManager {
     public List<UUID> getUsers() {
         return event.getAttendeesID();
     }
+
+
+    /**
+     * Get event given event id
+     *
+     * @return event
+     */
+    public Event getEvent() {
+        return event;
+    }
+
 }
