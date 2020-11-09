@@ -7,7 +7,7 @@ import java.util.*;
  * The EventsManager holds a list of Events, and modify Event with its corresponding Users.
  *
  * @author Haoze Huang
- * @version 1.0
+ * @version 2.0
  * @since 2020-10-31
  */
 
@@ -88,16 +88,13 @@ public class EventsManager {
      * @return String representation of EventsManager
      */
     public String toString() {
-        String s = "Events: \n";
+        StringBuilder s = new StringBuilder("Events: \n");
         for (UUID i : schedule.keySet()){
             Event e = schedule.get(i);
-            String eToString = "Event #" + e.getId() + " : " + e.getTitle() +
-                    " at room # " + e.getRoomID() +
-                    " spoken by speaker #" + e.getSpeakerID() +
-                    " at time " + e.getTime() + "\n";
-            s += eToString;
+            String eToString = e.toString();
+            s.append(eToString);
         }
-        return s;
+        return s.toString();
     }
 
     /**

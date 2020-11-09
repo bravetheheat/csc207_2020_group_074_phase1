@@ -91,12 +91,14 @@ public class EventInfoManager {
         return event.getAttendeesID();
     }
 
+
     /**
-     * Getter for Event giving id
+     * Get event given event id
      *
      * @return event
      */
     public Event getEvent() {
-        return this.event;
+        return event;
     }
+
 }
