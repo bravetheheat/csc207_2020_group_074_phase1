@@ -102,6 +102,7 @@ public class EventsManager {
 
     /**
      * A getter of the schedule stored in EventsManager.
+     *
      * @return the schedule of EventsManager
      */
     public Map<UUID, Event> getSchedule() {
