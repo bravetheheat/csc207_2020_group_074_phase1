@@ -39,7 +39,9 @@ public class ChatRoomManager {
     }
 
     /**
+     * Helper method:
      * Map each user to his/her <code>ChatRoom</code>s
+     *
      * @param chatRoom a chat room that contains users' messages
      */
     private void populateUsersToChatRoom(ChatRoom chatRoom) {
@@ -78,26 +80,26 @@ public class ChatRoomManager {
     }
 
     /**
-     *
-     * @param chatRoomId
+     * Delete a <code>ChatRoom</code>
+     * @param chatRoomId ID of the <code>ChatRoom</code> deleted
      */
     public void deleteChatRoom(UUID chatRoomId) {
         this.chatRoomList.remove(chatRoomId);
     }
 
     /**
-     *
-     * @param chatRoomId
-     * @return
+     * Get a <code>ChatRoom</code> via ID
+     * @param chatRoomId ID of the <code>ChatRoom</code>
+     * @return the <code>ChatRoom</code> associated with the specified ID
      */
     public ChatRoom fetchChatRoom(UUID chatRoomId) {
         return this.chatRoomList.get(chatRoomId);
     }
 
     /**
-     *
-     * @param chatRoomId
-     * @param messageId
+     * Add messages to a <code>ChatRoom</code>
+     * @param chatRoomId ID of the <code>ChatRoom</code> added
+     * @param messageId ID of the <code>Message</code> added
      */
     public void addMessageToChatRoom(UUID chatRoomId, UUID messageId) {
         ChatRoom chatRoom = this.chatRoomList.get(chatRoomId);
@@ -105,9 +107,9 @@ public class ChatRoomManager {
     }
 
     /**
-     *
-     * @param chatRoomId
-     * @return
+     * Get messages from a <code>ChatRoom</code>
+     * @param chatRoomId ID of the <code>ChatRoom</code>
+     * @return a list of message IDs from the specified <code>ChatRoom</code>
      */
     public List<UUID> fetchMessagesFromChatRoom(UUID chatRoomId) {
         ChatRoom chatRoom = this.chatRoomList.get(chatRoomId);
@@ -115,9 +117,9 @@ public class ChatRoomManager {
     }
 
     /**
-     *
-     * @param userId
-     * @return
+     * Get users in a <code>ChatRoom</code>
+     * @param userId ID of the <code>User</code> in the <code>ChatRoom</code>
+     * @return a list of IDs of the all the <code>User</code>s
      */
     public List<UUID> fetchUserChatRooms(UUID userId) {
         return this.usersToChatRoom.get(userId);
