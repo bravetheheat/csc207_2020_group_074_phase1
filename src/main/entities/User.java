@@ -2,6 +2,10 @@ package main.entities;
 
 import java.util.UUID;
 
+/**
+ * User represents a user of the program.
+ */
+
 public abstract class User {
     private String username;
     private String password;
