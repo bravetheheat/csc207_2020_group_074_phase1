@@ -2,6 +2,8 @@ package main.controllers;
 
 import main.presenters.MainScreen;
 import main.presenters.Screen;
+import main.usecases.ChatRoomManager;
+import main.usecases.MessageManager;
 import main.usecases.UsersManager;
 
 public class ProgramController implements ProgramInterface{
@@ -39,4 +41,5 @@ public class ProgramController implements ProgramInterface{
     public UsersManager getUsersManager() {
         return this.usersManager;
     }
+
 }
