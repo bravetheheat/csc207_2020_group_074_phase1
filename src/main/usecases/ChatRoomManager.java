@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author Steven Yuan, David Zhao
  * @version 1.2
- * @since 2020-11-03
+ * @since 2020-11-10
  */
 public class ChatRoomManager {
 
