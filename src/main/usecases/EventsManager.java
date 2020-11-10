@@ -91,7 +91,7 @@ public class EventsManager {
         StringBuilder s = new StringBuilder("Events: \n");
         for (UUID i : schedule.keySet()){
             Event e = schedule.get(i);
-            String eToString = e.toString();
+            String eToString = e.toString() + '\n';
             s.append(eToString);
         }
         return s.toString();
