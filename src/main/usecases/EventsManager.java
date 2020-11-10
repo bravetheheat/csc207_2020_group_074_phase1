@@ -7,7 +7,7 @@ import java.util.*;
  * The EventsManager holds a list of Events, and modify Event with its corresponding Users.
  *
  * @author Haoze Huang
- * @version 2.0
+ * @version 2.1
  * @since 2020-10-31
  */
 
@@ -27,7 +27,11 @@ public class EventsManager {
             //if time conflict
             Event e = schedule.get(id);
             if ((e.getRoomID() == newEvent.getRoomID()) && (e.getTime() == newEvent.getTime())){
-                throw new IllegalArgumentException("Time conflict with Event #" + e.getId());
+                throw new IllegalArgumentException("Time conflict for room " + e.getRoomID() +
+                        " with Event #" + e.getTitle());
+            }else if((e.getTime() == newEvent.getTime()) && (e.getSpeakerID() == newEvent.getSpeakerID())){
+                throw new IllegalArgumentException("Time conflict for speaker " + e.getSpeakerID() +
+                        " with Event #" + e.getTitle());
             }
         }
         schedule.put(newEvent.getId(), newEvent);
@@ -57,7 +61,7 @@ public class EventsManager {
      * @param userId to be get events from
      * @return userEvents
      */
-    public ArrayList<Event> getUserEmails(UUID userId) {
+    public ArrayList<Event> getUserEvents(UUID userId) {
         ArrayList<Event> userEvents = new ArrayList<>();
         for(UUID i : schedule.keySet()){
             for (UUID id : schedule.get(i).getAttendeesID()){
@@ -88,13 +92,13 @@ public class EventsManager {
      * @return String representation of EventsManager
      */
     public String toString() {
-        StringBuilder s = new StringBuilder("Events: \n");
+        String s = "Events: \n";
         for (UUID i : schedule.keySet()){
             Event e = schedule.get(i);
-            String eToString = e.toString();
-            s.append(eToString);
+            String eToString = e.toString() + '\n';
+            s += eToString;
         }
-        return s.toString();
+        return s;
     }
 
     /**
