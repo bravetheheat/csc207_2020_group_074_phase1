@@ -13,7 +13,7 @@ import java.util.UUID;
  * each <code>Message</code>
  *
  * @author Steven Yuan, David Zhao
- * @version 1.2
+ * @version 2.0
  * @since 2020-11-03
  */
 public class MessageManager {
@@ -29,7 +29,7 @@ public class MessageManager {
 
     /**
      * Instantiates a <code>MessageManager</code> object with a <code>messageList</code>
-     * @param messageList
+     * @param messageList a dictionary that assigns an ID to each <code>Message</code>
      */
     public MessageManager(List<Message> messageList) {
         this.messageList = new HashMap<>();
