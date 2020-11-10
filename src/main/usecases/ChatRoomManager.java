@@ -87,5 +87,4 @@ public class ChatRoomManager {
         return this.usersToChatRoom.get(userId);
     }
 
-
 }

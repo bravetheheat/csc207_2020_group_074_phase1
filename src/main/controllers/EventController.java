@@ -10,7 +10,7 @@ import main.usecases.EventInfoManager;
  * the attendee list; organize the speaker; as well as a getter for the current schedule of a User
  *
  * @author Zewen Ma
- * @version 1.0
+ * @version 3.0
  * @since 2020-11-08
  */
 public class EventController {
@@ -82,6 +82,12 @@ public class EventController {
         return eventInfoManager.removeUser(userid);
     }
 
+    /**
+     * A sign up method for an attendee User
+     * @param eventid of Event an attendee wants to attend
+     * @param userid of the attendee User
+     * @return true iff the attendee User has successfully signed up the spot
+     */
     public boolean signupEvent(UUID eventid, UUID userid){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
@@ -90,7 +96,7 @@ public class EventController {
 
     /**
      * A cancellation method for an attendee User
-     * @param eventid of Event an attendee wants to attend
+     * @param eventid of Event an attendee wants to cancel a spot
      * @param userid of the attendee User
      * @return true iff the attendee User has successfully cancelled the spot
      */
@@ -101,10 +107,21 @@ public class EventController {
     }
 
     /**
-     * A Attendee is able to view all the information of the Events scheduled as a string
+     * An Attendee is able to view all the information of the Events scheduled as a string
      * @return a string representation of all the events scheduled
      */
     public String getEventsInfo(){
         return this.eventsmanager.toString();
+    }
+
+    /**
+     * An Attendee is able to view  the information of a single Event as a string given eventid
+     * @param eventid of the Event whose information is presented as a string
+     * @return a string representation of all the events scheduled
+     */
+    public String getSingleEventInfo(UUID eventid){
+        Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
+        return eventinfomanager.getEvent().toString();
     }
 }
