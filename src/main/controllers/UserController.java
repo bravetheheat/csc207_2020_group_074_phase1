@@ -122,7 +122,7 @@ public class UserController {
      * @param event UUID of the event that the user is trying to register for
      * @param eventController pre-defined EventController
      */
-    public boolean registerForEvent(UUID event, EventController eventController) {
+    public boolean registerForEvent(Event event, EventController eventController) {
         if (!this.checkRegisteredEvents(eventController).contains(event)) {
             return eventController.addUser(event, this.loggedInUser);
         }
@@ -135,7 +135,7 @@ public class UserController {
      * @param event UUID of the event that the user is trying to remove
      * @param eventController pre-defined EventController
      */
-    public boolean dropOutFromEvent(UUID event, EventController eventController) {
+    public boolean dropOutFromEvent(Event event, EventController eventController) {
         return eventController.removeUser(event, this.loggedInUser);
     }
 }
