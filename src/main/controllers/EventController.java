@@ -47,7 +47,7 @@ public class EventController {
      * @return a list of events of this User given userid.
      */
     public ArrayList<Event> getUserEvents(UUID userid){
-        return this.eventsmanager.getUserEmails(userid);
+        return this.eventsmanager.getUserEvents(userid);
     }
 
     /**
