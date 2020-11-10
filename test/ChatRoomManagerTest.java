@@ -10,6 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Test cases for <code>ChatRoomManager</code>
+ *
+ * @author Steven Yuan
+ * @version 1.0
+ * @since 2020-11-10
+ */
 public class ChatRoomManagerTest {
     ChatRoomManager chatRoomManager1, chatRoomManager2;
     Map<UUID, ChatRoom> chatRoomList;
@@ -20,6 +27,7 @@ public class ChatRoomManagerTest {
         // create users
         User user1 = (new UserFactory()).getUser("user1@gmail.com", "user1", "Attendee");
         User user2 = (new UserFactory()).getUser("user1@gmail.com", "user1", "Organizer");
+
         // create ChatRoom objects
         chatRoom1 = new ChatRoom(Arrays.asList(user1.getId(), user2.getId()));
         chatRoom2 = new ChatRoom(Arrays.asList(user1.getId(), user2.getId()));
@@ -43,6 +51,21 @@ public class ChatRoomManagerTest {
         UUID chatRoom2ID = chatRoomManager2.createChatRoom();
         Assert.assertEquals(3, chatRoomList.size());
         Assert.assertTrue(chatRoomList.containsKey(chatRoom2ID));
+    }
+
+    @Test
+    public void testCreateChatRoom2() {
+
+    }
+
+    @Test
+    public void testDeleteChatRoom() {
+
+    }
+
+    @Test
+    public void testFetchChatRoom() {
+
     }
 }
 
