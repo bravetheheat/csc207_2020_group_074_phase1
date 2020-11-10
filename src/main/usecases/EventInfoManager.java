@@ -12,7 +12,7 @@ import java.util.UUID;
  * The EventInfoManager modifies info for a particular Event given event id.
  *
  * @author Haoze Huang
- * @version 2.1
+ * @version 2.2
  * @since 2020-10-31
  */
 
@@ -29,6 +29,40 @@ public class EventInfoManager {
     public EventInfoManager(UUID eventId, Map<UUID, Event> schedule) {
         this.schedule = schedule;
         this.event = schedule.get(eventId);
+    }
+
+    /**
+     * Add speaker to the event depends on the event type
+     *
+     * @param newSpeakerId that going to be added
+     * @return verification of success addition
+     */
+    public boolean addSpeaker(UUID newSpeakerId){
+        //for one speaker event
+        if (event.getSpeakerID() == null){
+            event.setSpeakerID(newSpeakerId);
+            return true;
+        }
+        return false;
+        //for no speaker event (in phase 2)
+        //for multiple speaker event (in phase 2)
+    }
+
+    /**
+     * Remove speaker to the event depends on the event type
+     *
+     * @param removeSpeakerId that going to be removed
+     * @return verification of success removal
+     */
+    public boolean removeSpeaker(UUID removeSpeakerId){
+        //for one speaker event, do not have to worry about time conflict
+        if (event.getSpeakerID() != null && event.getSpeakerID() == removeSpeakerId){
+            event.setSpeakerID(null);
+            return true;
+        }
+        return  false;
+        //for no speaker event (in phase 2)
+        //for multiple speaker event (in phase 2)
     }
 
     /**
@@ -72,8 +106,14 @@ public class EventInfoManager {
     public boolean updateEventInfo(LocalDateTime newTime, UUID newRoomId) {
         for(UUID id : schedule.keySet()){
             Event e = schedule.get(id);
+            //time conflict at same room
             if((e.getTime() == newTime) && (e.getRoomID()== newRoomId)) {
-                return false;
+                throw new IllegalArgumentException("Time conflict for room " + e.getRoomID() +
+                        " with Event #" + e.getTitle());
+            }//speaker conflict at same time
+            else if((e.getTime() == newTime) && (e.getSpeakerID()== event.getSpeakerID())) {
+                throw new IllegalArgumentException("Time conflict for speaker " + e.getSpeakerID() +
+                        " with Event #" + e.getTitle());
             }
         }
         event.setTime(newTime);
