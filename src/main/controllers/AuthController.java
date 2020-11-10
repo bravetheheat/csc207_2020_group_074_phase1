@@ -98,7 +98,7 @@ public class AuthController {
         String userRole = userInfo.getType();
 
         switch(userRole){
-            case "Attendee": return new AttendeeController();
+            case "Attendee": return new AttendeeController(this);
             case "Organizer": return new OrganizerController();
             case "Speaker": return new SpeakerController();
             default: return null;
