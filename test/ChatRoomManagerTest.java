@@ -77,5 +77,15 @@ public class ChatRoomManagerTest {
     public void testAddMessageToChatRoom() {
 
     }
+
+    @Test
+    public void testFetchMessagesFromChatRoom() {
+
+    }
+
+    @Test
+    public void testFetchUserChatRooms() {
+
+    }
 }
 
