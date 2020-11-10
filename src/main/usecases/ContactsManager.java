@@ -1,8 +1,5 @@
 package main.usecases;
 
-import main.entities.User;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -23,7 +20,7 @@ public class ContactsManager {
      * when the user account is initially created.
      * @param userid that added to the contact manager
      */
-    public ContactsManager(UUID userid){
+    public void addNewUser(UUID userid){
         ArrayList<UUID> contactList = new ArrayList<UUID>();
         contactList.add(userid);
         contactListsofUsers.put(userid, contactList);
@@ -80,5 +77,13 @@ public class ContactsManager {
     public boolean checkPermission(UUID userid, UUID friendid){
         ArrayList<UUID> friend1 = contactListsofUsers.get(userid);
         return friend1.contains(friendid);
+    }
+
+    /**
+     * Return a Map of users and their contact lists saved in ContactsManager
+     * @return a Map of users and their contact lists saved in ContactsManager
+     */
+    public Map<UUID, ArrayList<UUID>> getUsersSaved(){
+        return this.contactListsofUsers;
     }
 }
