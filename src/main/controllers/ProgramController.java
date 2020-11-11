@@ -3,19 +3,26 @@ package main.controllers;
 import main.presenters.MainScreen;
 import main.presenters.Screen;
 import main.usecases.ChatRoomManager;
+import main.usecases.ContactsManager;
 import main.usecases.MessageManager;
 import main.usecases.UsersManager;
 
 public class ProgramController implements ProgramInterface{
     UsersManager usersManager;
+    ContactsManager contactsManager;
+    ChatRoomManager chatRoomManager;
     AuthController authController;
     UserController currentController;
+    EventController eventController;
     Screen currentScreen;
 
     public ProgramController() {
         this.usersManager = new UsersManager();
+        this.contactsManager = new ContactsManager();
+        this.chatRoomManager = new ChatRoomManager();
         this.authController = new AuthController(usersManager);
         this.currentScreen = new MainScreen(this);
+        this.eventController = new EventController();
     }
 
     public void start() {
@@ -42,4 +49,15 @@ public class ProgramController implements ProgramInterface{
         return this.usersManager;
     }
 
+    public ContactsManager getContactsManager() {
+        return this.contactsManager;
+    }
+
+    public ChatRoomManager getChatRoomManager() {
+        return this.chatRoomManager;
+    }
+
+    public EventController getEventController() {
+        return this.eventController;
+    }
 }
