@@ -10,18 +10,21 @@ import java.util.UUID;
 public class ChatRoomScreen extends Screen {
 
     UUID myUserId;
+    UUID chatRoomId;
 
-    public ChatRoomScreen(ProgramController programController) {
+    public ChatRoomScreen(ProgramController programController, UUID chatRoomId) {
         super(programController);
         RegisterScreen registerScreen = new RegisterScreen(programController);
         myUserId = programController.getUsersManager().getIDFromUsername(registerScreen.username);
+        this.chatRoomId = chatRoomId;
     }
 
     @Override
     public void start() {
         System.out.println("Options: 1. See List of Participants; " +
                 "2. Delete This Conversation (Enter 1 or 2)");
-        viewMessages();
+        System.out.println("Below is the chat history:");
+        viewMessages(chatRoomId);
         int input = scanner.nextInt();
         switch (input) {
             case 1:
@@ -33,28 +36,9 @@ public class ChatRoomScreen extends Screen {
         }
     }
 
-    public void startChatRoomWithFriend() {
-        System.out.println("Who do you want to chat with?\n");
-        String friendUsername = scanner.nextLine();
-        UUID friendUserId = programController.getUsersManager().getIDFromUsername(friendUsername);
-        UUID chatRoomId = programController.getChatRoomManager().createChatRoom(
-                Arrays.asList(myUserId, friendUserId));
-    }
-
-    public void viewMessages() {
-        List<UUID> participantsIds = programController.getChatRoomManager().
-                fetchUsersFromChatRoom(myUserId);
-        List<String> lstOfFriendsInChatRoom = new ArrayList<>();
-        for (UUID id : participantsIds) {
-            if (!id.equals(myUserId)) {
-                lstOfFriendsInChatRoom.add(programController.getUsersManager().
-                        fetchUser(id).getUsername());
-            }
-        }
-        System.out.println("Below is the chat history between you and " +
-                lstOfFriendsInChatRoom);
-        System.out.println("You can start chatting now:)");
-        programController.getChatRoomManager().fetchMessagesFromChatRoom();
+    public void viewMessages(UUID chatRoomId) {
+        programController.getChatRoomManager().fetchMessagesFromChatRoom(chatRoomId);
+        System.out.println("==============");
     }
 
     public void viewParticipants() {
