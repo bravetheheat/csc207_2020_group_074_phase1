@@ -13,16 +13,17 @@ import java.util.*;
 
 public class EventsManager {
 
-    private Map<UUID,Event> schedule = new HashMap<>();
+    private Map<UUID,Event> schedule = new LinkedHashMap<>();
 
     /**
      * Add an Event to schedule with the given time. Throw an existent exception if
      * the given time is conflict with another Event
      *
-     * @param newEvent  that to be added
+     * @param eventBuilder  that to be added
      * @return check for event being added
      */
-    public boolean scheduleEvent(Event newEvent) {
+    public boolean scheduleEvent(EventBuilder eventBuilder) {
+        Event newEvent = eventBuilder.toEvent();
         for(UUID id : schedule.keySet()){
             //if time conflict
             Event e = schedule.get(id);
