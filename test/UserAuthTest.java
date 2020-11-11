@@ -93,7 +93,8 @@ public class UserAuthTest {
         String username = "james@gmail.com";
         String password = "ShakenNotStirred";
 
-        User newUser = new User(username, password);
+        // User newUser = new User(username, password);
+        User newUser = new Attendee(username, password);
         this.usersManager.addUser(newUser);
 
         boolean loginSuccess = this.authController.login(username, password);
@@ -114,7 +115,8 @@ public class UserAuthTest {
         String username = "james@gmail.com";
         String password = "ShakenNotStirred";
 
-        User newUser = new User(username, password);
+        // User newUser = new User(username, password);
+        User newUser = new Attendee(username, password);
         UUID newUserId = newUser.getId();
         this.usersManager.addUser(newUser);
         User addedUser = this.usersManager.fetchUser(newUserId);
