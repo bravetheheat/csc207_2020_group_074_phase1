@@ -12,7 +12,7 @@ import java.util.Arrays;
  * someone in the contact list
  *
  * @author Steven Yuan
- * @version 1.0
+ * @version 2.0
  * @since 2020-11-03
  */
 public class MessageScreen extends Screen {
@@ -52,7 +52,7 @@ public class MessageScreen extends Screen {
         System.out.println("Create a name for the chat room:");
         while (true) {
             String chatRoomNameInput = scanner.nextLine();
-            if (programController.getChatRoomManager().
+            if (!programController.getChatRoomManager().
                     getChatRoomIdToName().values().contains(chatRoomNameInput)) {
                 programController.getChatRoomManager().createChatRoom(
                         Arrays.asList(myUserId, friendUserId), chatRoomNameInput);
