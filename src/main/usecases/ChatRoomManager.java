@@ -8,13 +8,14 @@ import java.util.*;
  * <code>ChatRoomManager</code> adds messages to each user's chat rooms
  *
  * @author Steven Yuan, David Zhao
- * @version 1.2
+ * @version 1.3
  * @since 2020-11-10
  */
 public class ChatRoomManager {
 
     private final Map<UUID, ChatRoom> chatRoomList;
     private final Map<UUID, List<UUID>> usersToChatRoom;
+    private final Map<UUID, String> chatRoomIdToName;
 
     /**
      * Default constructor that instantiates a <code>ChatRoomManager</code> object
@@ -22,6 +23,7 @@ public class ChatRoomManager {
     public ChatRoomManager() {
         this.chatRoomList = new HashMap<>();
         this.usersToChatRoom = new HashMap<>();
+        this.chatRoomIdToName = new HashMap<>();
     }
 
     /**
@@ -33,8 +35,12 @@ public class ChatRoomManager {
     public ChatRoomManager(Map<UUID, ChatRoom> chatRoomList) {
         this.chatRoomList = chatRoomList;
         this.usersToChatRoom = new HashMap<>();
+        this.chatRoomIdToName = new HashMap<>();
         for (ChatRoom chatRoom : chatRoomList.values()) {
             this.populateUsersToChatRoom(chatRoom);
+        }
+        for (UUID roomId : chatRoomList.keySet()) {
+            chatRoomIdToName.put(roomId, chatRoomList.get(roomId).getName());
         }
     }
 
@@ -56,6 +62,10 @@ public class ChatRoomManager {
         }
     }
 
+    public Map<UUID, String> getChatRoomIdToName() {
+        return this.chatRoomIdToName;
+    }
+
     /**
      * Create a <code>ChatRoom</code>
      *
@@ -74,8 +84,8 @@ public class ChatRoomManager {
      * @param participants a list of <code>Users</code>
      * @return ID of the <code>ChatRoom</code> created
      */
-    public UUID createChatRoom(List<UUID> participants) {
-        ChatRoom newChatRoom = new ChatRoom(participants);
+    public UUID createChatRoom(List<UUID> participants, String name) {
+        ChatRoom newChatRoom = new ChatRoom(participants, name);
         UUID newChatRoomId = newChatRoom.getId();
         this.chatRoomList.put(newChatRoomId, newChatRoom);
         return newChatRoomId;
