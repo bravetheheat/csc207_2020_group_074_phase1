@@ -20,23 +20,34 @@ public class ChatRoomScreen extends Screen {
     @Override
     public void start() {
         System.out.println("Options: " + "1. View Messages" +
-                "2. See List of Participants; " +
-                "3. Rename this chat room" +
-                "4. Delete this chat room (Enter the number)");
+                "2. Start messaging" +
+                "3. See List of Participants; " +
+                "4. Rename this chat room" +
+                "5. Delete this chat room" +
+                "(Enter a number)");
         int input = scanner.nextInt();
         switch (input) {
             case 1:
                 viewMessages(chatRoomId);
             case 2:
-                viewParticipants();
+                String msg = scanner.nextLine();
+                sendMessage(getFriendId(), msg);
             case 3:
+                viewParticipants();
+            case 4:
                 System.out.println("Enter a new name for this chat room:");
                 renameChatRoom();
-            case 4:
+            case 5:
                 deleteChatRoom();
             default:
                 System.out.println("Invalid Input!");
         }
+    }
+
+    private UUID getFriendId() {
+        List<UUID> participantIds = programController.getChatRoomManager().
+                fetchChatRoom(chatRoomId).getParticipants();
+        return participantIds.get(1);
     }
 
     public void viewMessages(UUID chatRoomId) {
@@ -72,7 +83,7 @@ public class ChatRoomScreen extends Screen {
         programController.getChatRoomManager().deleteChatRoom(chatRoomId);
     }
 
-    public void sendMessage() {
-
+    public void sendMessage(UUID friendId, String message) {
+        programController.getMessageManager().createMessage(message, friendId);
     }
 }
