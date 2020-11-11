@@ -8,17 +8,17 @@ import main.usecases.MessageManager;
 import java.util.*;
 
 /**
- * The UserController handles basic user actions: checking and managing contacts, checking and sending messages, and
- * checking, registering, and dropping from events.
+ * The UserController is an abstract class with functionality related to basic user actions: checking and
+ * managing contacts, checking and sending messages, and checking, registering, and dropping from events.
  *
  * @author Yi Tao Li
- * @version 1.0
+ * @version 1.1
  * @since 2020-11-09
  */
-public class UserController {
+public abstract class UserController {
 
 
-    private UUID loggedInUser;
+    protected UUID loggedInUser;
 
     /**
      * Constructor of UserController for a logged in user.
@@ -30,58 +30,29 @@ public class UserController {
     }
 
     /**
-     * Returns a list of ChatRooms that the user is participating in.
-     *
-     * @param chatRoomManager pre-defined ChatRoomManager
+     * Abstract method for checking the ChatRooms that user is participating in.
      */
-    public List<UUID> checkChatRooms(ChatRoomManager chatRoomManager) {
-        return chatRoomManager.fetchUserChatRooms(loggedInUser);
-    }
+    public abstract List<UUID> checkChatRooms(ChatRoomManager chatRoomManager);
 
     /**
-     * Returns a list of Messages of a ChatRoom that the user is participating in.
-     *
-     * @param chatRoom UUID of the user's selected ChatRoom
-     * @param chatRoomManager pre-defined ChatRoomManager
+     * Abstract method for checking the Messages in a particular ChatRoom.
      */
-    public List<UUID> checkMessages(UUID chatRoom, ChatRoomManager chatRoomManager) {
-        return chatRoomManager.fetchMessagesFromChatRoom(chatRoom);
-    }
+    public abstract List<UUID> checkMessages(UUID chatRoom, ChatRoomManager chatRoomManager);
 
     /**
-     * Returns a list of the user's Contacts.
-     *
-     * @param contactsManager pre-defined ContactsManager
+     * Abstract method for checking a user's contacts.
      */
-    public List<UUID> checkContacts(ContactsManager contactsManager) {
-        return contactsManager.getContactList(this.loggedInUser);
-    }
+    public abstract List<UUID> checkContacts(ContactsManager contactsManager);
 
     /**
-     * Adds another user to the user's contact list if they are not already contacts and returns true if the contact is
-     * added.
-     *
-     * @param user UUID of the other user who user is trying to add
-     * @param contactsManager pre-defined ContactsManager
+     * Abstract method for adding another user to the user's list of contacts.
      */
-    public boolean addContact(UUID user, ContactsManager contactsManager) {
-        if (this.checkContacts(contactsManager).contains(user)){
-            return false;
-        }
-        contactsManager.addUser(this.loggedInUser, user);
-        return true;
-    }
+    public abstract boolean addContact(UUID user, ContactsManager contactsManager);
 
     /**
-     * Removes another user from the user's contact list and returns true.
-     *
-     * @param user UUID of the other user who using is trying to remove
-     * @param contactsManager pre-defined ContactsManager
+     * Abstract method for removing another user from the user's list of contacts.
      */
-    public boolean removeUser(UUID user, ContactsManager contactsManager) {
-        contactsManager.removeUser(this.loggedInUser, user);
-        return true;
-    }
+    public abstract boolean removeUser(UUID user, ContactsManager contactsManager);
 
     /**
      * Sends a message to a contact and returns true.
@@ -92,7 +63,7 @@ public class UserController {
      * @param chatRoomManager pre-defined ChatRoomManager
      */
     public boolean sendMessage(String text, UUID chatRoom, MessageManager messageManager,
-                            ChatRoomManager chatRoomManager) {
+                               ChatRoomManager chatRoomManager) {
         UUID message = messageManager.createMessage(text, this.loggedInUser);
         chatRoomManager.addMessageToChatRoom(chatRoom, message);
         return true;
@@ -138,4 +109,5 @@ public class UserController {
     public boolean dropOutFromEvent(Event event, EventController eventController) {
         return eventController.removeUser(event, this.loggedInUser);
     }
+
 }
