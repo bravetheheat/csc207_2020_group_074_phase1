@@ -23,7 +23,6 @@ public class MessageScreen extends Screen {
         super(programController);
         RegisterScreen registerScreen = new RegisterScreen(programController);
         myUserId = programController.getUsersManager().getIDFromUsername(registerScreen.username);
-        // Where are we storing the information of the current user?(in the Register Screen?)
     }
 
     @Override
@@ -73,8 +72,6 @@ public class MessageScreen extends Screen {
             System.out.println(programController.getChatRoomManager().
                     getChatRoomIdToName().get(id));
         }
-        // Should we have a name for each ChatRoom?(can be the same as the user name of
-        // the friend that you chat with)
     }
 
 
