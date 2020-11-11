@@ -1,4 +1,14 @@
 package main.presenters;
 
-public class ChatRoomScreen {
+import main.controllers.ProgramController;
+
+public class ChatRoomScreen extends Screen {
+    public ChatRoomScreen(ProgramController programController) {
+        super(programController);
+    }
+
+    @Override
+    public void start() {
+
+    }
 }
