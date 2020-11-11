@@ -21,7 +21,6 @@ public abstract class UserController {
     protected UUID loggedInUser;
     protected ContactsManager contactsManager;
     protected ChatRoomManager chatRoomManager;
-    protected MessageController messageController;
     protected EventController eventController;
 
     /**
@@ -33,7 +32,6 @@ public abstract class UserController {
         this.loggedInUser = programController.getAuthController().fetchLoggedInUser();
         this.contactsManager = programController.getContactsManager();
         this.chatRoomManager = programController.getChatRoomManager();
-        this.messageController = programController.getMessageController();
         this.eventController = programController.getEventController();
     }
 

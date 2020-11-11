@@ -13,7 +13,6 @@ public class ProgramController implements ProgramInterface{
     ChatRoomManager chatRoomManager;
     AuthController authController;
     UserController currentController;
-    MessageController messageController;
     EventController eventController;
     Screen currentScreen;
 
@@ -23,7 +22,6 @@ public class ProgramController implements ProgramInterface{
         this.chatRoomManager = new ChatRoomManager();
         this.authController = new AuthController(usersManager);
         this.currentScreen = new MainScreen(this);
-        this.messageController = new MessageController();
         this.eventController = new EventController();
     }
 
@@ -57,10 +55,6 @@ public class ProgramController implements ProgramInterface{
 
     public ChatRoomManager getChatRoomManager() {
         return this.chatRoomManager;
-    }
-
-    public MessageController getMessageController() {
-        return this.messageController;
     }
 
     public EventController getEventController() {
