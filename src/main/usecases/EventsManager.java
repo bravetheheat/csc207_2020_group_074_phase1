@@ -13,17 +13,17 @@ import java.util.*;
 
 public class EventsManager {
 
-    private LinkedHashMap<UUID,Event> schedule = new LinkedHashMap<>();
+    private Map<UUID,Event> schedule = new LinkedHashMap<>();
 
     /**
      * Add an Event to schedule with the given time. Throw an existent exception if
      * the given time is conflict with another Event
      *
-     * @param eventFactory  that to be added
+     * @param eventBuilder  that to be added
      * @return check for event being added
      */
-    public boolean scheduleEvent(EventFactory eventFactory) {
-        Event newEvent = eventFactory.getEvent();
+    public boolean scheduleEvent(EventBuilder eventBuilder) {
+        Event newEvent = eventBuilder.toEvent();
         for(UUID id : schedule.keySet()){
             //if time conflict
             Event e = schedule.get(id);
@@ -107,7 +107,7 @@ public class EventsManager {
      *
      * @return the schedule of EventsManager
      */
-    public LinkedHashMap<UUID, Event> getSchedule() {
+    public Map<UUID, Event> getSchedule() {
         return schedule;
     }
 }

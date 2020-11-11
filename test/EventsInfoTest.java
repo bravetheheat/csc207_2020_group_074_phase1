@@ -1,7 +1,7 @@
 import main.entities.Attendee;
 import main.entities.Event;
 import main.entities.User;
-import main.usecases.EventFactory;
+import main.usecases.EventBuilder;
 import main.usecases.EventInfoManager;
 import main.usecases.EventsManager;
 import org.junit.Assert;
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -19,7 +19,7 @@ public class EventsInfoTest {
     UUID[] eventsId;
     ArrayList<Event> events;
     EventsManager eventsManager;
-    LinkedHashMap<UUID, Event> schedule;
+    Map<UUID, Event> schedule;
     LocalDateTime time1;
     LocalDateTime time2;
     LocalDateTime time3;
@@ -27,6 +27,15 @@ public class EventsInfoTest {
     UUID room2;
     UUID speaker1;
     UUID speaker2;
+
+    public EventBuilder setUpEvent(String title, LocalDateTime time, UUID roomID, UUID speakerID){
+        EventBuilder eb = new EventBuilder();
+        eb.setTitle(title);
+        eb.setRoom(roomID);
+        eb.setTime(time);
+        eb.setSpeaker(speakerID);
+        return eb;
+    }
 
     @Before
     public void setUp(){
@@ -38,11 +47,11 @@ public class EventsInfoTest {
         room2 = UUID.randomUUID();
         speaker1 = UUID.randomUUID();
         speaker2 = UUID.randomUUID();
-        EventFactory e1 = new EventFactory("Event1", time1, room1, speaker1);
+        EventBuilder e1 = setUpEvent("Event1", time1, room1, speaker1);
         eventsManager.scheduleEvent(e1);
-        EventFactory e2 = new EventFactory("Event2", time2, room1, speaker2);
+        EventBuilder e2 = setUpEvent("Event2", time2, room1, speaker2);
         eventsManager.scheduleEvent(e2);
-        EventFactory e3 = new EventFactory("Event3", time3, room2, speaker2);
+        EventBuilder e3 = setUpEvent("Event3", time3, room2, speaker2);
         eventsManager.scheduleEvent(e3);
         schedule = eventsManager.getSchedule();
         events = eventsManager.getEvents();

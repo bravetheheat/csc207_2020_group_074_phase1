@@ -1,6 +1,7 @@
 import main.entities.Attendee;
 import main.entities.Event;
 import main.entities.User;
+import main.usecases.EventBuilder;
 import main.usecases.EventFactory;
 import main.usecases.EventsManager;
 import org.junit.Assert;
@@ -31,21 +32,30 @@ public class EventsManagerTest {
         speaker2 = UUID.randomUUID();
     }
 
+    public EventBuilder setUpEvent(String title, LocalDateTime time, UUID roomID, UUID speakerID){
+        EventBuilder eb = new EventBuilder();
+        eb.setTitle(title);
+        eb.setRoom(roomID);
+        eb.setTime(time);
+        eb.setSpeaker(speakerID);
+        return eb;
+    }
+
     @Test
     public void testScheduleEvent(){
         //test initial
-        EventFactory e1 = new EventFactory("Event1", time1, room1, speaker1);
+        EventBuilder e1 = setUpEvent("Event1", time1, room1, speaker1);
         Assert.assertTrue(eventsManager.scheduleEvent(e1));
         //test same room same speaker
-        EventFactory e2 = new EventFactory("Event2", time2, room1, speaker1);
+        EventBuilder e2 = setUpEvent("Event2", time2, room1, speaker1);
         Assert.assertTrue(eventsManager.scheduleEvent(e2));
         //test speaker conflict
-        EventFactory e3 = new EventFactory("Event3", time1, room2, speaker1);
+        EventBuilder e3 = setUpEvent("Event3", time1, room2, speaker1);
         Exception exception1 = assertThrows(IllegalArgumentException.class, () -> eventsManager.scheduleEvent(e3));
         String expected1 = "Time conflict for speaker " + speaker1 + " with Event #" + "Event1";
         Assert.assertEquals(expected1, exception1.getMessage());
         //test room conflict
-        EventFactory e4 = new EventFactory("Event4", time1, room1, speaker2);
+        EventBuilder e4 = setUpEvent("Event4", time1, room1, speaker2);
         Exception exception2 = assertThrows(IllegalArgumentException.class, () -> eventsManager.scheduleEvent(e4));
         String expected2 = "Time conflict for room " + room1 + " with Event #" + "Event1";
         Assert.assertEquals(expected2, exception2.getMessage());
@@ -54,12 +64,12 @@ public class EventsManagerTest {
     @Test
     public void testRemoveEvent(){
         //test empty
-        EventFactory e1 = new EventFactory("Event1", time1, room1, speaker1);
-        Assert.assertFalse(eventsManager.removeEvent(e1.getEvent().getId()));
+        EventBuilder e1 = setUpEvent("Event1", time1, room1, speaker1);
+        Assert.assertFalse(eventsManager.removeEvent(e1.toEvent().getId()));
         //test not in schedule
         eventsManager.scheduleEvent(e1);
-        EventFactory e2 = new EventFactory("Event2", time2, room1, speaker1);
-        Assert.assertFalse(eventsManager.removeEvent(e2.getEvent().getId()));
+        EventBuilder e2 = setUpEvent("Event2", time2, room1, speaker1);
+        Assert.assertFalse(eventsManager.removeEvent(e2.toEvent().getId()));
         //test success removes
         eventsManager.scheduleEvent(e2);
         UUID e1id =  eventsManager.getEvents().get(0).getId();
@@ -70,9 +80,9 @@ public class EventsManagerTest {
 
     @Test
     public void testUserEvents(){
-        EventFactory e1 = new EventFactory("Event1", time1, room1, speaker1);
+        EventBuilder e1 = setUpEvent("Event1", time1, room1, speaker1);
         eventsManager.scheduleEvent(e1);
-        EventFactory e2 = new EventFactory("Event2", time2, room1, speaker1);
+        EventBuilder e2 = setUpEvent("Event2", time2, room1, speaker1);
         eventsManager.scheduleEvent(e2);
         User u1 = new Attendee("user1@email.com", "password");
         eventsManager.getEvents().get(0).addAttendees(u1.getId());
@@ -89,13 +99,13 @@ public class EventsManagerTest {
 
     @Test
     public void testToString(){
-        EventFactory e1 = new EventFactory("Event1", time1, room1, speaker1);
+        EventBuilder e1 = setUpEvent("Event1", time1, room1, speaker1);
         eventsManager.scheduleEvent(e1);
         Event expected1 = eventsManager.getEvents().get(0);
-        EventFactory e2 = new EventFactory("Event2", time2, room1, speaker1);
+        EventBuilder e2 = setUpEvent("Event2", time2, room1, speaker1);
         eventsManager.scheduleEvent(e2);
         Event expected2 = eventsManager.getEvents().get(1);
-        EventFactory e3 = new EventFactory("Event3", time2, room2, speaker2);
+        EventBuilder e3 = setUpEvent("Event3", time2, room2, speaker2);
         eventsManager.scheduleEvent(e3);
         Event expected3 = eventsManager.getEvents().get(2);
         String expected = "Events: \n" + expected1.toString() + "\n" + expected2.toString() +

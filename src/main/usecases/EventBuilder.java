@@ -19,24 +19,20 @@ public class EventBuilder {
     private UUID roomID;
     private UUID speakerID;
 
-    public EventBuilder setTitle(String title){
+    public void setTitle(String title){
         this.title = title;
-        return this;
     }
 
-    public EventBuilder setTime(LocalDateTime time){
+    public void setTime(LocalDateTime time){
         this.time = time;
-        return this;
     }
 
-    public EventBuilder setRoom(UUID roomID){
+    public void setRoom(UUID roomID){
         this.roomID = roomID;
-        return this;
     }
 
-    public EventBuilder setSpeaker(UUID speakerID){
+    public void setSpeaker(UUID speakerID){
         this.speakerID = speakerID;
-        return this;
     }
 
     public Event toEvent(){
