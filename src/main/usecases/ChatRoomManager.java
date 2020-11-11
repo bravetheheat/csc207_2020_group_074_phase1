@@ -128,7 +128,7 @@ public class ChatRoomManager {
      * @param userId ID of the <code>User</code>
      * @return a list of IDs of the all the <code>ChatRoom</code>s
      */
-    public List<UUID> fetchUserChatRooms(UUID userId) {
+    public List<UUID> fetchChatRoomsOfUser(UUID userId) {
         return this.usersToChatRoom.get(userId);
     }
 
