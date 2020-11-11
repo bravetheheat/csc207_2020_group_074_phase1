@@ -58,6 +58,7 @@ public class ChatRoomManager {
 
     /**
      * Create a <code>ChatRoom</code>
+     *
      * @return ID of the <code>ChatRoom</code> created
      */
     public UUID createChatRoom() {
@@ -69,6 +70,7 @@ public class ChatRoomManager {
 
     /**
      * Create a <code>ChatRoom</code> with a list of participants
+     *
      * @param participants a list of <code>Users</code>
      * @return ID of the <code>ChatRoom</code> created
      */
@@ -81,6 +83,7 @@ public class ChatRoomManager {
 
     /**
      * Delete a <code>ChatRoom</code>
+     *
      * @param chatRoomId ID of the <code>ChatRoom</code> deleted
      */
     public void deleteChatRoom(UUID chatRoomId) {
@@ -89,6 +92,7 @@ public class ChatRoomManager {
 
     /**
      * Get a <code>ChatRoom</code> via ID
+     *
      * @param chatRoomId ID of the <code>ChatRoom</code>
      * @return the <code>ChatRoom</code> associated with the specified ID
      */
@@ -98,8 +102,9 @@ public class ChatRoomManager {
 
     /**
      * Add messages to a <code>ChatRoom</code>
+     *
      * @param chatRoomId ID of the <code>ChatRoom</code> added
-     * @param messageId ID of the <code>Message</code> added
+     * @param messageId  ID of the <code>Message</code> added
      */
     public void addMessageToChatRoom(UUID chatRoomId, UUID messageId) {
         ChatRoom chatRoom = this.chatRoomList.get(chatRoomId);
@@ -108,6 +113,7 @@ public class ChatRoomManager {
 
     /**
      * Get messages from a <code>ChatRoom</code>
+     *
      * @param chatRoomId ID of the <code>ChatRoom</code>
      * @return a list of message IDs from the specified <code>ChatRoom</code>
      */
@@ -118,11 +124,16 @@ public class ChatRoomManager {
 
     /**
      * Get chat rooms of a <code>User</code>
+     *
      * @param userId ID of the <code>User</code>
      * @return a list of IDs of the all the <code>ChatRoom</code>s
      */
     public List<UUID> fetchUserChatRooms(UUID userId) {
         return this.usersToChatRoom.get(userId);
+    }
+
+    public List<UUID> fetchUsersFromChatRoom(UUID chatRoomId) {
+        return chatRoomList.get(chatRoomId).getParticipants();
     }
 
 }
