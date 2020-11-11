@@ -17,11 +17,13 @@ public class ChatRoom {
     private final UUID id = UUID.randomUUID();
     private final List<UUID> messages = new LinkedList<UUID>();
     private final List<UUID> participants = new ArrayList<UUID>();
+    private String name;
 
     /**
      * Class constructor that defaults to an empty chatroom.
      */
     public ChatRoom() {
+        name = id.toString();
     }
 
     /**
@@ -29,8 +31,9 @@ public class ChatRoom {
      *
      * @param participants A list of the UUIDS of the participants in the chatroom
      */
-    public ChatRoom(List<UUID> participants) {
+    public ChatRoom(List<UUID> participants, String name) {
         this.participants.addAll(participants);
+        this.name = name;
     }
 
     /**
@@ -40,7 +43,14 @@ public class ChatRoom {
      */
     public UUID getId() {
         return this.id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 
