@@ -1,5 +1,6 @@
 package main.controllers;
 
+import main.entities.Attendee;
 import main.usecases.ChatRoomManager;
 import main.usecases.MessageManager;
 
@@ -15,6 +16,7 @@ import java.util.UUID;
  * @since 2020-11-09
  */
 public class AttendeeController extends UserController{
+
 
     public AttendeeController(ProgramController programController) {
         super(programController);

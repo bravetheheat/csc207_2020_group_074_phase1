@@ -7,10 +7,10 @@ import java.util.UUID;
  */
 
 public abstract class User {
-    private String username;
-    private String password;
-    private String role;
-    private UUID id = UUID.randomUUID();
+    protected String username;
+    protected String password;
+    protected String role;
+    protected UUID id = UUID.randomUUID();
 
     public User (String email, String password, String role) {
         this.username = email;
@@ -25,5 +25,9 @@ public abstract class User {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getRole() {
+        return this.role;
     }
 }

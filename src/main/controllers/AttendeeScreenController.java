@@ -1,10 +1,6 @@
 package main.controllers;
 
 import main.presenters.AttendeeScreen;
-import main.usecases.ContactsManager;
-import main.usecases.MessageManager;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
@@ -19,26 +15,37 @@ import java.util.List;
  */
 public class AttendeeScreenController {
 
+    private AttendeeScreen attendeeScreen;
+    private List<String> prompts;
     /**
      * Constructor of an AttendeeScreenController.
      */
-    public AttendeeScreenController() {}
+    public AttendeeScreenController() {
+        this.attendeeScreen = new AttendeeScreen();
+        String[] options = {"1", "2", "3", "4"};
+        this.prompts = (Arrays.asList(options));
+    }
 
     /**
      * Checks valid input from attendee and tells ProgramController what screen to go next.
      */
     public String run() {
-        AttendeeScreen attendeeScreen = new AttendeeScreen();
-        String[] options = {"all events", "registered events", "contacts", "messages"};
-        List<String> prompts = (Arrays.asList(options));
-        attendeeScreen.prompt();
+        this.attendeeScreen.prompt();
         Scanner sc = new Scanner(System.in);
-        String next = sc.next();
-        while (!prompts.contains(next.toLowerCase())){
-            attendeeScreen.prompt2(next);
-            attendeeScreen.prompt();
-            next = sc.next();
+        String next = sc.nextLine();
+        while (!this.prompts.contains(next)){
+            this.attendeeScreen.prompt2(next);
+            this.attendeeScreen.prompt();
+            next = sc.nextLine();
         }
-        return next.toLowerCase();
+        switch (next) {
+            case "1":
+                return "all events";
+            case "2":
+                return "registered events";
+            case "3":
+                return "contact";
+        }
+        return "messages";
     }
 }
