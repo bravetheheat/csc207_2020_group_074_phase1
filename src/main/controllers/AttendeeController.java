@@ -1,7 +1,6 @@
 package main.controllers;
 
 import main.usecases.ChatRoomManager;
-import main.usecases.ContactsManager;
 import main.usecases.MessageManager;
 
 import java.util.List;
@@ -12,41 +11,36 @@ import java.util.UUID;
  * checking and sending messages, and checking, registering, and dropping from events.
  *
  * @author Yi Tao Li
- * @version 1.0
+ * @version 1.1
  * @since 2020-11-09
  */
 public class AttendeeController extends UserController{
 
-    public AttendeeController(AuthController authController) {
-        super(authController);
+    public AttendeeController(ProgramController programController) {
+        super(programController);
     }
 
     /**
      * Returns a list of ChatRooms that the user is participating in.
-     *
-     * @param chatRoomManager pre-defined ChatRoomManager
      */
-    public List<UUID> checkChatRooms(ChatRoomManager chatRoomManager) {
-        return chatRoomManager.fetchUserChatRooms(this.loggedInUser);
+    public List<UUID> checkChatRooms() {
+        return this.chatRoomManager.fetchUserChatRooms(this.loggedInUser);
     }
 
     /**
      * Returns a list of Messages of a ChatRoom that the user is participating in.
      *
      * @param chatRoom UUID of the user's selected ChatRoom
-     * @param chatRoomManager pre-defined ChatRoomManager
      */
-    public List<UUID> checkMessages(UUID chatRoom, ChatRoomManager chatRoomManager) {
-        return chatRoomManager.fetchMessagesFromChatRoom(chatRoom);
+    public List<UUID> checkMessages(UUID chatRoom) {
+        return this.chatRoomManager.fetchMessagesFromChatRoom(chatRoom);
     }
 
     /**
      * Returns a list of the user's Contacts.
-     *
-     * @param contactsManager pre-defined ContactsManager
      */
-    public List<UUID> checkContacts(ContactsManager contactsManager) {
-        return contactsManager.getContactList(this.loggedInUser);
+    public List<UUID> checkContacts() {
+        return this.contactsManager.getContactList(this.loggedInUser);
     }
 
     /**
@@ -54,10 +48,9 @@ public class AttendeeController extends UserController{
      * added.
      *
      * @param user UUID of the other user who user is trying to add
-     * @param contactsManager pre-defined ContactsManager
      */
-    public boolean addContact(UUID user, ContactsManager contactsManager) {
-        if (this.checkContacts(contactsManager).contains(user)){
+    public boolean addContact(UUID user) {
+        if (this.checkContacts().contains(user)){
             return false;
         }
         contactsManager.addUser(this.loggedInUser, user);
@@ -68,9 +61,8 @@ public class AttendeeController extends UserController{
      * Removes another user from the user's contact list and returns true.
      *
      * @param user UUID of the other user who using is trying to remove
-     * @param contactsManager pre-defined ContactsManager
      */
-    public boolean removeUser(UUID user, ContactsManager contactsManager) {
+    public boolean removeUser(UUID user) {
         contactsManager.removeUser(this.loggedInUser, user);
         return true;
     }

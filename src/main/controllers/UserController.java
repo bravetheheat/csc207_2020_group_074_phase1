@@ -12,47 +12,55 @@ import java.util.*;
  * managing contacts, checking and sending messages, and checking, registering, and dropping from events.
  *
  * @author Yi Tao Li
- * @version 1.1
+ * @version 1.2
  * @since 2020-11-09
  */
 public abstract class UserController {
 
 
     protected UUID loggedInUser;
+    protected ContactsManager contactsManager;
+    protected ChatRoomManager chatRoomManager;
+    protected MessageController messageController;
+    protected EventController eventController;
 
     /**
      * Constructor of UserController for a logged in user.
      *
-     * @param authController pre-defined AuthController
+     * @param programController pre-defined programController
      */
-    public UserController(AuthController authController) {
-        this.loggedInUser = authController.fetchLoggedInUser();
+    public UserController(ProgramController programController) {
+        this.loggedInUser = programController.getAuthController().fetchLoggedInUser();
+        this.contactsManager = programController.getContactsManager();
+        this.chatRoomManager = programController.getChatRoomManager();
+        this.messageController = programController.getMessageController();
+        this.eventController = programController.getEventController();
     }
 
     /**
      * Abstract method for checking the ChatRooms that user is participating in.
      */
-    public abstract List<UUID> checkChatRooms(ChatRoomManager chatRoomManager);
+    public abstract List<UUID> checkChatRooms();
 
     /**
      * Abstract method for checking the Messages in a particular ChatRoom.
      */
-    public abstract List<UUID> checkMessages(UUID chatRoom, ChatRoomManager chatRoomManager);
+    public abstract List<UUID> checkMessages(UUID chatRoom);
 
     /**
      * Abstract method for checking a user's contacts.
      */
-    public abstract List<UUID> checkContacts(ContactsManager contactsManager);
+    public abstract List<UUID> checkContacts();
 
     /**
      * Abstract method for adding another user to the user's list of contacts.
      */
-    public abstract boolean addContact(UUID user, ContactsManager contactsManager);
+    public abstract boolean addContact(UUID user);
 
     /**
      * Abstract method for removing another user from the user's list of contacts.
      */
-    public abstract boolean removeUser(UUID user, ContactsManager contactsManager);
+    public abstract boolean removeUser(UUID user);
 
     /**
      * Sends a message to a contact and returns true.
