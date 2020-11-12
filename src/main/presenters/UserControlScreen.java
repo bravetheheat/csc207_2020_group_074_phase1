@@ -3,13 +3,12 @@ package main.presenters;
 import main.controllers.ProgramController;
 import main.usecases.UsersManager;
 
-public class UserControlScreen extends Screen {
+public class UserControlScreen {
 
     UsersManager usersManager;
 
 
     public UserControlScreen(ProgramController programController){
-        super(programController);
         this.usersManager = programController.getUsersManager();
     }
 
