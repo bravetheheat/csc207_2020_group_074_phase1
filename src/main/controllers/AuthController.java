@@ -16,12 +16,14 @@ public class AuthController {
 
     private UUID loggedInUser = null;
     private UsersManager usersManager;
+    private ProgramController programController;
 
     /**
      * Default constructor for when there is no pre-defined UsersManager
      */
-    public AuthController() {
+    public AuthController(ProgramController programController) {
         this.usersManager = new UsersManager();
+        this.programController = programController;
     }
 
     /**
@@ -29,8 +31,9 @@ public class AuthController {
      *
      * @param usersManager pre-defined UsersManager
      */
-    public AuthController(UsersManager usersManager) {
+    public AuthController(ProgramController programController, UsersManager usersManager) {
         this.usersManager = usersManager;
+        this.programController=programController;
     }
 
     /**
@@ -98,7 +101,7 @@ public class AuthController {
         String userRole = userInfo.getType();
 
         switch(userRole){
-            case "Attendee": return new AttendeeController();
+            case "Attendee": return new AttendeeController(this.programController);
             case "Organizer": return new OrganizerController();
             case "Speaker": return new SpeakerController();
             default: return null;
