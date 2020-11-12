@@ -2,6 +2,7 @@ package main.controllers;
 
 import main.presenters.ChatRoomScreen;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
@@ -52,7 +53,18 @@ public class ChatRoomScreenController {
 
     public void viewMessages(UUID chatRoomId) {
         chatRoomScreen.printBelowIsChatHistory();
-        programController.getChatRoomManager().fetchMessagesFromChatRoom(chatRoomId);
+        List<UUID> listOfMessageIds = programController.getChatRoomManager().
+                fetchMessagesFromChatRoom(chatRoomId);
+        for (UUID messageId : listOfMessageIds) {
+            String messageText = programController.messageManager.retrieveMessageText(messageId);
+            LocalDateTime messageDate = programController.messageManager.
+                    retrieveMessageDate(messageId);
+            UUID messageSenderId = programController.messageManager.
+                    retrieveMessageSender(messageId);
+            String messageSenderName = programController.usersManager.
+                    fetchUser(messageSenderId).getUsername();
+            chatRoomScreen.printMessage(messageSenderName, messageDate, messageText);
+        }
         chatRoomScreen.printLineBreak();
     }
 
