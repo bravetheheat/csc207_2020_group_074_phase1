@@ -2,6 +2,7 @@ package main.controllers;
 
 
 import main.presenters.MessageScreen;
+import main.screencontrollers.ScreenController;
 
 import java.util.*;
 
@@ -10,20 +11,21 @@ import java.util.*;
  * @version 1.0
  * @since 2020-11-12
  */
-public class MessageScreenController {
+public class MessageScreenController extends ScreenController {
 
-    ProgramController programController = new ProgramController();
     MessageScreen messageScreen;
     UUID myUserId;
     Scanner scanner;
 
-    public MessageScreenController() {
+    public MessageScreenController(ProgramController programController) {
+        super(programController);
         myUserId = programController.getAuthController().fetchLoggedInUser();
         messageScreen = new MessageScreen(programController);
         scanner = new Scanner(System.in);
     }
 
-    public void run() {
+    @Override
+    public void start() {
         viewChatRooms();
         messageScreen.messageScreenStart();
         selectOrCreate();
@@ -79,11 +81,8 @@ public class MessageScreenController {
                     getChatRoomIdToName().get(id), id);
         }
         UUID chatRoomIdSelected = chatRoomNameToId.get(chatRoomName);
-//        ChatRoomScreen chatRoomScreen = new ChatRoomScreen(
-//                programController, chatRoomIdSelected);
         ChatRoomScreenController chatRoomScreenController =
                 new ChatRoomScreenController(programController, chatRoomIdSelected);
         chatRoomScreenController.run();
     }
-
 }
