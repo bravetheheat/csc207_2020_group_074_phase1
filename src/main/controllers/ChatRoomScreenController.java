@@ -1,10 +1,10 @@
 package main.controllers;
 
 import main.presenters.ChatRoomScreen;
+import main.screencontrollers.ScreenController;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Scanner;
 import java.util.UUID;
 
 /**
@@ -12,21 +12,21 @@ import java.util.UUID;
  * @version 1.0
  * @since 2020-11-12
  */
-public class ChatRoomScreenController {
+public class ChatRoomScreenController extends ScreenController {
 
-    ProgramController programController = new ProgramController();
     ChatRoomScreen chatRoomScreen;
     UUID myUserId;
     UUID chatRoomId;
-    Scanner scanner;
 
     public ChatRoomScreenController(ProgramController programController, UUID chatRoomId) {
+        super(programController);
         chatRoomScreen = new ChatRoomScreen(programController, chatRoomId);
         myUserId = programController.getAuthController().fetchLoggedInUser();
         this.chatRoomId = chatRoomId;
     }
 
-    public void run() {
+    @Override
+    public void start() {
         chatRoomScreen.chatRoomScreenStart();
         selectOptions();
         // TODO: return to main menu
@@ -110,4 +110,6 @@ public class ChatRoomScreenController {
     public void sendMessage(UUID friendId, String message) {
         programController.getMessageManager().createMessage(message, friendId);
     }
+
+
 }
