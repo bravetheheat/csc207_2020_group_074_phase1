@@ -2,6 +2,7 @@ package main.presenters;
 
 import main.controllers.ProgramController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -91,6 +92,10 @@ public class ChatRoomScreen extends Screen {
         for (UUID id : listOfUserIds) {
             System.out.println(programController.getUsersManager().fetchUser(id));
         }
+    }
+
+    public void printMessage(String senderName, LocalDateTime messageDate, String text) {
+        System.out.println(senderName + "[" + messageDate.toString() + "]: " + text);
     }
 
 //    public void renameChatRoom() {
