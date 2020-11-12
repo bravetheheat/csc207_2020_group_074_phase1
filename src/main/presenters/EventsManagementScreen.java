@@ -12,8 +12,7 @@ package main.presenters;
 public class EventsManagementScreen {
 
     public void printScreenName(){
-        System.out.println("Welcome to Event Management Screen \n " +
-                "You can modify events and check information about specific event here.\n");
+        System.out.println("Event Management Screen \n ");
     }
 
     public void promptCommand(){

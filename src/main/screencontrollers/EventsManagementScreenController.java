@@ -29,34 +29,41 @@ public class EventsManagementScreenController extends ScreenController{
     public void manageEvent(){
         presenter.promptCommand();
         String command = scanner.nextLine();
+        ScreenController nextScreenController;
         switch (command){
             case "1":
                 if (createEvent()) presenter.printVerification(); else presenter.printInvalidInput();
+                nextScreenController = new EventsManagementScreenController(this.programController);
                 break;
             case "2":
                 if (removeEvent()) presenter.printVerification(); else presenter.printInvalidInput();
+                nextScreenController = new EventsManagementScreenController(this.programController);
                 break;
             case "3":
                 if (modifyEvent()) presenter.printVerification(); else presenter.printInvalidInput();
+                nextScreenController = new EventsManagementScreenController(this.programController);
                 break;
             case "4":
                 if (modifySpeaker()) presenter.printVerification(); else presenter.printInvalidInput();
+                nextScreenController = new EventsManagementScreenController(this.programController);
                 break;
             case "5":
                 getEventInfo();
+                nextScreenController = new EventsManagementScreenController(this.programController);
                 break;
             case "6":
                 String info = eventsManager.toString();
                 presenter.printSchedule(info);
+                nextScreenController = new EventsManagementScreenController(this.programController);
+                break;
             case "7":
-                //if command is not 7, the next screen is always EventManagementScreen
-                //if command it 7, exit back to previous screen
+                //nextScreenController = new OrganizerScreenController(this.programController);
             default:
                 presenter.printInvalidInput();
                 manageEvent();
-
+                return;
         }
-
+        this.programController.setCurrentScreenController(nextScreenController);
     }
 
     public boolean createEvent(){
