@@ -21,6 +21,7 @@ public abstract class UserController {
     protected UUID loggedInUser;
     protected ContactsManager contactsManager;
     protected ChatRoomManager chatRoomManager;
+    protected MessageManager messageManager;
     protected EventController eventController;
 
     /**
@@ -32,6 +33,7 @@ public abstract class UserController {
         this.loggedInUser = programController.getAuthController().fetchLoggedInUser();
         this.contactsManager = programController.getContactsManager();
         this.chatRoomManager = programController.getChatRoomManager();
+        this.messageManager = programController.getMessageManager();
         this.eventController = programController.getEventController();
     }
 
@@ -65,23 +67,18 @@ public abstract class UserController {
      *
      * @param text String of the message that the user is trying to send
      * @param chatRoom UUID of the ChatRoom that the user is trying to send their message to
-     * @param messageManager pre-defined MessageManager
-     * @param chatRoomManager pre-defined ChatRoomManager
      */
-    public boolean sendMessage(String text, UUID chatRoom, MessageManager messageManager,
-                               ChatRoomManager chatRoomManager) {
-        UUID message = messageManager.createMessage(text, this.loggedInUser);
-        chatRoomManager.addMessageToChatRoom(chatRoom, message);
+    public boolean sendMessage(String text, UUID chatRoom) {
+        UUID message = this.messageManager.createMessage(text, this.loggedInUser);
+        this.chatRoomManager.addMessageToChatRoom(chatRoom, message);
         return true;
     }
 
     /**
      * Returns a list of events in the conference.
-     *
-     * @param eventController pre-defined EventController
      */
-    public ArrayList<Event> checkEvents(EventController eventController) {
-        return eventController.getAllEvents();
+    public ArrayList<Event> checkEvents() {
+        return this.eventController.getAllEvents();
     }
 
     /**

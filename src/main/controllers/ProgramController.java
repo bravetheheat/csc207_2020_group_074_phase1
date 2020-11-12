@@ -11,6 +11,7 @@ public class ProgramController implements ProgramInterface{
     UsersManager usersManager;
     ContactsManager contactsManager;
     ChatRoomManager chatRoomManager;
+    MessageManager messageManager;
     AuthController authController;
     UserController currentController;
     EventController eventController;
@@ -20,6 +21,7 @@ public class ProgramController implements ProgramInterface{
         this.usersManager = new UsersManager();
         this.contactsManager = new ContactsManager();
         this.chatRoomManager = new ChatRoomManager();
+        this.messageManager = new MessageManager();
         this.authController = new AuthController(usersManager);
         this.currentScreen = new MainScreen(this);
         this.eventController = new EventController();
@@ -48,6 +50,8 @@ public class ProgramController implements ProgramInterface{
     public UsersManager getUsersManager() {
         return this.usersManager;
     }
+
+    public MessageManager getMessageManager() { return this.messageManager; }
 
     public ContactsManager getContactsManager() {
         return this.contactsManager;
