@@ -15,13 +15,12 @@ public class MessageScreenController extends ScreenController {
 
     MessageScreen messageScreen;
     UUID myUserId;
-    Scanner scanner;
 
     public MessageScreenController(ProgramController programController) {
         super(programController);
         myUserId = programController.getAuthController().fetchLoggedInUser();
         messageScreen = new MessageScreen(programController);
-        scanner = new Scanner(System.in);
+//        scanner = new Scanner(System.in);
     }
 
     @Override
@@ -83,6 +82,6 @@ public class MessageScreenController extends ScreenController {
         UUID chatRoomIdSelected = chatRoomNameToId.get(chatRoomName);
         ChatRoomScreenController chatRoomScreenController =
                 new ChatRoomScreenController(programController, chatRoomIdSelected);
-        chatRoomScreenController.run();
+        chatRoomScreenController.start();
     }
 }
