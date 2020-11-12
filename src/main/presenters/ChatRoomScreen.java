@@ -6,6 +6,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author Steven Yuan
+ * @version 1.0
+ * @since 2020-11-12
+ */
 public class ChatRoomScreen extends Screen {
 
     UUID myUserId;
@@ -46,7 +51,8 @@ public class ChatRoomScreen extends Screen {
     }
 
     public void chatRoomScreenStart() {
-        System.out.println("Options: " + "1. View Messages" +
+        System.out.println("Options: " + "0. Return to the main menu" +
+                "1. View Messages" +
                 "2. Start messaging" +
                 "3. See List of Participants; " +
                 "4. Rename this chat room" +
@@ -55,7 +61,7 @@ public class ChatRoomScreen extends Screen {
     }
 
     public void printEnterNewName() {
-        System.out.println("Enter a new name for this chat room:");
+        System.out.println("Enter a new name for this chat room: (enter 'q' to quit)");
     }
 
     public void printInvalidInput() {
@@ -100,8 +106,12 @@ public class ChatRoomScreen extends Screen {
         }
     }
 
-    public void printMessage(String senderName, LocalDateTime messageDate, String text) {
+    public void printOldMessage(String senderName, LocalDateTime messageDate, String text) {
         System.out.println(senderName + "[" + messageDate.toString() + "]: " + text);
+    }
+
+    public void printMessage(String senderName, LocalDateTime messageDate, String text) {
+
     }
 
 //    public void renameChatRoom() {
