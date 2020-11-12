@@ -22,9 +22,12 @@ public class ProgramController implements ProgramInterface {
         this.contactsManager = new ContactsManager();
         this.chatRoomManager = new ChatRoomManager();
         this.messageManager = new MessageManager();
+
         this.authController = new AuthController(this, usersManager);
         this.currentScreenController = new AnonymousScreenController(this);
+
         this.eventController = new EventController();
+        this.currentScreenController = new LogInScreenController();
     }
 
     public void start() {
