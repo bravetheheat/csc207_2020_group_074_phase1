@@ -25,7 +25,7 @@ public class MessageScreenController {
     }
 
     public void run() {
-        messageScreen.viewChatRooms();
+        viewChatRooms();
         messageScreen.messageScreenStart();
         selectOrCreate();
     }
@@ -65,6 +65,11 @@ public class MessageScreenController {
                 messageScreen.printNameAlreadyExists();
             }
         }
+    }
+
+    public void viewChatRooms() {
+        List<UUID> chatRoomIds = fetchChatRoomIds();
+        messageScreen.printChatRooms(chatRoomIds);
     }
 
     public void goToChatRoomScreen(String chatRoomName) {

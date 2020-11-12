@@ -35,7 +35,7 @@ public class ChatRoomScreenController {
                 String msg = scanner.nextLine();
                 sendMessage(getFriendId(), msg);
             case 3:
-                chatRoomScreen.viewParticipants();
+                viewParticipants();
             case 4:
                 chatRoomScreen.printEnterNewName();
                 renameChatRoom();
@@ -67,6 +67,12 @@ public class ChatRoomScreenController {
             chatRoomScreen.printMessage(messageSenderName, messageDate, messageText);
         }
         chatRoomScreen.printLineBreak();
+    }
+
+    public void viewParticipants() {
+        List<UUID> listOfUserIds = programController.getChatRoomManager().
+                fetchUsersFromChatRoom(myUserId);
+        chatRoomScreen.printParticipants(listOfUserIds);
     }
 
     public void renameChatRoom() {

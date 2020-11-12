@@ -18,13 +18,11 @@ import java.util.Arrays;
  */
 public class MessageScreen extends Screen {
 
-    private UUID myUserId;
-    private MessageScreenController messageScreenController;
+//    private MessageScreenController messageScreenController;
 
     public MessageScreen(ProgramController programController) {
         super(programController);
-        myUserId = programController.getAuthController().fetchLoggedInUser();
-        messageScreenController = new MessageScreenController();
+//        messageScreenController = new MessageScreenController();
     }
 
     @Override
@@ -66,6 +64,14 @@ public class MessageScreen extends Screen {
         System.out.println("The name already exists. Please enter another one:");
     }
 
+    public void printChatRooms(List<UUID> chatRoomIds) {
+        System.out.println();
+        for (UUID id : chatRoomIds) {
+            System.out.println(programController.getChatRoomManager().
+                    getChatRoomIdToName().get(id));
+        }
+    }
+
 //    public void startChatRoomWithFriend() {
 //        System.out.println("Enter the username of the person you want to chat with:");
 //        String friendUsername = scanner.nextLine();
@@ -86,14 +92,14 @@ public class MessageScreen extends Screen {
 //        }
 //    }
 
-    public void viewChatRooms() {
-        System.out.println();
-        List<UUID> chatRoomIds = messageScreenController.fetchChatRoomIds();
-        for (UUID id : chatRoomIds) {
-            System.out.println(programController.getChatRoomManager().
-                    getChatRoomIdToName().get(id));
-        }
-    }
+//    public void viewChatRooms() {
+//        System.out.println();
+//        List<UUID> chatRoomIds = messageScreenController.fetchChatRoomIds();
+//        for (UUID id : chatRoomIds) {
+//            System.out.println(programController.getChatRoomManager().
+//                    getChatRoomIdToName().get(id));
+//        }
+//    }
 
 
 //    public void goToChatRoomScreen(String chatRoomName) {

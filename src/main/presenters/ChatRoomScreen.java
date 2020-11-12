@@ -86,9 +86,15 @@ public class ChatRoomScreen extends Screen {
         System.out.println("The name already exists. Please enter another one:");
     }
 
-    public void viewParticipants() {
-        List<UUID> listOfUserIds = programController.getChatRoomManager().
-                fetchUsersFromChatRoom(myUserId);
+//    public void viewParticipants() {
+//        List<UUID> listOfUserIds = programController.getChatRoomManager().
+//                fetchUsersFromChatRoom(myUserId);
+//        for (UUID id : listOfUserIds) {
+//            System.out.println(programController.getUsersManager().fetchUser(id));
+//        }
+//    }
+
+    public void printParticipants(List<UUID> listOfUserIds) {
         for (UUID id : listOfUserIds) {
             System.out.println(programController.getUsersManager().fetchUser(id));
         }
