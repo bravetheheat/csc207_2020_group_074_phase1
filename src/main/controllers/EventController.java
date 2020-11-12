@@ -4,6 +4,7 @@ import java.util.*;
 import main.entities.Event;
 import main.usecases.EventsManager;
 import main.usecases.EventInfoManager;
+import main.usecases.EventBuilder;
 
 /**
  * The EventController handles event management: create and cancel an event; add or remove a user from
@@ -25,20 +26,20 @@ public class EventController {
 
     /**
      * Creating an event to the schedule(stored in EventsManager)
-     * @param event Event
+     * @param eventbuilder that creates an event
      * @return true iff the event is successfully created
      */
-    public boolean createEvent(Event event){
-        return this.eventsmanager.scheduleEvent(event);
+    public boolean createEvent(EventBuilder eventbuilder){
+        return this.eventsmanager.scheduleEvent(eventbuilder);
     }
 
     /**
      * Removing an event from the schedule(stored in EventsManager)
-     * @param event Event
+     * @param eventid of an Event
      * @return true iff the event is successfully removed
      */
-    public boolean removeEvent(Event event){
-        return this.eventsmanager.removeEvent(event.getId());
+    public boolean removeEvent(UUID eventid){
+        return this.eventsmanager.removeEvent(eventid);
     }
 
     /**
@@ -60,49 +61,49 @@ public class EventController {
 
     /**
      * Add a user to a specific Event
-     * @param event stored in eventsmanager
+     * @param eventid of Events stored in eventsmanager
      * @param userid needs to be added to the event
      * @return ture iff the user is successfully added
      */
-    public boolean addUser(Event event, UUID userid){
+    public boolean addUser(UUID eventid, UUID userid){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventInfoManager = new EventInfoManager(event.getId(), schedule);
+        EventInfoManager eventInfoManager = new EventInfoManager(eventid, schedule);
         return eventInfoManager.addUser(userid);
     }
 
     /**
      * Remove a user from a specific Event
-     * @param event stored in eventsmanager
+     * @param eventid of Events stored in eventsmanager
      * @param userid needs to be removed from the event
      * @return ture iff the user is successfully removed
      */
-    public boolean removeUser(Event event, UUID userid){
+    public boolean removeUser(UUID eventid, UUID userid){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventInfoManager = new EventInfoManager(event.getId(), schedule);
+        EventInfoManager eventInfoManager = new EventInfoManager(eventid, schedule);
         return eventInfoManager.removeUser(userid);
     }
 
     /**
      * A sign up method for an attendee User
-     * @param event an attendee wants to attend
+     * @param eventid of an Event that an attendee wants to attend
      * @param userid of the attendee User
      * @return true iff the attendee User has successfully signed up the spot
      */
-    public boolean signupEvent(Event event, UUID userid){
+    public boolean signupEvent(UUID eventid, UUID userid){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventinfomanager = new EventInfoManager(event.getId(), schedule);
+        EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
         return eventinfomanager.addUser(userid);
     }
 
     /**
      * A cancellation method for an attendee User
-     * @param event an attendee wants to cancel a spot
+     * @param eventid of an Event that an attendee wants to cancel a spot
      * @param userid of the attendee User
      * @return true iff the attendee User has successfully cancelled the spot
      */
-    public boolean cancelEvent(Event event, UUID userid){
+    public boolean cancelEvent(UUID eventid, UUID userid){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventinfomanager = new EventInfoManager(event.getId(), schedule);
+        EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
         return eventinfomanager.removeUser(userid);
     }
 
@@ -116,12 +117,12 @@ public class EventController {
 
     /**
      * An Attendee is able to view  the information of a single Event as a string given eventid
-     * @param event whose information is presented as a string
+     * @param eventid of an Event whose information is presented as a string
      * @return a string representation of all the events scheduled
      */
-    public String getSingleEventInfo(Event event){
+    public String getSingleEventInfo(UUID eventid){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventinfomanager = new EventInfoManager(event.getId(), schedule);
+        EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
         return eventinfomanager.getEvent();
     }
 }

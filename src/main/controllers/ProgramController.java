@@ -52,6 +52,8 @@ public class ProgramController implements ProgramInterface {
         return this.usersManager;
     }
 
+    public MessageManager getMessageManager() { return this.messageManager; }
+
     public ContactsManager getContactsManager() {
         return this.contactsManager;
     }
