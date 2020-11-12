@@ -96,18 +96,18 @@ public class MessageScreen extends Screen {
     }
 
 
-    public void goToChatRoomScreen(String chatRoomName) {
-        HashMap<String, UUID> chatRoomNameToId = new HashMap<>();
-        for (UUID id : programController.getChatRoomManager().
-                getChatRoomIdToName().keySet()) {
-            chatRoomNameToId.put(programController.getChatRoomManager().
-                    getChatRoomIdToName().get(id), id);
-        }
-        UUID chatRoomIdSelected = chatRoomNameToId.get(chatRoomName);
-        ChatRoomScreen chatRoomScreen = new ChatRoomScreen(
-                programController, chatRoomIdSelected);
-        chatRoomScreen.start();
-    }
+//    public void goToChatRoomScreen(String chatRoomName) {
+//        HashMap<String, UUID> chatRoomNameToId = new HashMap<>();
+//        for (UUID id : programController.getChatRoomManager().
+//                getChatRoomIdToName().keySet()) {
+//            chatRoomNameToId.put(programController.getChatRoomManager().
+//                    getChatRoomIdToName().get(id), id);
+//        }
+//        UUID chatRoomIdSelected = chatRoomNameToId.get(chatRoomName);
+//        ChatRoomScreen chatRoomScreen = new ChatRoomScreen(
+//                programController, chatRoomIdSelected);
+//        chatRoomScreen.start();
+//    }
 
 
 }
