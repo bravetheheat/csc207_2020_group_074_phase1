@@ -62,10 +62,6 @@ public class ProgramController implements ProgramInterface {
         return this.chatRoomManager;
     }
 
-    public MessageManager getMessageManager() {
-        return this.messageManager;
-    }
-
     public EventController getEventController() {
         return this.eventController;
     }
