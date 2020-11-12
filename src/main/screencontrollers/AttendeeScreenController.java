@@ -14,7 +14,7 @@ import java.util.List;
  * @version 1.0
  * @since 2020-11-11
  */
-public class AttendeeScreenController {
+public class AttendeeScreenController extends ScreenController {
 
     private AttendeeScreen attendeeScreen;
     private List<String> prompts;
