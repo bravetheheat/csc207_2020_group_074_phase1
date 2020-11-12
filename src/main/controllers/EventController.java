@@ -2,6 +2,7 @@ package main.controllers;
 
 import java.util.*;
 import main.entities.Event;
+import main.presenters.EventSignUpScreen;
 import main.usecases.EventsManager;
 import main.usecases.EventInfoManager;
 import main.usecases.EventBuilder;
@@ -11,7 +12,7 @@ import main.usecases.EventBuilder;
  * the attendee list; organize the speaker; as well as a getter for the current schedule of a User
  *
  * @author Zewen Ma
- * @version 3.1
+ * @version 3.0
  * @since 2020-11-08
  */
 public class EventController {
