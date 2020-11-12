@@ -15,7 +15,7 @@ public class ProgramController implements ProgramInterface{
     AuthController authController;
     UserController currentController;
     EventController eventController;
-    Screen currentScreen;
+    ScreenController currentScreenController;
 
     public ProgramController() {
         this.usersManager = new UsersManager();
@@ -23,8 +23,8 @@ public class ProgramController implements ProgramInterface{
         this.chatRoomManager = new ChatRoomManager();
         this.messageManager = new MessageManager();
         this.authController = new AuthController(usersManager);
-        this.currentScreen = new MainScreen(this);
         this.eventController = new EventController();
+        this.currentScreenController = new LogInScreenController();
     }
 
     public void start() {
@@ -39,6 +39,8 @@ public class ProgramController implements ProgramInterface{
     public void setScreen(Screen screen) {
         this.currentScreen = screen;
     }
+
+
     public UserController getCurrentController() {
         return this.currentController;
     }
