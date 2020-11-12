@@ -7,4 +7,9 @@ public class LoginScreenController extends ScreenController {
         super(programController);
     }
 
+    @Override
+    public void start() {
+
+    }
+
 }

@@ -1,5 +1,6 @@
-package main.controllers;
+package main.screencontrollers;
 
+import main.controllers.ProgramController;
 import main.presenters.AttendeeScreen;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -20,7 +21,8 @@ public class AttendeeScreenController {
     /**
      * Constructor of an AttendeeScreenController.
      */
-    public AttendeeScreenController() {
+    public AttendeeScreenController(ProgramController programController) {
+        super(programController);
         this.attendeeScreen = new AttendeeScreen();
         String[] options = {"1", "2", "3", "4"};
         this.prompts = (Arrays.asList(options));
@@ -47,5 +49,10 @@ public class AttendeeScreenController {
                 return "contact";
         }
         return "messages";
+    }
+
+    @Override
+    public void start() {
+
     }
 }

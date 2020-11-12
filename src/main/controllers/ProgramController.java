@@ -1,7 +1,7 @@
 package main.controllers;
 
 import main.screencontrollers.AnonymousScreenController;
-import main.screencontrollers.ScreenController;
+import main.screencontrollers.*;
 import main.usecases.ChatRoomManager;
 import main.usecases.ContactsManager;
 import main.usecases.MessageManager;
@@ -27,7 +27,7 @@ public class ProgramController implements ProgramInterface {
         this.currentScreenController = new AnonymousScreenController(this);
 
         this.eventController = new EventController();
-        this.currentScreenController = new LogInScreenController();
+        this.currentScreenController = new LoginScreenController(this);
     }
 
     public void start() {
