@@ -1,7 +1,7 @@
 package main.controllers;
 
-import main.presenters.MainScreen;
-import main.presenters.Screen;
+import main.screencontrollers.AnonymousScreenController;
+import main.screencontrollers.ScreenController;
 import main.usecases.ChatRoomManager;
 import main.usecases.ContactsManager;
 import main.usecases.MessageManager;
@@ -15,29 +15,29 @@ public class ProgramController implements ProgramInterface {
     AuthController authController;
     UserController currentController;
     EventController eventController;
-    Screen currentScreen;
+    ScreenController currentScreenController;
 
     public ProgramController() {
         this.usersManager = new UsersManager();
         this.contactsManager = new ContactsManager();
         this.chatRoomManager = new ChatRoomManager();
         this.messageManager = new MessageManager();
-        this.authController = new AuthController(usersManager);
-        this.currentScreen = new MainScreen(this);
+        this.authController = new AuthController(this, usersManager);
+        this.currentScreenController = new AnonymousScreenController(this);
         this.eventController = new EventController();
     }
 
     public void start() {
-        this.currentScreen.start();
+        this.currentScreenController.start();
 
     }
 
-    public void nextScreen() {
-        this.currentScreen.start();
+    public void nextScreenController() {
+        this.currentScreenController.start();
     }
 
-    public void setScreen(Screen screen) {
-        this.currentScreen = screen;
+    public void setCurrentScreenController(ScreenController screenController) {
+        this.currentScreenController = screenController;
     }
 
     public UserController getCurrentController() {
@@ -52,7 +52,9 @@ public class ProgramController implements ProgramInterface {
         return this.usersManager;
     }
 
-    public MessageManager getMessageManager() { return this.messageManager; }
+    public MessageManager getMessageManager() {
+        return this.messageManager;
+    }
 
     public ContactsManager getContactsManager() {
         return this.contactsManager;
