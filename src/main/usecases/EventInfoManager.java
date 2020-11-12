@@ -108,12 +108,10 @@ public class EventInfoManager {
             Event e = schedule.get(id);
             //time conflict at same room
             if((e.getTime() == newTime) && (e.getRoomID()== newRoomId)) {
-                throw new IllegalArgumentException("Time conflict for room " + e.getRoomID() +
-                        " with Event #" + e.getTitle());
+                return false;
             }//speaker conflict at same time
             else if((e.getTime() == newTime) && (e.getSpeakerID()== event.getSpeakerID())) {
-                throw new IllegalArgumentException("Time conflict for speaker " + e.getSpeakerID() +
-                        " with Event #" + e.getTitle());
+                return false;
             }
         }
         event.setTime(newTime);

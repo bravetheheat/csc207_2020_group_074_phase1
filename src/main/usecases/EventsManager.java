@@ -28,11 +28,9 @@ public class EventsManager {
             //if time conflict
             Event e = schedule.get(id);
             if ((e.getRoomID() == newEvent.getRoomID()) && (e.getTime() == newEvent.getTime())){
-                throw new IllegalArgumentException("Time conflict for room " + e.getRoomID() +
-                        " with Event #" + e.getTitle());
+                return false;
             }else if((e.getTime() == newEvent.getTime()) && (e.getSpeakerID() == newEvent.getSpeakerID())){
-                throw new IllegalArgumentException("Time conflict for speaker " + e.getSpeakerID() +
-                        " with Event #" + e.getTitle());
+                return false;
             }
         }
         schedule.put(newEvent.getId(), newEvent);
