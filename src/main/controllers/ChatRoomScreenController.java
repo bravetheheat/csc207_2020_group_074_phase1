@@ -23,6 +23,7 @@ public class ChatRoomScreenController {
 
     public void run() {
         chatRoomScreen.chatRoomScreenStart();
+        selectOptions();
     }
 
     public void selectOptions() {
