@@ -1,59 +1,76 @@
 package main.controllers;
 
 import main.presenters.ChatRoomScreen;
+import main.screencontrollers.MessageScreenController;
+import main.screencontrollers.ScreenController;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Scanner;
 import java.util.UUID;
 
-public class ChatRoomScreenController {
+/**
+ * @author Steven Yuan
+ * @version 2.0
+ * @since 2020-11-12
+ */
+public class ChatRoomScreenController extends ScreenController {
 
-    ProgramController programController = new ProgramController();
     ChatRoomScreen chatRoomScreen;
+    MessageScreenController messageScreenController;
     UUID myUserId;
     UUID chatRoomId;
-    Scanner scanner;
 
     public ChatRoomScreenController(ProgramController programController, UUID chatRoomId) {
-        chatRoomScreen = new ChatRoomScreen(programController, chatRoomId);
+        super(programController);
+        chatRoomScreen = new ChatRoomScreen();
+        messageScreenController = new MessageScreenController(programController);
         myUserId = programController.getAuthController().fetchLoggedInUser();
         this.chatRoomId = chatRoomId;
     }
 
-    public void run() {
+    @Override
+    public void start() {
         chatRoomScreen.chatRoomScreenStart();
         selectOptions();
+        returnToMessageScreen();
     }
 
     public void selectOptions() {
-        int input = scanner.nextInt();
-        switch (input) {
-            case 1:
-                viewMessages(chatRoomId);
-            case 2:
-                String msg = scanner.nextLine();
-                sendMessage(getFriendId(), msg);
-            case 3:
-                viewParticipants();
-            case 4:
-                chatRoomScreen.printEnterNewName();
-                renameChatRoom();
-            case 5:
-                deleteChatRoom();
-            default:
-                chatRoomScreen.printInvalidInput();
+        while (true) {
+            int input = scanner.nextInt();
+            if (input == 0) break;
+            switch (input) {
+                case 1:
+                    chatRoomScreen.printBelowIsChatHistory();
+                    viewOldMessages(chatRoomId);
+                case 2:
+                    String msg = scanner.nextLine();
+                    sendMessage(getFriendId(), msg);
+                    viewOldMessages(chatRoomId);
+                case 3:
+                    viewParticipants();
+                case 4:
+                    chatRoomScreen.printEnterNewName();
+                    renameChatRoom();
+                case 5:
+                    deleteChatRoom();
+                default:
+                    chatRoomScreen.printInvalidInput();
+            }
         }
     }
 
-    private UUID getFriendId() {
+    public void returnToMessageScreen() {
+        messageScreenController.start();
+    }
+
+    protected UUID getFriendId() {
         List<UUID> participantIds = programController.getChatRoomManager().
                 fetchChatRoom(chatRoomId).getParticipants();
         return participantIds.get(1);
     }
 
-    public void viewMessages(UUID chatRoomId) {
-        chatRoomScreen.printBelowIsChatHistory();
+    public void viewOldMessages(UUID chatRoomId) {
         List<UUID> listOfMessageIds = programController.getChatRoomManager().
                 fetchMessagesFromChatRoom(chatRoomId);
         for (UUID messageId : listOfMessageIds) {
@@ -72,12 +89,15 @@ public class ChatRoomScreenController {
     public void viewParticipants() {
         List<UUID> listOfUserIds = programController.getChatRoomManager().
                 fetchUsersFromChatRoom(myUserId);
-        chatRoomScreen.printParticipants(listOfUserIds);
+        chatRoomScreen.printParticipants(programController, listOfUserIds);
     }
 
     public void renameChatRoom() {
         while (true) {
             String name = scanner.nextLine();
+            if (name.equals("q") || name.equals("quit")) {
+                break;
+            }
             if (!programController.getChatRoomManager().
                     getChatRoomIdToName().values().contains(name)) {
                 programController.getChatRoomManager().
@@ -97,4 +117,6 @@ public class ChatRoomScreenController {
     public void sendMessage(UUID friendId, String message) {
         programController.getMessageManager().createMessage(message, friendId);
     }
+
+
 }

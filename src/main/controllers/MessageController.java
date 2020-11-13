@@ -13,7 +13,7 @@ import main.entities.Message;
  * could the user message.
  *
  * @author Ruoming Ren
- * @version 1.0
+ * @version 1.1
  * @since 2020-11-12
  */
 public class MessageController {
@@ -26,14 +26,12 @@ public class MessageController {
 
 
 
-    public MessageController(ChatRoomManager chatRoomManager, MessageManager messageManager,
-                             ContactsManager contactsManager, EventController eventController,
-                             UsersManager usersManager){
-        this.chatRoomManager = chatRoomManager;
-        this.messageManager = messageManager;
-        this.contactsManager = contactsManager;
-        this.eventController = eventController;
-        this.usersManager = usersManager;
+    public MessageController(ProgramController programController){
+        this.chatRoomManager = programController.getChatRoomManager();
+        this.messageManager = programController.getMessageManager();
+        this.contactsManager = programController.getContactsManager();
+        this.eventController = programController.getEventController();
+        this.usersManager = programController.getUsersManager();
     }
 
     /**
@@ -43,8 +41,8 @@ public class MessageController {
      * @return the UUID of the chatroom if there exist a chatroom that contains only these two users,
      * otherwise, return null.
      */
-    public UUID ifExistChatRoomContainingOnlyTheseTwoUsers(UUID sender, UUID receiver){
-        for(UUID chatroomId : chatRoomManager.fetchUserChatRooms(sender)){
+    public UUID chatRoomContainingOnlyTheseTwo(UUID sender, UUID receiver){
+        for(UUID chatroomId : chatRoomManager.fetchChatRoomsOfUser(sender)){
             for(UUID participantId : chatRoomManager.fetchChatRoom(chatroomId).getParticipants()){
                 if(chatRoomManager.fetchChatRoom(chatroomId).getParticipants().size() == 2
                         && participantId == receiver){
@@ -63,8 +61,8 @@ public class MessageController {
      * @param message the context of the message
      */
     public void sendMessage(UUID sender, UUID receiver, String message){
-        if(this.ifExistChatRoomContainingOnlyTheseTwoUsers(sender, receiver) != null){
-            chatRoomManager.addMessageToChatRoom(this.ifExistChatRoomContainingOnlyTheseTwoUsers(sender, receiver),
+        if(this.chatRoomContainingOnlyTheseTwo(sender, receiver) != null){
+            chatRoomManager.addMessageToChatRoom(this.chatRoomContainingOnlyTheseTwo(sender, receiver),
                     messageManager.createMessage(message, sender));
         }else{
             List<UUID> participants = new ArrayList<>();
@@ -81,7 +79,7 @@ public class MessageController {
      * @param sender the id of the attendee
      * @return the list of user's id which could be messaged by an attendee.
      */
-    public List<UUID> usersCouldBeMessagedByAttendee(UUID sender){
+    public List<UUID> couldBeMessagedByAttendee(UUID sender){
         List<UUID> receivers = new ArrayList<>();
         // Add all people inside the contact list.
         for(UUID receiver: contactsManager.getContactList(sender)){
@@ -99,7 +97,7 @@ public class MessageController {
      * @param sender the id of the organizer
      * @return the list of user's id which could be messaged by the organizer.
      */
-    public List<UUID> usersCouldBeMessagedByOrganizer(UUID sender){
+    public List<UUID> couldBeMessagedByOrganizer(UUID sender){
         List<UUID> receivers = new ArrayList<>();
         for(UUID receiver: usersManager.getRegisteredUsers()){
             receivers.add(receiver);
@@ -113,10 +111,12 @@ public class MessageController {
      * @param sender the id of the speaker
      * @return a map shows all attendees inside events of a speaker
      */
-    public Map<UUID, List<UUID>> usersCouldBeMessagedBySpeakerThroughEvents(UUID sender){
+    public Map<UUID, List<UUID>> couldBeMessagedBySpeakerThroughEvents(UUID sender){
         Map<UUID, List<UUID>> receivers= new HashMap<>();
-        for(UUID events: SpeakerController)
-        List<UUID> receivers = new ArrayList<>();
+        for(Event event: eventController.getSpeakerEvents(sender)){
+
+        }
+
 
     }
 
@@ -125,10 +125,10 @@ public class MessageController {
      * @param sender the id of the speaker
      * @return a list of user who have send messages to the speaker before
      */
-    public List<UUID> usersCouldBeMessagedBySpeakerThroughReply(UUID sender){
+    public List<UUID> couldBeMessagedBySpeakerThroughReply(UUID sender){
         List<UUID> receivers = new ArrayList<>();
         // search all chatrooms this speaker in.
-        for(UUID chatRoom: chatRoomManager.fetchUserChatRooms(sender)){
+        for(UUID chatRoom: chatRoomManager.fetchChatRoomsOfUser(sender)){
             // make sure there are only two participates
             if(chatRoomManager.fetchChatRoom(chatRoom).getParticipants().size() == 2){
                 // search all messages to check if the attendee have send
