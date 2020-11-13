@@ -28,13 +28,14 @@ public class AttendeeMessageScreen {
      * Displays messages in User's inbox.
      */
     public void prompt() {
-        Integer count = 1;
+        int count = 1;
         System.out.println("Please select a user to message by entering a number. \n" +
                 "Here is a list of users you can message:");
         while (count < users.size()) {
-            System.out.println(count.toString() + ". " + usersManager.userToString(users.get(count - 1)));
+            System.out.println(count + ". " + usersManager.userToString(users.get(count - 1)));
             count++;
         }
+        System.out.println("Enter 0 to return to the previous screen.");
     }
 
     /**
@@ -42,5 +43,13 @@ public class AttendeeMessageScreen {
      */
     public void prompt2(String input) {
         System.out.println(input + " was not one of the options.");
+    }
+
+    public void messagePrompt() {
+        System.out.println("Please enter your message and hit enter. (Enter 0 to return to recipient selection)");
+    }
+
+    public void successMessage() {
+        System.out.println("Success!");
     }
 }

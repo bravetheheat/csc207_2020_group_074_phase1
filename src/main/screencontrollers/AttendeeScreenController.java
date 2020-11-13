@@ -45,9 +45,9 @@ public class AttendeeScreenController extends ScreenController{
             next = this.scanner.nextLine();
         }
         switch (next) {
-            // placeholders for screencontrollers
             case "0":
                 this.programController.setCurrentScreenController(this.previousScreenController);
+                // placeholders for screencontrollers
             case "1":
                 this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
             case "2":
