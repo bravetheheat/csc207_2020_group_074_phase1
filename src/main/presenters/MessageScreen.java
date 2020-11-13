@@ -16,34 +16,15 @@ import java.util.Arrays;
  * @version 2.0
  * @since 2020-11-03
  */
-public class MessageScreen extends Screen {
+public class MessageScreen {
 
-//    private MessageScreenController messageScreenController;
-
-    public MessageScreen(ProgramController programController) {
-        super(programController);
-//        messageScreenController = new MessageScreenController();
+    public MessageScreen() {
     }
 
-    @Override
-    public void start() {
-//        viewChatRooms();
-//        System.out.println();
-//        System.out.println("1. Select a chat room.");
-//        System.out.println("2. Create a new chat room.");
-//        int input = scanner.nextInt();
-//        if (input == 1) {
-//            System.out.println("Enter the name of the chat room:");
-//            String chatRoomNameInput = scanner.nextLine();
-//            goToChatRoomScreen(chatRoomNameInput);
-//        }
-//        else {
-//            startChatRoomWithFriend();
-//        }
-    }
 
     public void messageScreenStart() {
         System.out.println();
+        System.out.println("0. Return to main menu.");
         System.out.println("1. Select a chat room.");
         System.out.println("2. Create a new chat room.");
     }
@@ -64,7 +45,7 @@ public class MessageScreen extends Screen {
         System.out.println("The name already exists. Please enter another one:");
     }
 
-    public void printChatRooms(List<UUID> chatRoomIds) {
+    public void printChatRooms(ProgramController programController, List<UUID> chatRoomIds) {
         System.out.println();
         for (UUID id : chatRoomIds) {
             System.out.println(programController.getChatRoomManager().
