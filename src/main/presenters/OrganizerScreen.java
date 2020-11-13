@@ -14,12 +14,19 @@ public class OrganizerScreen {
 
     }
 
+    public void printScreenName(){
+        System.out.println("Here is the organizer screen");
+    }
+
     public void prompt() {
         System.out.println("Choose from the following options by entering a number:");
-        System.out.println("1. All events");
-        System.out.println("2. Schedule an event");
+        System.out.println("1. Showing all events");
+        System.out.println("2. Manage an event");
         System.out.println("3. Registered events");
         System.out.println("4. Messages");
-        System.out.println("5. Manage an event");
+    }
+
+    public void prompt2(String input) {
+        System.out.println(input + " was not one of the options.");
     }
 }
