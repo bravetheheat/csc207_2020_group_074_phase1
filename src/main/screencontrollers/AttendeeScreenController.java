@@ -1,4 +1,4 @@
-package main.controllers;
+package main.screencontrollers;
 
 import main.presenters.AttendeeScreen;
 import java.util.Arrays;

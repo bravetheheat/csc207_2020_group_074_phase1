@@ -1,5 +1,6 @@
 package main.controllers;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import main.entities.Event;
 import main.usecases.EventsManager;
@@ -11,7 +12,7 @@ import main.usecases.EventBuilder;
  * the attendee list; organize the speaker; as well as a getter for the current schedule of a User
  *
  * @author Zewen Ma
- * @version 3.1
+ * @version 3.2
  * @since 2020-11-08
  */
 public class EventController {
@@ -35,20 +36,29 @@ public class EventController {
 
     /**
      * Removing an event from the schedule(stored in EventsManager)
-     * @param eventid of an Event
+     * @param eventId of an Event
      * @return true iff the event is successfully removed
      */
-    public boolean removeEvent(UUID eventid){
-        return this.eventsmanager.removeEvent(eventid);
+    public boolean removeEvent(UUID eventId){
+        return this.eventsmanager.removeEvent(eventId);
     }
 
     /**
      * Getting a list of events for a User given userid.
-     * @param userid user id of a specific User
+     * @param userId user id of a specific User
      * @return a list of events of this User given userid.
      */
-    public ArrayList<Event> getUserEvents(UUID userid){
-        return this.eventsmanager.getUserEvents(userid);
+    public ArrayList<Event> getUserEvents(UUID userId){
+        return this.eventsmanager.getUserEvents(userId);
+    }
+
+    /**
+     * Getting a list of events for a Speaker given userid.
+     * @param userId user id of a specific Speaker
+     * @return a list of events of this User given userid.
+     */
+    public ArrayList<Event> getSpeakerEvents(UUID userId){
+        return this.eventsmanager.getSpeakerEvents(userId);
     }
 
     /**
@@ -61,50 +71,50 @@ public class EventController {
 
     /**
      * Add a user to a specific Event
-     * @param eventid of Events stored in eventsmanager
-     * @param userid needs to be added to the event
+     * @param eventId of Events stored in eventsmanager
+     * @param userId needs to be added to the event
      * @return ture iff the user is successfully added
      */
-    public boolean addUser(UUID eventid, UUID userid){
+    public boolean addUser(UUID eventId, UUID userId){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventInfoManager = new EventInfoManager(eventid, schedule);
-        return eventInfoManager.addUser(userid);
+        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
+        return eventInfoManager.addUser(userId);
     }
 
     /**
      * Remove a user from a specific Event
-     * @param eventid of Events stored in eventsmanager
-     * @param userid needs to be removed from the event
+     * @param eventId of Events stored in eventsmanager
+     * @param userId needs to be removed from the event
      * @return ture iff the user is successfully removed
      */
-    public boolean removeUser(UUID eventid, UUID userid){
+    public boolean removeUser(UUID eventId, UUID userId){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventInfoManager = new EventInfoManager(eventid, schedule);
-        return eventInfoManager.removeUser(userid);
+        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
+        return eventInfoManager.removeUser(userId);
     }
 
     /**
      * A sign up method for an attendee User
-     * @param eventid of an Event that an attendee wants to attend
-     * @param userid of the attendee User
+     * @param eventId of an Event that an attendee wants to attend
+     * @param userId of the attendee User
      * @return true iff the attendee User has successfully signed up the spot
      */
-    public boolean signupEvent(UUID eventid, UUID userid){
+    public boolean signupEvent(UUID eventId, UUID userId){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
-        return eventinfomanager.addUser(userid);
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
+        return eventinfomanager.addUser(userId);
     }
 
     /**
      * A cancellation method for an attendee User
-     * @param eventid of an Event that an attendee wants to cancel a spot
-     * @param userid of the attendee User
+     * @param eventId of an Event that an attendee wants to cancel a spot
+     * @param userId of the attendee User
      * @return true iff the attendee User has successfully cancelled the spot
      */
-    public boolean cancelEvent(UUID eventid, UUID userid){
+    public boolean cancelEvent(UUID eventId, UUID userId){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
-        return eventinfomanager.removeUser(userid);
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
+        return eventinfomanager.removeUser(userId);
     }
 
     /**
@@ -117,12 +127,49 @@ public class EventController {
 
     /**
      * An Attendee is able to view  the information of a single Event as a string given eventid
-     * @param eventid of an Event whose information is presented as a string
+     * @param eventId of an Event whose information is presented as a string
      * @return a string representation of all the events scheduled
      */
-    public String getSingleEventInfo(UUID eventid){
+    public String getSingleEventInfo(UUID eventId){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.getEvent();
+    }
+
+    /**
+     * Return true iff a new speaker is successfully added to the event
+     * @param eventId of the Event
+     * @param speakerId of the Speaker
+     * @return ture iff the speaker is successfully added to the event
+     */
+    public boolean addSpeaker(UUID eventId, UUID speakerId){
+        Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
+        return eventinfomanager.addSpeaker(speakerId);
+    }
+
+    /**
+     * Return true iff the speaker is successfully removed from the event
+     * @param eventId of the Event
+     * @param speakerId of the Speaker
+     * @return true iff the speaker is successfully removed from the event
+     */
+    public boolean removeSpeaker(UUID eventId, UUID speakerId){
+        Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
+        return eventinfomanager.removeSpeaker(speakerId);
+    }
+
+    /**
+     * Return true iff the new information of the Event is updated
+     * @param eventId of the event
+     * @param newTime of the event
+     * @param newRoomId of the event
+     * @return true iff the new information of the Event is updated
+     */
+    public boolean updateEventInfo(UUID eventId, LocalDateTime newTime, UUID newRoomId){
+        Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
+        return eventinfomanager.updateEventInfo(newTime, newRoomId);
     }
 }

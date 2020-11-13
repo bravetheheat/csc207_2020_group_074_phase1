@@ -8,12 +8,11 @@ import main.usecases.MessageManager;
 import java.util.*;
 
 /**
- * The UserController is an abstract class with functionality related to basic user actions: checking and
- * managing contacts, checking and sending messages, and checking, registering, and dropping from events.
+ * The UserController is an abstract class for controllers of all user types.
  *
  * @author Yi Tao Li
- * @version 1.2
- * @since 2020-11-09
+ * @version 1.3
+ * @since 2020-11-12
  */
 public abstract class UserController {
 
@@ -53,14 +52,14 @@ public abstract class UserController {
     public abstract List<UUID> checkContacts();
 
     /**
-     * Abstract method for adding another user to the user's list of contacts.
+     * Creates a ChatRoom with the desired participants.
+     *
+     * @param participants List of the participants of the ChatRoom.
      */
-    public abstract boolean addContact(UUID user);
-
-    /**
-     * Abstract method for removing another user from the user's list of contacts.
-     */
-    public abstract boolean removeUser(UUID user);
+    public boolean createChatRoom(List<UUID> participants) {
+        this.chatRoomManager.createChatRoom(participants);
+        return true;
+    }
 
     /**
      * Sends a message to a contact and returns true.
@@ -74,43 +73,5 @@ public abstract class UserController {
         return true;
     }
 
-    /**
-     * Returns a list of events in the conference.
-     */
-    public ArrayList<Event> checkEvents() {
-        return this.eventController.getAllEvents();
-    }
-
-    /**
-     * Returns a list of events the user is registered in.
-     *
-     * @param eventController pre-defined EventController
-     */
-    public ArrayList<Event> checkRegisteredEvents(EventController eventController) {
-        return eventController.getUserEvents(this.loggedInUser);
-    }
-
-    /**
-     * Registers user in an event and returns true if they were not already registered.
-     *
-     * @param event UUID of the event that the user is trying to register for
-     * @param eventController pre-defined EventController
-     */
-    public boolean registerForEvent(Event event, EventController eventController) {
-        if (!this.checkRegisteredEvents(eventController).contains(event)) {
-            return eventController.addUser(event, this.loggedInUser);
-        }
-        return false;
-    }
-
-    /**
-     * Removes an event from the user's list of registered events.
-     *
-     * @param event UUID of the event that the user is trying to remove
-     * @param eventController pre-defined EventController
-     */
-    public boolean dropOutFromEvent(Event event, EventController eventController) {
-        return eventController.removeUser(event, this.loggedInUser);
-    }
-
+    public abstract ArrayList<Event> checkEvents();
 }
