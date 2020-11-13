@@ -22,7 +22,8 @@ import java.util.*;
  * @since 2020-11-10
  */
 
-public class OrganizerController extends UserController{
+public class OrganizerController extends AttendeeController{
+    Scanner
 
     
 

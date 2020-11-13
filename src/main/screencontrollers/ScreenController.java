@@ -18,8 +18,6 @@ public abstract class ScreenController {
 
     public void end() {
         this.programController.nextScreenController();
-    };
+    }
 
-
-    
 }

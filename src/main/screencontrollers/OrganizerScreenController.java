@@ -1,4 +1,4 @@
-package main.controllers;
+package main.screencontrollers;
 
 import java.util.Scanner;
 

@@ -52,6 +52,16 @@ public abstract class UserController {
     public abstract List<UUID> checkContacts();
 
     /**
+     * Creates a ChatRoom with the desired participants.
+     *
+     * @param participants List of the participants of the ChatRoom.
+     */
+    public boolean createChatRoom(List<UUID> participants) {
+        this.chatRoomManager.createChatRoom(participants);
+        return true;
+    }
+
+    /**
      * Sends a message to a contact and returns true.
      *
      * @param text String of the message that the user is trying to send
