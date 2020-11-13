@@ -8,47 +8,15 @@ import java.util.UUID;
 
 /**
  * @author Steven Yuan
- * @version 1.0
+ * @version 2.0
  * @since 2020-11-12
  */
-public class ChatRoomScreen extends Screen {
+public class ChatRoomScreen {
 
-    UUID myUserId;
-    UUID chatRoomId;
+    public ChatRoomScreen() {
 
-    public ChatRoomScreen(ProgramController programController, UUID chatRoomId) {
-        super(programController);
-        RegisterScreen registerScreen = new RegisterScreen(programController);
-        myUserId = programController.getUsersManager().getIDFromUsername(registerScreen.username);
-        this.chatRoomId = chatRoomId;
     }
 
-    @Override
-    public void start() {
-//        System.out.println("Options: " + "1. View Messages" +
-//                "2. Start messaging" +
-//                "3. See List of Participants; " +
-//                "4. Rename this chat room" +
-//                "5. Delete this chat room" +
-//                "(Enter a number)");
-//        int input = scanner.nextInt();
-//        switch (input) {
-//            case 1:
-//                viewMessages(chatRoomId);
-//            case 2:
-//                String msg = scanner.nextLine();
-//                sendMessage(getFriendId(), msg);
-//            case 3:
-//                viewParticipants();
-//            case 4:
-//                System.out.println("Enter a new name for this chat room:");
-//                renameChatRoom();
-//            case 5:
-//                deleteChatRoom();
-//            default:
-//                System.out.println("Invalid Input!");
-//        }
-    }
 
     public void chatRoomScreenStart() {
         System.out.println("Options: " + "0. Return to the main menu" +
@@ -100,19 +68,17 @@ public class ChatRoomScreen extends Screen {
 //        }
 //    }
 
-    public void printParticipants(List<UUID> listOfUserIds) {
+    public void printParticipants(ProgramController programController,
+                                  List<UUID> listOfUserIds) {
         for (UUID id : listOfUserIds) {
             System.out.println(programController.getUsersManager().fetchUser(id));
         }
     }
 
-    public void printOldMessage(String senderName, LocalDateTime messageDate, String text) {
+    public void printMessage(String senderName, LocalDateTime messageDate, String text) {
         System.out.println(senderName + "[" + messageDate.toString() + "]: " + text);
     }
 
-    public void printMessage(String senderName, LocalDateTime messageDate, String text) {
-
-    }
 
 //    public void renameChatRoom() {
 //        while (true) {
