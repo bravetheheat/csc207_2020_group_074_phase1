@@ -1,13 +1,12 @@
 package main.controllers;
 
-import main.entities.Event;
 import main.usecases.ChatRoomManager;
 import main.usecases.ContactsManager;
 import main.usecases.MessageManager;
 import main.controllers.EventController;
 import main.usecases.EventsManager;
 import java.time.LocalDateTime;
-import main.usecases.EventBuilder
+import main.usecases.EventBuilder;
 
 import java.util.*;
 
@@ -51,6 +50,10 @@ public class OrganizerController extends AttendeeController{
     }
 
     public String getEventInfo(String eventTitle){
+
+    }
+
+    public List<UUID> getListOfEvents() {
 
     }
 
