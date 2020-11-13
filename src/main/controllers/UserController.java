@@ -37,29 +37,9 @@ public abstract class UserController {
     }
 
     /**
-     * Abstract method for checking the ChatRooms that user is participating in.
-     */
-    public abstract List<UUID> checkChatRooms();
-
-    /**
      * Abstract method for checking the Messages in a particular ChatRoom.
      */
     public abstract List<UUID> checkMessages(UUID chatRoom);
-
-    /**
-     * Abstract method for checking a user's contacts.
-     */
-    public abstract List<UUID> checkContacts();
-
-    /**
-     * Creates a ChatRoom with the desired participants.
-     *
-     * @param participants List of the participants of the ChatRoom.
-     */
-    public boolean createChatRoom(List<UUID> participants) {
-        this.chatRoomManager.createChatRoom(participants);
-        return true;
-    }
 
     /**
      * Sends a message to a contact and returns true.

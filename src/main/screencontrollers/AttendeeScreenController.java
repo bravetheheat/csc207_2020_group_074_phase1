@@ -1,5 +1,6 @@
 package main.screencontrollers;
 
+import main.controllers.ProgramController;
 import main.presenters.AttendeeScreen;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -13,39 +14,48 @@ import java.util.List;
  * @version 1.0
  * @since 2020-11-11
  */
-public class AttendeeScreenController {
+public class AttendeeScreenController extends ScreenController{
 
     private AttendeeScreen attendeeScreen;
     private List<String> prompts;
     /**
      * Constructor of an AttendeeScreenController.
      */
-    public AttendeeScreenController() {
+    public AttendeeScreenController(ProgramController programController) {
+        super(programController);
         this.attendeeScreen = new AttendeeScreen();
         String[] options = {"1", "2", "3", "4"};
         this.prompts = (Arrays.asList(options));
     }
 
+    public void start() {
+        this.run();
+        this.end();
+    }
+
     /**
      * Checks valid input from attendee and tells ProgramController what screen to go next.
      */
-    public String run() {
+    public void run() {
         this.attendeeScreen.prompt();
-        Scanner sc = new Scanner(System.in);
-        String next = sc.nextLine();
+        String next = this.scanner.nextLine();
         while (!this.prompts.contains(next)){
             this.attendeeScreen.prompt2(next);
             this.attendeeScreen.prompt();
-            next = sc.nextLine();
+            next = this.scanner.nextLine();
         }
         switch (next) {
+            // placeholders for screencontrollers
+            case "0":
+                this.programController.setCurrentScreenController(this.previousScreenController);
             case "1":
-                return "all events";
+                this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
             case "2":
-                return "registered events";
+                this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
             case "3":
-                return "contact";
+                this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
+            case "4":
+                this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
         }
-        return "messages";
     }
 }
