@@ -1,5 +1,8 @@
 package main.screencontrollers;
 
+import main.controllers.ProgramController;
+import main.presenters.OrganizerScreen;
+
 import java.util.Scanner;
 
 /**
@@ -10,11 +13,12 @@ import java.util.Scanner;
  * @version 1.0
  * @since 2020-11-11
  */
-public class OrganizerScreenController {
+public class OrganizerScreenController extends ScreenController {
 
     private OrganizerScreen organizerScreen;
 
-    public OrganizerScreenController() {
+    public OrganizerScreenController(ProgramController programController) {
+        super(programController);
         this.organizerScreen = new OrganizerScreen();
     }
 
@@ -26,8 +30,8 @@ public class OrganizerScreenController {
         Scanner sc = new Scanner(System.in);
         String next = sc.nextLine();
         while (!this.prompts.contains(next)){
-            this.attendeeScreen.prompt2(next);
-            this.attendeeScreen.prompt();
+            this.organizerScreen.prompt2(next);
+            this.organizerScreen.prompt();
             next = sc.nextLine();
         }
         switch (next) {
@@ -42,4 +46,8 @@ public class OrganizerScreenController {
     }
 
 
+    @Override
+    public void start() {
+
+    }
 }
