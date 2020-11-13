@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * @author Steven Yuan
- * @version 1.0
+ * @version 1.1
  * @since 2020-11-12
  */
 public class MessageScreenController extends ScreenController {
@@ -19,8 +19,7 @@ public class MessageScreenController extends ScreenController {
     public MessageScreenController(ProgramController programController) {
         super(programController);
         myUserId = programController.getAuthController().fetchLoggedInUser();
-        messageScreen = new MessageScreen(programController);
-//        scanner = new Scanner(System.in);
+        messageScreen = new MessageScreen();
     }
 
     @Override
@@ -37,14 +36,22 @@ public class MessageScreenController extends ScreenController {
 
     public void selectOrCreate() {
         int input = scanner.nextInt();
-        if (input == 1) {
-            messageScreen.printEnterChatRoomName();
-            String chatRoomNameInput = scanner.nextLine();
-            goToChatRoomScreen(chatRoomNameInput);
+        switch (input) {
+            case 0:
+                returnToMainMenu();
+            case 1: {
+                messageScreen.printEnterChatRoomName();
+                String chatRoomNameInput = scanner.nextLine();
+                goToChatRoomScreen(chatRoomNameInput);
+            }
+
+            case 2:
+                startChatRoomWithFriend();
         }
-        else {
-            startChatRoomWithFriend();
-        }
+    }
+
+    public void returnToMainMenu() {
+        // TODO: implement this
     }
 
     public void startChatRoomWithFriend() {
@@ -60,8 +67,7 @@ public class MessageScreenController extends ScreenController {
                 programController.getChatRoomManager().createChatRoom(
                         Arrays.asList(myUserId, friendUserId), chatRoomNameInput);
                 break;
-            }
-            else {
+            } else {
                 messageScreen.printNameAlreadyExists();
             }
         }
@@ -69,7 +75,7 @@ public class MessageScreenController extends ScreenController {
 
     public void viewChatRooms() {
         List<UUID> chatRoomIds = fetchChatRoomIds();
-        messageScreen.printChatRooms(chatRoomIds);
+        messageScreen.printChatRooms(programController, chatRoomIds);
     }
 
     public void goToChatRoomScreen(String chatRoomName) {
