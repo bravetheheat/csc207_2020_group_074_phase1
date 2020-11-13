@@ -4,7 +4,6 @@ import main.presenters.OrganizerScreen;
 
 import java.util.Arrays;
 import java.util.List;
-
 /**
  * The OrganizerScreenController is a controller class that tells ControllerScreen what to display, receives
  * input from ControllerScreen, and tells the ProgramController what screen to go next.
