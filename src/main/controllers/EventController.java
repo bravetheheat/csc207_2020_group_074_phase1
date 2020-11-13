@@ -12,7 +12,7 @@ import main.usecases.EventBuilder;
  * the attendee list; organize the speaker; as well as a getter for the current schedule of a User
  *
  * @author Zewen Ma
- * @version 3.0
+ * @version 3.1
  * @since 2020-11-08
  */
 public class EventController {
@@ -50,6 +50,15 @@ public class EventController {
      */
     public ArrayList<Event> getUserEvents(UUID userid){
         return this.eventsmanager.getUserEvents(userid);
+    }
+
+    /**
+     * Getting a list of events for a Speaker given userid.
+     * @param userid user id of a specific Speaker
+     * @return a list of events of this User given userid.
+     */
+    public ArrayList<Event> getSpeakerEvents(UUID userid){
+        return this.eventsmanager.getSpeakerEvents(userid);
     }
 
     /**
