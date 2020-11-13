@@ -29,6 +29,18 @@ public class UsersManager {
         }
     }
 
+    private Map<String, UUID> mapUsernameToUUID() {
+        Map<String, UUID> usernameToUUID = new HashMap<>();
+        for (UUID id : registeredUsers.keySet()) {
+            usernameToUUID.put(registeredUsers.get(id).getUsername(), id);
+        }
+        return usernameToUUID;
+    }
+
+    public UUID getIDFromUsername(String username) {
+        return mapUsernameToUUID().get(username);
+    }
+
 
     /**
      * Verify the authentication of new user with username, password and type of users.

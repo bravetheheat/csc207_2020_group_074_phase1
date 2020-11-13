@@ -2,6 +2,7 @@ package main.controllers;
 
 import java.util.*;
 import main.entities.Event;
+import main.presenters.EventSignUpScreen;
 import main.usecases.EventsManager;
 import main.usecases.EventInfoManager;
 import main.usecases.EventBuilder;
@@ -49,6 +50,15 @@ public class EventController {
      */
     public ArrayList<Event> getUserEvents(UUID userid){
         return this.eventsmanager.getUserEvents(userid);
+    }
+
+    /**
+     * Getting a list of events for a Speaker given userid.
+     * @param userid user id of a specific Speaker
+     * @return a list of events of this User given userid.
+     */
+    public ArrayList<Event> getSpeakerEvents(UUID userid){
+        return this.eventsmanager.getSpeakerEvents(userid);
     }
 
     /**
