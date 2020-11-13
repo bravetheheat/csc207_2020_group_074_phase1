@@ -9,18 +9,20 @@ import java.util.UUID;
 
 /**
  * @author Steven Yuan
- * @version 1.0
+ * @version 2.0
  * @since 2020-11-12
  */
 public class ChatRoomScreenController extends ScreenController {
 
     ChatRoomScreen chatRoomScreen;
+    MessageScreenController messageScreenController;
     UUID myUserId;
     UUID chatRoomId;
 
     public ChatRoomScreenController(ProgramController programController, UUID chatRoomId) {
         super(programController);
         chatRoomScreen = new ChatRoomScreen();
+        messageScreenController = new MessageScreenController(programController);
         myUserId = programController.getAuthController().fetchLoggedInUser();
         this.chatRoomId = chatRoomId;
     }
@@ -29,7 +31,7 @@ public class ChatRoomScreenController extends ScreenController {
     public void start() {
         chatRoomScreen.chatRoomScreenStart();
         selectOptions();
-        // TODO: return to main menu
+        returnToMessageScreen();
     }
 
     public void selectOptions() {
@@ -55,6 +57,10 @@ public class ChatRoomScreenController extends ScreenController {
                     chatRoomScreen.printInvalidInput();
             }
         }
+    }
+
+    public void returnToMessageScreen() {
+        messageScreenController.start();
     }
 
     protected UUID getFriendId() {
