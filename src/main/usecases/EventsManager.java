@@ -60,11 +60,11 @@ public class EventsManager {
      * @param userId to be get events from
      * @return userEvents
      */
-    public ArrayList<Event> getUserEvents(UUID userId) {
-        ArrayList<Event> userEvents = new ArrayList<>();
+    public ArrayList<UUID> getUserEvents(UUID userId) {
+        ArrayList<UUID> userEvents = new ArrayList<>();
         for(UUID i : schedule.keySet()){
             for (UUID id : schedule.get(i).getAttendeesID()){
-                if(id == userId) userEvents.add(schedule.get(i));
+                if(id == userId) userEvents.add(schedule.get(i).getId());
             }
         }
         return userEvents;
@@ -76,10 +76,10 @@ public class EventsManager {
      * @param speakerId to be get events from
      * @return speakerEvents
      */
-    public ArrayList<Event> getSpeakerEvents(UUID speakerId) {
-        ArrayList<Event> speakerEvents = new ArrayList<>();
+    public ArrayList<UUID> getSpeakerEvents(UUID speakerId) {
+        ArrayList<UUID> speakerEvents = new ArrayList<>();
         for(UUID i : schedule.keySet()){
-            if(schedule.get(i).getSpeakerID() == speakerId) speakerEvents.add(schedule.get(i));
+            if(schedule.get(i).getSpeakerID() == speakerId) speakerEvents.add(schedule.get(i).getId());
         }
         return speakerEvents;
     }
