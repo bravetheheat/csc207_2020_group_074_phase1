@@ -2,7 +2,6 @@ import main.entities.Attendee;
 import main.entities.Event;
 import main.entities.User;
 import main.usecases.EventBuilder;
-import main.usecases.EventFactory;
 import main.usecases.EventsManager;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,7 +9,6 @@ import org.junit.Test;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.hamcrest.CoreMatchers.containsString;
 
 public class EventsManagerTest {
     EventsManager eventsManager;
@@ -84,12 +82,15 @@ public class EventsManagerTest {
         eventsManager.getEvents().get(0).addAttendees(u1.getId());
         //test single
         Assert.assertEquals(1, eventsManager.getUserEvents(u1.getId()).size());
-        Assert.assertTrue(eventsManager.getEvents().contains(eventsManager.getEvents().get(0)));
+        Assert.assertTrue(eventsManager.getEvents().get(0).getId()==
+                eventsManager.getEvents().get(0).getId());
         //test multiple
         eventsManager.getEvents().get(1).addAttendees(u1.getId());
         Assert.assertEquals(2, eventsManager.getUserEvents(u1.getId()).size());
-        Assert.assertTrue(eventsManager.getEvents().contains(eventsManager.getEvents().get(0)));
-        Assert.assertTrue(eventsManager.getEvents().contains(eventsManager.getEvents().get(1)));
+        Assert.assertTrue(eventsManager.getEvents().get(0).getId()==
+                eventsManager.getEvents().get(0).getId());
+        Assert.assertTrue(eventsManager.getEvents().get(1).getId()==
+                eventsManager.getEvents().get(1).getId());
     }
 
 

@@ -48,7 +48,7 @@ public class EventController {
      * @param userId user id of a specific User
      * @return a list of events of this User given userid.
      */
-    public ArrayList<Event> getUserEvents(UUID userId){
+    public ArrayList<UUID> getUserEvents(UUID userId){
         return this.eventsmanager.getUserEvents(userId);
     }
 
@@ -57,7 +57,7 @@ public class EventController {
      * @param userId user id of a specific Speaker
      * @return a list of events of this User given userid.
      */
-    public ArrayList<Event> getSpeakerEvents(UUID userId){
+    public ArrayList<UUID> getSpeakerEvents(UUID userId){
         return this.eventsmanager.getSpeakerEvents(userId);
     }
 
