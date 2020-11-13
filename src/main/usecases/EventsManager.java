@@ -55,7 +55,7 @@ public class EventsManager {
 
 
     /**
-     * Get the list of events for a User given email
+     * Get the list of events for a User given id
      *
      * @param userId to be get events from
      * @return userEvents
@@ -68,6 +68,20 @@ public class EventsManager {
             }
         }
         return userEvents;
+    }
+
+    /**
+     * Get the list of events for a Speaker given id
+     *
+     * @param speakerId to be get events from
+     * @return speakerEvents
+     */
+    public ArrayList<Event> getSpeakerEvents(UUID speakerId) {
+        ArrayList<Event> speakerEvents = new ArrayList<>();
+        for(UUID i : schedule.keySet()){
+            if(schedule.get(i).getSpeakerID() == speakerId) speakerEvents.add(schedule.get(i));
+        }
+        return speakerEvents;
     }
 
 
