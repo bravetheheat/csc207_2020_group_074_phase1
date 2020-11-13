@@ -28,11 +28,9 @@ public class EventsManager {
             //if time conflict
             Event e = schedule.get(id);
             if ((e.getRoomID() == newEvent.getRoomID()) && (e.getTime() == newEvent.getTime())){
-                throw new IllegalArgumentException("Time conflict for room " + e.getRoomID() +
-                        " with Event #" + e.getTitle());
+                return false;
             }else if((e.getTime() == newEvent.getTime()) && (e.getSpeakerID() == newEvent.getSpeakerID())){
-                throw new IllegalArgumentException("Time conflict for speaker " + e.getSpeakerID() +
-                        " with Event #" + e.getTitle());
+                return false;
             }
         }
         schedule.put(newEvent.getId(), newEvent);
@@ -57,7 +55,7 @@ public class EventsManager {
 
 
     /**
-     * Get the list of events for a User given email
+     * Get the list of events for a User given id
      *
      * @param userId to be get events from
      * @return userEvents
@@ -70,6 +68,20 @@ public class EventsManager {
             }
         }
         return userEvents;
+    }
+
+    /**
+     * Get the list of events for a Speaker given id
+     *
+     * @param speakerId to be get events from
+     * @return speakerEvents
+     */
+    public ArrayList<Event> getSpeakerEvents(UUID speakerId) {
+        ArrayList<Event> speakerEvents = new ArrayList<>();
+        for(UUID i : schedule.keySet()){
+            if(schedule.get(i).getSpeakerID() == speakerId) speakerEvents.add(schedule.get(i));
+        }
+        return speakerEvents;
     }
 
 

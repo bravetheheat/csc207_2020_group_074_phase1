@@ -51,14 +51,10 @@ public class EventsManagerTest {
         Assert.assertTrue(eventsManager.scheduleEvent(e2));
         //test speaker conflict
         EventBuilder e3 = setUpEvent("Event3", time1, room2, speaker1);
-        Exception exception1 = assertThrows(IllegalArgumentException.class, () -> eventsManager.scheduleEvent(e3));
-        String expected1 = "Time conflict for speaker " + speaker1 + " with Event #" + "Event1";
-        Assert.assertEquals(expected1, exception1.getMessage());
+        Assert.assertFalse(eventsManager.scheduleEvent(e3));
         //test room conflict
         EventBuilder e4 = setUpEvent("Event4", time1, room1, speaker2);
-        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> eventsManager.scheduleEvent(e4));
-        String expected2 = "Time conflict for room " + room1 + " with Event #" + "Event1";
-        Assert.assertEquals(expected2, exception2.getMessage());
+        Assert.assertFalse(eventsManager.scheduleEvent(e4));
     }
 
     @Test

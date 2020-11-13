@@ -104,12 +104,8 @@ public class EventsInfoTest {
         EventInfoManager eim = new EventInfoManager(eventsId[1], schedule);
         Assert.assertTrue(eim.updateEventInfo(time1,room2));
         //test changing time and time conflict with event1
-        Exception exception1 = assertThrows(IllegalArgumentException.class, () -> eim.updateEventInfo(time1, room1));
-        String expected1 = "Time conflict for room " + room1 + " with Event #" + "Event1";
-        Assert.assertEquals(expected1, exception1.getMessage());
+        Assert.assertFalse(eim.updateEventInfo(time1, room1));
         //test changing room and speaker conflict with event3
-        Exception exception2 = assertThrows(IllegalArgumentException.class, () -> eim.updateEventInfo(time3, room1));
-        String expected2 = "Time conflict for speaker " + speaker2 + " with Event #" + "Event3";
-        Assert.assertEquals(expected2, exception2.getMessage());
+        Assert.assertFalse(eim.updateEventInfo(time3, room1));
     }
 }

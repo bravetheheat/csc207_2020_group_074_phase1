@@ -135,4 +135,5 @@ public class EventController {
         EventInfoManager eventinfomanager = new EventInfoManager(eventid, schedule);
         return eventinfomanager.getEvent();
     }
+
 }
