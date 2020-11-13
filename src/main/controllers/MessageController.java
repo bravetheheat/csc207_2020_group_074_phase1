@@ -42,7 +42,7 @@ public class MessageController {
      * otherwise, return null.
      */
     public UUID ifExistChatRoomContainingOnlyTheseTwoUsers(UUID sender, UUID receiver){
-        for(UUID chatroomId : chatRoomManager.fetchUserChatRooms(sender)){
+        for(UUID chatroomId : chatRoomManager.fetchChatRoomsOfUser(sender)){
             for(UUID participantId : chatRoomManager.fetchChatRoom(chatroomId).getParticipants()){
                 if(chatRoomManager.fetchChatRoom(chatroomId).getParticipants().size() == 2
                         && participantId == receiver){
@@ -126,7 +126,7 @@ public class MessageController {
     public List<UUID> usersCouldBeMessagedBySpeakerThroughReply(UUID sender){
         List<UUID> receivers = new ArrayList<>();
         // search all chatrooms this speaker in.
-        for(UUID chatRoom: chatRoomManager.fetchUserChatRooms(sender)){
+        for(UUID chatRoom: chatRoomManager.fetchChatRoomsOfUser(sender)){
             // make sure there are only two participates
             if(chatRoomManager.fetchChatRoom(chatRoom).getParticipants().size() == 2){
                 // search all messages to check if the attendee have send

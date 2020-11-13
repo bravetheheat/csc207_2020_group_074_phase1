@@ -2,12 +2,11 @@ package main.screencontrollers;
 
 import main.controllers.AuthController;
 import main.controllers.ProgramController;
-import main.presenters.RegisterScreen;
 import main.presenters.LoginScreen;
 
 public class LoginScreenController extends ScreenController {
-    private LoginScreen presenter = new LoginScreen();
-    private AuthController authController;
+    private final LoginScreen presenter = new LoginScreen();
+    private final AuthController authController;
 
     public LoginScreenController(ProgramController programController) {
         super(programController);
@@ -21,17 +20,16 @@ public class LoginScreenController extends ScreenController {
         this.end();
     }
 
-    public void login(){
+    public void login() {
         String username;
         String password;
-        String userType;
 
         this.presenter.promptUsername();
-        username = this.scanner.nextLine();
+        username = scanner.nextLine();
         this.presenter.promptPassword();
-        password = this.scanner.nextLine();
+        password = scanner.nextLine();
 
-        if(!this.authController.isLoggedIn()){
+        if (!this.authController.isLoggedIn()) {
             this.presenter.fail();
             this.logout();
         }
@@ -44,11 +42,15 @@ public class LoginScreenController extends ScreenController {
         }
 
         this.presenter.success();
+        ScreenController nextScreenController = this.authController.getScreenController();
+        this.programController.setCurrentScreenController(nextScreenController);
+
     }
 
-    public void logout(){
+    public void logout() {
         this.authController.logout();
         this.presenter.signout();
+        this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
     }
 
 }
