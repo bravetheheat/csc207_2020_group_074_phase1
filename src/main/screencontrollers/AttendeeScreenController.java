@@ -1,5 +1,6 @@
 package main.screencontrollers;
 
+import main.controllers.ProgramController;
 import main.presenters.AttendeeScreen;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -13,17 +14,22 @@ import java.util.List;
  * @version 1.0
  * @since 2020-11-11
  */
-public class AttendeeScreenController {
+public class AttendeeScreenController extends ScreenController{
 
     private AttendeeScreen attendeeScreen;
     private List<String> prompts;
     /**
      * Constructor of an AttendeeScreenController.
      */
-    public AttendeeScreenController() {
+    public AttendeeScreenController(ProgramController programController) {
+        super(programController);
         this.attendeeScreen = new AttendeeScreen();
         String[] options = {"1", "2", "3", "4"};
         this.prompts = (Arrays.asList(options));
+    }
+
+    public void start() {
+        run();
     }
 
     /**
