@@ -1,6 +1,8 @@
-package main.controllers;
+package main.screencontrollers;
 
 
+import main.controllers.ChatRoomScreenController;
+import main.controllers.ProgramController;
 import main.presenters.MessageScreen;
 import main.screencontrollers.ScreenController;
 

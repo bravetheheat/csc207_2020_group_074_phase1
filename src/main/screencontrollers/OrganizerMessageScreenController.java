@@ -1,4 +1,7 @@
-package main.controllers;
+package main.screencontrollers;
+
+import main.controllers.ProgramController;
+import main.screencontrollers.MessageScreenController;
 
 /**
  * @author Steven Yuan

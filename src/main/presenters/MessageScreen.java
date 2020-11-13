@@ -1,12 +1,9 @@
 package main.presenters;
 
-import main.controllers.MessageScreenController;
 import main.controllers.ProgramController;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.Arrays;
 
 /**
  * Provide a list of chat rooms and let user create chat room with

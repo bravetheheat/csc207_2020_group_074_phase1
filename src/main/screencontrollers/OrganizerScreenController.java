@@ -51,7 +51,7 @@ public class OrganizerScreenController extends ScreenController{
             case "3":
                 nextScreenController = new EventSignUpScreenController(this.programController);
             case "4":
-                nextScreenController = new OrganizerMessageScreen(this.programController);
+                nextScreenController = new OrganizerMessageScreenController(this.programController);
         }
         this.programController.setCurrentScreenController(nextScreenController);
     }
