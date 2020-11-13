@@ -20,7 +20,7 @@ public class ChatRoomScreenController extends ScreenController {
 
     public ChatRoomScreenController(ProgramController programController, UUID chatRoomId) {
         super(programController);
-        chatRoomScreen = new ChatRoomScreen(programController, chatRoomId);
+        chatRoomScreen = new ChatRoomScreen();
         myUserId = programController.getAuthController().fetchLoggedInUser();
         this.chatRoomId = chatRoomId;
     }
@@ -82,7 +82,7 @@ public class ChatRoomScreenController extends ScreenController {
     public void viewParticipants() {
         List<UUID> listOfUserIds = programController.getChatRoomManager().
                 fetchUsersFromChatRoom(myUserId);
-        chatRoomScreen.printParticipants(listOfUserIds);
+        chatRoomScreen.printParticipants(programController, listOfUserIds);
     }
 
     public void renameChatRoom() {
