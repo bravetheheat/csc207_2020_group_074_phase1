@@ -26,14 +26,12 @@ public class MessageController {
 
 
 
-    public MessageController(ChatRoomManager chatRoomManager, MessageManager messageManager,
-                             ContactsManager contactsManager, EventController eventController,
-                             UsersManager usersManager){
-        this.chatRoomManager = chatRoomManager;
-        this.messageManager = messageManager;
-        this.contactsManager = contactsManager;
-        this.eventController = eventController;
-        this.usersManager = usersManager;
+    public MessageController(ProgramController programController){
+        this.chatRoomManager = programController.chatRoomManager;
+        this.messageManager = programController.messageManager;
+        this.contactsManager = programController.contactsManager;
+        this.eventController = programController.eventController;
+        this.usersManager = programController.usersManager;
     }
 
     /**
