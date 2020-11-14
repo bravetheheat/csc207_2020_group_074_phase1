@@ -12,7 +12,7 @@ import main.usecases.EventBuilder;
  * the attendee list; organize the speaker; as well as a getter for the current schedule of a User
  *
  * @author Zewen Ma
- * @version 3.3
+ * @version 4.0
  * @since 2020-11-08
  */
 public class EventController {
@@ -172,5 +172,17 @@ public class EventController {
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.updateEventInfo(newTime, newRoomId);
+    }
+
+    /**
+     * Return the event id given index
+     * @param index of the event
+     * @return the event id
+     */
+    public UUID getEventId(int index){
+        Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
+        ArrayList<UUID> eventIds = new ArrayList<>();
+        eventIds.addAll(schedule.keySet());
+        return eventIds.get(index);
     }
 }
