@@ -67,7 +67,7 @@ public class SpeakerScreenController extends ScreenController{
     public ArrayList<String> IDtoString(ArrayList<UUID> talkList){
         ArrayList<String> talksString = new ArrayList<>();
         for (UUID talk : talkList){
-            talksString.add(this.programController.getEventController().getSingleEventInfo(talk));
+            talksString.add(this.programController.getEventController().getSingleEventInfo(talk).toString());
         }
         return talksString;
     }
