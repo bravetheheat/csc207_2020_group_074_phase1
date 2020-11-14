@@ -13,7 +13,7 @@ import java.util.UUID;
  * AttendeeMessageScreenController is the controller in charge of input and output of the AttendeeMessageScreen.
  *
  * @author Yi Tao Li
- * @version 1.0
+ * @version 1.1
  * @since 11/13/2020
  */
 public class AttendeeMessageScreenController extends ScreenController {
@@ -42,14 +42,10 @@ public class AttendeeMessageScreenController extends ScreenController {
     }
 
     /**
-     * Sends
+     * Asks attendeeMessageScreen to display the appropriate prompts, receives input from the attendee, and processes
+     * them accordingly to create and send messages.
      */
     public void start() {
-        this.run();
-        this.end();
-    }
-
-    private void run() {
         this.attendeeMessageScreen.prompt();
         String next = scanner.nextLine();
         while (!next.equals("0")) {
@@ -62,6 +58,7 @@ public class AttendeeMessageScreenController extends ScreenController {
             next = this.scanner.nextLine();
         }
         this.programController.setCurrentScreenController(previousScreenController);
+        this.end();
     }
 
     private void sendMessage(Integer usersIndex) {

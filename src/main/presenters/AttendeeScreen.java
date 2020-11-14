@@ -1,7 +1,7 @@
 package main.presenters;
 
 /**
- * The UserController is a presenter class that displays attendee options.
+ * The AttendeeScreen is a presenter class that displays attendee options.
  *
  * @author Yi Tao Li
  * @version 1.0
@@ -28,7 +28,9 @@ public class AttendeeScreen {
     }
 
     /**
-     * Temporary method for not choosing one of the options.
+     * Lets the attendee know that they entered an invalid input.
+     *
+     * @param input The invalid input entered by the attendee.
      */
     public void prompt2(String input) {
         System.out.println(input + " was not one of the options.");

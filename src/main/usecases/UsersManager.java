@@ -135,16 +135,30 @@ public class UsersManager {
         return usersInfo.toString();
     }
 
+    /**
+     * Returns the role of the user.
+     *
+     * @param user UUID of the user in question.
+     */
     public String fetchRole(UUID user) {
         return fetchUser(user).getRole();
     }
 
+    /**
+     * Returns the string representation of a user.
+     *
+     * @param id UUID of the user in question
+     */
     public String userToString(UUID id) {
         return "Username : " + fetchUser(id).getId() + "(" + fetchRole(id) + ")";
     }
 
+    /**
+     * Returns a list of UUID of all users.
+     */
     public List<UUID> getAllUsers() {
-        ArrayList allUsers = new ArrayList(Arrays.asList(this.registeredUsers.keySet().toArray()));
-            return allUsers;
-        }
+        ArrayList<UUID> allUsers = new ArrayList<>();
+        allUsers.addAll(this.registeredUsers.keySet());
+        return allUsers;
+    }
 }
