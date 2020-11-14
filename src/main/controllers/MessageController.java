@@ -2,11 +2,11 @@ package main.controllers;
 import java.util.*;
 import main.usecases.MessageManager;
 import main.usecases.ContactsManager;
-import main.usecases.ChatRoomManager;
 import main.controllers.EventController;
 import main.entities.Event;
 import main.usecases.UsersManager;
 import main.entities.Message;
+import main.usecases.InboxManager;
 
 /**
  * The MessageController handles different types of users' sending messages features, and could also gives that who
@@ -19,17 +19,17 @@ import main.entities.Message;
 public class MessageController {
 
     MessageManager messageManager;
-    ContactsManager contactsManager;
     EventController eventController;
     UsersManager usersManager;
+    InboxManager inboxManager;
 
 
 
     public MessageController(ProgramController programController){
         this.messageManager = programController.getMessageManager();
-        this.contactsManager = programController.getContactsManager();
         this.eventController = programController.getEventController();
         this.usersManager = programController.getUsersManager();
+        this.inboxManager = programController.getInboxManager();
     }
 
     /**
@@ -56,51 +56,49 @@ public class MessageController {
      * send a message from a sender to a receiver.
      * @param sender the id of the sender
      * @param receiver the id of the receiver
-     * @param message the context of the message
+     * @param context the context of the message
      */
-    public void sendMessage(UUID sender, UUID receiver, String message){
-        if(this.chatRoomContainingOnlyTheseTwo(sender, receiver) != null){
-            chatRoomManager.addMessageToChatRoom(this.chatRoomContainingOnlyTheseTwo(sender, receiver),
-                    messageManager.createMessage(message, sender));
-        }else{
-            List<UUID> participants = new ArrayList<>();
-            participants.add(sender);
-            participants.add(receiver);
-            chatRoomManager.addMessageToChatRoom(chatRoomManager.createChatRoom(participants),
-                    messageManager.createMessage(message, sender));
+    public void sendMessage(UUID sender, UUID receiver, String context){
+        UUID newMessage = messageManager.createMessage(context, sender);
+        inboxManager.putMessageInToInbox(newMessage, receiver);
+    }
 
+    /**
+     * Send the same message to all users inside the list
+     * @param sender the sender of the message
+     * @param receivers a list of receivers
+     * @param context the context of the message
+     */
+    public void broadCast(UUID sender, List<UUID> receivers, String context){
+        for(UUID receiver: receivers){
+            this.sendMessage(sender, receiver, context);
         }
     }
 
     /**
-     * get a list of users that could be messaged by an attendee
-     * @param sender the id of the attendee
+     * get a list of users that could be messaged by an attendee, which is all other users except the sender
      * @return the list of user's id which could be messaged by an attendee.
      */
-    public List<UUID> couldBeMessagedByAttendee(UUID sender){
+    public List<UUID> receiversForAttendeeAndOrganizer(UUID sender){
         List<UUID> receivers = new ArrayList<>();
-        // Add all people inside the contact list.
-        for(UUID receiver: contactsManager.getContactList(sender)){
-            receivers.add(receiver);
-        }
-        // Add all speakers of events the attendee signing up
-        for(Event event: eventController.getUserEvents(sender)) {
-            receivers.add(event.getSpeakerID());
+        // Search all users
+        for(UUID receiver: usersManager.getAllUsers()){
+            // check if he is an organizer
+            if(receiver != sender){
+                receivers.add(receiver);
+            }
         }
         return receivers;
+
     }
 
     /**
-     * get a list of users that could be messaged by an organizer
-     * @param sender the id of the organizer
-     * @return the list of user's id which could be messaged by the organizer.
+     * broadcast to all other users. This method should only be used by organizer
+     * @param sender the sender
+     * @param context the context of the message
      */
-    public List<UUID> couldBeMessagedByOrganizer(UUID sender){
-        List<UUID> receivers = new ArrayList<>();
-        for(UUID receiver: usersManager.getRegisteredUsers()){
-            receivers.add(receiver);
-        }
-        return receivers;
+    public void broadCastForOrganizer(UUID sender, String context){
+        this.broadCast(sender, this.receiversForAttendeeAndOrganizer(sender), context);
     }
 
     /**

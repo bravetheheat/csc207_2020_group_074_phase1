@@ -39,4 +39,10 @@ public class InboxManager {
         }
         return new LinkedList<>();
     }
+
+    public void putMessageInToInbox(UUID message, UUID receiver){
+        Inbox box = this.inboxes.get(receiver);
+        box.addMessage(message);
+
+    }
 }
