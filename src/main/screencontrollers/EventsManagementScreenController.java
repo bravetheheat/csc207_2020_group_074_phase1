@@ -168,7 +168,7 @@ public class EventsManagementScreenController extends ScreenController{
      */
     public UUID getSpeakerID(){
         List<UUID> speakers = organizerController.getAllSpeakers();
-        presenter.promptSpeaker(organizerController.speakersToString());
+        presenter.promptSpeaker(organizerController.speakerToString());
         String speakerIndex = scanner.nextLine();
         return speakers.get(Integer.parseInt(speakerIndex)-1);
     }
@@ -180,7 +180,7 @@ public class EventsManagementScreenController extends ScreenController{
      */
     public UUID getRoomID(){
         List<UUID> rooms = organizerController.getAllRooms();
-        presenter.promptRoom(organizerController.roomsToString());
+        presenter.promptRoom(organizerController.roomToString());
         String roomIndex = scanner.nextLine();
         return rooms.get(Integer.parseInt(roomIndex)-1);
     }
