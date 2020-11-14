@@ -166,17 +166,4 @@ public class UsersManager {
         allUsers.addAll(registeredUsers.keySet());
         return allUsers;
     }
-
-    /**
-     * Return the UUID of the user given user's email
-     *
-     * @param email of the user
-     * @return a UUID of the user
-     */
-    public UUID getUserIDFromUsername(String email) {
-        for (User user : registeredUsers.values()) {
-            if (user.getUsername().equals(email)) return user.getId();
-        }
-        return null;
-    }
 }
