@@ -87,7 +87,7 @@ public class OrganizerController extends AttendeeController{
      * updated.
      */
     public boolean updateTime(UUID event, LocalDateTime time){
-        UUID roomId = eventController.getSingleEventInfo(event).getRoomId();
+        UUID roomId = eventController.getSingleEventInfo(event).getRoomID();
         return eventController.updateEventInfo(event, time, roomId);
     }
 
