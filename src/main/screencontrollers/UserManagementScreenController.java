@@ -61,7 +61,8 @@ public class UserManagementScreenController extends ScreenController{
     public boolean removeUser(){
         this.presenter.promptDeleteUser();
         String userID = scanner.nextLine();
-        return this.usersManager.removeUser(UUID.fromString(userID));
+        this.usersManager.removeUser(UUID.fromString(userID));
+        return true;
     }
 
 }

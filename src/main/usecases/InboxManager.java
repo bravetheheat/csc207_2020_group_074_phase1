@@ -5,16 +5,38 @@ import main.entities.Inbox;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.List;
+import java.util.LinkedList;
 
 public class InboxManager {
 
-    private Map<UUID, Inbox> inboxes = new HashMap<>();
+    private final Map<UUID, Inbox> inboxes = new HashMap<>();
 
     public InboxManager() {
 
     }
 
+    public void createInboxForUser(UUID userId) {
+        Inbox newInbox = new Inbox(userId);
+        this.inboxes.put(userId, newInbox);
+    }
+
     public UUID getInboxUUIDFromUserUUID(UUID userId) {
 
+        for (Inbox x : inboxes.values()) {
+            if (userId.equals(x.getUser())) {
+                return x.getId();
+            }
+        }
+        return null;
+    }
+
+    public List<UUID> getMessagesOfUser(UUID userId) {
+        for (Inbox x : inboxes.values()) {
+            if (userId.equals(x.getUser())) {
+                return x.getMessages();
+            }
+        }
+        return new LinkedList<>();
     }
 }
