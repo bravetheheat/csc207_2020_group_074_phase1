@@ -4,11 +4,9 @@ import main.controllers.EventController;
 import main.controllers.OrganizerController;
 import main.controllers.ProgramController;
 import main.presenters.EventsManagementScreen;
-import main.usecases.EventBuilder;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +15,7 @@ import java.util.UUID;
  * create and cancel an event; organize the speaker and room; as well as get events info
  *
  * @author Haoze Huang
- * @version 3.0
+ * @version 3.1
  * @since 2020-11-11
  */
 public class EventsManagementScreenController extends ScreenController{
@@ -45,7 +43,7 @@ public class EventsManagementScreenController extends ScreenController{
     public void start() {
         presenter.printScreenName();
         manageEvent();
-        ScreenController nextScreenController = new OrganizerScreenController(this.programController);;
+        ScreenController nextScreenController = new OrganizerScreenController(this.programController);
         this.programController.setCurrentScreenController(nextScreenController);
         end();
     }
@@ -101,8 +99,8 @@ public class EventsManagementScreenController extends ScreenController{
         String title = scanner.nextLine();
         LocalDateTime time = getTime();
         UUID speakerID = getSpeakerID();
-        UUID roomID = getRoomID();
-        return organizerController.createEvent(title, time, roomID, speakerID);
+        String roomNum = scanner.nextLine();
+        return organizerController.createEvent(title, time, Integer.parseInt(roomNum), speakerID);
     }
 
     /**
@@ -170,7 +168,7 @@ public class EventsManagementScreenController extends ScreenController{
      */
     public UUID getSpeakerID(){
         List<UUID> speakers = organizerController.getAllSpeakers();
-        presenter.promptSpeaker(organizerController.speakerToString());
+        presenter.promptSpeaker(organizerController.speakersToString());
         String speakerIndex = scanner.nextLine();
         return speakers.get(Integer.parseInt(speakerIndex)-1);
     }
@@ -182,7 +180,7 @@ public class EventsManagementScreenController extends ScreenController{
      */
     public UUID getRoomID(){
         List<UUID> rooms = organizerController.getAllRooms();
-        presenter.promptRoom(organizerController.roomToString());
+        presenter.promptRoom(organizerController.roomsToString());
         String roomIndex = scanner.nextLine();
         return rooms.get(Integer.parseInt(roomIndex)-1);
     }

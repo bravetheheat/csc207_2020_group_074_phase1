@@ -106,10 +106,11 @@ public class EventsManager {
      */
     public String toString() {
         String s = "Events: \n";
-        int num = 0;
+        int num = 1;
         for (UUID i : schedule.keySet()){
             Event e = schedule.get(i);
             String eToString = "Event #" + num + " " + e.toString() + '\n';
+            num += 1;
             s += eToString;
         }
         return s;
