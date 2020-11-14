@@ -14,14 +14,14 @@ import java.util.UUID;
  */
 public class AttendeeMessageScreen {
 
-    protected List<UUID> users;
+    protected List<UUID> recipients;
     protected UsersManager usersManager;
     /**
      * Constructor of an AttendeeMessageScreen.
      */
-    public AttendeeMessageScreen(UsersManager usersManager) {
+    public AttendeeMessageScreen(UsersManager usersManager, List<UUID> recipients) {
         this.usersManager = usersManager;
-        this.users = usersManager.getAllUsers();
+        this.recipients = recipients;
     }
 
     /**
@@ -31,8 +31,8 @@ public class AttendeeMessageScreen {
         int count = 1;
         System.out.println("Please select a user to message by entering a number. \n" +
                 "Here is a list of users you can message:");
-        while (count < users.size()) {
-            System.out.println(count + ". " + usersManager.userToString(users.get(count - 1)));
+        while (count <= recipients.size()) {
+            System.out.println(count + ". " + usersManager.userToString(recipients.get(count - 1)));
             count++;
         }
         System.out.println("Enter 0 to return to the previous screen.");
