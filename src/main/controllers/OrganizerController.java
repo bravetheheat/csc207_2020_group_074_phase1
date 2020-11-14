@@ -2,10 +2,11 @@ package main.controllers;
 
 import java.time.LocalDateTime;
 
-import main.entities.Speaker;
+import main.entities.User;
 import main.usecases.EventBuilder;
 import main.usecases.UsersManager;
-
+import main.usecases.RoomManager;
+import main.entities.Room;
 import java.util.*;
 
 /**
@@ -14,13 +15,14 @@ import java.util.*;
  * rooms.
  *
  * @author Ruoming Ren
- * @version 2.0
+ * @version 2.1
  * @since 2020-11-10
  */
 
 public class OrganizerController extends AttendeeController{
 
     UsersManager usersManager;
+    RoomManager roomManager;
 
 
     /**
@@ -31,22 +33,37 @@ public class OrganizerController extends AttendeeController{
     public OrganizerController(ProgramController programController) {
         super(programController);
         this.usersManager = programController.getUsersManager();
+        this.roomManager = programController.getRoomManager();
     }
 
     /**
-     * Build an event by giving the title, time, room ID, and speaker ID
+     * create a new room given roomNum and capacity
+     * @param roomNum the roomNum of the room
+     * @param capacity the capacity of the room
+     * @return true if the room have been successfully created
+     */
+    public boolean createRoom(int roomNum, int capacity){
+        return roomManager.addRoom(roomNum, capacity);
+    }
+
+
+    /**
+     * Build an event by giving the title, time, room ID, and speaker ID. The room must already exist.
      *
      * @param title the title of the event
      * @param time the time of the event
-     * @param room the room of the event
+     * @param roomNum the roomNum of the event
      * @param speaker the speaker of the event
      * @return true if the event be created successfully.
      */
-    public boolean createEvent(String title, LocalDateTime time, UUID room, UUID speaker){
+    public boolean createEvent(String title, LocalDateTime time, int roomNum, UUID speaker){
+        if(roomManager.getRoomGivenRoomNum(roomNum) == null){
+            return false;
+        }
         EventBuilder newEvent = new EventBuilder();
         newEvent.setTitle(title);
         newEvent.setTime(time);
-        newEvent.setRoom(room);
+        newEvent.setRoom(roomManager.getRoomIDGivenRoomNum(roomNum));
         newEvent.setSpeaker(speaker);
         return eventController.createEvent(newEvent);
     }
@@ -110,9 +127,6 @@ public class OrganizerController extends AttendeeController{
         return usersManager.addUser(userName, password, "Speaker");
     }
 
-    public boolean createRoom(){
-
-    }
 
     public List<UUID> getAllSpeakers(){
         List<UUID> speakers = new ArrayList<>();
@@ -129,8 +143,22 @@ public class OrganizerController extends AttendeeController{
         String ret = "";
         int count = 1;
         for(UUID speakerId: this.getAllSpeakers()){
-            Speaker speaker = usersManager.getUserObject();
+            User speaker = usersManager.fetchUser(speakerId);
             ret =ret + count + ". " + speaker.getUsername() + "\n";
+            count++;
+        }
+        return ret;
+    }
+
+    public List<UUID> getAllRooms(){
+        return this.roomManager.getAllRooms();
+    }
+
+    public String roomsToString(){
+        String ret = "";
+        int count = 1;
+        for(Room room: roomManager.getAllRoomsObject()){
+            ret = ret + count + ". " + room.getRoomNum() + "\n";
             count++;
         }
         return ret;
