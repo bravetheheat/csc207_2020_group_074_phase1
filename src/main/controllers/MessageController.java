@@ -13,7 +13,7 @@ import main.usecases.InboxManager;
  * could the user message.
  *
  * @author Ruoming Ren
- * @version 1.1
+ * @version 2.0
  * @since 2020-11-12
  */
 public class MessageController {
@@ -102,19 +102,29 @@ public class MessageController {
     }
 
     /**
-     * get a map, the keys are the uuid of events which the speaker has, and the values are lists of attendees of
-     * those events
-     * @param sender the id of the speaker
-     * @return a map shows all attendees inside events of a speaker
+     * speaker could broadcast to all attendees of an event
+     * @param event the uuid of the event
+     * @param speaker the speaker himself
+     * @param context the context of the string
      */
-    public Map<UUID, List<UUID>> couldBeMessagedBySpeakerThroughEvents(UUID sender){
-        Map<UUID, List<UUID>> receivers= new HashMap<>();
-        for(Event event: eventController.getSpeakerEvents(sender)){
-
-        }
-
-
+    public void broadCastForSpeaker(UUID event, UUID speaker, String context){
+        List<UUID> receivers = EventController.getSingleEventInfo().getAttendeesID();
+        this.broadCast(speaker, receivers, context);
     }
+
+    /**
+     * speaker could broadcast the message to all attendees of several events
+     * @param events a list of events
+     * @param speaker the speaker himself
+     * @param context the context of string
+     */
+    public void broadCastForSpeakerMoreEvents(List<UUID> events, UUID speaker, String context){
+        for(UUID event: events){
+            this.broadCastForSpeaker(event, speaker, context);
+        }
+    }
+
+
 
     /**
      * get a list of user who have send messages to the speaker before

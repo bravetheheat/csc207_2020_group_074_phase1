@@ -1,6 +1,8 @@
 package main.controllers;
 
 import java.time.LocalDateTime;
+
+import main.entities.Speaker;
 import main.usecases.EventBuilder;
 import main.usecases.UsersManager;
 
@@ -110,6 +112,28 @@ public class OrganizerController extends AttendeeController{
 
     public boolean createRoom(){
 
+    }
+
+    public List<UUID> getAllSpeakers(){
+        List<UUID> speakers = new ArrayList<>();
+        for(UUID user: usersManager.getAllUsers()){
+            // check if he is a speaker
+            if(this.usersManager.fetchRole(user).equals("Speaker")){
+                speakers.add(user);
+            }
+        }
+        return speakers;
+    }
+
+    public String speakersToString(){
+        String ret = "";
+        int count = 1;
+        for(UUID speakerId: this.getAllSpeakers()){
+            Speaker speaker = usersManager.getUserObject();
+            ret =ret + count + ". " + speaker.getUsername() + "\n";
+            count++;
+        }
+        return ret;
     }
 
 
