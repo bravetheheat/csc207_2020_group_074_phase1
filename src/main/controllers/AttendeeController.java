@@ -1,9 +1,6 @@
 package main.controllers;
 
-import main.entities.Attendee;
 import main.entities.Event;
-import main.usecases.ChatRoomManager;
-import main.usecases.MessageManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +21,6 @@ public class AttendeeController extends UserController{
         super(programController);
     }
 
-    /**
-     * Returns a list of ChatRooms that the user is participating in.
-     */
-    public List<UUID> checkChatRooms() {
-        return this.chatRoomManager.fetchUserChatRooms(this.loggedInUser);
-    }
 
     /**
      * Returns a list of Messages of a ChatRoom that the user is participating in.
@@ -38,37 +29,6 @@ public class AttendeeController extends UserController{
      */
     public List<UUID> checkMessages(UUID chatRoom) {
         return this.chatRoomManager.fetchMessagesFromChatRoom(chatRoom);
-    }
-
-    /**
-     * Returns a list of the user's Contacts.
-     */
-    public List<UUID> checkContacts() {
-        return this.contactsManager.getContactList(this.loggedInUser);
-    }
-
-    /**
-     * Adds another user to the user's contact list if they are not already contacts and returns true if the contact is
-     * added.
-     *
-     * @param user UUID of the other user who user is trying to add
-     */
-    public boolean addContact(UUID user) {
-        if (this.checkContacts().contains(user)){
-            return false;
-        }
-        contactsManager.addUser(this.loggedInUser, user);
-        return true;
-    }
-
-    /**
-     * Removes another user from the user's contact list and returns true.
-     *
-     * @param user UUID of the other user who using is trying to remove
-     */
-    public boolean removeContact(UUID user) {
-        contactsManager.removeUser(this.loggedInUser, user);
-        return true;
     }
 
     /**

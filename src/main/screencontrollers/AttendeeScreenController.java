@@ -29,29 +29,33 @@ public class AttendeeScreenController extends ScreenController{
     }
 
     public void start() {
-        run();
+        this.run();
+        this.end();
     }
 
     /**
      * Checks valid input from attendee and tells ProgramController what screen to go next.
      */
-    public String run() {
+    public void run() {
         this.attendeeScreen.prompt();
-        Scanner sc = new Scanner(System.in);
-        String next = sc.nextLine();
+        String next = this.scanner.nextLine();
         while (!this.prompts.contains(next)){
             this.attendeeScreen.prompt2(next);
             this.attendeeScreen.prompt();
-            next = sc.nextLine();
+            next = this.scanner.nextLine();
         }
         switch (next) {
+            case "0":
+                this.programController.setCurrentScreenController(this.previousScreenController);
+                // placeholders for screencontrollers
             case "1":
-                return "all events";
+                this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
             case "2":
-                return "registered events";
+                this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
             case "3":
-                return "contact";
+                this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
+            case "4":
+                this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
         }
-        return "messages";
     }
 }
