@@ -38,6 +38,11 @@ public class UsersManager {
         return mapUsernameToUUID().get(username);
     }
 
+    public String getUsernameFromID (UUID userId) {
+        User user = this.registeredUsers.get(userId);
+        return user.getUsername();
+    }
+
 
     /**
      * Verify the authentication of new user with username, password and type of users.

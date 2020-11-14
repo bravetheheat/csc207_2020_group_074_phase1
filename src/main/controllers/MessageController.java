@@ -19,7 +19,6 @@ import main.entities.Message;
 public class MessageController {
 
     MessageManager messageManager;
-    ChatRoomManager chatRoomManager;
     ContactsManager contactsManager;
     EventController eventController;
     UsersManager usersManager;
@@ -27,7 +26,6 @@ public class MessageController {
 
 
     public MessageController(ProgramController programController){
-        this.chatRoomManager = programController.getChatRoomManager();
         this.messageManager = programController.getMessageManager();
         this.contactsManager = programController.getContactsManager();
         this.eventController = programController.getEventController();
