@@ -24,6 +24,7 @@ public class AttendeeScreen {
         System.out.println("2. Registered events");
         System.out.println("3. Contacts");
         System.out.println("4. Messages");
+        System.out.println("0. Go back");
     }
 
     /**

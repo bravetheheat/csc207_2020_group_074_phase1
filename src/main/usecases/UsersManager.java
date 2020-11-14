@@ -2,10 +2,7 @@ package main.usecases;
 
 import main.entities.User;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The UsersManager holds a list of users and modifies info for ...
@@ -137,4 +134,17 @@ public class UsersManager {
         }
         return usersInfo.toString();
     }
+
+    public String fetchRole(UUID user) {
+        return fetchUser(user).getRole();
+    }
+
+    public String userToString(UUID id) {
+        return "Username : " + fetchUser(id).getId() + "(" + fetchRole(id) + ")";
+    }
+
+    public List<UUID> getAllUsers() {
+        ArrayList allUsers = new ArrayList(Arrays.asList(this.registeredUsers.keySet().toArray()));
+            return allUsers;
+        }
 }

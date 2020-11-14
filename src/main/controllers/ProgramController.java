@@ -67,4 +67,8 @@ public class ProgramController implements ProgramInterface {
     public EventController getEventController() {
         return this.eventController;
     }
+
+    public ScreenController getCurrentScreenController() {
+        return this.currentScreenController;
+    }
 }
