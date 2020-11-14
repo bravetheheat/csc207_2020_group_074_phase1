@@ -14,8 +14,8 @@ import java.util.UUID;
  */
 public class AttendeeMessageScreen {
 
-    private List<UUID> users;
-    private UsersManager usersManager;
+    protected List<UUID> users;
+    protected UsersManager usersManager;
     /**
      * Constructor of an AttendeeMessageScreen.
      */

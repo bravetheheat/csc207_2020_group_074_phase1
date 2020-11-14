@@ -18,11 +18,11 @@ import java.util.UUID;
  */
 public class AttendeeMessageScreenController extends ScreenController {
 
-    private AttendeeMessageScreen attendeeMessageScreen;
-    private List<String> prompts;
-    private List<UUID> users;
-    private UsersManager usersManager;
-    private MessageManager messageManager;
+    protected AttendeeMessageScreen attendeeMessageScreen;
+    protected List<String> prompts;
+    protected List<UUID> users;
+    protected UsersManager usersManager;
+    protected MessageManager messageManager;
 
     /**
      * Constructor of AttendeeMessageScreenController
@@ -52,6 +52,9 @@ public class AttendeeMessageScreenController extends ScreenController {
             while (!this.prompts.contains(next)) {
                 this.attendeeMessageScreen.prompt2(next);
                 next = this.scanner.nextLine();
+            }
+            if (next.equals("0")) {
+                break;
             }
             sendMessage(Integer.parseInt(next) - 1);
             this.attendeeMessageScreen.prompt();
