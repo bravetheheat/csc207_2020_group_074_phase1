@@ -48,7 +48,7 @@ public class EventController {
      * @param userId user id of a specific User
      * @return a list of events of this User given userid.
      */
-    public ArrayList<UUID> getUserEvents(UUID userId){
+    public ArrayList<Event> getUserEvents(UUID userId){
         return this.eventsmanager.getUserEvents(userId);
     }
 
@@ -130,7 +130,7 @@ public class EventController {
      * @param eventId of an Event whose information is presented as a string
      * @return a string representation of a single Event
      */
-    public String getSingleEventInfo(UUID eventId){
+    public Event getSingleEventInfo(UUID eventId){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.getEvent();
