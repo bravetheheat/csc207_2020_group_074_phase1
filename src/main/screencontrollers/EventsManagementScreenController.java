@@ -158,7 +158,7 @@ public class EventsManagementScreenController extends ScreenController{
         presenter.promptEvent();
         String eventIndex = scanner.nextLine();
         int i = Integer.parseInt(eventIndex);
-        return eventController.getAllEvents().get(i-1).getId();
+        return eventController.getEventId(i);
     }
 
     /**
