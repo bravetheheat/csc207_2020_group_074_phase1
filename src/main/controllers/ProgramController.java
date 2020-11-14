@@ -1,5 +1,6 @@
 package main.controllers;
 
+import main.entities.Message;
 import main.entities.Room;
 import main.screencontrollers.AnonymousScreenController;
 import main.screencontrollers.ScreenController;
@@ -15,6 +16,7 @@ public class ProgramController {
     ScreenController currentScreenController;
     InboxManager inboxManager;
     RoomManager roomManager;
+    MessageController messageController;
 
     public ProgramController() {
         this.usersManager = new UsersManager();
@@ -25,6 +27,7 @@ public class ProgramController {
         this.authController = new AuthController(this, usersManager);
         this.currentScreenController = new AnonymousScreenController(this);
         this.eventController = new EventController();
+        this.messageController = new MessageController(this);
     }
 
     public void start() {
@@ -74,6 +77,10 @@ public class ProgramController {
 
     public void setPreviousScreenController(ScreenController screenController) {
        this.previousScreenController = screenController;
+    }
+
+    public MessageController getMessageController() {
+        return this.messageController;
     }
 
     public ScreenController getPreviousScreenController() {

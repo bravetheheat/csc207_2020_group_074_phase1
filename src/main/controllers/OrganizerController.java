@@ -139,7 +139,7 @@ public class OrganizerController extends AttendeeController{
         return speakers;
     }
 
-    public String speakersToString(){
+    public String speakerToString(){
         String ret = "";
         int count = 1;
         for(UUID speakerId: this.getAllSpeakers()){
@@ -154,7 +154,7 @@ public class OrganizerController extends AttendeeController{
         return this.roomManager.getAllRooms();
     }
 
-    public String roomsToString(){
+    public String roomToString(){
         String ret = "";
         int count = 1;
         for(Room room: roomManager.getAllRoomsObject()){

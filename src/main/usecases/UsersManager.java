@@ -38,8 +38,8 @@ public class UsersManager {
         return mapUsernameToUUID().get(username);
     }
 
-    public String getUsernameFromID (UUID userId) {
-        User user = this.registeredUsers.get(userId);
+    public String getUsernameFromID(UUID userId) {
+        User user = registeredUsers.get(userId);
         return user.getUsername();
     }
 
@@ -162,8 +162,21 @@ public class UsersManager {
      * Returns a list of UUID of all users.
      */
     public List<UUID> getAllUsers() {
-        ArrayList<UUID> allUsers = new ArrayList<>();
-        allUsers.addAll(this.registeredUsers.keySet());
+        List<UUID> allUsers = new ArrayList<>();
+        allUsers.addAll(registeredUsers.keySet());
         return allUsers;
+    }
+
+    /**
+     * Return the UUID of the user given user's email
+     *
+     * @param email of the user
+     * @return a UUID of the user
+     */
+    public UUID getUserIDFromUsername(String email) {
+        for (User user : registeredUsers.values()) {
+            if (user.getUsername().equals(email)) return user.getId();
+        }
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package main.screencontrollers;
 
+import main.controllers.MessageController;
 import main.controllers.ProgramController;
 import main.presenters.AttendeeMessageScreen;
 import main.usecases.MessageManager;
@@ -20,9 +21,10 @@ public class AttendeeMessageScreenController extends ScreenController {
 
     protected AttendeeMessageScreen attendeeMessageScreen;
     protected List<String> prompts;
-    protected List<UUID> users;
+    protected List<UUID> recipients;
     protected UsersManager usersManager;
-    protected MessageManager messageManager;
+    protected MessageController messageController;
+    protected UUID loggedInUser;
 
     /**
      * Constructor of AttendeeMessageScreenController
@@ -31,14 +33,16 @@ public class AttendeeMessageScreenController extends ScreenController {
      */
     public AttendeeMessageScreenController(ProgramController programController) {
         super(programController);
+        this.loggedInUser = this.programController.getAuthController().fetchLoggedInUser();
         this.usersManager = programController.getUsersManager();
-        this.messageManager = programController.getMessageManager();
-        this.users = this.usersManager.getAllUsers();
+        this.messageController = programController.getMessageController();
+        this.recipients = this.messageController.receiversForAttendeeAndOrganizer(loggedInUser);
         this.prompts = new ArrayList<>();
-        for (int i = 0; i <= users.size(); i++) {
+        for (int i = 0; i <= recipients.size(); i++) {
             this.prompts.add("" + i);
         }
-        this.attendeeMessageScreen = new AttendeeMessageScreen(this.usersManager);
+        this.attendeeMessageScreen = new AttendeeMessageScreen(usersManager,
+                this.messageController.receiversForAttendeeAndOrganizer(loggedInUser));
     }
 
     /**
@@ -70,7 +74,7 @@ public class AttendeeMessageScreenController extends ScreenController {
         if (next.equals("0")) {
             return;
         }
-        this.messageManager.createMessage(next, users.get(usersIndex));
+        this.messageController.sendMessage(loggedInUser, recipients.get(usersIndex),next);
         this.attendeeMessageScreen.successMessage();
     }
 }

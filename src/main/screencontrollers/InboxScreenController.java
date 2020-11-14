@@ -3,12 +3,9 @@ package main.screencontrollers;
 import main.controllers.AuthController;
 import main.controllers.InboxController;
 import main.controllers.ProgramController;
-import main.entities.Inbox;
-import main.entities.Message;
 import main.presenters.InboxScreen;
-import main.usecases.InboxManager;
 
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -18,6 +15,9 @@ public class InboxScreenController extends ScreenController {
     InboxScreen presenter = new InboxScreen();
     InboxController inboxController;
     Map<UUID, String> messages;
+
+    List<String> messageList;
+    List<UUID> messageIndexes;
 
     public InboxScreenController(ProgramController programController) {
         super(programController);
@@ -34,7 +34,7 @@ public class InboxScreenController extends ScreenController {
     private void optionsPrompt() {
         this.presenter.optionsPrompt();
         String choice = this.scanner.nextLine();
-        switch(choice) {
+        switch (choice) {
             case "0":
                 this.programController.setCurrentScreenController(this.programController.getPreviousScreenController());
                 return;
@@ -52,11 +52,24 @@ public class InboxScreenController extends ScreenController {
         AuthController currentAuthController = this.programController.getAuthController();
         UUID currentUserId = currentAuthController.fetchLoggedInUser();
         this.messages = this.inboxController.getMessagesOfUser(currentUserId);
+        this.messageIndexes = new LinkedList<UUID>();
+        this.messageList = new LinkedList<String>();
+
+        for (Map.Entry<UUID, String> entry : this.messages.entrySet()) {
+            this.messageIndexes.add(entry.getKey());
+            this.messageList.add(entry.getValue());
+        }
+
     }
 
     private void listMessages() {
         this.fetchMessages();
-        this.presenter.listMessages((List) this.messages.values()); // TODO: Don't use casting
+        if (this.messageList.size() == 0) {
+            this.presenter.inboxIsEmpty();
+            this.optionsPrompt();
+            return;
+        }
+        this.presenter.listMessages(this.messageList);
         this.messageDetailPrompt();
 
     }
@@ -69,19 +82,21 @@ public class InboxScreenController extends ScreenController {
             return;
         }
 
-        try{
+        try {
             int messageNum = Integer.parseInt(choice);
             if (messageNum > this.messages.size()) {
                 this.presenter.invalidOption();
                 this.messageDetailPrompt();
                 return;
             }
-        }
-        catch (NumberFormatException e) {
+            UUID messageId = this.messageIndexes.get(messageNum - 1);
+            this.openMessageDetailScreen(messageId);
+        } catch (NumberFormatException e) {
             this.presenter.invalidOption();
             this.messageDetailPrompt();
             return;
         }
+
 
     }
 
