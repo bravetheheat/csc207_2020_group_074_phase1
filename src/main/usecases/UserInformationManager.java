@@ -11,6 +11,6 @@ public class UserInformationManager {
     }
 
     public String getType() {
-        return null;
+        return currentUser.getRole();
     }
 }

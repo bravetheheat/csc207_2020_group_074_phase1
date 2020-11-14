@@ -1,11 +1,9 @@
 package main.controllers;
 
+import main.entities.Room;
 import main.screencontrollers.AnonymousScreenController;
 import main.screencontrollers.ScreenController;
-import main.usecases.ContactsManager;
-import main.usecases.InboxManager;
-import main.usecases.MessageManager;
-import main.usecases.UsersManager;
+import main.usecases.*;
 
 public class ProgramController {
     UsersManager usersManager;
@@ -16,12 +14,14 @@ public class ProgramController {
     ScreenController previousScreenController;
     ScreenController currentScreenController;
     InboxManager inboxManager;
+    RoomManager roomManager;
 
     public ProgramController() {
         this.usersManager = new UsersManager();
         this.contactsManager = new ContactsManager();
         this.messageManager = new MessageManager();
         this.inboxManager = new InboxManager();
+        this.roomManager = new RoomManager();
         this.authController = new AuthController(this, usersManager);
         this.currentScreenController = new AnonymousScreenController(this);
         this.eventController = new EventController();
@@ -58,6 +58,10 @@ public class ProgramController {
 
     public InboxManager getInboxManager() {
         return this.inboxManager;
+    }
+
+    public RoomManager getRoomManager() {
+        return this.roomManager;
     }
 
     public ScreenController getCurrentScreenController() {

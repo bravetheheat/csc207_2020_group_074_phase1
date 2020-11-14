@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public class EventsInfoTest {
     UUID[] eventsId;
     ArrayList<Event> events;

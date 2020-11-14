@@ -42,13 +42,13 @@ public class MessageScreen {
         System.out.println("The name already exists. Please enter another one:");
     }
 
-    public void printChatRooms(ProgramController programController, List<UUID> chatRoomIds) {
-        System.out.println();
-        for (UUID id : chatRoomIds) {
-            System.out.println(programController.getChatRoomManager().
-                    getChatRoomIdToName().get(id));
-        }
-    }
+//    public void printChatRooms(ProgramController programController, List<UUID> chatRoomIds) {
+//        System.out.println();
+//        for (UUID id : chatRoomIds) {
+//            System.out.println(programController.getChatRoomManager().
+//                    getChatRoomIdToName().get(id));
+//        }
+//    }
 
 //    public void startChatRoomWithFriend() {
 //        System.out.println("Enter the username of the person you want to chat with:");
