@@ -11,13 +11,14 @@ import java.util.List;
  * AttendeeScreen, and tells the ProgramController what screen to go next.
  *
  * @author Yi Tao Li
- * @version 1.0
+ * @version 1.1
  * @since 2020-11-11
  */
-public class AttendeeScreenController extends ScreenController{
+public class AttendeeScreenController extends ScreenController {
 
     private AttendeeScreen attendeeScreen;
     private List<String> prompts;
+
     /**
      * Constructor of an AttendeeScreenController.
      */
@@ -28,18 +29,14 @@ public class AttendeeScreenController extends ScreenController{
         this.prompts = (Arrays.asList(options));
     }
 
-    public void start() {
-        this.run();
-        this.end();
-    }
-
     /**
-     * Checks valid input from attendee and tells ProgramController what screen to go next.
+     * Asks attendeeScreen to display the options, receives user input, and sets the next screen for programController
+     * to call.
      */
-    public void run() {
+    public void start() {
         this.attendeeScreen.prompt();
         String next = this.scanner.nextLine();
-        while (!this.prompts.contains(next)){
+        while (!this.prompts.contains(next)) {
             this.attendeeScreen.prompt2(next);
             this.attendeeScreen.prompt();
             next = this.scanner.nextLine();
@@ -57,5 +54,6 @@ public class AttendeeScreenController extends ScreenController{
             case "4":
                 this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
         }
+        this.end();
     }
 }

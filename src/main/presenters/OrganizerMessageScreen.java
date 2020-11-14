@@ -1,13 +1,21 @@
 package main.presenters;
 
-public class OrganizerMessageScreen extends MessageScreen {
+import main.usecases.UsersManager;
 
-    public void messageScreenStart() {
-        System.out.println();
-        System.out.println("0. Return to main menu.");
-        System.out.println("1. Select a chat room.");
-        System.out.println("2. Create a new chat room.");
-        System.out.println("3. Message all the attendees of an event");
-        System.out.println("4. Message all the speakers of an event");
+public class OrganizerMessageScreen extends AttendeeMessageScreen {
+
+    public OrganizerMessageScreen(UsersManager usersManager) {
+        super(usersManager);
+    }
+
+    public void prompt() {
+        int count = 1;
+        System.out.println("Please select a users to message by entering numbers separated by comma. (e.g. 1,3,4,5) \n"
+                + "Enter \"all\" to message all users.\nHere is a list of users you can message:");
+        while (count < users.size()) {
+            System.out.println(count + ". " + this.usersManager.userToString(users.get(count - 1)));
+            count++;
+        }
+        System.out.println("Enter 0 to return to the previous screen.");
     }
 }

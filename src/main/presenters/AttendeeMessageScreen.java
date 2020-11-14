@@ -6,16 +6,16 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * The UserController is a presenter class that displays attendee options.
+ * AttendeeMessageScreen is the screen where the attendee can choose who to message.
  *
  * @author Yi Tao Li
  * @version 1.0
- * @since 2020-11-11
+ * @since 2020-11-13
  */
 public class AttendeeMessageScreen {
 
-    private List<UUID> users;
-    private UsersManager usersManager;
+    protected List<UUID> users;
+    protected UsersManager usersManager;
     /**
      * Constructor of an AttendeeMessageScreen.
      */
@@ -25,7 +25,7 @@ public class AttendeeMessageScreen {
     }
 
     /**
-     * Displays messages in User's inbox.
+     * Displays all users that the attendee can message and prompts them to choose one.
      */
     public void prompt() {
         int count = 1;
@@ -39,16 +39,24 @@ public class AttendeeMessageScreen {
     }
 
     /**
-     * Temporary method for not choosing one of the options.
+     * Temporary prompt for not giving an appropriate input.
+     *
+     * @param input Invalid input entered by the attendee.
      */
     public void prompt2(String input) {
         System.out.println(input + " was not one of the options.");
     }
 
+    /**
+     * Prompts the attendee to enter their message.
+     */
     public void messagePrompt() {
         System.out.println("Please enter your message and hit enter. (Enter 0 to return to recipient selection)");
     }
 
+    /**
+     * Lets the attendee know that their message has been delivered.
+     */
     public void successMessage() {
         System.out.println("Success!");
     }
