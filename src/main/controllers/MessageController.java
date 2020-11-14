@@ -93,14 +93,48 @@ public class MessageController {
     }
 
     /**
-     * broadcast to all other users. This method should only be used by organizer
+     * Broadcast to all other users. This method should only be used by organizer
      * @param sender the sender
      * @param context the context of the message
      */
-    public void broadCastForOrganizer(UUID sender, String context){
+    public void broadCastToAll(UUID sender, String context){
         this.broadCast(sender, this.receiversForAttendeeAndOrganizer(sender), context);
     }
 
+    /**
+     * Broadcast to all attendees. This method should only be used by organizer.
+     *
+     * @param sender the sender
+     * @param context the context of the message
+     */
+    public void broadCastToAttendees(UUID sender, String context){
+        List<UUID> attendees = new ArrayList<>();
+        List<UUID> receivers = this.receiversForAttendeeAndOrganizer(sender);
+        for (UUID user:receivers) {
+            if (this.usersManager.fetchRole(user).equals("Attendee")) {
+                attendees.add(user);
+            }
+        }
+        this.broadCast(sender, attendees, context);
+    }
+
+
+    /**
+     * Broadcast to all speakers. This method should only be used by organizer.
+     *
+     * @param sender the sender
+     * @param context the context of the message
+     */
+    public void broadCastToSpeakers(UUID sender, String context){
+        List<UUID> speakers = new ArrayList<>();
+        List<UUID> receivers = this.receiversForAttendeeAndOrganizer(sender);
+        for (UUID user:receivers) {
+            if (this.usersManager.fetchRole(user).equals("Speaker")) {
+                speakers.add(user);
+            }
+        }
+        this.broadCast(sender, speakers, context);
+    }
     /**
      * speaker could broadcast to all attendees of an event
      * @param event the uuid of the event
