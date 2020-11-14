@@ -12,7 +12,7 @@ import main.usecases.EventBuilder;
  * the attendee list; organize the speaker; as well as a getter for the current schedule of a User
  *
  * @author Zewen Ma
- * @version 4.0
+ * @version 4.1
  * @since 2020-11-08
  */
 public class EventController {
@@ -126,16 +126,26 @@ public class EventController {
     }
 
     /**
-     * An Attendee is able to view  the information of a single Event as a string given eventId
-     * @param eventId of an Event whose information is presented as a string
-     * @return a single Event
+     * An Attendee is able to view the information of a single Event as a string given eventId
+     * @param eventId of an Event
+     * @return a string representation of the event
      */
-    public Event getSingleEventInfo(UUID eventId){
+    public String getSingleEventInfo(UUID eventId){
+        Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
+        return eventinfomanager.eventRep();
+    }
+
+    /**
+     * Return the Event given its eventId
+     * @param eventId of an Event
+     * @return an Event
+     */
+    public Event getSingleEvent(UUID eventId){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.getEvent();
     }
-
 
     /**
      * Return true iff a new speaker is successfully added to the event
@@ -181,8 +191,7 @@ public class EventController {
      */
     public UUID getEventId(int index){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
-        ArrayList<UUID> eventIds = new ArrayList<>();
-        eventIds.addAll(schedule.keySet());
+        ArrayList<UUID> eventIds = new ArrayList<>(schedule.keySet());
         return eventIds.get(index);
     }
 }
