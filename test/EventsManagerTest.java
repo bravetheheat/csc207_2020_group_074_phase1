@@ -101,8 +101,9 @@ public class EventsManagerTest {
         EventBuilder e3 = setUpEvent("Event3", time2, room2, speaker2);
         eventsManager.scheduleEvent(e3);
         Event expected3 = eventsManager.getEvents().get(2);
-        String expected = "Events: \n" + expected1.toString() + "\n" + expected2.toString() +
-                "\n" + expected3.toString() + "\n";
+        String expected = "Events: \n" + "Event #1 " + expected1.toString() + "\n" +
+                "Event #2 " +expected2.toString() +
+                "\n" + "Event #3 " + expected3.toString() + "\n";
         Assert.assertEquals(expected, eventsManager.toString());
     }
 

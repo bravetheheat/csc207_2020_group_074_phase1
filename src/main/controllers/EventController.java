@@ -128,13 +128,14 @@ public class EventController {
     /**
      * An Attendee is able to view  the information of a single Event as a string given eventId
      * @param eventId of an Event whose information is presented as a string
-     * @return a string representation of a single Event
+     * @return a single Event
      */
     public Event getSingleEventInfo(UUID eventId){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.getEvent();
     }
+
 
     /**
      * Return true iff a new speaker is successfully added to the event
