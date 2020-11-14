@@ -78,18 +78,18 @@ public class OrganizerController extends AttendeeController{
         return eventController.removeEvent(event);
     }
 
-//    /**
-//     * Update the time of the event
-//     * @param event the uuid of the event
-//     * @param time the new time of the event
-//     * @return true if the event's time have been successfully update or the new time has no difference with the
-//     * old time. Return false if the new time is conflict with other event and the time haven't been successfully
-//     * updated.
-//     */
-//    public boolean updateTime(UUID event, LocalDateTime time){
-//        UUID roomId = eventController.getSingleEventInfo(event).getRoomId();
-//        return eventController.updateEventInfo(event, time, roomId);
-//    }
+    /**
+     * Update the time of the event
+     * @param event the uuid of the event
+     * @param time the new time of the event
+     * @return true if the event's time have been successfully update or the new time has no difference with the
+     * old time. Return false if the new time is conflict with other event and the time haven't been successfully
+     * updated.
+     */
+    public boolean updateTime(UUID event, LocalDateTime time){
+        UUID roomId = eventController.getSingleEventInfo(event).getRoomId();
+        return eventController.updateEventInfo(event, time, roomId);
+    }
 
     /**
      * change the speaker of the event
@@ -98,12 +98,12 @@ public class OrganizerController extends AttendeeController{
      * @return true if the new speaker have been successfully updated or the new speaker is already inside the
      * old speakers' list. Return false if the time of the new speaker is not available
      */
-//    public boolean updateSpeaker(UUID event, UUID speaker){
-//
-//        return eventController.removeSpeaker(event, eventController.getSingleEventInfo(event).getSpeakerID())
-//                && eventController.addSpeaker(event, speaker);
-//
-//    }
+    public boolean updateSpeaker(UUID event, UUID speaker){
+
+        return eventController.removeSpeaker(event, eventController.getSingleEventInfo(event).getSpeakerID())
+                && eventController.addSpeaker(event, speaker);
+
+    }
 
     /**
      * update the room of the event
@@ -112,10 +112,10 @@ public class OrganizerController extends AttendeeController{
      * @return true if room of the event have been successfully update of the new room has no difference with the
      * old room. Return false if the room has been occupied at that time
      */
-//    public boolean updateRoom(UUID event, UUID room){
-//        LocalDateTime time = eventController.getSingleEventInfo(event).getTime();
-//        return eventController.updateEventInfo(event, time, room);
-//    }
+    public boolean updateRoom(UUID event, UUID room){
+        LocalDateTime time = eventController.getSingleEventInfo(event).getTime();
+        return eventController.updateEventInfo(event, time, room);
+    }
 
     /**
      * create a new speaker account
@@ -139,7 +139,7 @@ public class OrganizerController extends AttendeeController{
         return speakers;
     }
 
-    public String speakersToString(){
+    public String speakerToString(){
         String ret = "";
         int count = 1;
         for(UUID speakerId: this.getAllSpeakers()){
@@ -154,7 +154,7 @@ public class OrganizerController extends AttendeeController{
         return this.roomManager.getAllRooms();
     }
 
-    public String roomsToString(){
+    public String roomToString(){
         String ret = "";
         int count = 1;
         for(Room room: roomManager.getAllRoomsObject()){

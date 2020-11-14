@@ -9,6 +9,7 @@ import main.usecases.EventBuilder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -168,7 +169,7 @@ public class EventsManagementScreenController extends ScreenController{
      * @return UUID of speakerId
      */
     public UUID getSpeakerID(){
-        ArrayList<UUID> speakers = organizerController.getAllSpeaker();
+        List<UUID> speakers = organizerController.getAllSpeakers();
         presenter.promptSpeaker(organizerController.speakerToString());
         String speakerIndex = scanner.nextLine();
         return speakers.get(Integer.parseInt(speakerIndex)-1);
@@ -180,7 +181,7 @@ public class EventsManagementScreenController extends ScreenController{
      * @return UUID of roomId
      */
     public UUID getRoomID(){
-        ArrayList<UUID> rooms = organizerController.getAllRoom();
+        List<UUID> rooms = organizerController.getAllRooms();
         presenter.promptRoom(organizerController.roomToString());
         String roomIndex = scanner.nextLine();
         return rooms.get(Integer.parseInt(roomIndex)-1);
