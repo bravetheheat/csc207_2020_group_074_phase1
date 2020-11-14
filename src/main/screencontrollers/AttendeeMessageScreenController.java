@@ -9,6 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * AttendeeMessageScreenController is the controller in charge of input and output of the AttendeeMessageScreen.
+ *
+ * @author Yi Tao Li
+ * @version 1.0
+ * @since 11/13/2020
+ */
 public class AttendeeMessageScreenController extends ScreenController {
 
     private AttendeeMessageScreen attendeeMessageScreen;
@@ -17,6 +24,11 @@ public class AttendeeMessageScreenController extends ScreenController {
     private UsersManager usersManager;
     private MessageManager messageManager;
 
+    /**
+     * Constructor of AttendeeMessageScreenController
+     *
+     * @param programController pre-defined ProgramController
+     */
     public AttendeeMessageScreenController(ProgramController programController) {
         super(programController);
         this.usersManager = programController.getUsersManager();
@@ -29,12 +41,15 @@ public class AttendeeMessageScreenController extends ScreenController {
         this.attendeeMessageScreen = new AttendeeMessageScreen(this.usersManager);
     }
 
+    /**
+     * Sends
+     */
     public void start() {
         this.run();
         this.end();
     }
 
-    public void run() {
+    private void run() {
         this.attendeeMessageScreen.prompt();
         String next = scanner.nextLine();
         while (!next.equals("0")) {
@@ -49,7 +64,7 @@ public class AttendeeMessageScreenController extends ScreenController {
         this.programController.setCurrentScreenController(previousScreenController);
     }
 
-    public void sendMessage(Integer usersIndex) {
+    private void sendMessage(Integer usersIndex) {
         this.attendeeMessageScreen.messagePrompt();
         String next = scanner.nextLine();
         if (next.equals("0")) {

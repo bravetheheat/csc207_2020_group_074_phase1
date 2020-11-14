@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public abstract class ScreenController {
 
-    public static Scanner scanner = new Scanner(System.in);
+    protected Scanner scanner = new Scanner(System.in);
     public ProgramController programController;
     protected ScreenController previousScreenController;
 
@@ -17,7 +17,7 @@ public abstract class ScreenController {
 
     abstract public void start();
 
-    public void end() {
+    protected void end() {
         this.programController.nextScreenController();
     }
 
