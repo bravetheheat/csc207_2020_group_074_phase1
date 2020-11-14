@@ -52,7 +52,7 @@ public class SpeakerScreenController extends ScreenController{
                 this.presenter.talkList(talks);
                 this.programController.setCurrentScreenController(this.previousScreenController);
             case "2":
-                this.programController.setCurrentScreenController(new MessageScreenController(this.programController));
+//                this.programController.setCurrentScreenController(new MessageScreenController(this.programController));
 
         }
         this.end();

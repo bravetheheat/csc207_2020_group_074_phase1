@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EventsManagerTest {
     EventsManager eventsManager;

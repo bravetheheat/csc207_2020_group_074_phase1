@@ -1,11 +1,7 @@
 package main.screencontrollers;
 
 import main.controllers.ProgramController;
-import main.controllers.UserController;
-import main.entities.Organizer;
-import main.presenters.AttendeeMessageScreen;
 import main.presenters.OrganizerMessageScreen;
-import main.screencontrollers.MessageScreenController;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -19,7 +15,8 @@ import java.util.UUID;
  */
 public class OrganizerMessageScreenController extends AttendeeMessageScreenController {
 
-    private OrganizerMessageScreen organizerMessageScreen;
+    private final OrganizerMessageScreen organizerMessageScreen;
+
     /**
      * Constructor of OrganizerMessageScreenController
      *
@@ -40,8 +37,7 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
         while (!next.equals("0")) {
             if (next.equals("all")) {
                 messageAll();
-            }
-            else {
+            } else {
                 ArrayList<String> inputs = new ArrayList<>();
                 for (int i = 0; i < next.length(); i += 2) {
                     inputs.add((next.substring(i, i + 1)));
@@ -55,8 +51,8 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
                 }
                 sendMessage(inputs);
             }
-                this.organizerMessageScreen.prompt();
-                next = this.scanner.nextLine();
+            this.organizerMessageScreen.prompt();
+            next = this.scanner.nextLine();
         }
         this.programController.setCurrentScreenController(previousScreenController);
         this.end();
@@ -80,7 +76,7 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
         if (next.equals("0")) {
             return;
         }
-        for (UUID user: users) {
+        for (UUID user : users) {
             this.messageManager.createMessage(next, user);
         }
         this.organizerMessageScreen.successMessage();
@@ -102,7 +98,7 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
         try {
             Integer.parseInt(str);
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }

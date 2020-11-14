@@ -24,6 +24,7 @@ public class OrganizerScreen {
         System.out.println("2. Manage an event");
         System.out.println("3. Registered events");
         System.out.println("4. Messages");
+        System.out.println("5. Inbox");
     }
 
     public void prompt2(String input) {
