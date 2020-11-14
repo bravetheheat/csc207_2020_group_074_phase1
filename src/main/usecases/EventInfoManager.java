@@ -131,12 +131,20 @@ public class EventInfoManager {
 
 
     /**
-     * Get event info to string
+     * Get event info
      *
      * @return eventInfo
      */
-    public String getEvent() {
-        return event.toString();
+    public Event getEvent() {
+        return event;
     }
 
+    /**
+     * Get event information as a string representation
+     *
+     * @return the information of the event as a string representation.
+     */
+    public String eventRep(){
+        return event.toString();
+    }
 }

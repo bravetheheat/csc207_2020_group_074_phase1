@@ -52,7 +52,7 @@ public class SpeakerScreenController extends ScreenController{
                 this.presenter.talkList(talks);
                 this.programController.setCurrentScreenController(this.previousScreenController);
             case "2":
-                this.programController.setCurrentScreenController(new MessageScreenController(this.programController));
+//                this.programController.setCurrentScreenController(new MessageScreenController(this.programController));
 
         }
         this.end();
@@ -67,7 +67,7 @@ public class SpeakerScreenController extends ScreenController{
     public ArrayList<String> IDtoString(ArrayList<UUID> talkList){
         ArrayList<String> talksString = new ArrayList<>();
         for (UUID talk : talkList){
-            talksString.add(this.programController.getEventController().getSingleEventInfo(talk));
+            talksString.add(this.programController.getEventController().getSingleEventInfo(talk).toString());
         }
         return talksString;
     }

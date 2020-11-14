@@ -6,7 +6,7 @@ package main.presenters;
  * organize the speaker and room; as well as a presenting list of events for users
  *
  * @author Haoze Huang
- * @version 1.0
+ * @version 3.0
  * @since 2020-11-11
  */
 public class EventsManagementScreen {
@@ -19,35 +19,34 @@ public class EventsManagementScreen {
         System.out.println("What would you like to modify, choose one option (number only) from below:");
         System.out.println("1. Create event");
         System.out.println("2. Cancel event");
-        System.out.println("3. Modify event info");
-        System.out.println("4. Modify speaker");
-        System.out.println("5. Print out single event info");
+        System.out.println("3. Modify room");
+        System.out.println("4. Modify time");
+        System.out.println("5. Modify speaker");
         System.out.println("6. Print out schedule");
         System.out.println("7. Exit the screen");
     }
 
     public void promptCreateEvent(){
         System.out.println("You are creating a event, please enter the following information line by line:");
-        System.out.println("Line 1 -- Enter event title:");
-        System.out.println("Line 2 -- Enter room Id:");
-        System.out.println("Line 3 -- Enter speaker Id:");
-        System.out.println("Line 4 -- Enter time (yyyy-MM-dd HH:mm):");
+        System.out.println("Enter event title:");
     }
 
-    public void promptModifyEvent(){
-        System.out.println("Line 1 -- Enter new room:");
-        System.out.println("Line 2 -- Enter new time (yyyy-MM-dd HH:mm):");
+    public void promptRoom(String roomList){
+        System.out.println(roomList);
+        System.out.println("Enter room index from the above list (Starting from 1):");
+    }
+
+    public void promptSpeaker(String speakerList){
+        System.out.println(speakerList);
+        System.out.println("Enter speaker index from the above list (Starting from 1):");
+    }
+
+    public void promptTime(){
+        System.out.println("Enter time (yyyy-MM-dd HH:mm):");
     }
 
     public void promptEvent(){
-        System.out.println("Which event (enter event id):");
-    }
-
-    public void promptSpeaker(){
-        System.out.println("Line 1 -- Which speaker (enter speaker id):");
-        System.out.println("Line 2 -- Add or remove speaker, choose one option (number only) from below:");
-        System.out.println("1. Add speaker");
-        System.out.println("2. Remove speaker");
+        System.out.println("Enter event index from the above list (Starting from 1):");
     }
 
     public void printSchedule(String info){

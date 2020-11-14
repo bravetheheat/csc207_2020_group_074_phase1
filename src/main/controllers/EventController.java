@@ -12,7 +12,7 @@ import main.usecases.EventBuilder;
  * the attendee list; organize the speaker; as well as a getter for the current schedule of a User
  *
  * @author Zewen Ma
- * @version 3.3
+ * @version 4.1
  * @since 2020-11-08
  */
 public class EventController {
@@ -48,7 +48,7 @@ public class EventController {
      * @param userId user id of a specific User
      * @return a list of events of this User given userid.
      */
-    public ArrayList<UUID> getUserEvents(UUID userId){
+    public ArrayList<Event> getUserEvents(UUID userId){
         return this.eventsmanager.getUserEvents(userId);
     }
 
@@ -126,11 +126,22 @@ public class EventController {
     }
 
     /**
-     * An Attendee is able to view  the information of a single Event as a string given eventId
-     * @param eventId of an Event whose information is presented as a string
-     * @return a string representation of a single Event
+     * An Attendee is able to view the information of a single Event as a string given eventId
+     * @param eventId of an Event
+     * @return a string representation of the event
      */
     public String getSingleEventInfo(UUID eventId){
+        Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
+        return eventinfomanager.eventRep();
+    }
+
+    /**
+     * Return the Event given its eventId
+     * @param eventId of an Event
+     * @return an Event
+     */
+    public Event getSingleEvent(UUID eventId){
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.getEvent();
@@ -171,5 +182,16 @@ public class EventController {
         Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.updateEventInfo(newTime, newRoomId);
+    }
+
+    /**
+     * Return the event id given index
+     * @param index of the event
+     * @return the event id
+     */
+    public UUID getEventId(int index){
+        Map<UUID, Event> schedule = this.eventsmanager.getSchedule();
+        ArrayList<UUID> eventIds = new ArrayList<>(schedule.keySet());
+        return eventIds.get(index);
     }
 }

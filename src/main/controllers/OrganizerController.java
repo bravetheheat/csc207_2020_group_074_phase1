@@ -1,30 +1,29 @@
 package main.controllers;
 
-import main.usecases.ChatRoomManager;
-import main.usecases.ContactsManager;
-import main.usecases.MessageManager;
-import main.controllers.EventController;
-import main.usecases.EventsManager;
 import java.time.LocalDateTime;
-import main.usecases.EventBuilder;
 
+import main.entities.User;
+import main.usecases.EventBuilder;
+import main.usecases.UsersManager;
+import main.usecases.RoomManager;
+import main.entities.Room;
 import java.util.*;
 
 /**
  * Apart from the responsibilities listed in the UserController, the OrganizerController handles advance actions
- * which could be done by an organizer: checking and managing events, Send messages to all Speakers or one
- * specific speaker, all attendees or one specific attendees
- * Creating speaker accounts, and creating rooms.
+ * which could be done by an organizer: checking and managing events, creating speaker accounts, and creating
+ * rooms.
  *
  * @author Ruoming Ren
- * @version 1.2
+ * @version 2.1
  * @since 2020-11-10
  */
 
 public class OrganizerController extends AttendeeController{
 
+    UsersManager usersManager;
+    RoomManager roomManager;
 
-    
 
     /**
      * Constructor of OrganizerController for a logged in user.
@@ -33,25 +32,50 @@ public class OrganizerController extends AttendeeController{
      */
     public OrganizerController(ProgramController programController) {
         super(programController);
+        this.usersManager = programController.getUsersManager();
+        this.roomManager = programController.getRoomManager();
     }
 
     /**
-     * Build an event by giving the title, time, room ID, and speaker ID
+     * create a new room given roomNum and capacity
+     * @param roomNum the roomNum of the room
+     * @param capacity the capacity of the room
+     * @return true if the room have been successfully created
+     */
+    public boolean createRoom(int roomNum, int capacity){
+        return roomManager.addRoom(roomNum, capacity);
+    }
+
+
+    /**
+     * Build an event by giving the title, time, room ID, and speaker ID. The room must already exist.
      *
      * @param title the title of the event
      * @param time the time of the event
-     * @param room the room of the event
+     * @param roomNum the roomNum of the event
      * @param speaker the speaker of the event
      * @return true if the event be created successfully.
      */
-    public boolean createEvent(String title, LocalDateTime time, UUID room, UUID speaker){
+    public boolean createEvent(String title, LocalDateTime time, int roomNum, UUID speaker){
+        if(roomManager.getRoomGivenRoomNum(roomNum) == null){
+            return false;
+        }
         EventBuilder newEvent = new EventBuilder();
         newEvent.setTitle(title);
         newEvent.setTime(time);
-        newEvent.setRoom(room);
+        newEvent.setRoom(roomManager.getRoomIDGivenRoomNum(roomNum));
         newEvent.setSpeaker(speaker);
         return eventController.createEvent(newEvent);
+    }
 
+    /**
+     * Remove the event from the schedule and return true if the event have been successfully removed
+     *
+     * @param event the uuid of the event
+     * @return true if the event have been successfully removed
+     */
+    public boolean removeEvent(UUID event){
+        return eventController.removeEvent(event);
     }
 
     /**
@@ -63,36 +87,21 @@ public class OrganizerController extends AttendeeController{
      * updated.
      */
     public boolean updateTime(UUID event, LocalDateTime time){
-        eventController.updateEventInfo(event, )
-
+        UUID roomId = eventController.getSingleEventInfo(event).getRoomID();
+        return eventController.updateEventInfo(event, time, roomId);
     }
 
     /**
-     * update the title of the event
-     * @param event the uuid of the event
-     * @param title the new title of the event
-     */
-    public void updateTitle(UUID event, String title){
-
-    }
-
-    /**
-     * Add a new speaker to the event
+     * change the speaker of the event
      * @param event the uuid of the event
      * @param speaker the new speaker of the event
-     * @return true if the new speaker have been successfully added or the new speaker is already inside the
+     * @return true if the new speaker have been successfully updated or the new speaker is already inside the
      * old speakers' list. Return false if the time of the new speaker is not available
      */
-    public boolean addSpeaker(UUID event, UUID speaker){
+    public boolean updateSpeaker(UUID event, UUID speaker){
 
-    }
-
-    /**
-     * remove a speaker from the event
-     * @param event
-     * @param speaker
-     */
-    public void removeSpeaker(UUID event, UUID speaker){
+        return eventController.removeSpeaker(event, eventController.getSingleEventInfo(event).getSpeakerID())
+                && eventController.addSpeaker(event, speaker);
 
     }
 
@@ -104,17 +113,58 @@ public class OrganizerController extends AttendeeController{
      * old room. Return false if the room has been occupied at that time
      */
     public boolean updateRoom(UUID event, UUID room){
+        LocalDateTime time = eventController.getSingleEventInfo(event).getTime();
+        return eventController.updateEventInfo(event, time, room);
+    }
 
+    /**
+     * create a new speaker account
+     * @param userName the user name of the speaker
+     * @param password the password of the speaker
+     * @return true if the account have been successfully created
+     */
+    public boolean createSpeaker(String userName, String password){
+        return usersManager.addUser(userName, password, "Speaker");
     }
 
 
-    public String getEventInfo(String eventTitle){
-
+    public List<UUID> getAllSpeakers(){
+        List<UUID> speakers = new ArrayList<>();
+        for(UUID user: usersManager.getAllUsers()){
+            // check if he is a speaker
+            if(this.usersManager.fetchRole(user).equals("Speaker")){
+                speakers.add(user);
+            }
+        }
+        return speakers;
     }
 
-    public List<UUID> getListOfEvents() {
-
+    public String speakerToString(){
+        String ret = "";
+        int count = 1;
+        for(UUID speakerId: this.getAllSpeakers()){
+            User speaker = usersManager.fetchUser(speakerId);
+            ret =ret + count + ". " + speaker.getUsername() + "\n";
+            count++;
+        }
+        return ret;
     }
+
+    public List<UUID> getAllRooms(){
+        return this.roomManager.getAllRooms();
+    }
+
+    public String roomToString(){
+        String ret = "";
+        int count = 1;
+        for(Room room: roomManager.getAllRoomsObject()){
+            ret = ret + count + ". " + room.getRoomNum() + "\n";
+            count++;
+        }
+        return ret;
+    }
+
+
 
 
 

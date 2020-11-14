@@ -29,9 +29,10 @@ public class LoginScreenController extends ScreenController {
         this.presenter.promptPassword();
         password = scanner.nextLine();
 
-        if (!this.authController.isLoggedIn()) {
+        if (this.authController.isLoggedIn()) {
             this.presenter.fail();
             this.logout();
+            return;
         }
 
         boolean success = this.authController.login(username, password);

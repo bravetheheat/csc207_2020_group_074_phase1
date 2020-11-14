@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EventsManagerTest {
     EventsManager eventsManager;
@@ -82,15 +81,12 @@ public class EventsManagerTest {
         eventsManager.getEvents().get(0).addAttendees(u1.getId());
         //test single
         Assert.assertEquals(1, eventsManager.getUserEvents(u1.getId()).size());
-        Assert.assertTrue(eventsManager.getEvents().get(0).getId()==
-                eventsManager.getEvents().get(0).getId());
+        Assert.assertTrue(eventsManager.getEvents().contains(eventsManager.getEvents().get(0)));
         //test multiple
         eventsManager.getEvents().get(1).addAttendees(u1.getId());
         Assert.assertEquals(2, eventsManager.getUserEvents(u1.getId()).size());
-        Assert.assertTrue(eventsManager.getEvents().get(0).getId()==
-                eventsManager.getEvents().get(0).getId());
-        Assert.assertTrue(eventsManager.getEvents().get(1).getId()==
-                eventsManager.getEvents().get(1).getId());
+        Assert.assertTrue(eventsManager.getEvents().contains(eventsManager.getEvents().get(0)));
+        Assert.assertTrue(eventsManager.getEvents().contains(eventsManager.getEvents().get(1)));
     }
 
 
@@ -105,8 +101,9 @@ public class EventsManagerTest {
         EventBuilder e3 = setUpEvent("Event3", time2, room2, speaker2);
         eventsManager.scheduleEvent(e3);
         Event expected3 = eventsManager.getEvents().get(2);
-        String expected = "Events: \n" + expected1.toString() + "\n" + expected2.toString() +
-                "\n" + expected3.toString() + "\n";
+        String expected = "Events: \n" + "Event #1 " + expected1.toString() + "\n" +
+                "Event #2 " +expected2.toString() +
+                "\n" + "Event #3 " + expected3.toString() + "\n";
         Assert.assertEquals(expected, eventsManager.toString());
     }
 

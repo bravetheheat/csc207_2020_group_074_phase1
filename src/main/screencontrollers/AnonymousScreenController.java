@@ -21,12 +21,16 @@ public class AnonymousScreenController extends ScreenController {
 
         ScreenController nextScreenController;
         switch(choice) {
+            case "0":
+                nextScreenController = null;
+                break;
             case "1":
                 nextScreenController = new LoginScreenController(this.programController);
                 break;
             case "2":
                 nextScreenController = new RegisterScreenController(this.programController);
                 break;
+
             default:
                 this.presenter.printInvalidInputErrorMessage();
                 this.mainOptions();

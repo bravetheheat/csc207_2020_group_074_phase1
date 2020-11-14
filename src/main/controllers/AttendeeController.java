@@ -14,7 +14,7 @@ import java.util.UUID;
  * @version 1.2
  * @since 2020-11-12
  */
-public class AttendeeController extends UserController{
+public class AttendeeController extends UserController {
 
 
     public AttendeeController(ProgramController programController) {
@@ -22,14 +22,14 @@ public class AttendeeController extends UserController{
     }
 
 
-    /**
-     * Returns a list of Messages of a ChatRoom that the user is participating in.
-     *
-     * @param chatRoom UUID of the user's selected ChatRoom
-     */
-    public List<UUID> checkMessages(UUID chatRoom) {
-        return this.chatRoomManager.fetchMessagesFromChatRoom(chatRoom);
-    }
+//    /**
+//     * Returns a list of Messages of a ChatRoom that the user is participating in.
+//     *
+//     * @param chatRoom UUID of the user's selected ChatRoom
+//     */
+//    public List<UUID> checkMessages(UUID chatRoom) {
+//        return this.chatRoomManager.fetchMessagesFromChatRoom(chatRoom);
+//    }
 
     /**
      * Returns a list of events in the conference.
@@ -38,27 +38,27 @@ public class AttendeeController extends UserController{
         return this.eventController.getAllEvents();
     }
 
-    /**
-     * Returns a list of events the user is registered in.
-     *
-     * @param eventController pre-defined EventController
-     */
-    public ArrayList<Event> checkRegisteredEvents(EventController eventController) {
-        return eventController.getUserEvents(this.loggedInUser);
-    }
+//    /**
+//     * Returns a list of events the user is registered in.
+//     *
+//     * @param eventController pre-defined EventController
+//     */
+//    public ArrayList<Event> checkRegisteredEvents(EventController eventController) {
+//        return eventController.getUserEvents(this.loggedInUser);
+//    }
 
-    /**
-     * Registers user in an event and returns true if they were not already registered.
-     *
-     * @param event UUID of the event that the user is trying to register for
-     */
-    public boolean registerForEvent(UUID event) {
-        // currently checkRegisteredEvents returns an ArrayList of Event and not UUID
-        if (!this.checkRegisteredEvents(this.eventController).contains(event)) {
-            return eventController.addUser(event, this.loggedInUser);
-        }
-        return false;
-    }
+//    /**
+//     * Registers user in an event and returns true if they were not already registered.
+//     *
+//     * @param event UUID of the event that the user is trying to register for
+//     */
+//    public boolean registerForEvent(UUID event) {
+//        // currently checkRegisteredEvents returns an ArrayList of Event and not UUID
+//        if (!this.checkRegisteredEvents(this.eventController).contains(event)) {
+//            return eventController.addUser(event, this.loggedInUser);
+//        }
+//        return false;
+//    }
 
     /**
      * Removes an event from the user's list of registered events.

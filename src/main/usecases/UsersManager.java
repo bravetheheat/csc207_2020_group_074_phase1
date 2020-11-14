@@ -38,6 +38,11 @@ public class UsersManager {
         return mapUsernameToUUID().get(username);
     }
 
+    public String getUsernameFromID(UUID userId) {
+        User user = registeredUsers.get(userId);
+        return user.getUsername();
+    }
+
 
     /**
      * Verify the authentication of new user with username, password and type of users.
@@ -135,16 +140,30 @@ public class UsersManager {
         return usersInfo.toString();
     }
 
+    /**
+     * Returns the role of the user.
+     *
+     * @param user UUID of the user in question.
+     */
     public String fetchRole(UUID user) {
         return fetchUser(user).getRole();
     }
 
+    /**
+     * Returns the string representation of a user.
+     *
+     * @param id UUID of the user in question
+     */
     public String userToString(UUID id) {
         return "Username : " + fetchUser(id).getId() + "(" + fetchRole(id) + ")";
     }
 
+    /**
+     * Returns a list of UUID of all users.
+     */
     public List<UUID> getAllUsers() {
-        ArrayList allUsers = new ArrayList(Arrays.asList(this.registeredUsers.keySet().toArray()));
-            return allUsers;
-        }
+        List<UUID> allUsers = new ArrayList<>();
+        allUsers.addAll(registeredUsers.keySet());
+        return allUsers;
+    }
 }

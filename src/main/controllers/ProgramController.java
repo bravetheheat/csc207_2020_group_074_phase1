@@ -1,30 +1,33 @@
 package main.controllers;
 
+import main.entities.Message;
+import main.entities.Room;
 import main.screencontrollers.AnonymousScreenController;
-import main.screencontrollers.*;
-import main.usecases.ChatRoomManager;
-import main.usecases.ContactsManager;
-import main.usecases.MessageManager;
-import main.usecases.UsersManager;
+import main.screencontrollers.ScreenController;
+import main.usecases.*;
 
-public class ProgramController implements ProgramInterface {
+public class ProgramController {
     UsersManager usersManager;
     ContactsManager contactsManager;
-    ChatRoomManager chatRoomManager;
     MessageManager messageManager;
     AuthController authController;
-    UserController currentController;
     EventController eventController;
+    ScreenController previousScreenController;
     ScreenController currentScreenController;
+    InboxManager inboxManager;
+    RoomManager roomManager;
+    MessageController messageController;
 
     public ProgramController() {
         this.usersManager = new UsersManager();
         this.contactsManager = new ContactsManager();
-        this.chatRoomManager = new ChatRoomManager();
         this.messageManager = new MessageManager();
+        this.inboxManager = new InboxManager();
+        this.roomManager = new RoomManager();
         this.authController = new AuthController(this, usersManager);
         this.currentScreenController = new AnonymousScreenController(this);
         this.eventController = new EventController();
+        this.messageController = new MessageController(this);
     }
 
     public void start() {
@@ -34,14 +37,6 @@ public class ProgramController implements ProgramInterface {
 
     public void nextScreenController() {
         this.currentScreenController.start();
-    }
-
-    public void setCurrentScreenController(ScreenController screenController) {
-        this.currentScreenController = screenController;
-    }
-
-    public UserController getCurrentController() {
-        return this.currentController;
     }
 
     public AuthController getAuthController() {
@@ -60,15 +55,35 @@ public class ProgramController implements ProgramInterface {
         return this.contactsManager;
     }
 
-    public ChatRoomManager getChatRoomManager() {
-        return this.chatRoomManager;
-    }
-
     public EventController getEventController() {
         return this.eventController;
     }
 
+    public InboxManager getInboxManager() {
+        return this.inboxManager;
+    }
+
+    public RoomManager getRoomManager() {
+        return this.roomManager;
+    }
+
     public ScreenController getCurrentScreenController() {
         return this.currentScreenController;
+    }
+
+    public void setCurrentScreenController(ScreenController screenController) {
+        this.currentScreenController = screenController;
+    }
+
+    public void setPreviousScreenController(ScreenController screenController) {
+       this.previousScreenController = screenController;
+    }
+
+    public MessageController getMessageController() {
+        return this.messageController;
+    }
+
+    public ScreenController getPreviousScreenController() {
+        return this.previousScreenController;
     }
 }
