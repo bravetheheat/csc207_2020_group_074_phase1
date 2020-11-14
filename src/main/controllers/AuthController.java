@@ -1,6 +1,5 @@
 package main.controllers;
 
-import main.entities.Speaker;
 import main.entities.User;
 import main.screencontrollers.AttendeeScreenController;
 import main.screencontrollers.OrganizerScreenController;
@@ -57,8 +56,7 @@ public class AuthController {
      * @return whether or not the user is logged in
      */
     public boolean login(String username, String password) {
-        UUID user = this.usersManager.authenticateUser(username, password);
-        this.loggedInUser = user;
+        this.loggedInUser = this.usersManager.authenticateUser(username, password);
         return this.isLoggedIn();
     }
 

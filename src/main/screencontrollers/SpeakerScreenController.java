@@ -11,7 +11,7 @@ import java.util.UUID;
  * input from keyboard, and tells the ProgramController what screen to go next.
  *
  * @author Yile Xie
- * @version 1.0
+ * @version 2.0
  * @since 2020-11-12
  */
 
@@ -50,7 +50,7 @@ public class SpeakerScreenController extends ScreenController{
                 ArrayList<String> talks =
                         this.IDtoString(this.programController.getEventController().getSpeakerEvents(loggedInSpeaker));
                 this.presenter.talkList(talks);
-
+                this.programController.setCurrentScreenController(this.previousScreenController);
             case "2":
                 this.programController.setCurrentScreenController(new MessageScreenController(this.programController));
 

@@ -1,4 +1,5 @@
 import main.controllers.AuthController;
+import main.controllers.ProgramController;
 import main.entities.Attendee;
 import main.entities.Organizer;
 import main.entities.Speaker;
@@ -13,11 +14,12 @@ import java.util.UUID;
 public class UserAuthTest {
     AuthController authController;
     UsersManager usersManager;
+    ProgramController programController;
 
     @Before
     public void setUp() {
         this.usersManager = new UsersManager();
-        this.authController = new AuthController(this.usersManager);
+        this.authController = new AuthController(this.programController);
     }
 
     @Test
