@@ -1,13 +1,15 @@
 package main.controllers;
 
-import java.time.LocalDateTime;
-
+import main.entities.Room;
 import main.entities.User;
 import main.usecases.EventBuilder;
-import main.usecases.UsersManager;
 import main.usecases.RoomManager;
-import main.entities.Room;
-import java.util.*;
+import main.usecases.UsersManager;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Apart from the responsibilities listed in the UserController, the OrganizerController handles advance actions
@@ -159,10 +161,14 @@ public class OrganizerController extends AttendeeController{
         String ret = "";
         int count = 1;
         for(Room room: roomManager.getAllRoomsObject()){
-            ret = ret + count + ". " + room.getRoomNum() + "\n";
+            ret = ret + count + ". Room #" + room.getRoomNum() + "\n";
             count++;
         }
         return ret;
+    }
+
+    public EventController getEventController(){
+        return eventController;
     }
 
 

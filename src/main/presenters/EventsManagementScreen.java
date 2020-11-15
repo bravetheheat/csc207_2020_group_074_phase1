@@ -6,7 +6,7 @@ package main.presenters;
  * organize the speaker and room; as well as a presenting list of events for users
  *
  * @author Haoze Huang
- * @version 3.0
+ * @version 3.1
  * @since 2020-11-11
  */
 public class EventsManagementScreen {
@@ -17,13 +17,18 @@ public class EventsManagementScreen {
 
     public void promptCommand(){
         System.out.println("What would you like to modify, choose one option (number only) from below:");
+        System.out.println("0, Create room");
         System.out.println("1. Create event");
         System.out.println("2. Cancel event");
         System.out.println("3. Modify room");
         System.out.println("4. Modify time");
         System.out.println("5. Modify speaker");
         System.out.println("6. Print out schedule");
-        System.out.println("7. Exit the screen");
+        System.out.println("7. Exit to organizer screen");
+    }
+
+    public void promptCreateRoom(){
+        System.out.println("You are creating a room, please enter the room number (integer only):");
     }
 
     public void promptCreateEvent(){
