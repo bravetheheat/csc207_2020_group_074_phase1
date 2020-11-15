@@ -39,7 +39,7 @@ public class EventSignUpScreenController extends ScreenController{
                 this.presenter.printSuccessMessage();
                 break;
             case"3":
-                // bace to previous page
+                // back to previous page
                 break;
             default:
                 this.presenter.printErrorMessage();

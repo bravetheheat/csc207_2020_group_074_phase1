@@ -3,7 +3,6 @@ package main.screencontrollers;
 import main.controllers.ProgramController;
 import main.presenters.AttendeeScreen;
 import java.util.Arrays;
-import java.util.Scanner;
 import java.util.List;
 
 /**
@@ -44,14 +43,19 @@ public class AttendeeScreenController extends ScreenController {
         switch (next) {
             case "0":
                 this.programController.setCurrentScreenController(this.previousScreenController);
+                break;
             case "1":
                 this.programController.setCurrentScreenController(new EventSignUpScreenController(this.programController));
+                break;
             case "2":
                 this.programController.setCurrentScreenController(new EventsManagementScreenController(this.programController));
+                break;
             case "3":
                 this.programController.setCurrentScreenController(new AttendeeMessageScreenController(this.programController));
+                break;
             case "4":
                 this.programController.setCurrentScreenController(new InboxScreenController(this.programController));
+                break;
         }
         this.end();
     }
