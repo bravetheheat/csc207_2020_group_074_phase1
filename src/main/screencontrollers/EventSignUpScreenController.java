@@ -14,7 +14,7 @@ import java.util.UUID;
  * The EventsSignupScreenController handles events sign up and cancellation:
  *
  * @author Zewen Ma
- * @version 3.0
+ * @version 3.1
  * @since 2020-11-11
  */
 public class EventSignUpScreenController extends ScreenController {
@@ -44,7 +44,7 @@ public class EventSignUpScreenController extends ScreenController {
             case "2":
                 this.cancelOption();
                 break;
-            case "3":
+            case "0":
                 this.goToPreviousScreenController();
                 break;
             default:
