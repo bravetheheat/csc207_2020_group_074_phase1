@@ -31,9 +31,7 @@ public class EventBuilder {
         this.roomID = roomID;
     }
 
-    public void setSpeaker(UUID speakerID){
-        this.speakerID = speakerID;
-    }
+    public void setSpeaker(UUID speakerID){ this.speakerID = speakerID; }
 
     public Event toEvent(){
         return new Event(title, time, roomID, speakerID);
