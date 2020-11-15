@@ -15,6 +15,10 @@ public class SpeakerScreen {
      */
     public SpeakerScreen() {}
 
+    public void welcomeMessage(){
+        System.out.println("Welcome, our speakers!");
+    }
+
     /**
      * Prints out the available options for a speaker.
      */
