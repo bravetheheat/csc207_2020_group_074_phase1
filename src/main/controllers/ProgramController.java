@@ -43,6 +43,7 @@ public class ProgramController {
 
     public void loadData() {
         this.usersManager.loadUsersFromGateway(this.gateway);
+        this.roomManager.loadRoomsFromGateway(this.gateway);
     }
 
     public void nextScreenController() {
