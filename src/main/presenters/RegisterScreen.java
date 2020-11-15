@@ -22,8 +22,7 @@ public class RegisterScreen {
     public void promptUserType() {
         System.out.println("Select a user type:");
         System.out.println("1. Attendee");
-        System.out.println("2. Speaker");
-        System.out.println("3. Organizer");
+        System.out.println("2. Organizer");
     }
 
     public void success() {
