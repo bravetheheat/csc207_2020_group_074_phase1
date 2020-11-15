@@ -6,6 +6,7 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import main.entities.Event;
+import main.entities.Room;
 import main.entities.User;
 import main.gateways.beans.UserBean;
 import main.usecases.UserFactory;
@@ -17,6 +18,8 @@ import java.util.List;
 public class CSVGateway implements Gateway {
 
     private final String userCSVPath = "src/store/Users.csv";
+    private final String eventCSVPath = "src/store/Events.csv";
+    private final String roomCSVPath = "src/store/Rooms.csv";
 
     public CSVGateway() {
     }
@@ -67,10 +70,66 @@ public class CSVGateway implements Gateway {
     }
 
     public List<Event> loadEvents() {
-        return null;
+        try {
+            // From documentation available at http://opencsv.sourceforge.net/
+
+            List<Event> events = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.eventCSVPath))).withType(Event.class).build().parse();
+            return events;
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            return null;
+        }
+
     }
 
     public void saveEvents(List<Event> events) {
+        try {
+            // From documentation available at http://opencsv.sourceforge.net/
+            FileWriter csvFileWriter = new FileWriter(this.eventCSVPath);
+            StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
+            beanToCsv.write(events);
+            csvFileWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("IOException. Error writing file.");
+        } catch (CsvDataTypeMismatchException e) {
+            System.out.println("Error writing file. Check your data format.");
+        } catch (CsvRequiredFieldEmptyException e) {
+            System.out.println("Error writing file. Missing required field.");
+        }
+    }
+
+    public List<Room> loadRooms() {
+        try {
+            // From documentation available at http://opencsv.sourceforge.net/
+
+            List<Room> rooms = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.roomCSVPath))).withType(Room.class).build().parse();
+            return rooms;
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            return null;
+        }
+
+    }
+
+    public void saveRooms(List<Room> rooms) {
+        try {
+            // From documentation available at http://opencsv.sourceforge.net/
+            FileWriter csvFileWriter = new FileWriter(this.roomCSVPath);
+
+            StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
+            beanToCsv.write(rooms);
+            csvFileWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("IOException. Error writing file.");
+        } catch (CsvDataTypeMismatchException e) {
+            System.out.println("Error writing file. Check your data format.");
+        } catch (CsvRequiredFieldEmptyException e) {
+            System.out.println("Error writing file. Missing required field.");
+        }
     }
 
 

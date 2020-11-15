@@ -26,12 +26,12 @@ public class InboxController {
         return messageDict;
     }
 
-    private String getMessageString(UUID messageId) {
+    public String getMessageString(UUID messageId) {
         String messageText = this.messageManager.retrieveMessageText(messageId);
         String messageDate = this.messageManager.retrieveMessageDate(messageId).toString();
         String messageSender = this.getMessageSender(messageId);
 
-        return messageSender + " " + messageDate;
+        return messageSender + ": " + messageText + "\n" + "[Sent at " + messageDate + "]";
 
     }
 

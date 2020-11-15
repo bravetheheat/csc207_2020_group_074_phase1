@@ -62,6 +62,9 @@ public class OrganizerScreenController extends ScreenController{
             case "5":
                 nextScreenController = new InboxScreenController(this.programController);
                 break;
+            case "6":
+                nextScreenController  = new GatewayScreenController(this.programController);
+                break;
             default:
                 nextScreenController = new AnonymousScreenController(this.programController);
 

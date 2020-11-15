@@ -1,0 +1,44 @@
+package main.screencontrollers;
+
+import main.controllers.InboxController;
+import main.controllers.ProgramController;
+import main.presenters.MessageDetailScreen;
+
+import java.util.UUID;
+
+public class MessageDetailScreenController extends ScreenController {
+    UUID messageId;
+    MessageDetailScreen presenter;
+
+    public MessageDetailScreenController(ProgramController programController, UUID messageId) {
+        super(programController);
+        this.messageId = messageId;
+        this.presenter = new MessageDetailScreen();
+    }
+
+    public void start() {
+        this.printDetails(messageId);
+        this.returnPrompt();
+        this.end();
+    }
+
+    public void printDetails(UUID messageId){
+        InboxController inboxController = this.programController.getInboxController();
+        String detail = inboxController.getMessageString(messageId);
+        this.presenter.printDetails(detail);
+    }
+
+    public void returnPrompt(){
+        this.presenter.returnPrompt();
+        String input = this.scanner.nextLine();
+        while (!input.equals("0")){
+            this.presenter.errorMessage();
+            this.presenter.returnPrompt();
+            input = this.scanner.nextLine();
+        }
+        //this.programController.setPreviousScreenController(this);
+        //this.programController.setCurrentScreenController(this.previousScreenController);
+    }
+
+
+}
