@@ -1,6 +1,7 @@
 package main.usecases;
 
 import main.entities.User;
+import main.gateways.Gateway;
 
 import java.util.*;
 
@@ -165,5 +166,13 @@ public class UsersManager {
         List<UUID> allUsers = new ArrayList<>();
         allUsers.addAll(registeredUsers.keySet());
         return allUsers;
+    }
+
+    public void loadUsersFromGateway(Gateway gateway) {
+        this.registeredUsers = new HashMap<UUID, User>();
+        List<User> loadedUsers = gateway.loadUsers();
+        for (User user: loadedUsers) {
+            this.registeredUsers.put(user.getId(), user);
+        }
     }
 }

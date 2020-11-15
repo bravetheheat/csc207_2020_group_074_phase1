@@ -32,26 +32,6 @@ public class MessageController {
         this.inboxManager = programController.getInboxManager();
     }
 
-//    /**
-//     * a helper method check if there exist a chatroom that contains only these two users.
-//     * @param sender the id of the first user
-//     * @param receiver the id of the second user
-//     * @return the UUID of the chatroom if there exist a chatroom that contains only these two users,
-//     * otherwise, return null.
-//     */
-//    public UUID chatRoomContainingOnlyTheseTwo(UUID sender, UUID receiver){
-//        for(UUID chatroomId : chatRoomManager.fetchChatRoomsOfUser(sender)){
-//            for(UUID participantId : chatRoomManager.fetchChatRoom(chatroomId).getParticipants()){
-//                if(chatRoomManager.fetchChatRoom(chatroomId).getParticipants().size() == 2
-//                        && participantId == receiver){
-//
-//                    return chatroomId;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-
     /**
      * send a message from a sender to a receiver.
      * @param sender the id of the sender
