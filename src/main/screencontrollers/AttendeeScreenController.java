@@ -34,7 +34,6 @@ public class AttendeeScreenController extends ScreenController {
      */
     public void start() {
         this.optionsPrompt();
-        this.programController.setPreviousScreenController(new AttendeeScreenController(this.programController));
         this.end();
     }
 

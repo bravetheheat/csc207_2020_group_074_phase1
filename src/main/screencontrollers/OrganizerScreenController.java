@@ -27,7 +27,6 @@ public class OrganizerScreenController extends ScreenController{
     public void start() {
         this.organizerScreen.printScreenName();
         this.run();
-        this.programController.setPreviousScreenController(new OrganizerScreenController(this.programController));
         this.end();
     }
 
