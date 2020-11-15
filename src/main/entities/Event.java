@@ -150,7 +150,7 @@ public class Event {
      * @return string representation of this event
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "Title: " + this.title + "\n"
                 + "ID: " + this.id + "\n"
                 + "Time: " + this.time + "\n"

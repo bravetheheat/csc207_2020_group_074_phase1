@@ -1,7 +1,6 @@
 package main.presenters;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * The SpeakerScreen displays the interface that a Speaker will see.
@@ -21,6 +20,7 @@ public class SpeakerScreen {
      */
     public void prompt(){
         System.out.println("Choose one of the following options by entering a number:");
+        System.out.println("0. Return");
         System.out.println("1. List of talks you are giving");
         System.out.println("2. Messages");
 
