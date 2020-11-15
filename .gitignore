@@ -29,3 +29,6 @@ hs_err_pid*
 # output folder
 out
 
+# libs
+!lib/*
+

@@ -32,26 +32,6 @@ public class MessageController {
         this.inboxManager = programController.getInboxManager();
     }
 
-//    /**
-//     * a helper method check if there exist a chatroom that contains only these two users.
-//     * @param sender the id of the first user
-//     * @param receiver the id of the second user
-//     * @return the UUID of the chatroom if there exist a chatroom that contains only these two users,
-//     * otherwise, return null.
-//     */
-//    public UUID chatRoomContainingOnlyTheseTwo(UUID sender, UUID receiver){
-//        for(UUID chatroomId : chatRoomManager.fetchChatRoomsOfUser(sender)){
-//            for(UUID participantId : chatRoomManager.fetchChatRoom(chatroomId).getParticipants()){
-//                if(chatRoomManager.fetchChatRoom(chatroomId).getParticipants().size() == 2
-//                        && participantId == receiver){
-//
-//                    return chatroomId;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-
     /**
      * send a message from a sender to a receiver.
      * @param sender the id of the sender
@@ -91,6 +71,25 @@ public class MessageController {
         return receivers;
 
     }
+
+    public ArrayList<Event> eventsOfSpeaker(UUID speaker){
+        ArrayList<Event> events = new ArrayList<>();
+        for(UUID event: eventController.getSpeakerEvents(speaker)){
+            events.add(eventController.getSingleEvent(event));
+        }
+        return events;
+
+    }
+
+    public ArrayList<String> eventsOfSpeakerInString(UUID speaker){
+        ArrayList<String> events = new ArrayList<>();
+        for(UUID event: eventController.getSpeakerEvents(speaker)){
+            events.add(eventController.getSingleEvent(event).getTitle());
+        }
+        return events;
+    }
+
+
 
     /**
      * Broadcast to all other users. This method should only be used by organizer
@@ -135,6 +134,7 @@ public class MessageController {
         }
         this.broadCast(sender, speakers, context);
     }
+
     /**
      * speaker could broadcast to all attendees of an event
      * @param event the uuid of the event
@@ -142,8 +142,8 @@ public class MessageController {
      * @param context the context of the string
      */
     public void broadCastForSpeaker(UUID event, UUID speaker, String context){
-//        List<UUID> receivers = EventController.getSingleEventInfo().getAttendeesID();
-//        this.broadCast(speaker, receivers, context);
+        List<UUID> receivers = eventController.getSingleEvent(event).getAttendeesID();
+        this.broadCast(speaker, receivers, context);
     }
 
     /**

@@ -99,6 +99,7 @@ public class EventsManagementScreenController extends ScreenController{
         String title = scanner.nextLine();
         LocalDateTime time = getTime();
         UUID speakerID = getSpeakerID();
+        presenter.promptRoom(organizerController.roomToString());
         String roomNum = scanner.nextLine();
         return organizerController.createEvent(title, time, Integer.parseInt(roomNum), speakerID);
     }
@@ -143,7 +144,7 @@ public class EventsManagementScreenController extends ScreenController{
      */
     public boolean modifyRoom(){
         UUID eventID = getEventID();
-        UUID roomID = getRoomID();
+        int roomID = getRoomNum();
         return organizerController.updateRoom(eventID, roomID);
     }
 
@@ -156,9 +157,10 @@ public class EventsManagementScreenController extends ScreenController{
         String info = eventController.getEventsInfo();
         presenter.printSchedule(info);
         presenter.promptEvent();
+        handleEmptyList(eventController.getAllEvents());
         String eventIndex = scanner.nextLine();
         int i = Integer.parseInt(eventIndex);
-        return eventController.getAllEvents().get(i-1).getId();
+        return eventController.getEventId(i);
     }
 
     /**
@@ -168,18 +170,20 @@ public class EventsManagementScreenController extends ScreenController{
      */
     public UUID getSpeakerID(){
         List<UUID> speakers = organizerController.getAllSpeakers();
+        handleEmptyList(speakers);
         presenter.promptSpeaker(organizerController.speakerToString());
         String speakerIndex = scanner.nextLine();
         return speakers.get(Integer.parseInt(speakerIndex)-1);
     }
 
     /**
-     * Helper function to get room id base on input index
+     * Helper function to get room num base on input num
      *
-     * @return UUID of roomId
+     * @return roomNum
      */
-    public UUID getRoomID(){
-        List<UUID> rooms = organizerController.getAllRooms();
+    public int getRoomNum(){
+        List<Integer> rooms = organizerController.getAllRooms();
+        handleEmptyList(rooms);
         presenter.promptRoom(organizerController.roomToString());
         String roomIndex = scanner.nextLine();
         return rooms.get(Integer.parseInt(roomIndex)-1);
@@ -195,6 +199,13 @@ public class EventsManagementScreenController extends ScreenController{
         String timeInput = scanner.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(timeInput, formatter);
+    }
+
+    public void handleEmptyList(List list){
+        if (list.size() == 0){
+            presenter.printErrorMessage();
+            manageEvent();
+        }
     }
 
 

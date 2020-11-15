@@ -139,4 +139,12 @@ public class EventInfoManager {
         return event;
     }
 
+    /**
+     * Get event information as a string representation
+     *
+     * @return the information of the event as a string representation.
+     */
+    public String eventRep(){
+        return event.toString();
+    }
 }

@@ -77,10 +77,10 @@ public class RoomManager {
         }
     }
 
-    public List<UUID> getAllRooms(){
-        List<UUID> allRooms = new ArrayList<UUID>();
+    public List<Integer> getAllRooms(){
+        List<Integer> allRooms = new ArrayList<Integer>();
         for(Room room: this.rooms.values()){
-            allRooms.add(room.getId());
+            allRooms.add(room.getRoomNum());
         }
         return allRooms;
     }

@@ -20,6 +20,7 @@ public class OrganizerScreen {
 
     public void prompt() {
         System.out.println("Choose from the following options by entering a number:");
+        System.out.println("0. Logout");
         System.out.println("1. Showing all events");
         System.out.println("2. Manage an event");
         System.out.println("3. Registered events");

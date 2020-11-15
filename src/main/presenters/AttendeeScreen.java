@@ -20,11 +20,12 @@ public class AttendeeScreen {
      */
     public void prompt() {
         System.out.println("Choose from the following options by entering a number:");
+        System.out.println("0. Logout");
         System.out.println("1. Register for events");
         System.out.println("2. Manage events");
         System.out.println("3. Message");
         System.out.println("4. Inbox");
-        System.out.println("0. Go back");
+
     }
 
     /**

@@ -1,6 +1,7 @@
 package main.usecases;
 
 import main.entities.User;
+import main.gateways.Gateway;
 
 import java.util.*;
 
@@ -167,16 +168,11 @@ public class UsersManager {
         return allUsers;
     }
 
-    /**
-     * Return the UUID of the user given user's email
-     *
-     * @param email of the user
-     * @return a UUID of the user
-     */
-    public UUID getUserIDFromUsername(String email) {
-        for (User user : registeredUsers.values()) {
-            if (user.getUsername().equals(email)) return user.getId();
+    public void loadUsersFromGateway(Gateway gateway) {
+        this.registeredUsers = new HashMap<UUID, User>();
+        List<User> loadedUsers = gateway.loadUsers();
+        for (User user: loadedUsers) {
+            this.registeredUsers.put(user.getId(), user);
         }
-        return null;
     }
 }
