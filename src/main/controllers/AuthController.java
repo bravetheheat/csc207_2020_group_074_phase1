@@ -1,10 +1,7 @@
 package main.controllers;
 
 import main.entities.User;
-import main.screencontrollers.AttendeeScreenController;
-import main.screencontrollers.OrganizerScreenController;
-import main.screencontrollers.ScreenController;
-import main.screencontrollers.SpeakerScreenController;
+import main.screencontrollers.*;
 import main.usecases.UserInformationManager;
 import main.usecases.UsersManager;
 
@@ -65,6 +62,8 @@ public class AuthController {
      */
     public void logout() {
         this.loggedInUser = null;
+        this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
+        this.programController.setPreviousScreenController(null);
     }
 
     /**
