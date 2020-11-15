@@ -6,8 +6,8 @@ import main.presenters.RegisterScreen;
 
 public class RegisterScreenController extends ScreenController {
 
-    private RegisterScreen presenter = new RegisterScreen();
-    private AuthController authController;
+    private final RegisterScreen presenter = new RegisterScreen();
+    private final AuthController authController;
 
     public RegisterScreenController(ProgramController programController) {
         super(programController);
@@ -48,14 +48,11 @@ public class RegisterScreenController extends ScreenController {
         String userType;
         this.presenter.promptUserType();
         String userTypeChoice = this.scanner.nextLine();
-        switch(userTypeChoice){
+        switch (userTypeChoice) {
             case "1":
                 userType = "Attendee";
                 break;
             case "2":
-                userType = "Speaker";
-                break;
-            case "3":
                 userType = "Organizer";
                 break;
             default:
