@@ -12,16 +12,26 @@ import java.util.NoSuchElementException;
  */
 
 public class Room {
-    private final UUID id = UUID.randomUUID(); // for referencing purposes
+    private UUID id; // for referencing purposes
     private int roomNum; // the organizer can enter a room with its room number, and the schedule will display
     // the room number instead of the UUID
     private HashMap<LocalDateTime, UUID> schedule;
     private int capacity;
 
     /**
+     * Empty constructor for deserialization
+     */
+    public Room() {
+
+    }
+
+
+
+    /**
      * A room number is required to create an instance of Room.
      */
     public Room(int roomNum) {
+        this.id = UUID.randomUUID();
         this.roomNum = roomNum;
         this.schedule = new HashMap<>();
         this.capacity = 2;

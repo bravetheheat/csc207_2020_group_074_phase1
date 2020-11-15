@@ -2,6 +2,8 @@ package main.usecases;
 
 import main.entities.Inbox;
 import main.entities.Room;
+import main.entities.User;
+import main.gateways.Gateway;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -12,7 +14,11 @@ import java.util.*;
  */
 public class RoomManager {
 
-    private final Map<UUID, Room> rooms = new HashMap<>();
+    private Map<UUID, Room> rooms;
+
+    public RoomManager() {
+        this.rooms = new HashMap<>();
+    }
 
     /**
      * a new room will be added if its roomNum is not conflict with others.
@@ -87,6 +93,21 @@ public class RoomManager {
 
     public Collection<Room> getAllRoomsObject(){
         return this.rooms.values();
+    }
+
+    public void saveRoomsFromGateway(Gateway gateway) {
+        List<Room> roomList = new ArrayList<>();
+        roomList.addAll(this.rooms.values());
+        gateway.saveRooms(roomList);
+
+    }
+
+    public void loadRoomsFromGateway(Gateway gateway) {
+        this.rooms = new HashMap<>();
+        List<Room> loadedRooms = gateway.loadRooms();
+        for (Room room:loadedRooms) {
+            this.rooms.put(room.getId(), room);
+        }
     }
 
 

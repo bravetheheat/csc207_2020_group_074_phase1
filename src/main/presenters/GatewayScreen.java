@@ -18,6 +18,11 @@ public class GatewayScreen {
         System.out.println();
     }
 
+    public void saveRooms() {
+        System.out.println("Saving rooms...");
+        System.out.println();
+    }
+
     public void success() {
         System.out.println("Success!");
     }

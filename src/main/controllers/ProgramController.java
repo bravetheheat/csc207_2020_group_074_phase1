@@ -18,6 +18,7 @@ public class ProgramController {
     ScreenController previousScreenController;
     Deque<ScreenController> screenControllerHistory = new ArrayDeque<>();
     ScreenController currentScreenController;
+    InboxController inboxController;
     InboxManager inboxManager;
     RoomManager roomManager;
     MessageController messageController;
@@ -28,6 +29,7 @@ public class ProgramController {
         this.contactsManager = new ContactsManager();
         this.messageManager = new MessageManager();
         this.inboxManager = new InboxManager();
+        this.inboxController = new InboxController(messageManager, inboxManager, usersManager);
         this.roomManager = new RoomManager();
         this.authController = new AuthController(this, usersManager);
         this.currentScreenController = new AnonymousScreenController(this);
@@ -43,6 +45,7 @@ public class ProgramController {
 
     public void loadData() {
         this.usersManager.loadUsersFromGateway(this.gateway);
+        this.roomManager.loadRoomsFromGateway(this.gateway);
     }
 
     public void nextScreenController() {
@@ -72,6 +75,8 @@ public class ProgramController {
     public InboxManager getInboxManager() {
         return this.inboxManager;
     }
+
+    public InboxController getInboxController(){ return this.inboxController;}
 
     public RoomManager getRoomManager() {
         return this.roomManager;

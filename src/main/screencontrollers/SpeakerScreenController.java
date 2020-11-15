@@ -33,8 +33,14 @@ public class SpeakerScreenController extends ScreenController{
     @Override
     public void start() {
         this.presenter.prompt();
+        this.interact();
+        this.end();
+    }
+
+    public void interact(){
         UUID loggedInSpeaker = this.programController.getAuthController().fetchLoggedInUser();
         ArrayList<String> validInput = new ArrayList<>();
+        validInput.add("0");
         validInput.add("1");
         validInput.add("2");
         String input = scanner.nextLine();
@@ -46,16 +52,17 @@ public class SpeakerScreenController extends ScreenController{
         }
 
         switch (input) {
+            case "0":
+                //
             case "1":
                 ArrayList<String> talks =
                         this.IDtoString(this.programController.getEventController().getSpeakerEvents(loggedInSpeaker));
                 this.presenter.talkList(talks);
                 this.goToPreviousScreenController();
             case "2":
-//                this.programController.setCurrentScreenController(new MessageScreenController(this.programController));
+                this.programController.setCurrentScreenController(new SpeakerMessageScreenController(this.programController));
 
         }
-        this.end();
     }
 
     /**
@@ -67,7 +74,7 @@ public class SpeakerScreenController extends ScreenController{
     public ArrayList<String> IDtoString(ArrayList<UUID> talkList){
         ArrayList<String> talksString = new ArrayList<>();
         for (UUID talk : talkList){
-            talksString.add(this.programController.getEventController().getSingleEventInfo(talk).toString());
+            talksString.add(this.programController.getEventController().getSingleEventInfo(talk));
         }
         return talksString;
     }
