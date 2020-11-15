@@ -45,8 +45,7 @@ public class EventSignUpScreenController extends ScreenController {
                 this.cancelOption();
                 break;
             case "3":
-                ScreenController screenController = programController.getPreviousScreenController();
-                programController.setCurrentScreenController(screenController);
+                this.goToPreviousScreenController();
                 break;
             default:
                 this.presenter.printErrorMessage();

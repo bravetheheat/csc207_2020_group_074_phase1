@@ -33,6 +33,9 @@ public abstract class ScreenController {
         this.programController.nextScreenController();
     }
 
+    /**
+     * Goes to the previous screen controller
+     */
     protected void goToPreviousScreenController() {
         this.programController.goToPreviousScreenController();
 
