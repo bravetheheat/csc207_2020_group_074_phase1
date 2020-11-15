@@ -20,11 +20,11 @@ public class LoginScreen {
     }
 
     public void success() {
-        System.out.println("Successfully login in!");
+        System.out.println("Successfully logged in!");
     }
 
     public void signout() {
-        System.out.println("Successfully login out!");
+        System.out.println("Successfully logged out!");
     }
 
     public void error() {
