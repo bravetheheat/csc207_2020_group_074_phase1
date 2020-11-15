@@ -64,7 +64,7 @@ public class AttendeeMessageScreenController extends ScreenController {
             this.attendeeMessageScreen.prompt();
             next = this.scanner.nextLine();
         }
-        this.programController.setCurrentScreenController(previousScreenController);
+        this.goToPreviousScreenController();
         this.end();
     }
 

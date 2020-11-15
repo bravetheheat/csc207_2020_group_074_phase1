@@ -28,4 +28,16 @@ public class UserBean implements Serializable {
     public String getRole() {
         return this.role;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
