@@ -17,7 +17,7 @@ import java.util.UUID;
  * @version 3.0
  * @since 2020-11-11
  */
-public class EventSignUpScreenController extends ScreenController{
+public class EventSignUpScreenController extends ScreenController {
     EventSignUpScreen presenter = new EventSignUpScreen();
     UsersManager usersManager = new UsersManager();
     EventController eventController = new EventController();
@@ -34,7 +34,7 @@ public class EventSignUpScreenController extends ScreenController{
         this.end();
     }
 
-    public void mainOption(){
+    public void mainOption() {
         this.presenter.promptCommand();
         String choice = this.scanner.nextLine();
         switch (choice){
@@ -45,8 +45,7 @@ public class EventSignUpScreenController extends ScreenController{
                 this.cancelOption();
                 break;
             case "3":
-                ScreenController screenController = programController.getPreviousScreenController();
-                programController.setCurrentScreenController(screenController);
+                this.goToPreviousScreenController();
                 break;
             default:
                 this.presenter.printErrorMessage();

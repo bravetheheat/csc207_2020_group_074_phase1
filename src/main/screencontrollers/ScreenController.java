@@ -9,17 +9,16 @@ import java.util.Scanner;
  */
 public abstract class ScreenController {
 
-    protected Scanner scanner = new Scanner(System.in);
     public ProgramController programController;
-    protected ScreenController previousScreenController;
+    protected Scanner scanner = new Scanner(System.in);
 
     /**
      * Constructor for a ScreenController.
+     *
      * @param programController Pre-defined ProgramController.
      */
     public ScreenController(ProgramController programController) {
         this.programController = programController;
-        this.previousScreenController = programController.getCurrentScreenController();
     }
 
     /**
@@ -32,6 +31,14 @@ public abstract class ScreenController {
      */
     protected void end() {
         this.programController.nextScreenController();
+    }
+
+    /**
+     * Goes to the previous screen controller
+     */
+    protected void goToPreviousScreenController() {
+        this.programController.goToPreviousScreenController();
+
     }
 
 }

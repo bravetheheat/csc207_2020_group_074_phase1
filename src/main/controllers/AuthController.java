@@ -62,8 +62,8 @@ public class AuthController {
      */
     public void logout() {
         this.loggedInUser = null;
-        this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
-        this.programController.setPreviousScreenController(null);
+        this.programController.setNewScreenController(new AnonymousScreenController(this.programController));
+        this.programController.clearScreenHistory();
     }
 
     /**

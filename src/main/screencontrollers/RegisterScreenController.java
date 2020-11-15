@@ -40,7 +40,7 @@ public class RegisterScreenController extends ScreenController {
         }
 
         this.presenter.success();
-        this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
+        this.goToPreviousScreenController();
 
     }
 
