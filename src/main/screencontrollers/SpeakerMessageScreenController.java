@@ -11,31 +11,40 @@ public class SpeakerMessageScreenController extends ScreenController{
 
     SpeakerMessageScreen speakerMessageScreen = new SpeakerMessageScreen();
     MessageController messageController;
+    UUID speaker;
 
 
     public SpeakerMessageScreenController(ProgramController programController){
         super(programController);
         this.messageController = programController.getMessageController();
+        speaker = programController.getAuthController().fetchLoggedInUser();
     }
 
     public void start(){
+        this.speakerMessageScreen.printScreenName();
         mainPart();
         end();
     }
 
     public void mainPart(){
-        this.speakerMessageScreen.printScreenName();
         this.speakerMessageScreen.promt();
         String choice = this.scanner.nextLine();
         switch (choice) {
             case "0":
+                this.programController.setCurrentScreenController(new SpeakerScreenController(programController));
                 break;
             case "1":
                 reply();
+                this.programController.setCurrentScreenController(new SpeakerScreenController(programController));
                 break;
             case "2":
                 broadCast();
+                this.programController.setCurrentScreenController(new SpeakerScreenController(programController));
                 break;
+            case "3":
+                this.programController.setCurrentScreenController(new InboxScreenController(programController));
+                break;
+
             default:
                 this.speakerMessageScreen.invalidInput(choice);
                 this.mainPart();
@@ -45,8 +54,8 @@ public class SpeakerMessageScreenController extends ScreenController{
     }
     public void broadCast(){
         // how many events the user want to broadcast to
-        List<String> events = messageController.eventsOfSpeakerInString(programController.getAuthController().fetchLoggedInUser());
-        ArrayList<String> potentialAnswer= listBuilderWithInters(events.size());
+        List<String> events = messageController.eventsOfSpeakerInString(speaker);
+        ArrayList<String> potentialAnswer= listBuilderWithIntegers(events.size());
         this.speakerMessageScreen.numOfEvents();
         String stringAnswer = this.scanner.nextLine();
         while(!potentialAnswer.contains(stringAnswer)){
@@ -71,8 +80,8 @@ public class SpeakerMessageScreenController extends ScreenController{
         }
 
 
-        ArrayList<Event> allEvents = this.messageController.eventsOfSpeaker(programController.getAuthController().fetchLoggedInUser());
-        ArrayList<UUID> finalTargetEvents = new ArrayList<UUID>();
+        ArrayList<Event> allEvents = this.messageController.eventsOfSpeaker(speaker);
+        ArrayList<UUID> finalTargetEvents = new ArrayList<>();
         for(String identifier: selectedEvents){
             finalTargetEvents.add(allEvents.get(Integer.parseInt(identifier)-1).getId());
         }
@@ -83,12 +92,14 @@ public class SpeakerMessageScreenController extends ScreenController{
         String message = this.scanner.nextLine();
 
         // then broadcast
-        this.messageController.broadCastForSpeakerMoreEvents(finalTargetEvents, programController.getAuthController().fetchLoggedInUser(), message);
+        this.messageController.broadCastForSpeakerMoreEvents(finalTargetEvents, speaker, message);
+
+        speakerMessageScreen.congratulations();
 
 
     }
 
-    public ArrayList<String> listBuilderWithInters(int num){
+    public ArrayList<String> listBuilderWithIntegers(int num){
         int count = 1;
         ArrayList<String> ret= new ArrayList<>();
         while(count <= num){
@@ -99,7 +110,23 @@ public class SpeakerMessageScreenController extends ScreenController{
     }
 
     public void reply(){
+        ArrayList<UUID> potentialReceivers= messageController.replyOptionsForSpeaker(speaker);
+        ArrayList<String> options = listBuilderWithIntegers(potentialReceivers.size());
+        speakerMessageScreen.replyOptions(messageController.replyOptionsForSpeakerInString(speaker));
+        String answerInString = scanner.nextLine();
+        while(! options.contains(answerInString)){
+            speakerMessageScreen.invalidInput(answerInString);
+            answerInString = scanner.nextLine();
+        }
+        // now answer is valid
 
+        int answerInInteger = Integer.parseInt(answerInString);
+        UUID receiver = potentialReceivers.get(answerInInteger - 1);
+
+        speakerMessageScreen.whatMessage();
+        String messageContext = scanner.nextLine();
+        messageController.sendMessage(speaker, receiver, messageContext);
+        speakerMessageScreen.congratulations();
     }
 
 }

@@ -12,6 +12,7 @@ public class SpeakerMessageScreen {
     public void promt(){
         System.out.println("Input 1 if you want to reply to a user");
         System.out.println("Input 2 if you want to broadcast");
+        System.out.println("Input 3 if you want to read messages you received");
         System.out.println("Input 0 if you want to quit");
     }
     public void invalidInput(String input) {
@@ -45,5 +46,10 @@ public class SpeakerMessageScreen {
     public void numOfEvents(){
         System.out.println("How many events would you like to broadcast to");
     }
+
+    public void congratulations(){
+        System.out.println("Successful");
+    }
+
 
 }

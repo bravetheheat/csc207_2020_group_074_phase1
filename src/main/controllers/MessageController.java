@@ -89,6 +89,24 @@ public class MessageController {
         return events;
     }
 
+    public ArrayList<UUID> replyOptionsForSpeaker(UUID speaker){
+        ArrayList<UUID> ret = new ArrayList<>();
+        for(UUID message: inboxManager.getMessagesOfUser(speaker)){
+            if(! ret.contains(messageManager.retrieveMessageSender(message))){
+                ret.add(messageManager.retrieveMessageSender(message));
+            }
+        }
+        return ret;
+    }
+
+    public ArrayList<String> replyOptionsForSpeakerInString(UUID speaker){
+        ArrayList<String> ret = new ArrayList<>();
+        for(UUID sender: replyOptionsForSpeaker(speaker)){
+            ret.add(usersManager.fetchUser(sender).getUsername());
+        }
+        return ret;
+    }
+
 
 
     /**

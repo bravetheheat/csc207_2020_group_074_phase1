@@ -20,7 +20,7 @@ public class OrganizerScreenController extends ScreenController{
     public OrganizerScreenController(ProgramController programController) {
         super(programController);
         this.organizerScreen = new OrganizerScreen();
-        String[] options = {"0", "1", "2", "3", "4", "5"};
+        String[] options = {"0", "1", "2", "3", "4", "5", "6"};
         this.prompts = (Arrays.asList(options));
     }
 
@@ -48,8 +48,8 @@ public class OrganizerScreenController extends ScreenController{
                 this.programController.getAuthController().logout();
                 this.end();
                 return;
-            case "1": // for holder
-                nextScreenController = new AnonymousScreenController(this.programController);
+            case "1":
+                nextScreenController = new UserManagementScreenController(this.programController);
                 break;
             case "2":
                 nextScreenController = new EventsManagementScreenController(this.programController);
