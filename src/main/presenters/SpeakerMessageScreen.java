@@ -1,0 +1,49 @@
+package main.presenters;
+import java.util.*;
+
+public class SpeakerMessageScreen {
+
+
+
+    public void printScreenName(){
+        System.out.println("Speaker Message Screen");
+    }
+
+    public void promt(){
+        System.out.println("Input 1 if you want to reply to a user");
+        System.out.println("Input 2 if you want to broadcast");
+        System.out.println("Input 0 if you want to quit");
+    }
+    public void invalidInput(String input) {
+        System.out.println(input + " was not one of the options.");
+        System.out.println("Please input a new option.");
+    }
+
+    public void broadCastOptions(List<String> events){
+        System.out.println("Which event would you like to choose");
+        int count = 1;
+        for(String event: events){
+            System.out.println(count + ". " + event);
+            count++;
+        }
+    }
+
+    public void whatMessage(){
+        System.out.println("please input the message you want to send below");
+        System.out.println("the message should be in one line");
+    }
+
+    public void replyOptions(List<String> users){
+        System.out.println("Who would you like to reply");
+        int count = 1;
+        for(String user: users){
+            System.out.println(count + ". " + user);
+            count++;
+        }
+    }
+
+    public void numOfEvents(){
+        System.out.println("How many events would you like to broadcast to");
+    }
+
+}

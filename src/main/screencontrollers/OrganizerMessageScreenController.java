@@ -24,7 +24,7 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
      */
     public OrganizerMessageScreenController(ProgramController programController) {
         super(programController);
-        this.organizerMessageScreen = new OrganizerMessageScreen(this.usersManager);
+        this.organizerMessageScreen = new OrganizerMessageScreen(this.usersManager, this.recipients);
     }
 
     /**
@@ -35,16 +35,21 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
         this.organizerMessageScreen.prompt();
         String next = scanner.nextLine();
         while (!next.equals("0")) {
-            if (next.equals("all")) {
-                messageAll();
-            } else {
+            if (next.equals("all") || next.equals("attendees") || next.equals("speakers")) {
+                sendMessage(next);
+            }
+            else {
                 ArrayList<String> inputs = new ArrayList<>();
                 for (int i = 0; i < next.length(); i += 2) {
                     inputs.add((next.substring(i, i + 1)));
                 }
-                while (!isValid(inputs)) {
+                while (!isValid(inputs) && !next.equals("0")) {
                     this.organizerMessageScreen.prompt2(next);
                     next = this.scanner.nextLine();
+                    inputs = new ArrayList<>();
+                    for (int i = 0; i < next.length(); i += 2) {
+                        inputs.add((next.substring(i, i + 1)));
+                    }
                 }
                 if (next.equals("0")) {
                     break;
@@ -64,22 +69,33 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
         if (next.equals("0")) {
             return;
         }
-        for (String input : inputs) {
-            this.messageManager.createMessage(next, users.get(Integer.parseInt(input) - 1));
+        ArrayList<UUID> recipients = new ArrayList<>();
+        for (String i: inputs) {
+            recipients.add(this.recipients.get(Integer.parseInt(i) - 1));
         }
+        this.messageController.broadCast(this.loggedInUser, recipients, next);
         this.organizerMessageScreen.successMessage();
     }
 
-    private void messageAll() {
+    private void sendMessage(String type) {
         this.organizerMessageScreen.messagePrompt();
         String next = scanner.nextLine();
         if (next.equals("0")) {
             return;
         }
-        for (UUID user : users) {
-            this.messageManager.createMessage(next, user);
+        switch (type) {
+            case "all":
+                this.messageController.broadCastToAll(this.loggedInUser, next);
+                this.organizerMessageScreen.successMessage();
+                break;
+            case "attendee":
+                this.messageController.broadCastToAttendees(this.loggedInUser, next);
+                this.organizerMessageScreen.successMessage();
+                break;
+            case "speaker":
+                this.messageController.broadCastToSpeakers(this.loggedInUser, next);
+                this.organizerMessageScreen.successMessage();
         }
-        this.organizerMessageScreen.successMessage();
     }
 
     private boolean isValid(ArrayList<String> inputs) {
@@ -87,7 +103,7 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
             if (!isNumeric(input)) {
                 return false;
             }
-            if (!(0 < Integer.parseInt(input) && Integer.parseInt(input) <= users.size())) {
+            if (!(0 < Integer.parseInt(input) && Integer.parseInt(input) <= recipients.size())) {
                 return false;
             }
         }

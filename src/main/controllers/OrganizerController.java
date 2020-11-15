@@ -87,7 +87,7 @@ public class OrganizerController extends AttendeeController{
      * updated.
      */
     public boolean updateTime(UUID event, LocalDateTime time){
-        UUID roomId = eventController.getSingleEventInfo(event).getRoomID();
+        UUID roomId = eventController.getSingleEvent(event).getRoomID();
         return eventController.updateEventInfo(event, time, roomId);
     }
 
@@ -100,7 +100,7 @@ public class OrganizerController extends AttendeeController{
      */
     public boolean updateSpeaker(UUID event, UUID speaker){
 
-        return eventController.removeSpeaker(event, eventController.getSingleEventInfo(event).getSpeakerID())
+        return eventController.removeSpeaker(event, eventController.getSingleEvent(event).getSpeakerID())
                 && eventController.addSpeaker(event, speaker);
 
     }
@@ -113,7 +113,7 @@ public class OrganizerController extends AttendeeController{
      * old room. Return false if the room has been occupied at that time
      */
     public boolean updateRoom(UUID event, UUID room){
-        LocalDateTime time = eventController.getSingleEventInfo(event).getTime();
+        LocalDateTime time = eventController.getSingleEvent(event).getTime();
         return eventController.updateEventInfo(event, time, room);
     }
 
