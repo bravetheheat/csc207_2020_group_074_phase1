@@ -34,7 +34,6 @@ public class AttendeeScreenController extends ScreenController {
      * to call.
      */
     public void start() {
-        this.attendeeScreen.prompt();
         this.optionsPrompt();
         this.end();
     }
