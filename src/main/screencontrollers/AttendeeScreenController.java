@@ -54,16 +54,16 @@ public class AttendeeScreenController extends ScreenController {
                 this.end();
                 return;
             case "1":
-                this.programController.setCurrentScreenController(new EventSignUpScreenController(this.programController));
+                this.programController.setNewScreenController(new EventSignUpScreenController(this.programController));
                 break;
             case "2":
-                this.programController.setCurrentScreenController(new EventsManagementScreenController(this.programController));
+                this.programController.setNewScreenController(new EventsManagementScreenController(this.programController));
                 break;
             case "3":
-                this.programController.setCurrentScreenController(new AttendeeMessageScreenController(this.programController));
+                this.programController.setNewScreenController(new AttendeeMessageScreenController(this.programController));
                 break;
             case "4":
-                this.programController.setCurrentScreenController(new InboxScreenController(this.programController));
+                this.programController.setNewScreenController(new InboxScreenController(this.programController));
                 break;
         }
     }

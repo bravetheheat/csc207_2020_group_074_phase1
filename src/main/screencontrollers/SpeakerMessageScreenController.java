@@ -31,18 +31,18 @@ public class SpeakerMessageScreenController extends ScreenController{
         String choice = this.scanner.nextLine();
         switch (choice) {
             case "0":
-                this.programController.setCurrentScreenController(new SpeakerScreenController(programController));
+                this.programController.setNewScreenController(new SpeakerScreenController(programController));
                 break;
             case "1":
                 reply();
-                this.programController.setCurrentScreenController(new SpeakerScreenController(programController));
+                this.programController.setNewScreenController(new SpeakerScreenController(programController));
                 break;
             case "2":
                 broadCast();
-                this.programController.setCurrentScreenController(new SpeakerScreenController(programController));
+                this.programController.setNewScreenController(new SpeakerScreenController(programController));
                 break;
             case "3":
-                this.programController.setCurrentScreenController(new InboxScreenController(programController));
+                this.programController.setNewScreenController(new InboxScreenController(programController));
                 break;
 
             default:
@@ -50,7 +50,7 @@ public class SpeakerMessageScreenController extends ScreenController{
                 this.mainPart();
                 return;
         }
-        this.programController.setCurrentScreenController(new SpeakerScreenController(programController));
+        this.programController.setNewScreenController(new SpeakerScreenController(programController));
     }
     public void broadCast(){
         // how many events the user want to broadcast to

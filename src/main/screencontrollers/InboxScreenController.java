@@ -101,7 +101,7 @@ public class InboxScreenController extends ScreenController {
     }
 
     private void openMessageDetailScreen(UUID messageId) {
-        ScreenController messageDetailScreen = new MessageDetailScreenController(this.programController, messageId);
+        ScreenController messageDetailScreen = new MessageDetailScreen(this.programController, messageId);
         this.programController.setPreviousScreenController(this);
         this.programController.setCurrentScreenController(messageDetailScreen);
         this.programController.nextScreenController();

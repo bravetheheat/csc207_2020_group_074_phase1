@@ -175,4 +175,10 @@ public class UsersManager {
             this.registeredUsers.put(user.getId(), user);
         }
     }
+
+    public void saveUsersToGateway(Gateway gateway) {
+        List<User> userList = new ArrayList<>();
+        userList.addAll(this.registeredUsers.values());
+        gateway.saveUsers(userList);
+    }
 }

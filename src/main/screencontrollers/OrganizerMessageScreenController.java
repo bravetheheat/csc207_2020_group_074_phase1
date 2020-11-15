@@ -58,7 +58,7 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
             this.organizerMessageScreen.prompt();
             next = this.scanner.nextLine();
         }
-        this.programController.setCurrentScreenController(previousScreenController);
+        this.goToPreviousScreenController();
         this.end();
     }
 

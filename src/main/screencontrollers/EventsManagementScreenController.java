@@ -18,7 +18,7 @@ import java.util.UUID;
  * @version 3.3
  * @since 2020-11-11
  */
-public class EventsManagementScreenController extends ScreenController{
+public class EventsManagementScreenController extends ScreenController {
 
     OrganizerController organizerController;
     EventsManagementScreen presenter;
@@ -41,9 +41,6 @@ public class EventsManagementScreenController extends ScreenController{
     public void start() {
         presenter.printScreenName();
         manageEvent();
-        ScreenController nextScreenController = new OrganizerScreenController(this.programController);
-        this.programController.setCurrentScreenController(nextScreenController);
-        end();
     }
 
 
@@ -51,40 +48,46 @@ public class EventsManagementScreenController extends ScreenController{
      * Present info and manage events base on input command, and reprinting the options if there is
      * invalid input or more things to modify
      */
-    public void manageEvent(){
+    public void manageEvent() {
         presenter.promptCommand();
         String command = scanner.nextLine();
         switch (command){
             case "0":
+                programController.goToPreviousScreenController();
+                end();
+            case "1":
                 if (createRoom()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
-            case "1":
-                if (createEvent()) presenter.printVerification(); else presenter.printInvalidInput();
-                manageEvent();
-                break;
             case "2":
-                if (removeEvent()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (createEvent()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "3":
-                if (modifyRoom()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (removeEvent()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "4":
-                if (modifyTime()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (modifyRoom()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "5":
-                if (modifySpeaker()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (modifyTime()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "6":
-                String info = organizerController.getEventController().getEventsInfo();
-                presenter.printSchedule(info);
+                if (modifySpeaker()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "7":
+                String info = organizerController.getEventController().getEventsInfo();
+                presenter.printSchedule(info);
+                manageEvent();
                 break;
             default:
                 presenter.printInvalidInput();
@@ -110,7 +113,7 @@ public class EventsManagementScreenController extends ScreenController{
      *
      * @return verify if the event is successfully created
      */
-    public boolean createEvent(){
+    public boolean createEvent() {
         presenter.promptCreateEvent();
         String title = scanner.nextLine();
         LocalDateTime time = getTime();
@@ -125,7 +128,7 @@ public class EventsManagementScreenController extends ScreenController{
      *
      * @return verify if the event is successfully removed
      */
-    public boolean removeEvent(){
+    public boolean removeEvent() {
         UUID eventID = getEventID();
         return organizerController.removeEvent(eventID);
     }
@@ -135,7 +138,7 @@ public class EventsManagementScreenController extends ScreenController{
      *
      * @return verify if the event time is successfully modified
      */
-    public boolean modifyTime(){
+    public boolean modifyTime() {
         UUID eventID = getEventID();
         LocalDateTime time = getTime();
         return organizerController.updateTime(eventID, time);
@@ -147,7 +150,7 @@ public class EventsManagementScreenController extends ScreenController{
      *
      * @return verify if the speaker is successfully modified
      */
-    public boolean modifySpeaker(){
+    public boolean modifySpeaker() {
         UUID eventID = getEventID();
         UUID speakerID = getSpeakerID();
         return organizerController.updateSpeaker(eventID, speakerID);
@@ -158,7 +161,7 @@ public class EventsManagementScreenController extends ScreenController{
      *
      * @return verify if the room is successfully modified
      */
-    public boolean modifyRoom(){
+    public boolean modifyRoom() {
         UUID eventID = getEventID();
         int roomID = getRoomNum();
         return organizerController.updateRoom(eventID, roomID);
@@ -190,7 +193,7 @@ public class EventsManagementScreenController extends ScreenController{
      *
      * @return UUID of speakerId
      */
-    public UUID getSpeakerID(){
+    public UUID getSpeakerID() {
         List<UUID> speakers = organizerController.getAllSpeakers();
         handleEmptyList(speakers);
         try{
@@ -209,7 +212,7 @@ public class EventsManagementScreenController extends ScreenController{
      *
      * @return roomNum
      */
-    public int getRoomNum(){
+    public int getRoomNum() {
         List<Integer> rooms = organizerController.getAllRooms();
         handleEmptyList(rooms);
         try{
@@ -227,7 +230,7 @@ public class EventsManagementScreenController extends ScreenController{
      *
      * @return time in LocalDateTime
      */
-    public LocalDateTime getTime(){
+    public LocalDateTime getTime() {
         presenter.promptTime();
         try{
             String timeInput = scanner.nextLine();
@@ -239,8 +242,8 @@ public class EventsManagementScreenController extends ScreenController{
         }
     }
 
-    public void handleEmptyList(List list){
-        if (list.size() == 0){
+    public void handleEmptyList(List list) {
+        if (list.size() == 0) {
             presenter.printErrorMessage();
             manageEvent();
         }

@@ -46,7 +46,6 @@ public class OrganizerScreenController extends ScreenController{
         switch (next) {
             case "0":
                 this.programController.getAuthController().logout();
-                this.end();
                 return;
             case "1":
                 nextScreenController = new UserManagementScreenController(this.programController);
@@ -67,8 +66,7 @@ public class OrganizerScreenController extends ScreenController{
                 nextScreenController = new AnonymousScreenController(this.programController);
 
         }
-        this.programController.setCurrentScreenController(nextScreenController);
-        this.programController.setPreviousScreenController(this);
+        this.programController.setNewScreenController(nextScreenController);
     }
 
 

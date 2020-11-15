@@ -44,14 +44,13 @@ public class LoginScreenController extends ScreenController {
 
         this.presenter.success();
         ScreenController nextScreenController = this.authController.getScreenController();
-        this.programController.setCurrentScreenController(nextScreenController);
+        this.programController.setNewScreenController(nextScreenController);
 
     }
 
     public void logout() {
         this.authController.logout();
         this.presenter.signout();
-        this.programController.setCurrentScreenController(new AnonymousScreenController(this.programController));
     }
 
 }

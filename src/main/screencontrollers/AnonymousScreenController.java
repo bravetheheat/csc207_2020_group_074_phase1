@@ -36,6 +36,6 @@ public class AnonymousScreenController extends ScreenController {
                 this.mainOptions();
                 return;
         }
-        this.programController.setCurrentScreenController(nextScreenController);
+        this.programController.setNewScreenController(nextScreenController);
     }
 }

@@ -58,7 +58,7 @@ public class SpeakerScreenController extends ScreenController{
                 ArrayList<String> talks =
                         this.IDtoString(this.programController.getEventController().getSpeakerEvents(loggedInSpeaker));
                 this.presenter.talkList(talks);
-                this.programController.setCurrentScreenController(this.previousScreenController);
+                this.goToPreviousScreenController();
             case "2":
                 this.programController.setCurrentScreenController(new SpeakerMessageScreenController(this.programController));
 
