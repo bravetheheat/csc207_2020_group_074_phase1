@@ -108,12 +108,13 @@ public class OrganizerController extends AttendeeController{
     /**
      * update the room of the event
      * @param event the uuid of the event
-     * @param room the new room of the event
+     * @param roomNum the new room of the event
      * @return true if room of the event have been successfully update of the new room has no difference with the
      * old room. Return false if the room has been occupied at that time
      */
-    public boolean updateRoom(UUID event, UUID room){
+    public boolean updateRoom(UUID event, int roomNum){
         LocalDateTime time = eventController.getSingleEvent(event).getTime();
+        UUID room = roomManager.getRoomIDGivenRoomNum(roomNum);
         return eventController.updateEventInfo(event, time, room);
     }
 
@@ -150,7 +151,7 @@ public class OrganizerController extends AttendeeController{
         return ret;
     }
 
-    public List<UUID> getAllRooms(){
+    public List<Integer> getAllRooms(){
         return this.roomManager.getAllRooms();
     }
 
