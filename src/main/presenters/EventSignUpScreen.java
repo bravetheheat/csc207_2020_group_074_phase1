@@ -15,9 +15,9 @@ public class EventSignUpScreen {
 
     public void promptCommand(){
         System.out.println("Please choose from the following actions(Please enter a number, i.e., 1): ");
+        System.out.println("0. Exit");
         System.out.println("1. Sign up for an event");
         System.out.println("2. Cancel an event");
-        System.out.println("3. Exit");
     }
 
     public void promptEvents(String events){
