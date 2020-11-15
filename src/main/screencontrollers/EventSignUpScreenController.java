@@ -20,11 +20,12 @@ import java.util.UUID;
 public class EventSignUpScreenController extends ScreenController {
     EventSignUpScreen presenter = new EventSignUpScreen();
     UsersManager usersManager = new UsersManager();
-    EventController eventController = new EventController();
+    EventController eventController;
 
 
     public EventSignUpScreenController(ProgramController programController) {
         super(programController);
+        eventController = new EventController(programController);
     }
 
     @Override

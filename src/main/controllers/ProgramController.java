@@ -12,6 +12,7 @@ import java.util.Deque;
 public class ProgramController {
     UsersManager usersManager;
     ContactsManager contactsManager;
+    EventsManager eventsManager;
     MessageManager messageManager;
     AuthController authController;
     EventController eventController;
@@ -26,12 +27,13 @@ public class ProgramController {
     public ProgramController() {
         this.usersManager = new UsersManager();
         this.contactsManager = new ContactsManager();
+        this.eventsManager = new EventsManager();
         this.messageManager = new MessageManager();
         this.inboxManager = new InboxManager();
         this.roomManager = new RoomManager();
         this.authController = new AuthController(this, usersManager);
         this.currentScreenController = new AnonymousScreenController(this);
-        this.eventController = new EventController();
+        this.eventController = new EventController(this);
         this.messageController = new MessageController(this);
     }
 
@@ -114,4 +116,6 @@ public class ProgramController {
         return this.messageController;
     }
 
+    public EventsManager getEventsManager() { return this.eventsManager;
+    }
 }
