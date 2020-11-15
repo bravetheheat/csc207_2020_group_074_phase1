@@ -1,7 +1,11 @@
 package main.usecases;
 
 import main.entities.Event;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * The EventsManager holds a list of Events, and modify Event with its corresponding Users.
@@ -98,23 +102,6 @@ public class EventsManager {
         return events;
     }
 
-
-    /**
-     * String representation of EventsManager
-     *
-     * @return String representation of EventsManager
-     */
-    public String toString() {
-        String s = "Events: \n";
-        int num = 1;
-        for (UUID i : schedule.keySet()){
-            Event e = schedule.get(i);
-            String eToString = "Event #" + num + " " + e.toString() + '\n';
-            num += 1;
-            s += eToString;
-        }
-        return s;
-    }
 
     /**
      * A getter of the schedule stored in EventsManager.
