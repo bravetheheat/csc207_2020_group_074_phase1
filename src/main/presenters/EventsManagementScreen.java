@@ -18,7 +18,7 @@ public class EventsManagementScreen {
     public void promptCommand(){
         System.out.println("What would you like to modify, choose one option (number only) from below:");
         System.out.println("0. Back to organizer screen");
-        System.out.println("1, Create room");
+        System.out.println("1. Create room");
         System.out.println("2. Create event");
         System.out.println("3. Cancel event");
         System.out.println("4. Modify room");
