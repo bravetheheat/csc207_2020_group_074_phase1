@@ -1,0 +1,6 @@
+﻿username,password,role
+"organizer@gmail.com",12345,"Organizer"
+"attendee1@gmail.com",12345,"Attendee"
+"attendee2@gmail.com",12345,"Attendee"
+"speaker1@gmail.com",12345,"Speaker"
+"speaker2@gmail.com",12345,"Speaker"

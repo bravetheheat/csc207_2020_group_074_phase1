@@ -2,6 +2,7 @@ package main.controllers;
 
 import main.entities.Message;
 import main.entities.Room;
+import main.gateways.CSVGateway;
 import main.gateways.Gateway;
 import main.gateways.TestGateway;
 import main.screencontrollers.AnonymousScreenController;
@@ -19,7 +20,7 @@ public class ProgramController {
     InboxManager inboxManager;
     RoomManager roomManager;
     MessageController messageController;
-    Gateway gateway = new TestGateway();
+    Gateway gateway = new CSVGateway();
 
     public ProgramController() {
         this.usersManager = new UsersManager();
