@@ -12,12 +12,19 @@ import java.util.UUID;
  */
 
 public class Event {
-    private final UUID id = UUID.randomUUID();
+
+    private UUID id;
     private String title;
     private LocalDateTime time;
     private UUID roomID;
     private UUID speakerID;
     private List<UUID> attendeesID;
+
+    /**
+     * Empty constructor for deserialization
+     */
+    public Event() {
+    }
 
     /**
      * A title, time, room number, and the ID of the speaker are required to
@@ -29,6 +36,7 @@ public class Event {
      * @param speakerID of the speaker that speaks at this event
      */
     public Event(String title, LocalDateTime time, UUID roomID, UUID speakerID) {
+        this.id = UUID.randomUUID();
         this.title = title;
         this.time = time;
         this.roomID = roomID;
@@ -44,6 +52,25 @@ public class Event {
     public UUID getId() {
         return id;
     }
+
+    /**
+     * Sets id from UUID
+     *
+     * @param id UUID as UUID
+     */
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    /**
+     * Sets ID from string
+     *
+     * @param id UUID as string
+     */
+    public void setId(String id) {
+        this.id = UUID.fromString(id);
+    }
+
 
     /**
      * Returns a list of IDs of attendees who signed up for this event.
