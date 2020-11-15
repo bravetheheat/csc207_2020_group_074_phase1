@@ -37,8 +37,7 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
         while (!next.equals("0")) {
             if (next.equals("all") || next.equals("attendees") || next.equals("speakers")) {
                 sendMessage(next);
-            }
-            else {
+            } else {
                 ArrayList<String> inputs = new ArrayList<>();
                 for (int i = 0; i < next.length(); i += 2) {
                     inputs.add((next.substring(i, i + 1)));
@@ -70,7 +69,7 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
             return;
         }
         ArrayList<UUID> recipients = new ArrayList<>();
-        for (String i: inputs) {
+        for (String i : inputs) {
             recipients.add(this.recipients.get(Integer.parseInt(i) - 1));
         }
         this.messageController.broadCast(this.loggedInUser, recipients, next);
@@ -83,6 +82,7 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
         if (next.equals("0")) {
             return;
         }
+        System.out.println(next);
         switch (type) {
             case "all":
                 this.messageController.broadCastToAll(this.loggedInUser, next);

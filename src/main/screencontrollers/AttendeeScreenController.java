@@ -35,6 +35,15 @@ public class AttendeeScreenController extends ScreenController {
      */
     public void start() {
         this.attendeeScreen.prompt();
+        this.optionsPrompt();
+        this.end();
+    }
+
+    /**
+     * Prompts the user for a screen option
+     */
+    public void optionsPrompt() {
+        this.attendeeScreen.prompt();
         String next = this.scanner.nextLine();
         while (!this.prompts.contains(next)) {
             this.attendeeScreen.prompt2(next);
@@ -43,7 +52,9 @@ public class AttendeeScreenController extends ScreenController {
         }
         switch (next) {
             case "0":
-                this.programController.setCurrentScreenController(this.previousScreenController);
+                this.programController.getAuthController().logout();
+                this.end();
+                return;
             case "1":
                 this.programController.setCurrentScreenController(new EventSignUpScreenController(this.programController));
             case "2":
@@ -52,7 +63,8 @@ public class AttendeeScreenController extends ScreenController {
                 this.programController.setCurrentScreenController(new AttendeeMessageScreenController(this.programController));
             case "4":
                 this.programController.setCurrentScreenController(new InboxScreenController(this.programController));
+            default:
+                this.optionsPrompt();
         }
-        this.end();
     }
 }

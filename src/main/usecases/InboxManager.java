@@ -41,7 +41,13 @@ public class InboxManager {
     }
 
     public void putMessageInToInbox(UUID message, UUID receiver){
+
         Inbox box = this.inboxes.get(receiver);
+        if (box == null) {
+            this.createInboxForUser(receiver);
+            this.putMessageInToInbox(message, receiver);
+            return;
+        }
         box.addMessage(message);
 
     }
