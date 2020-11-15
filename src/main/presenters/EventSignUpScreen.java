@@ -1,7 +1,5 @@
 package main.presenters;
 
-import main.controllers.EventController;
-
 /**
  * The EventSignUpScreen handles the sign up screen for a User(Attendee)
  *
@@ -23,7 +21,7 @@ public class EventSignUpScreen {
     }
 
     public void promptEvents(String events){
-        System.out.println("You are signing up for an event, the following are the events that you can sign up for:\n");
+        System.out.println("You are signing up for an event, the following are the events that you can sign up for:");
         System.out.println(events);
         System.out.println("Enter event index from the above list(Please enter a number, i.e., 1): ");
     }
