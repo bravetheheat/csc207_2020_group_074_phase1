@@ -49,18 +49,23 @@ public class OrganizerScreenController extends ScreenController{
                 this.end();
                 return;
             case "1":
+                this.programController.setPreviousScreenController(new OrganizerScreenController(this.programController));
                 nextScreenController = new UserManagementScreenController(this.programController);
                 break;
             case "2":
+                this.programController.setPreviousScreenController(new OrganizerScreenController(this.programController));
                 nextScreenController = new EventsManagementScreenController(this.programController);
                 break;
             case "3":
+                this.programController.setPreviousScreenController(new OrganizerScreenController(this.programController));
                 nextScreenController = new EventSignUpScreenController(this.programController);
                 break;
             case "4":
+                this.programController.setPreviousScreenController(new OrganizerScreenController(this.programController));
                 nextScreenController = new OrganizerMessageScreenController(this.programController);
                 break;
             case "5":
+                this.programController.setPreviousScreenController(new OrganizerScreenController(this.programController));
                 nextScreenController = new InboxScreenController(this.programController);
                 break;
             default:
