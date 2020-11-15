@@ -29,7 +29,7 @@ public class EventSignUpScreen {
     }
 
     public void promptUserEmail(){
-        System.out.println("Please enter your email: ");
+        System.out.println("Please enter your username: ");
     }
 
     public void printErrorMessage(){
@@ -42,5 +42,9 @@ public class EventSignUpScreen {
 
     public void printFailMessage(){
         System.out.println("You already made this command.");
+    }
+
+    public void printNoEventMessage(){
+        System.out.println("There's no events you can sign up.");
     }
 }
