@@ -32,11 +32,13 @@ public class EventsManagementScreen {
     }
 
     public void promptRoom(String roomList){
+        System.out.println("Here are the available rooms");
         System.out.println(roomList);
         System.out.println("Enter room index from the above list (Starting from 1):");
     }
 
     public void promptSpeaker(String speakerList){
+        System.out.println("Here are the available speakers");
         System.out.println(speakerList);
         System.out.println("Enter speaker index from the above list (Starting from 1):");
     }
@@ -50,6 +52,7 @@ public class EventsManagementScreen {
     }
 
     public void printSchedule(String info){
+        System.out.println("Here are the available events");
         System.out.println(info);
     }
 
@@ -59,5 +62,10 @@ public class EventsManagementScreen {
 
     public void printInvalidInput() {
         System.out.println("Invalid input. Try again.");
+    }
+
+    public void printErrorMessage(){
+        System.out.println("There is no entity of this type in the program yet");
+        System.out.println("Program will now back to options");
     }
 }
