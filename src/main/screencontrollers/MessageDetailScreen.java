@@ -12,5 +12,8 @@ public class MessageDetailScreen extends ScreenController {
         this.messageId = messageId;
     }
 
-    public void start() {}
+    public void start() {
+
+
+    }
 }
