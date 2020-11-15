@@ -26,7 +26,7 @@ public class EventSignUpScreenController extends ScreenController{
 
     @Override
     public void start() {
-        this.presenter.printscreenMessage();
+        this.presenter.printScreenMessage();
         this.mainOption();
     }
 

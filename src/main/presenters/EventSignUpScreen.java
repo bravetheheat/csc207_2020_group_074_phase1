@@ -11,7 +11,7 @@ import main.controllers.EventController;
  */
 public class EventSignUpScreen {
 
-    public void printscreenMessage(){
+    public void printScreenMessage(){
         System.out.println("Sign up or Cancel for an event \n");
     }
 
