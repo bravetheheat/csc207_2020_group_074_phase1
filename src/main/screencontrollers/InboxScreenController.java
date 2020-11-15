@@ -36,7 +36,7 @@ public class InboxScreenController extends ScreenController {
         String choice = this.scanner.nextLine();
         switch (choice) {
             case "0":
-                this.programController.setCurrentScreenController(this.programController.getPreviousScreenController());
+                this.programController.goToPreviousScreenController();
                 return;
             case "1":
                 this.listMessages();
@@ -101,9 +101,8 @@ public class InboxScreenController extends ScreenController {
     }
 
     private void openMessageDetailScreen(UUID messageId) {
-        ScreenController messageDetailScreen = new MessageDetailScreen(this.programController, messageId);
-        this.programController.setPreviousScreenController(this);
-        this.programController.setCurrentScreenController(messageDetailScreen);
-        this.programController.nextScreenController();
+        ScreenController messageDetailScreenController =
+                new MessageDetailScreenController(this.programController, messageId);
+        this.programController.setNewScreenController(messageDetailScreenController);
     }
 }
