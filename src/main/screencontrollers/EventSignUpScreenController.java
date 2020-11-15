@@ -14,7 +14,7 @@ import java.util.UUID;
  * The EventsSignupScreenController handles events sign up and cancellation:
  *
  * @author Zewen Ma
- * @version 3.1
+ * @version 3.2
  * @since 2020-11-11
  */
 public class EventSignUpScreenController extends ScreenController {
@@ -67,7 +67,7 @@ public class EventSignUpScreenController extends ScreenController {
             this.presenter.promptEvents(eventController.getEventsInfo());
             String eventIndex = this.scanner.nextLine();
             int index = Integer.parseInt(eventIndex);
-            UUID eventId = eventController.getEventId(index);
+            UUID eventId = eventController.getEventId(index-1);
             if (eventController.signupEvent(eventId, userId)) {
             this.presenter.printSuccessMessage();
             } else { this.presenter.printFailMessage();}
@@ -82,7 +82,7 @@ public class EventSignUpScreenController extends ScreenController {
             this.presenter.promptEvents(eventController.getEventsInfo());
             String eventIndex = this.scanner.nextLine();
             int index = Integer.parseInt(eventIndex);
-            UUID eventId = eventController.getEventId(index);
+            UUID eventId = eventController.getEventId(index-1);
             if (eventController.cancelEvent(eventId, userId)) {
                 this.presenter.printSuccessMessage();
             } else { this.presenter.printFailMessage();}
