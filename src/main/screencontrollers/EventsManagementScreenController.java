@@ -6,6 +6,7 @@ import main.presenters.EventsManagementScreen;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ import java.util.UUID;
  * create and cancel an event; organize the speaker and room; as well as get events info
  *
  * @author Haoze Huang
- * @version 3.2
+ * @version 3.3
  * @since 2020-11-11
  */
 public class EventsManagementScreenController extends ScreenController{
@@ -177,7 +178,7 @@ public class EventsManagementScreenController extends ScreenController{
             String eventIndex = scanner.nextLine();
             int i = Integer.parseInt(eventIndex);
             return organizerController.getEventController().getEventId(i);
-        }catch (Exception e) {
+        }catch (IllegalArgumentException e) {
             presenter.printInvalidInput();
             return getEventID();
         }
@@ -196,7 +197,7 @@ public class EventsManagementScreenController extends ScreenController{
             presenter.promptSpeaker(organizerController.speakerToString());
             String speakerIndex = scanner.nextLine();
             return speakers.get(Integer.parseInt(speakerIndex)-1);
-        }catch (Exception e) {
+        }catch (IllegalArgumentException e) {
             presenter.printInvalidInput();
             return getSpeakerID();
         }
@@ -215,7 +216,7 @@ public class EventsManagementScreenController extends ScreenController{
             presenter.promptRoom(organizerController.roomToString());
             String roomIndex = scanner.nextLine();
             return rooms.get(Integer.parseInt(roomIndex)-1);
-        }catch (Exception e) {
+        }catch (IllegalArgumentException e) {
             presenter.printInvalidInput();
             return getRoomNum();
         }
@@ -232,7 +233,7 @@ public class EventsManagementScreenController extends ScreenController{
             String timeInput = scanner.nextLine();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             return LocalDateTime.parse(timeInput, formatter);
-        } catch (Exception e){
+        } catch (IllegalArgumentException | DateTimeParseException e){
             presenter.printInvalidInput();
             return getTime();
         }
