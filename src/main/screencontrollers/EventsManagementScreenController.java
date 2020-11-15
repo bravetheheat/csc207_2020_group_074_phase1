@@ -41,9 +41,6 @@ public class EventsManagementScreenController extends ScreenController {
     public void start() {
         presenter.printScreenName();
         manageEvent();
-        ScreenController nextScreenController = new OrganizerScreenController(this.programController);
-        this.programController.setNewScreenController(nextScreenController);
-        end();
     }
 
 
@@ -56,40 +53,41 @@ public class EventsManagementScreenController extends ScreenController {
         String command = scanner.nextLine();
         switch (command){
             case "0":
+                programController.goToPreviousScreenController();
+                end();
+            case "1":
                 if (createRoom()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
-            case "1":
+            case "2":
                 if (createEvent()) presenter.printVerification();
                 else presenter.printInvalidInput();
                 manageEvent();
                 break;
-            case "2":
+            case "3":
                 if (removeEvent()) presenter.printVerification();
                 else presenter.printInvalidInput();
                 manageEvent();
                 break;
-            case "3":
+            case "4":
                 if (modifyRoom()) presenter.printVerification();
                 else presenter.printInvalidInput();
                 manageEvent();
                 break;
-            case "4":
+            case "5":
                 if (modifyTime()) presenter.printVerification();
                 else presenter.printInvalidInput();
                 manageEvent();
                 break;
-            case "5":
+            case "6":
                 if (modifySpeaker()) presenter.printVerification();
                 else presenter.printInvalidInput();
                 manageEvent();
                 break;
-            case "6":
+            case "7":
                 String info = organizerController.getEventController().getEventsInfo();
                 presenter.printSchedule(info);
                 manageEvent();
-                break;
-            case "7":
                 break;
             default:
                 presenter.printInvalidInput();
