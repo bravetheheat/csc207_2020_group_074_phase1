@@ -34,6 +34,7 @@ public class AttendeeScreenController extends ScreenController {
      */
     public void start() {
         this.optionsPrompt();
+        this.programController.setPreviousScreenController(new AttendeeScreenController(this.programController));
         this.end();
     }
 
@@ -54,19 +55,15 @@ public class AttendeeScreenController extends ScreenController {
                 this.end();
                 return;
             case "1":
-                this.programController.setPreviousScreenController(new AttendeeScreenController(this.programController));
                 this.programController.setCurrentScreenController(new EventSignUpScreenController(this.programController));
                 break;
             case "2":
-                this.programController.setPreviousScreenController(new AttendeeScreenController(this.programController));
                 this.programController.setCurrentScreenController(new EventsManagementScreenController(this.programController));
                 break;
             case "3":
-                this.programController.setPreviousScreenController(new AttendeeScreenController(this.programController));
                 this.programController.setCurrentScreenController(new AttendeeMessageScreenController(this.programController));
                 break;
             case "4":
-                this.programController.setPreviousScreenController(new AttendeeScreenController(this.programController));
                 this.programController.setCurrentScreenController(new InboxScreenController(this.programController));
                 break;
         }
