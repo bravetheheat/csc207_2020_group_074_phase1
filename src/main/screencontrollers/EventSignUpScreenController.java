@@ -2,8 +2,8 @@ package main.screencontrollers;
 
 import main.controllers.AuthController;
 import main.controllers.EventController;
-import main.controllers.ProgramController;
 import main.controllers.OrganizerController;
+import main.controllers.ProgramController;
 import main.entities.Event;
 import main.presenters.EventSignUpScreen;
 import main.usecases.UsersManager;
@@ -20,9 +20,9 @@ import java.util.ArrayList;
 public class EventSignUpScreenController extends ScreenController {
     EventSignUpScreen presenter = new EventSignUpScreen();
     UsersManager usersManager = new UsersManager();
+    OrganizerController organizerController;
     EventController eventController;
     AuthController authController;
-    OrganizerController organizerController;
 
 
     public EventSignUpScreenController(ProgramController programController) {
@@ -60,7 +60,7 @@ public class EventSignUpScreenController extends ScreenController {
     }
 
     public boolean haveEvent() {
-        ArrayList<Event> events = new ArrayList<Event>(this.eventController.getAllEvents());
+        ArrayList<Event> events = new ArrayList<Event>(eventController.getAllEvents());
         return events.size() > 0;
     }
 
