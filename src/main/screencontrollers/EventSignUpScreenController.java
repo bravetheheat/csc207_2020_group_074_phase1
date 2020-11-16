@@ -6,7 +6,6 @@ import main.controllers.OrganizerController;
 import main.controllers.ProgramController;
 import main.entities.Event;
 import main.presenters.EventSignUpScreen;
-import main.usecases.UsersManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,17 +14,19 @@ import java.util.List;
  * The EventsSignupScreenController handles events sign up and cancellation:
  *
  * @author Zewen Ma
- * @version 3.2
+ * @version 4.0
  * @since 2020-11-11
  */
 public class EventSignUpScreenController extends ScreenController {
     EventSignUpScreen presenter = new EventSignUpScreen();
-    UsersManager usersManager = programController.getUsersManager();
     OrganizerController organizerController;
     EventController eventController;
     AuthController authController;
 
-
+    /**
+     * Default constructor.
+     * @param programController instance of ProgramController.
+     */
     public EventSignUpScreenController(ProgramController programController) {
         super(programController);
         organizerController = new OrganizerController(programController);
@@ -33,6 +34,9 @@ public class EventSignUpScreenController extends ScreenController {
         authController = programController.getAuthController();
     }
 
+    /**
+     * Start the screen and exit to organizer screen base on inputs.
+     */
     @Override
     public void start() {
         this.presenter.printScreenMessage();
@@ -40,6 +44,9 @@ public class EventSignUpScreenController extends ScreenController {
         this.end();
     }
 
+    /**
+     * Deals with the input option.
+     */
     public void mainOption() {
         this.presenter.promptCommand();
         String choice = this.scanner.nextLine();
@@ -60,16 +67,28 @@ public class EventSignUpScreenController extends ScreenController {
 
     }
 
+    /**
+     * Return true iff the schedule have at least one event.
+     * @return true iff the schedule have at least one event.
+     */
     public boolean haveEvent() {
         ArrayList<Event> events = new ArrayList<Event>(eventController.getAllEvents());
         return events.size() > 0;
     }
 
+    /**
+     * Return true iff the user signed up for at least one event.
+     * @param userId of the user.
+     * @return true iff the user signed up for at least one event.
+     */
     public boolean userHaveEvent(String userId){
         ArrayList<String> events = new ArrayList<>(eventController.getSignupEvents(userId));
         return events.size() > 0;
     }
 
+    /**
+     * Deals the sign up option (Option 1).
+     */
     public void signUpOption() {
         String userId = authController.fetchLoggedInUser();
         if (this.haveEvent()) {
@@ -84,6 +103,11 @@ public class EventSignUpScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Present information of the scheduled events (includes the events a user signed up for) that can be signed up.
+     * Present Error message if the user re-sign up for an event that already signed up.
+     * @param userId of the User.
+     */
     public void getSignUpInfo(String userId){
         String info = eventController.getEventsInfo();
         this.presenter.promptSignupEvents(info);
@@ -99,6 +123,9 @@ public class EventSignUpScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Deals the sign up option (Option 2).
+     */
     public void cancelOption() {
         String userId = authController.fetchLoggedInUser();
         if (this.userHaveEvent(userId)) {
@@ -113,6 +140,11 @@ public class EventSignUpScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Present information of the signed up events that can be cancelled.
+     * Present no events signed up if the user did not signed up for any events.
+     * @param userId of the User.
+     */
     public void getCancelInfo(String userId){
         String info = eventController.getUserEvents(userId);
         this.presenter.promptCancelEvents(info);

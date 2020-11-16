@@ -12,7 +12,7 @@ import java.util.Map;
  * The EventsManager holds a list of Events, and modify Event with its corresponding Users.
  *
  * @author Haoze Huang
- * @version 2.2
+ * @version 2.3
  * @since 2020-10-31
  */
 
@@ -68,7 +68,7 @@ public class EventsManager {
 
 
     /**
-     * Get the list of events for a User given id
+     * Get the list of eventIds for a User given id
      *
      * @param userId to be get events from
      * @return userEvents
@@ -143,9 +143,5 @@ public class EventsManager {
         for (Event event: events) {
             this.schedule.put(event.getId(), event);
         }
-    }
-
-    public String getEventId(Event event){
-        return event.getId();
     }
 }
