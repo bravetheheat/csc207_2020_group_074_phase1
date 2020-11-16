@@ -1,12 +1,12 @@
 package main.controllers;
-import java.util.*;
-import main.usecases.MessageManager;
-import main.usecases.ContactsManager;
-import main.controllers.EventController;
+
 import main.entities.Event;
-import main.usecases.UsersManager;
-import main.entities.Message;
 import main.usecases.InboxManager;
+import main.usecases.MessageManager;
+import main.usecases.UsersManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The MessageController handles different types of users' sending messages features, and could also gives that who
@@ -24,8 +24,7 @@ public class MessageController {
     InboxManager inboxManager;
 
 
-
-    public MessageController(ProgramController programController){
+    public MessageController(ProgramController programController) {
         this.messageManager = programController.getMessageManager();
         this.eventController = programController.getEventController();
         this.usersManager = programController.getUsersManager();
@@ -34,37 +33,40 @@ public class MessageController {
 
     /**
      * send a message from a sender to a receiver.
-     * @param sender the id of the sender
+     *
+     * @param sender   the id of the sender
      * @param receiver the id of the receiver
-     * @param context the context of the message
+     * @param context  the context of the message
      */
-    public void sendMessage(UUID sender, UUID receiver, String context){
-        UUID newMessage = messageManager.createMessage(context, sender);
+    public void sendMessage(String sender, String receiver, String context) {
+        String newMessage = messageManager.createMessage(context, sender);
         inboxManager.putMessageInToInbox(newMessage, receiver);
     }
 
     /**
      * Send the same message to all users inside the list
-     * @param sender the sender of the message
+     *
+     * @param sender    the sender of the message
      * @param receivers a list of receivers
-     * @param context the context of the message
+     * @param context   the context of the message
      */
-    public void broadCast(UUID sender, List<UUID> receivers, String context){
-        for(UUID receiver: receivers){
+    public void broadCast(String sender, List<String> receivers, String context) {
+        for (String receiver : receivers) {
             this.sendMessage(sender, receiver, context);
         }
     }
 
     /**
      * get a list of users that could be messaged by an attendee, which is all other users except the sender
+     *
      * @return the list of user's id which could be messaged by an attendee.
      */
-    public List<UUID> receiversForAttendeeAndOrganizer(UUID sender){
-        List<UUID> receivers = new ArrayList<>();
+    public List<String> receiversForAttendeeAndOrganizer(String sender) {
+        List<String> receivers = new ArrayList<>();
         // Search all users
-        for(UUID receiver: usersManager.getAllUsers()){
+        for (String receiver : usersManager.getAllUsers()) {
             // check if he is an organizer
-            if(receiver != sender){
+            if (receiver != sender) {
                 receivers.add(receiver);
             }
         }
@@ -72,62 +74,62 @@ public class MessageController {
 
     }
 
-    public ArrayList<Event> eventsOfSpeaker(UUID speaker){
+    public ArrayList<Event> eventsOfSpeaker(String speaker) {
         ArrayList<Event> events = new ArrayList<>();
-        for(UUID event: eventController.getSpeakerEvents(speaker)){
+        for (String event : eventController.getSpeakerEvents(speaker)) {
             events.add(eventController.getSingleEvent(event));
         }
         return events;
 
     }
 
-    public ArrayList<String> eventsOfSpeakerInString(UUID speaker){
+    public ArrayList<String> eventsOfSpeakerInString(String speaker) {
         ArrayList<String> events = new ArrayList<>();
-        for(UUID event: eventController.getSpeakerEvents(speaker)){
+        for (String event : eventController.getSpeakerEvents(speaker)) {
             events.add(eventController.getSingleEvent(event).getTitle());
         }
         return events;
     }
 
-    public ArrayList<UUID> replyOptionsForSpeaker(UUID speaker){
-        ArrayList<UUID> ret = new ArrayList<>();
-        for(UUID message: inboxManager.getMessagesOfUser(speaker)){
-            if(! ret.contains(messageManager.retrieveMessageSender(message))){
+    public ArrayList<String> replyOptionsForSpeaker(String speaker) {
+        ArrayList<String> ret = new ArrayList<>();
+        for (String message : inboxManager.getMessagesOfUser(speaker)) {
+            if (!ret.contains(messageManager.retrieveMessageSender(message))) {
                 ret.add(messageManager.retrieveMessageSender(message));
             }
         }
         return ret;
     }
 
-    public ArrayList<String> replyOptionsForSpeakerInString(UUID speaker){
+    public ArrayList<String> replyOptionsForSpeakerInString(String speaker) {
         ArrayList<String> ret = new ArrayList<>();
-        for(UUID sender: replyOptionsForSpeaker(speaker)){
+        for (String sender : replyOptionsForSpeaker(speaker)) {
             ret.add(usersManager.fetchUser(sender).getUsername());
         }
         return ret;
     }
 
 
-
     /**
      * Broadcast to all other users. This method should only be used by organizer
-     * @param sender the sender
+     *
+     * @param sender  the sender
      * @param context the context of the message
      */
-    public void broadCastToAll(UUID sender, String context){
+    public void broadCastToAll(String sender, String context) {
         this.broadCast(sender, this.receiversForAttendeeAndOrganizer(sender), context);
     }
 
     /**
      * Broadcast to all attendees. This method should only be used by organizer.
      *
-     * @param sender the sender
+     * @param sender  the sender
      * @param context the context of the message
      */
-    public void broadCastToAttendees(UUID sender, String context){
-        List<UUID> attendees = new ArrayList<>();
-        List<UUID> receivers = this.receiversForAttendeeAndOrganizer(sender);
-        for (UUID user:receivers) {
+    public void broadCastToAttendees(String sender, String context) {
+        List<String> attendees = new ArrayList<>();
+        List<String> receivers = this.receiversForAttendeeAndOrganizer(sender);
+        for (String user : receivers) {
             if (this.usersManager.fetchRole(user).equals("Attendee")) {
                 attendees.add(user);
             }
@@ -139,13 +141,13 @@ public class MessageController {
     /**
      * Broadcast to all speakers. This method should only be used by organizer.
      *
-     * @param sender the sender
+     * @param sender  the sender
      * @param context the context of the message
      */
-    public void broadCastToSpeakers(UUID sender, String context){
-        List<UUID> speakers = new ArrayList<>();
-        List<UUID> receivers = this.receiversForAttendeeAndOrganizer(sender);
-        for (UUID user:receivers) {
+    public void broadCastToSpeakers(String sender, String context) {
+        List<String> speakers = new ArrayList<>();
+        List<String> receivers = this.receiversForAttendeeAndOrganizer(sender);
+        for (String user : receivers) {
             if (this.usersManager.fetchRole(user).equals("Speaker")) {
                 speakers.add(user);
             }
@@ -155,27 +157,28 @@ public class MessageController {
 
     /**
      * speaker could broadcast to all attendees of an event
-     * @param event the uuid of the event
+     *
+     * @param event   the uuid of the event
      * @param speaker the speaker himself
      * @param context the context of the string
      */
-    public void broadCastForSpeaker(UUID event, UUID speaker, String context){
-        List<UUID> receivers = eventController.getSingleEvent(event).getAttendeesID();
+    public void broadCastForSpeaker(String event, String speaker, String context) {
+        List<String> receivers = eventController.getSingleEvent(event).getAttendeesID();
         this.broadCast(speaker, receivers, context);
     }
 
     /**
      * speaker could broadcast the message to all attendees of several events
-     * @param events a list of events
+     *
+     * @param events  a list of events
      * @param speaker the speaker himself
      * @param context the context of string
      */
-    public void broadCastForSpeakerMoreEvents(List<UUID> events, UUID speaker, String context){
-        for(UUID event: events){
+    public void broadCastForSpeakerMoreEvents(List<String> events, String speaker, String context) {
+        for (String event : events) {
             this.broadCastForSpeaker(event, speaker, context);
         }
     }
-
 
 
 //    /**
@@ -183,18 +186,18 @@ public class MessageController {
 //     * @param sender the id of the speaker
 //     * @return a list of user who have send messages to the speaker before
 //     */
-//    public List<UUID> couldBeMessagedBySpeakerThroughReply(UUID sender){
-//        List<UUID> receivers = new ArrayList<>();
+//    public List<String> couldBeMessagedBySpeakerThroughReply(String sender){
+//        List<String> receivers = new ArrayList<>();
 //        // search all chatrooms this speaker in.
-//        for(UUID chatRoom: chatRoomManager.fetchChatRoomsOfUser(sender)){
+//        for(String chatRoom: chatRoomManager.fetchChatRoomsOfUser(sender)){
 //            // make sure there are only two participates
 //            if(chatRoomManager.fetchChatRoom(chatRoom).getParticipants().size() == 2){
 //                // search all messages to check if the attendee have send
-//                for(UUID message: chatRoomManager.fetchChatRoom(chatRoom).getMessages()){
+//                for(String message: chatRoomManager.fetchChatRoom(chatRoom).getMessages()){
 //
 //                    if(messageManager.retrieveMessageSender(message) != sender){
 //                        // get the uuid of the attendee
-//                        for(UUID user: chatRoomManager.fetchChatRoom(chatRoom).getParticipants()){
+//                        for(String user: chatRoomManager.fetchChatRoom(chatRoom).getParticipants()){
 //                            if(user != sender){
 //                                receivers.add(user);
 //                            }
@@ -208,8 +211,6 @@ public class MessageController {
 //        }
 //        return receivers;
 //    }
-
-
 
 
 }

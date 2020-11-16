@@ -14,19 +14,19 @@ import java.util.Map;
 import java.util.UUID;
 
 public class EventsInfoTest {
-    UUID[] eventsId;
+    String[] eventsId;
     ArrayList<Event> events;
     EventsManager eventsManager;
-    Map<UUID, Event> schedule;
+    Map<String, Event> schedule;
     LocalDateTime time1;
     LocalDateTime time2;
     LocalDateTime time3;
-    UUID room1;
-    UUID room2;
-    UUID speaker1;
-    UUID speaker2;
+    String room1;
+    String room2;
+    String speaker1;
+    String speaker2;
 
-    public EventBuilder setUpEvent(String title, LocalDateTime time, UUID roomID, UUID speakerID){
+    public EventBuilder setUpEvent(String title, LocalDateTime time, String roomID, String speakerID){
         EventBuilder eb = new EventBuilder();
         eb.setTitle(title);
         eb.setRoom(roomID);
@@ -41,10 +41,10 @@ public class EventsInfoTest {
         time1 = LocalDateTime.of(2020, 1,1, 12, 0 );
         time2 = LocalDateTime.of(2020, 1,1, 16, 0 );
         time3 = LocalDateTime.of(2020, 1,1, 17, 0 );
-        room1 = UUID.randomUUID();
-        room2 = UUID.randomUUID();
-        speaker1 = UUID.randomUUID();
-        speaker2 = UUID.randomUUID();
+        room1 = UUID.randomUUID().toString();
+        room2 = UUID.randomUUID().toString();
+        speaker1 = UUID.randomUUID().toString();
+        speaker2 = UUID.randomUUID().toString();
         EventBuilder e1 = setUpEvent("Event1", time1, room1, speaker1);
         eventsManager.scheduleEvent(e1);
         EventBuilder e2 = setUpEvent("Event2", time2, room1, speaker2);
@@ -53,7 +53,7 @@ public class EventsInfoTest {
         eventsManager.scheduleEvent(e3);
         schedule = eventsManager.getSchedule();
         events = eventsManager.getEvents();
-        eventsId = schedule.keySet().toArray(new UUID[events.size()]);
+        eventsId = schedule.keySet().toArray(new String[events.size()]);
     }
 
     @Test

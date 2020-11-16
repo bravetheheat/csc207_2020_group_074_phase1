@@ -2,12 +2,10 @@ package main.screencontrollers;
 
 import main.controllers.ProgramController;
 
-import java.util.UUID;
-
 public class MessageDetailScreen extends ScreenController {
-    UUID messageId;
+    String messageId;
 
-    public MessageDetailScreen(ProgramController programController, UUID messageId) {
+    public MessageDetailScreen(ProgramController programController, String messageId) {
         super(programController);
         this.messageId = messageId;
     }

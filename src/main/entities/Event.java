@@ -1,5 +1,6 @@
 package main.entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +12,14 @@ import java.util.UUID;
  * @author Yile Xie
  */
 
-public class Event {
+public class Event implements Serializable {
 
-    private UUID id;
+    private String id;
     private String title;
     private LocalDateTime time;
-    private UUID roomID;
-    private UUID speakerID;
-    private List<UUID> attendeesID;
+    private String roomID;
+    private String speakerID;
+    private List<String> attendeesID;
 
     /**
      * Empty constructor for deserialization
@@ -35,8 +36,8 @@ public class Event {
      * @param roomID    in which this event takes place
      * @param speakerID of the speaker that speaks at this event
      */
-    public Event(String title, LocalDateTime time, UUID roomID, UUID speakerID) {
-        this.id = UUID.randomUUID();
+    public Event(String title, LocalDateTime time, String roomID, String speakerID) {
+        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
         this.roomID = roomID;
@@ -45,30 +46,21 @@ public class Event {
     }
 
     /**
-     * Get the unique UUID of this event.
+     * Get the unique String of this event.
      *
      * @return id
      */
-    public UUID getId() {
+    public String getId() {
         return id;
-    }
-
-    /**
-     * Sets id from UUID
-     *
-     * @param id UUID as UUID
-     */
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     /**
      * Sets ID from string
      *
-     * @param id UUID as string
+     * @param id String as string
      */
     public void setId(String id) {
-        this.id = UUID.fromString(id);
+        this.id = id;
     }
 
 
@@ -77,7 +69,7 @@ public class Event {
      *
      * @return attendeesID
      */
-    public List<UUID> getAttendeesID() {
+    public List<String> getAttendeesID() {
         return attendeesID;
     }
 
@@ -86,7 +78,7 @@ public class Event {
      *
      * @param id to be added
      */
-    public void addAttendees(UUID id) {
+    public void addAttendees(String id) {
         attendeesID.add(id);
     }
 
@@ -95,7 +87,7 @@ public class Event {
      *
      * @param id to be removed
      */
-    public void removeAttendees(UUID id) {
+    public void removeAttendees(String id) {
         attendeesID.remove(id);
     }
 
@@ -140,7 +132,7 @@ public class Event {
      *
      * @return roomNum
      */
-    public UUID getRoomID() {
+    public String getRoomID() {
         return roomID;
     }
 
@@ -149,7 +141,7 @@ public class Event {
      *
      * @param roomID to be changed to
      */
-    public void setRoomID(UUID roomID) {
+    public void setRoomID(String roomID) {
         this.roomID = roomID;
     }
 
@@ -158,7 +150,7 @@ public class Event {
      *
      * @return speakerID
      */
-    public UUID getSpeakerID() {
+    public String getSpeakerID() {
         return speakerID;
     }
 
@@ -167,7 +159,7 @@ public class Event {
      *
      * @param speakerID to be changed to
      */
-    public void setSpeakerID(UUID speakerID) {
+    public void setSpeakerID(String speakerID) {
         this.speakerID = speakerID;
     }
 

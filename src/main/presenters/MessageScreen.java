@@ -1,10 +1,5 @@
 package main.presenters;
 
-import main.controllers.ProgramController;
-
-import java.util.List;
-import java.util.UUID;
-
 /**
  * Provide a list of chat rooms and let user create chat room with
  * someone in the contact list
@@ -42,9 +37,9 @@ public class MessageScreen {
         System.out.println("The name already exists. Please enter another one:");
     }
 
-//    public void printChatRooms(ProgramController programController, List<UUID> chatRoomIds) {
+//    public void printChatRooms(ProgramController programController, List<String> chatRoomIds) {
 //        System.out.println();
-//        for (UUID id : chatRoomIds) {
+//        for (String id : chatRoomIds) {
 //            System.out.println(programController.getChatRoomManager().
 //                    getChatRoomIdToName().get(id));
 //        }
@@ -53,7 +48,7 @@ public class MessageScreen {
 //    public void startChatRoomWithFriend() {
 //        System.out.println("Enter the username of the person you want to chat with:");
 //        String friendUsername = scanner.nextLine();
-//        UUID friendUserId = programController.getUsersManager().
+//        String friendUserId = programController.getUsersManager().
 //                getIDFromUsername(friendUsername);
 //        System.out.println("Create a name for the chat room:");
 //        while (true) {
@@ -72,8 +67,8 @@ public class MessageScreen {
 
 //    public void viewChatRooms() {
 //        System.out.println();
-//        List<UUID> chatRoomIds = messageScreenController.fetchChatRoomIds();
-//        for (UUID id : chatRoomIds) {
+//        List<String> chatRoomIds = messageScreenController.fetchChatRoomIds();
+//        for (String id : chatRoomIds) {
 //            System.out.println(programController.getChatRoomManager().
 //                    getChatRoomIdToName().get(id));
 //        }
@@ -81,13 +76,13 @@ public class MessageScreen {
 
 
 //    public void goToChatRoomScreen(String chatRoomName) {
-//        HashMap<String, UUID> chatRoomNameToId = new HashMap<>();
-//        for (UUID id : programController.getChatRoomManager().
+//        HashMap<String, String> chatRoomNameToId = new HashMap<>();
+//        for (String id : programController.getChatRoomManager().
 //                getChatRoomIdToName().keySet()) {
 //            chatRoomNameToId.put(programController.getChatRoomManager().
 //                    getChatRoomIdToName().get(id), id);
 //        }
-//        UUID chatRoomIdSelected = chatRoomNameToId.get(chatRoomName);
+//        String chatRoomIdSelected = chatRoomNameToId.get(chatRoomName);
 //        ChatRoomScreen chatRoomScreen = new ChatRoomScreen(
 //                programController, chatRoomIdSelected);
 //        chatRoomScreen.start();

@@ -3,7 +3,6 @@ package main.presenters;
 import main.usecases.UsersManager;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * AttendeeMessageScreen is the screen where the attendee can choose who to message.
@@ -14,12 +13,13 @@ import java.util.UUID;
  */
 public class AttendeeMessageScreen {
 
-    protected List<UUID> recipients;
+    protected List<String> recipients;
     protected UsersManager usersManager;
+
     /**
      * Constructor of an AttendeeMessageScreen.
      */
-    public AttendeeMessageScreen(UsersManager usersManager, List<UUID> recipients) {
+    public AttendeeMessageScreen(UsersManager usersManager, List<String> recipients) {
         this.usersManager = usersManager;
         this.recipients = recipients;
     }

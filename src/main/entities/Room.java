@@ -1,9 +1,9 @@
 package main.entities;
 
-import java.util.HashMap;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
-import java.util.NoSuchElementException;
 
 /**
  * A class that represents a conference room.
@@ -12,38 +12,41 @@ import java.util.NoSuchElementException;
  */
 
 public class Room {
-    private UUID id; // for referencing purposes
+    private String id; // for referencing purposes
     private int roomNum; // the organizer can enter a room with its room number, and the schedule will display
-    // the room number instead of the UUID
-    private HashMap<LocalDateTime, UUID> schedule;
+    // the room number instead of the String
+    private Map<LocalDateTime, String> schedule;
     private int capacity;
 
     /**
-     * Empty constructor for deserialization
+     * No-arg constructor for deserialization
      */
     public Room() {
-
+    this.schedule = new HashMap<>();
     }
-
 
 
     /**
      * A room number is required to create an instance of Room.
      */
     public Room(int roomNum) {
-        this.id = UUID.randomUUID();
+        this.id = UUID.randomUUID().toString();
         this.roomNum = roomNum;
         this.schedule = new HashMap<>();
         this.capacity = 2;
     }
 
     /**
-     * Get the unique UUID of this room.
+     * Get the unique String of this room.
      *
      * @return id
      */
-    public UUID getId() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -53,6 +56,10 @@ public class Room {
      */
     public int getRoomNum() {
         return roomNum;
+    }
+
+    public void setRoomNum(int roomNum) {
+        this.roomNum = roomNum;
     }
 
     /**
@@ -78,7 +85,7 @@ public class Room {
      *
      * @return schedule
      */
-    public HashMap<LocalDateTime, UUID> getSchedule() {
+    public Map<LocalDateTime, String> getSchedule() {
         return schedule;
     }
 
@@ -88,7 +95,7 @@ public class Room {
      * @param time  that this room will be booked
      * @param event corresponding to the time slot
      */
-    public void addToSchedule(LocalDateTime time, UUID event) {
+    public void addToSchedule(LocalDateTime time, String event) {
         schedule.put(time, event);
     }
 
@@ -98,7 +105,7 @@ public class Room {
      * @param time  that this room was booked
      * @param event corresponding to the time slot
      */
-    public void removeFromSchedule(LocalDateTime time, UUID event) {
+    public void removeFromSchedule(LocalDateTime time, String event) {
         schedule.remove(time);
     }
 }

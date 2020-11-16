@@ -5,7 +5,6 @@ import main.entities.Event;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 
 /**
@@ -19,14 +18,15 @@ import java.util.UUID;
 public class EventInfoManager {
 
     private final Event event;
-    private final Map<UUID, Event> schedule;
+    private final Map<String, Event> schedule;
 
     /**
      * Class constructor
-     *  @param eventId that going to be modified
+     *
+     * @param eventId  that going to be modified
      * @param schedule of events
      */
-    public EventInfoManager(UUID eventId, Map<UUID, Event> schedule) {
+    public EventInfoManager(String eventId, Map<String, Event> schedule) {
         this.schedule = schedule;
         this.event = schedule.get(eventId);
     }
@@ -37,9 +37,9 @@ public class EventInfoManager {
      * @param newSpeakerId that going to be added
      * @return verification of success addition
      */
-    public boolean addSpeaker(UUID newSpeakerId){
+    public boolean addSpeaker(String newSpeakerId) {
         //for one speaker event
-        if (event.getSpeakerID() == null){
+        if (event.getSpeakerID() == null) {
             event.setSpeakerID(newSpeakerId);
             return true;
         }
@@ -54,13 +54,13 @@ public class EventInfoManager {
      * @param removeSpeakerId that going to be removed
      * @return verification of success removal
      */
-    public boolean removeSpeaker(UUID removeSpeakerId){
+    public boolean removeSpeaker(String removeSpeakerId) {
         //for one speaker event, do not have to worry about time conflict
-        if (event.getSpeakerID() != null && event.getSpeakerID() == removeSpeakerId){
+        if (event.getSpeakerID() != null && event.getSpeakerID() == removeSpeakerId) {
             event.setSpeakerID(null);
             return true;
         }
-        return  false;
+        return false;
         //for no speaker event (in phase 2)
         //for multiple speaker event (in phase 2)
     }
@@ -72,7 +72,7 @@ public class EventInfoManager {
      * @param newUserId that needs to be added
      * @return check if user is added
      */
-    public boolean addUser(UUID newUserId) {
+    public boolean addUser(String newUserId) {
         if (!event.getAttendeesID().contains(newUserId)) {
             event.addAttendees(newUserId);
             return true;
@@ -87,8 +87,8 @@ public class EventInfoManager {
      * @param removedUserId that needs to be removed
      * @return check for successful removal
      */
-    public boolean removeUser(UUID removedUserId) {
-        if (event.getAttendeesID().contains(removedUserId)){
+    public boolean removeUser(String removedUserId) {
+        if (event.getAttendeesID().contains(removedUserId)) {
             event.removeAttendees(removedUserId);
             return true;
         }
@@ -99,18 +99,18 @@ public class EventInfoManager {
     /**
      * Update time and room of a particular Event iff no conflict
      *
-     * @param newTime of event
+     * @param newTime   of event
      * @param newRoomId of event
      * @return check for successful update
      */
-    public boolean updateEventInfo(LocalDateTime newTime, UUID newRoomId) {
-        for(UUID id : schedule.keySet()){
+    public boolean updateEventInfo(LocalDateTime newTime, String newRoomId) {
+        for (String id : schedule.keySet()) {
             Event e = schedule.get(id);
             //time conflict at same room
-            if((e.getTime() == newTime) && (e.getRoomID()== newRoomId)) {
+            if ((e.getTime() == newTime) && (e.getRoomID() == newRoomId)) {
                 return false;
             }//speaker conflict at same time
-            else if((e.getTime() == newTime) && (e.getSpeakerID()== event.getSpeakerID())) {
+            else if ((e.getTime() == newTime) && (e.getSpeakerID() == event.getSpeakerID())) {
                 return false;
             }
         }
@@ -125,7 +125,7 @@ public class EventInfoManager {
      *
      * @return usersId
      */
-    public List<UUID> getUsers() {
+    public List<String> getUsers() {
         return event.getAttendeesID();
     }
 
@@ -144,7 +144,7 @@ public class EventInfoManager {
      *
      * @return the information of the event as a string representation.
      */
-    public String eventRep(){
+    public String eventRep() {
         return event.toString();
     }
 }

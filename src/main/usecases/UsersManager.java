@@ -3,7 +3,10 @@ package main.usecases;
 import main.entities.User;
 import main.gateways.Gateway;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The UsersManager holds a list of users and modifies info for ...
@@ -14,7 +17,7 @@ import java.util.*;
  */
 
 public class UsersManager {
-    private static Map<UUID, User> registeredUsers;
+    private static Map<String, User> registeredUsers;
 
     public UsersManager() {
         registeredUsers = new HashMap<>();
@@ -27,19 +30,19 @@ public class UsersManager {
         }
     }
 
-    private Map<String, UUID> mapUsernameToUUID() {
-        Map<String, UUID> usernameToUUID = new HashMap<>();
-        for (UUID id : registeredUsers.keySet()) {
+    private Map<String, String> mapUsernameToUUID() {
+        Map<String, String> usernameToUUID = new HashMap<>();
+        for (String id : registeredUsers.keySet()) {
             usernameToUUID.put(registeredUsers.get(id).getUsername(), id);
         }
         return usernameToUUID;
     }
 
-    public UUID getIDFromUsername(String username) {
+    public String getIDFromUsername(String username) {
         return mapUsernameToUUID().get(username);
     }
 
-    public String getUsernameFromID(UUID userId) {
+    public String getUsernameFromID(String userId) {
         User user = registeredUsers.get(userId);
         return user.getUsername();
     }
@@ -52,7 +55,7 @@ public class UsersManager {
      * @param password that is the password of the user.
      * @return check for authentication of user
      */
-    public UUID authenticateUser(String username, String password) {
+    public String authenticateUser(String username, String password) {
         for (User user : registeredUsers.values()) {
             if (user.getUsername().equals(username) & user.getPassword().equals(password)) {
                 return user.getId();
@@ -67,7 +70,7 @@ public class UsersManager {
      *
      * @param userId that should be deleted from the list of registered users
      */
-    public void removeUser(UUID userId) {
+    public void removeUser(String userId) {
         registeredUsers.remove(userId);
     }
 
@@ -116,17 +119,17 @@ public class UsersManager {
 
 
     /**
-     * Fetches the User object associated with the UUID
+     * Fetches the User object associated with the String
      *
-     * @param userId UUID of User object
+     * @param userId String of User object
      * @return a User object
      */
-    public User fetchUser(UUID userId) {
+    public User fetchUser(String userId) {
         return registeredUsers.get(userId);
     }
 
     /**
-     * Return the information of all Users which include user's UUID, username and password.
+     * Return the information of all Users which include user's String, username and password.
      *
      * @return String representation of registered users
      */
@@ -144,41 +147,41 @@ public class UsersManager {
     /**
      * Returns the role of the user.
      *
-     * @param user UUID of the user in question.
+     * @param user String of the user in question.
      */
-    public String fetchRole(UUID user) {
+    public String fetchRole(String user) {
         return fetchUser(user).getRole();
     }
 
     /**
      * Returns the string representation of a user.
      *
-     * @param id UUID of the user in question
+     * @param id String of the user in question
      */
-    public String userToString(UUID id) {
+    public String userToString(String id) {
         return "Username : " + fetchUser(id).getId() + "(" + fetchRole(id) + ")";
     }
 
     /**
-     * Returns a list of UUID of all users.
+     * Returns a list of String of all users.
      */
-    public List<UUID> getAllUsers() {
-        List<UUID> allUsers = new ArrayList<>();
+    public List<String> getAllUsers() {
+        List<String> allUsers = new ArrayList<>();
         allUsers.addAll(registeredUsers.keySet());
         return allUsers;
     }
 
     public void loadUsersFromGateway(Gateway gateway) {
-        this.registeredUsers = new HashMap<UUID, User>();
+        registeredUsers = new HashMap<String, User>();
         List<User> loadedUsers = gateway.loadUsers();
-        for (User user: loadedUsers) {
-            this.registeredUsers.put(user.getId(), user);
+        for (User user : loadedUsers) {
+            registeredUsers.put(user.getId(), user);
         }
     }
 
     public void saveUsersToGateway(Gateway gateway) {
         List<User> userList = new ArrayList<>();
-        userList.addAll(this.registeredUsers.values());
+        userList.addAll(registeredUsers.values());
         gateway.saveUsers(userList);
     }
 }

@@ -4,7 +4,6 @@ import main.controllers.ProgramController;
 import main.presenters.OrganizerMessageScreen;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * OrganizerMessageScreenController is the screen where the organizer can choose who to message.
@@ -68,7 +67,7 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
         if (next.equals("0")) {
             return;
         }
-        ArrayList<UUID> recipients = new ArrayList<>();
+        ArrayList<String> recipients = new ArrayList<>();
         for (String i : inputs) {
             recipients.add(this.recipients.get(Integer.parseInt(i) - 1));
         }

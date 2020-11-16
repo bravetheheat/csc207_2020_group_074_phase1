@@ -21,16 +21,6 @@ public class AttendeeController extends UserController {
         super(programController);
     }
 
-
-//    /**
-//     * Returns a list of Messages of a ChatRoom that the user is participating in.
-//     *
-//     * @param chatRoom UUID of the user's selected ChatRoom
-//     */
-//    public List<UUID> checkMessages(UUID chatRoom) {
-//        return this.chatRoomManager.fetchMessagesFromChatRoom(chatRoom);
-//    }
-
     /**
      * Returns a list of events in the conference.
      */
@@ -50,10 +40,10 @@ public class AttendeeController extends UserController {
 //    /**
 //     * Registers user in an event and returns true if they were not already registered.
 //     *
-//     * @param event UUID of the event that the user is trying to register for
+//     * @param event String of the event that the user is trying to register for
 //     */
-//    public boolean registerForEvent(UUID event) {
-//        // currently checkRegisteredEvents returns an ArrayList of Event and not UUID
+//    public boolean registerForEvent(String event) {
+//        // currently checkRegisteredEvents returns an ArrayList of Event and not String
 //        if (!this.checkRegisteredEvents(this.eventController).contains(event)) {
 //            return eventController.addUser(event, this.loggedInUser);
 //        }
@@ -63,9 +53,9 @@ public class AttendeeController extends UserController {
     /**
      * Removes an event from the user's list of registered events.
      *
-     * @param event UUID of the event that the user is trying to remove
+     * @param event String of the event that the user is trying to remove
      */
-    public boolean dropOutFromEvent(UUID event) {
+    public boolean dropOutFromEvent(String event) {
         return this.eventController.removeUser(event, this.loggedInUser);
     }
 }

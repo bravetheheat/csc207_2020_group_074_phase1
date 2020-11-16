@@ -3,12 +3,10 @@ package main.screencontrollers;
 import main.controllers.MessageController;
 import main.controllers.ProgramController;
 import main.presenters.AttendeeMessageScreen;
-import main.usecases.MessageManager;
 import main.usecases.UsersManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * AttendeeMessageScreenController is the controller in charge of input and output of the AttendeeMessageScreen.
@@ -21,10 +19,10 @@ public class AttendeeMessageScreenController extends ScreenController {
 
     protected AttendeeMessageScreen attendeeMessageScreen;
     protected List<String> prompts;
-    protected List<UUID> recipients;
+    protected List<String> recipients;
     protected UsersManager usersManager;
     protected MessageController messageController;
-    protected UUID loggedInUser;
+    protected String loggedInUser;
 
     /**
      * Constructor of AttendeeMessageScreenController
@@ -74,7 +72,7 @@ public class AttendeeMessageScreenController extends ScreenController {
         if (next.equals("0")) {
             return;
         }
-        this.messageController.sendMessage(loggedInUser, recipients.get(usersIndex),next);
+        this.messageController.sendMessage(loggedInUser, recipients.get(usersIndex), next);
         this.attendeeMessageScreen.successMessage();
     }
 }

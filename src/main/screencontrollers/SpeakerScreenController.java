@@ -4,7 +4,6 @@ import main.controllers.ProgramController;
 import main.presenters.SpeakerScreen;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * The SpeakerScreenController decides what to display, receives
@@ -33,7 +32,7 @@ public class SpeakerScreenController extends ScreenController{
     @Override
     public void start() {
         this.presenter.prompt();
-        UUID loggedInSpeaker = this.programController.getAuthController().fetchLoggedInUser();
+        String loggedInSpeaker = this.programController.getAuthController().fetchLoggedInUser();
         ArrayList<String> validInput = new ArrayList<>();
         validInput.add("1");
         validInput.add("2");
@@ -59,14 +58,14 @@ public class SpeakerScreenController extends ScreenController{
     }
 
     /**
-     * Return a list of strings for events, given a list of events UUID at which the speaker will be speaking.
-     * @param talkList list of UUID of the talks that the speaker will be giving
+     * Return a list of strings for events, given a list of events String at which the speaker will be speaking.
+     * @param talkList list of String of the talks that the speaker will be giving
      * @return a list of the string representation of the talks
      */
 
-    public ArrayList<String> IDtoString(ArrayList<UUID> talkList){
+    public ArrayList<String> IDtoString(ArrayList<String> talkList){
         ArrayList<String> talksString = new ArrayList<>();
-        for (UUID talk : talkList){
+        for (String talk : talkList){
             talksString.add(this.programController.getEventController().getSingleEventInfo(talk).toString());
         }
         return talksString;

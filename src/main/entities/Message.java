@@ -12,20 +12,29 @@ import java.util.UUID;
  */
 public class Message {
 
-    private final UUID id = UUID.randomUUID();
-    private final String text;
-    private final LocalDateTime time = LocalDateTime.now();
-    private final UUID sender;
+    private String id;
+    private String text;
+    private LocalDateTime time;
+    private String sender;
+
+    /**
+     * Empty constructor for deserialization.
+     */
+    public Message(){
+
+    }
 
     /**
      * Class constructor
      *
      * @param text   the text of the message
-     * @param sender the UUID of the sender
+     * @param sender the String of the sender
      */
-    public Message(String text, UUID sender) {
+    public Message(String text, String sender) {
+        this.id = UUID.randomUUID().toString();
         this.text = text;
         this.sender = sender;
+        this.time = LocalDateTime.now();
     }
 
     /**
@@ -40,9 +49,9 @@ public class Message {
     /**
      * Gets the sender of the message
      *
-     * @return UUID of the sender of the message
+     * @return String of the sender of the message
      */
-    public UUID getSender() {
+    public String getSender() {
         return this.sender;
     }
 
@@ -60,7 +69,7 @@ public class Message {
      *
      * @return id of the message
      */
-    public UUID getId() {
+    public String getId() {
         return this.id;
     }
 

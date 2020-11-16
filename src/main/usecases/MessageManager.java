@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * <code>MessageManager</code> stores all the messages and assigns an ID to
@@ -18,7 +17,7 @@ import java.util.UUID;
  */
 public class MessageManager {
 
-    private final Map<UUID, Message> messageList;
+    private final Map<String, Message> messageList;
 
     /**
      * Default constructor that instantiates a <code>MessageManager</code> object
@@ -29,55 +28,60 @@ public class MessageManager {
 
     /**
      * Instantiates a <code>MessageManager</code> object with a <code>messageList</code>
+     *
      * @param messageList a dictionary that assigns an ID to each <code>Message</code>
      */
     public MessageManager(List<Message> messageList) {
         this.messageList = new HashMap<>();
         for (Message message : messageList) {
-            UUID messageId = message.getId();
+            String messageId = message.getId();
             this.messageList.put(messageId, message);
         }
     }
 
     /**
      * Create a <code>Message</code> with specified text and sender
-     * @param text The content of the <code>Message</code>
+     *
+     * @param text   The content of the <code>Message</code>
      * @param sender The sender of the message
-     * @return UUID The ID of the message created
+     * @return String The ID of the message created
      */
-    public UUID createMessage(String text, UUID sender) {
+    public String createMessage(String text, String sender) {
         Message newMessage = new Message(text, sender);
-        UUID newMessageId = newMessage.getId();
+        String newMessageId = newMessage.getId();
         this.messageList.put(newMessageId, newMessage);
         return newMessageId;
     }
 
     /**
      * Get the content of a message
+     *
      * @param messageId ID of the message retrieved
      * @return The content of the message
      */
-    public String retrieveMessageText(UUID messageId) {
+    public String retrieveMessageText(String messageId) {
         Message message = this.messageList.get(messageId);
         return message.getText();
     }
 
     /**
      * Get the date of a message
+     *
      * @param messageId ID of the message retrieved
      * @return date of the message
      */
-    public LocalDateTime retrieveMessageDate(UUID messageId) {
+    public LocalDateTime retrieveMessageDate(String messageId) {
         Message message = this.messageList.get(messageId);
         return message.getDate();
     }
 
     /**
      * Get the sender of a message
+     *
      * @param messageId ID of the message retrieved
      * @return the ID of the sender
      */
-    public UUID retrieveMessageSender(UUID messageId) {
+    public String retrieveMessageSender(String messageId) {
         Message message = this.messageList.get(messageId);
         return message.getSender();
     }

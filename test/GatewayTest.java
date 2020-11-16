@@ -26,7 +26,6 @@ public class GatewayTest {
         rooms.add(room2);
         rooms.add(room3);
 
-        System.out.println(rooms);
         this.gateway.saveRooms(rooms);
 
 
