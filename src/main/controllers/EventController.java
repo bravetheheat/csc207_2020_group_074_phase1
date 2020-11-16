@@ -143,7 +143,7 @@ public class EventController {
         String s = "Events: \n";
         int num = 1;
         for (String i: this.eventsManager.getSchedule().keySet()){
-            String eToString = "Event #" + num + " "+getSingleEventInfo(i);
+            String eToString = "Event #" + num + " "+getSingleEventInfo(i) + "\n";
             num += 1;
             s += eToString;
         }
