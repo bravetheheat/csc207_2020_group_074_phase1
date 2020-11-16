@@ -3,6 +3,11 @@ package main.gateways.beans;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+
+/**
+ * EventBean is used to serialize and deserialize Event objects into string form
+ * Each Event can be represented by one or more EventBeans
+ */
 public class EventBean implements Serializable {
     private String id;
     private String title;

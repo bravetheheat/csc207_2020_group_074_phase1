@@ -1,10 +1,11 @@
 package main.gateways.beans;
-
-import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
 
 import java.io.Serializable;
 
+/**
+ * UserBean is used to serialize and deserialize users
+ */
 public class UserBean implements Serializable {
     @CsvBindByPosition(position=0)
     private String username;
