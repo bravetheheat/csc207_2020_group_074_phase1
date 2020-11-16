@@ -59,7 +59,7 @@ public class EventController {
         Map<String, Event> schedule = this.eventsManager.getSchedule();
         StringBuilder s = new StringBuilder();
         for (String eventId: ids){
-            EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
+            EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
             s.append(eventInfoManager.toString());
         }
 
@@ -222,7 +222,7 @@ public class EventController {
 
     public List<String> getUsers(String eventId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
-        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
         return eventinfomanager.getUsers();
     }
 }

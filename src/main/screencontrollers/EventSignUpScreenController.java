@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class EventSignUpScreenController extends ScreenController {
     EventSignUpScreen presenter = new EventSignUpScreen();
-    UsersManager usersManager = new UsersManager();
+    UsersManager usersManager = programController.getUsersManager();
     OrganizerController organizerController;
     EventController eventController;
     AuthController authController;
