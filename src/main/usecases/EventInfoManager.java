@@ -1,6 +1,7 @@
 package main.usecases;
 
 import main.entities.Event;
+import main.entities.Room;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +20,8 @@ public class EventInfoManager {
 
     private final Event event;
     private final Map<String, Event> schedule;
+    private RoomManager roomManager;
+    private UsersManager usersManager;
 
     /**
      * Class constructor
@@ -29,6 +32,20 @@ public class EventInfoManager {
     public EventInfoManager(String eventId, Map<String, Event> schedule) {
         this.schedule = schedule;
         this.event = schedule.get(eventId);
+    }
+
+    /**
+     *
+     * @param eventId that going to be modified
+     * @param schedule of events
+     * @param rm to get room info
+     * @param um to get speaker info
+     */
+    public EventInfoManager(String eventId, Map<String, Event> schedule, RoomManager rm, UsersManager um) {
+        this.schedule = schedule;
+        this.event = schedule.get(eventId);
+        this.roomManager = rm;
+        this.usersManager = um;
     }
 
     /**
@@ -144,7 +161,22 @@ public class EventInfoManager {
      *
      * @return the information of the event as a string representation.
      */
-    public String eventRep() {
-        return event.toString();
+    public String toString() {
+        String speakerName = "";
+        int roomNum = -1;
+        for(String user: usersManager.getAllUsers()){
+            if(this.usersManager.fetchRole(user).equals("Speaker") && user.equals(event.getSpeakerID())){
+                speakerName = usersManager.fetchUser(user).getUsername();
+            }
+        }
+        for(Room room: roomManager.getAllRoomsObject()){
+            if (room.getId().equals(event.getRoomID())){
+                roomNum = room.getRoomNum();
+            }
+        }
+        return "Title: " + event.getTitle() + "\n"
+                + "Time: " + event.getTime() + "\n"
+                + "Speaker: " + speakerName + "\n"
+                + "Room: " + roomNum;
     }
 }

@@ -1,13 +1,11 @@
 package main.controllers;
 
 import main.entities.Event;
-import main.entities.Room;
 import main.usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * The EventController handles event management: create and cancel an event; add or remove a user from
@@ -145,23 +143,9 @@ public class EventController {
      * @return a string representation of the event
      */
     public String getSingleEventInfo(String eventId){
-        String speakerName = "";
-        int roomNum = -1;
-        Event event = this.getSingleEvent(eventId);
-        for(String user: usersManager.getAllUsers()){
-            if(this.usersManager.fetchRole(user).equals("Speaker") && user == event.getSpeakerID()){
-                speakerName = usersManager.fetchUser(user).getUsername();
-            }
-        }
-        for(Room room: roomManager.getAllRoomsObject()){
-            if (room.getId() == event.getRoomID()){
-                roomNum = room.getRoomNum();
-            }
-        }
-        return "Title: " + event.getTitle() + "\n"
-                + "Time: " + event.getTime() + "\n"
-                + "Speaker: " + speakerName + "\n"
-                + "Room: " + roomNum;
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+        return eventinfomanager.toString();
     }
 
     /**
