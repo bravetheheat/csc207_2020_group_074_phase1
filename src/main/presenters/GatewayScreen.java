@@ -11,6 +11,8 @@ public class GatewayScreen {
         System.out.println("Please choose from one of the following options:");
         System.out.println("0. Return to previous screen.");
         System.out.println("1. Save users");
+        System.out.println("2. Save rooms");
+        System.out.println("3. Save events");
     }
 
     public void saveUsers() {
@@ -20,6 +22,11 @@ public class GatewayScreen {
 
     public void saveRooms() {
         System.out.println("Saving rooms...");
+        System.out.println();
+    }
+
+    public void saveEvents() {
+        System.out.println("Saving events...");
         System.out.println();
     }
 

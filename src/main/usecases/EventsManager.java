@@ -1,9 +1,11 @@
 package main.usecases;
 
 import main.entities.Event;
+import main.gateways.Gateway;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,7 +18,11 @@ import java.util.Map;
 
 public class EventsManager {
 
-    private final Map<String, Event> schedule = new LinkedHashMap<>();
+    private Map<String, Event> schedule ;
+
+    public EventsManager() {
+        this.schedule = new LinkedHashMap<>();
+    }
 
     /**
      * Add an Event to schedule with the given time. Throw an existent exception if
@@ -126,5 +132,19 @@ public class EventsManager {
      */
     public Map<String, Event> getSchedule() {
         return schedule;
+    }
+
+    public void saveEventsToGateway(Gateway gateway) {
+        List<Event> events = new ArrayList<>();
+        events.addAll(this.schedule.values());
+        gateway.saveEvents(events);
+    }
+
+    public void loadEventsFromGateway(Gateway gateway) {
+        this.schedule = new LinkedHashMap<>();
+        List<Event> events = gateway.loadEvents();
+        for (Event event: events) {
+            this.schedule.put(event.getId(), event);
+        }
     }
 }

@@ -2,7 +2,6 @@ package main.gateways.beans;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class EventBean implements Serializable {
     private String id;
@@ -10,5 +9,57 @@ public class EventBean implements Serializable {
     private LocalDateTime time;
     private String roomID;
     private String speakerID;
-    private List<String> attendeesID;
+    private String attendeeId;
+
+    public EventBean() {
+
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public String getRoomID() {
+        return roomID;
+    }
+
+    public void setRoomID(String roomID) {
+        this.roomID = roomID;
+    }
+
+    public String getSpeakerID() {
+        return speakerID;
+    }
+
+    public void setSpeakerID(String speakerID) {
+        this.speakerID = speakerID;
+    }
+
+    public String getAttendeeId() {
+        return attendeeId;
+    }
+
+    public void setAttendeeId(String attendeeId) {
+        this.attendeeId = attendeeId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
