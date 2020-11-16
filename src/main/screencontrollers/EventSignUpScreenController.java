@@ -100,8 +100,7 @@ public class EventSignUpScreenController extends ScreenController {
     }
 
     public void cancelOption() {
-        String userEmail = authController.fetchLoggedInUser();
-        String userId = usersManager.getIDFromUsername(userEmail);
+        String userId = authController.fetchLoggedInUser();
         if (this.userHaveEvent(userId)) {
             try{
                 this.getCancelInfo(userId);
