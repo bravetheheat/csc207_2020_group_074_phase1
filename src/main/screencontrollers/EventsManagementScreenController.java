@@ -187,8 +187,8 @@ public class EventsManagementScreenController extends ScreenController {
         try {
             String eventIndex = scanner.nextLine();
             int i = Integer.parseInt(eventIndex);
-            return organizerController.getEventController().getEventId(i);
-        } catch (IllegalArgumentException e) {
+            return organizerController.getEventController().getEventId(i-1);
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             presenter.printInvalidInput();
             return getEventID();
         }
@@ -208,7 +208,7 @@ public class EventsManagementScreenController extends ScreenController {
             presenter.promptSpeaker(organizerController.speakerToString());
             String speakerIndex = scanner.nextLine();
             return speakers.get(Integer.parseInt(speakerIndex) - 1);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             presenter.printInvalidInput();
             return getSpeakerID();
         }
@@ -228,7 +228,7 @@ public class EventsManagementScreenController extends ScreenController {
             presenter.promptRoom(organizerController.roomToString());
             String roomIndex = scanner.nextLine();
             return rooms.get(Integer.parseInt(roomIndex) - 1);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             presenter.printInvalidInput();
             return getRoomNum();
         }
