@@ -5,6 +5,7 @@ import main.usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,7 +54,19 @@ public class EventController {
      * @param userId user id of a specific User
      * @return a list of events of this User given userid.
      */
-    public ArrayList<Event> getUserEvents(String userId){
+    public String getUserEvents(String userId){
+        ArrayList<String> ids = this.eventsManager.getUserEvents(userId);
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        StringBuilder s = new StringBuilder();
+        for (String eventId: ids){
+            EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
+            s.append(eventInfoManager.toString());
+        }
+
+        return String.valueOf(s);
+    }
+
+    public ArrayList<String> getSignupEvents(String userId){
         return this.eventsManager.getUserEvents(userId);
     }
 
@@ -205,5 +218,11 @@ public class EventController {
         Map<String, Event> schedule = this.eventsManager.getSchedule();
         ArrayList<String> eventIds = new ArrayList<>(schedule.keySet());
         return eventIds.get(index);
+    }
+
+    public List<String> getUsers(String eventId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
+        return eventinfomanager.getUsers();
     }
 }
