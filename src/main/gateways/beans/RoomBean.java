@@ -3,6 +3,10 @@ package main.gateways.beans;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * RoomBean is used to serialize and deserialize Rooms
+ * Each Room can be represented by one or more RoomBeans
+ */
 public class RoomBean implements Serializable {
     private String id;
     private int roomNum;

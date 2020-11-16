@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>main</OriginalElement>
+  <nodes>
+    <node x="2185.8245321738636" y="3696.0">main.controllers.OrganizerController</node>
+    <node x="356.9524673134365" y="1624.0">main.usecases.RoomManager</node>
+    <node x="1439.3358416976725" y="2116.0">main.controllers.EventController</node>
+    <node x="5741.705980586562" y="3729.0">main.screencontrollers.InboxScreenController</node>
+    <node x="1265.3080707617123" y="4269.0">main.screencontrollers.GatewayScreenController</node>
+    <node x="6423.1238377294185" y="4291.5">main.presenters.SpeakerScreen</node>
+    <node x="4459.34833489587" y="4247.0">main.screencontrollers.EventSignUpScreenController</node>
+    <node x="1802.3358416976725" y="2742.0">main.controllers.UserController</node>
+    <node x="5380.22333489587" y="6348.0">main.controllers.Main</node>
+    <node x="3537.5578587053933" y="3795.0">main.screencontrollers.RegisterScreenController</node>
+    <node x="4031.641192038727" y="4170.0">main.screencontrollers.EventsManagementScreenController</node>
+    <node x="1846.3372403739131" y="4269.0">main.screencontrollers.UserManagementScreenController</node>
+    <node x="3223.5578587053933" y="3249.0">main.presenters.LoginScreen</node>
+    <node x="4918.161420346612" y="4269.0">main.screencontrollers.OrganizerMessageScreenController</node>
+    <node x="243.78580064676953" y="4755.0">main.gateways.converters</node>
+    <node x="1420.4622403739131" y="575.0">main.entities.Organizer</node>
+    <node x="682.9524673134365" y="4348.0">main.gateways.beans</node>
+    <node x="4625.34833489587" y="3774.0">main.presenters.EventSignUpScreen</node>
+    <node x="1364.193538742008" y="3785.0">main.presenters.GatewayScreen</node>
+    <node x="850.9524673134365" y="1613.0">main.usecases.EventsManager</node>
+    <node x="6749.608443640749" y="3259.0">main.screencontrollers.MessageDetailScreenController</node>
+    <node x="2146.357865507196" y="354.0">main.entities.Event</node>
+    <node x="5295.72333489587" y="5626.0">main.controllers.ProgramController</node>
+    <node x="5415.09833489587" y="4313.5">main.presenters.AttendeeScreen</node>
+    <node x="7292.511057655598" y="3138.0">main.controllers.MessageController</node>
+    <node x="2255.452501562536" y="1050.0">main.usecases.EventInfoManager</node>
+    <node x="406.86913398010347" y="4954.0">main.gateways.CSVGateway</node>
+    <node x="4295.725247584442" y="4976.0">main.controllers.AuthController</node>
+    <node x="2674.757858705393" y="1072.5">main.usecases.EventBuilder</node>
+    <node x="6865.008443640749" y="2753.5">main.presenters.MessageDetailScreen</node>
+    <node x="1934.7022933624858" y="1161.0">main.usecases.UserFactory</node>
+    <node x="347.9524673134365" y="420.0">main.entities.Room</node>
+    <node x="5002.06708489587" y="1536.0">main.usecases.UsersManager</node>
+    <node x="1854.2108416976725" y="3785.0">main.presenters.UserManagementScreen</node>
+    <node x="7619.319650537301" y="1635.0">main.entities.Inbox</node>
+    <node x="5492.7034221876165" y="4698.0">main.screencontrollers.AttendeeScreenController</node>
+    <node x="1808.4622403739131" y="575.0">main.entities.Attendee</node>
+    <node x="2764.5589290091" y="3817.5">main.presenters.AnonymousScreen</node>
+    <node x="0.0" y="6447.0">main.presenters.MessageScreen</node>
+    <node x="1619.4622403739131" y="575.0">main.entities.Speaker</node>
+    <node x="3594.0578587053933" y="3237.5">main.presenters.RegisterScreen</node>
+    <node x="4519.97927748947" y="2731.0">main.screencontrollers.ScreenController</node>
+    <node x="3694.1411920387263" y="4302.5">main.presenters.OrganizerScreen</node>
+    <node x="1965.2120321738632" y="0.0">main.entities.User</node>
+    <node x="2896.757858705393" y="1084.0">main.gateways.Gateway</node>
+    <node x="7872.819650537301" y="2259.0">main.usecases.MessageManager</node>
+    <node x="4094.141192038727" y="3730.0">main.presenters.EventsManagementScreen</node>
+    <node x="6655.1238377294185" y="4247.0">main.screencontrollers.SpeakerMessageScreenController</node>
+    <node x="6467.6238377294185" y="4676.0">main.screencontrollers.SpeakerScreenController</node>
+    <node x="7578.819650537301" y="2270.0">main.usecases.InboxManager</node>
+    <node x="5629.09833489587" y="3260.0">main.presenters.InboxScreen</node>
+    <node x="7345.035722481261" y="2720.0">main.controllers.InboxController</node>
+    <node x="4867.34833489587" y="3839.5">main.presenters.OrganizerMessageScreen</node>
+    <node x="6735.409552015133" y="3774.0">main.presenters.SpeakerMessageScreen</node>
+    <node x="5337.376823707247" y="552.0">main.usecases.UserInformationManager</node>
+    <node x="7911.819650537301" y="464.0">main.entities.Message</node>
+    <node x="3697.53681717201" y="4698.0">main.screencontrollers.OrganizerScreenController</node>
+    <node x="3244.5578587053933" y="3795.0">main.screencontrollers.LoginScreenController</node>
+    <node x="5864.09833489587" y="3248.0">main.presenters.AttendeeMessageScreen</node>
+    <node x="6035.705980586562" y="3762.0">main.screencontrollers.AttendeeMessageScreenController</node>
+    <node x="1844.7733416976725" y="3292.5">main.controllers.AttendeeController</node>
+    <node x="3033.7464290091" y="4302.0">main.screencontrollers.AnonymousScreenController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="main.screencontrollers.OrganizerScreenController" target="main.screencontrollers.ScreenController">
+      <point x="12.333333333333485" y="-72.0" />
+      <point x="3857.870150505343" y="4596.0" />
+      <point x="3878.6411920387263" y="4596.0" />
+      <point x="3878.6411920387263" y="3058.0" />
+      <point x="4601.464991775185" y="3058.0" />
+      <point x="-42.514285714285506" y="83.0" />
+    </edge>
+    <edge source="main.presenters.OrganizerMessageScreen" target="main.presenters.AttendeeMessageScreen">
+      <point x="113.66666666666697" y="-38.5" />
+      <point x="5151.515001562537" y="3626.0" />
+      <point x="5990.47333489587" y="3626.0" />
+      <point x="-42.125" y="94.0" />
+    </edge>
+    <edge source="main.screencontrollers.SpeakerScreenController" target="main.screencontrollers.ScreenController">
+      <point x="-124.58333333333303" y="-94.0" />
+      <point x="6492.540504396085" y="4656.0" />
+      <point x="6412.6238377294185" y="4656.0" />
+      <point x="6412.6238377294185" y="3048.0" />
+      <point x="4700.664991775184" y="3048.0" />
+      <point x="56.68571428571431" y="83.0" />
+    </edge>
+    <edge source="main.entities.Organizer" target="main.entities.User">
+      <point x="44.75" y="-27.0" />
+      <point x="1554.7122403739131" y="294.0" />
+      <point x="1996.5453655071965" y="294.0" />
+      <point x="-62.66666666666674" y="127.0" />
+    </edge>
+    <edge source="main.screencontrollers.MessageDetailScreenController" target="main.screencontrollers.ScreenController">
+      <point x="-71.80000000000018" y="-83.0" />
+      <point x="6857.308443640749" y="2998.0" />
+      <point x="4736.093563203756" y="2998.0" />
+      <point x="92.11428571428587" y="83.0" />
+    </edge>
+    <edge source="main.screencontrollers.GatewayScreenController" target="main.screencontrollers.ScreenController">
+      <point x="123.85714285714266" y="-94.0" />
+      <point x="1533.665213618855" y="4150.0" />
+      <point x="1561.693538742008" y="4150.0" />
+      <point x="1561.693538742008" y="3656.0" />
+      <point x="1624.047954659627" y="3656.0" />
+      <point x="1624.047954659627" y="2958.0" />
+      <point x="4530.607848918042" y="2958.0" />
+      <point x="-113.37142857142862" y="83.0" />
+    </edge>
+    <edge source="main.screencontrollers.RegisterScreenController" target="main.screencontrollers.ScreenController">
+      <point x="107.625" y="-83.0" />
+      <point x="3788.6828587053933" y="3676.0" />
+      <point x="3783.28681717201" y="3676.0" />
+      <point x="3783.28681717201" y="3048.0" />
+      <point x="4594.37927748947" y="3048.0" />
+      <point x="-49.600000000000364" y="83.0" />
+    </edge>
+    <edge source="main.screencontrollers.LoginScreenController" target="main.screencontrollers.ScreenController">
+      <point x="102.375" y="-83.0" />
+      <point x="3483.4328587053933" y="3676.0" />
+      <point x="3427.28681717201" y="3676.0" />
+      <point x="3427.28681717201" y="3028.0" />
+      <point x="4580.207848918042" y="3028.0" />
+      <point x="-63.77142857142826" y="83.0" />
+    </edge>
+    <edge source="main.screencontrollers.AnonymousScreenController" target="main.screencontrollers.ScreenController">
+      <point x="-25.583333333333485" y="-61.0" />
+      <point x="3161.663095675767" y="4120.0" />
+      <point x="3202.0578587053933" y="4120.0" />
+      <point x="3202.0578587053933" y="2998.0" />
+      <point x="4558.950706060899" y="2998.0" />
+      <point x="-85.02857142857101" y="83.0" />
+    </edge>
+    <edge source="main.screencontrollers.EventSignUpScreenController" target="main.screencontrollers.ScreenController">
+      <point x="-34.55555555555566" y="-116.0" />
+      <point x="4580.292779340314" y="4110.0" />
+      <point x="4578.686420346613" y="4110.0" />
+      <point x="4578.686420346613" y="3108.0" />
+      <point x="4636.893563203756" y="3108.0" />
+      <point x="-7.085714285713948" y="83.0" />
+    </edge>
+    <edge source="main.entities.Speaker" target="main.entities.User">
+      <point x="-42.25" y="-27.0" />
+      <point x="1661.7122403739131" y="304.0" />
+      <point x="2009.07869884053" y="304.0" />
+      <point x="-50.13333333333321" y="127.0" />
+    </edge>
+    <edge source="main.entities.Attendee" target="main.entities.User">
+      <point x="44.0" y="-27.0" />
+      <point x="1940.4622403739131" y="334.0" />
+      <point x="2046.67869884053" y="334.0" />
+      <point x="-12.533333333333303" y="127.0" />
+    </edge>
+    <edge source="main.screencontrollers.EventsManagementScreenController" target="main.screencontrollers.ScreenController">
+      <point x="145.41666666666697" y="-193.0" />
+      <point x="4351.557858705393" y="4110.0" />
+      <point x="4378.84952537206" y="4110.0" />
+      <point x="4378.84952537206" y="3088.0" />
+      <point x="4622.722134632328" y="3088.0" />
+      <point x="-21.257142857142753" y="83.0" />
+    </edge>
+    <edge source="main.gateways.CSVGateway" target="main.gateways.Gateway">
+      <point x="108.18181818181802" y="-171.0" />
+      <point x="634.0509521619215" y="4934.0" />
+      <point x="840.4524673134365" y="4934.0" />
+      <point x="840.4524673134365" y="1506.0" />
+      <point x="2956.257858705393" y="1506.0" />
+      <point x="-59.5" y="104.0" />
+    </edge>
+    <edge source="main.screencontrollers.AttendeeMessageScreenController" target="main.screencontrollers.ScreenController">
+      <point x="28.25" y="-116.0" />
+      <point x="6233.455980586562" y="3636.0" />
+      <point x="6283.680395135819" y="3636.0" />
+      <point x="6283.680395135819" y="3058.0" />
+      <point x="4693.579277489471" y="3058.0" />
+      <point x="49.600000000000364" y="83.0" />
+    </edge>
+    <edge source="main.controllers.OrganizerController" target="main.controllers.AttendeeController">
+      <point x="-117.94999999999982" y="-182.0" />
+      <point x="2236.374532173864" y="3656.0" />
+      <point x="2058.940008364339" y="3656.0" />
+      <point x="85.66666666666652" y="49.5" />
+    </edge>
+    <edge source="main.controllers.AttendeeController" target="main.controllers.UserController">
+      <point x="-85.66666666666674" y="-49.5" />
+      <point x="1887.6066750310056" y="2938.0" />
+      <point x="1892.7108416976725" y="2938.0" />
+      <point x="-30.125" y="72.0" />
+    </edge>
+    <edge source="main.screencontrollers.SpeakerMessageScreenController" target="main.screencontrollers.ScreenController">
+      <point x="-95.14285714285688" y="-116.0" />
+      <point x="6726.480980586562" y="4150.0" />
+      <point x="6702.909552015133" y="4150.0" />
+      <point x="6702.909552015133" y="3028.0" />
+      <point x="4714.8364203466135" y="3028.0" />
+      <point x="70.85714285714312" y="83.0" />
+    </edge>
+    <edge source="main.screencontrollers.InboxScreenController" target="main.screencontrollers.ScreenController">
+      <point x="-78.28571428571468" y="-149.0" />
+      <point x="5800.420266300847" y="3596.0" />
+      <point x="5618.59833489587" y="3596.0" />
+      <point x="5618.59833489587" y="3078.0" />
+      <point x="4679.407848918041" y="3078.0" />
+      <point x="35.42857142857156" y="83.0" />
+    </edge>
+    <edge source="main.screencontrollers.UserManagementScreenController" target="main.screencontrollers.ScreenController">
+      <point x="63.375" y="-94.0" />
+      <point x="2078.712240373913" y="4120.0" />
+      <point x="2135.5245321738635" y="4120.0" />
+      <point x="2135.5245321738635" y="2988.0" />
+      <point x="4551.8649917751845" y="2988.0" />
+      <point x="-92.11428571428587" y="83.0" />
+    </edge>
+    <edge source="main.screencontrollers.OrganizerMessageScreenController" target="main.screencontrollers.AttendeeMessageScreenController">
+      <point x="137.19999999999982" y="-94.0" />
+      <point x="5226.861420346613" y="4150.0" />
+      <point x="6162.830980586562" y="4150.0" />
+      <point x="-42.375" y="116.0" />
+    </edge>
+    <edge source="main.screencontrollers.AttendeeScreenController" target="main.screencontrollers.ScreenController">
+      <point x="-54.9375" y="-72.0" />
+      <point x="5584.2659221876165" y="4616.0" />
+      <point x="5360.50458489587" y="4616.0" />
+      <point x="5360.50458489587" y="3586.0" />
+      <point x="5130.87958489587" y="3586.0" />
+      <point x="5130.87958489587" y="3108.0" />
+      <point x="4658.150706060898" y="3108.0" />
+      <point x="14.171428571428805" y="83.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.15681544028950542" x="4077.0" y="3306.0" />
+  <SelectedNodes>
+    <node>main.controllers.OrganizerController</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

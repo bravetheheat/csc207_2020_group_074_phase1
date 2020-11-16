@@ -6,6 +6,7 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import main.entities.Event;
+import main.entities.Message;
 import main.entities.Room;
 import main.entities.User;
 import main.gateways.beans.EventBean;
@@ -24,6 +25,8 @@ public class CSVGateway implements Gateway {
     private final String userCSVPath = "src/store/Users.csv";
     private final String eventCSVPath = "src/store/Events.csv";
     private final String roomCSVPath = "src/store/Rooms.csv";
+    private final String messageCSVPath = "src/store/Messages.csv";
+    private final String inboxCSVPath = "src/store/Inboxes.csv";
 
     public CSVGateway() {
     }
@@ -142,6 +145,37 @@ public class CSVGateway implements Gateway {
             System.out.println("Error writing file. Missing required field.");
         }
     }
+
+    public List<Message> loadMessages() {
+        try {
+            List<Message> messages = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.messageCSVPath))).withType(Message.class).build().parse();
+
+            return messages;
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            return new ArrayList<>();
+        }
+    }
+
+    public void saveMessages(List<Message> messages) {
+        try {
+            FileWriter csvFileWriter = new FileWriter(this.messageCSVPath);
+
+            StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
+            beanToCsv.write(messages);
+            csvFileWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("IOException. Error writing file.");
+        } catch (CsvDataTypeMismatchException e) {
+            System.out.println("Error writing file. Check your data format.");
+        } catch (CsvRequiredFieldEmptyException e) {
+            System.out.println("Error writing file. Missing required field.");
+        }
+    }
+
+
 
 
 }
