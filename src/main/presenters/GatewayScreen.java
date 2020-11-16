@@ -13,6 +13,7 @@ public class GatewayScreen {
         System.out.println("1. Save users");
         System.out.println("2. Save rooms");
         System.out.println("3. Save events");
+        System.out.println("4. Save messages");
     }
 
     public void saveUsers() {
@@ -27,6 +28,11 @@ public class GatewayScreen {
 
     public void saveEvents() {
         System.out.println("Saving events...");
+        System.out.println();
+    }
+
+    public void saveMessages() {
+        System.out.println("Saving messages...");
         System.out.println();
     }
 
