@@ -1,6 +1,5 @@
 package main.entities;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +11,21 @@ import java.util.UUID;
  * @author Yile Xie
  */
 
-public class Event implements Serializable {
+public class Event {
 
     private String id;
     private String title;
     private LocalDateTime time;
     private String roomID;
     private String speakerID;
-    private List<String> attendeesID;
+    private final List<String> attendeesID;
+
+    /**
+     * No-arg constructor for deserialization
+     */
+    public Event() {
+        this.attendeesID = new ArrayList<>();
+    }
 
     /**
      * A title, time, room number, and the ID of the speaker are required to

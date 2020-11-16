@@ -8,8 +8,10 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import main.entities.Event;
 import main.entities.Room;
 import main.entities.User;
+import main.gateways.beans.EventBean;
 import main.gateways.beans.RoomBean;
 import main.gateways.beans.UserBean;
+import main.gateways.converters.EventConverter;
 import main.gateways.converters.RoomConverter;
 import main.usecases.UserFactory;
 
@@ -74,8 +76,10 @@ public class CSVGateway implements Gateway {
     public List<Event> loadEvents() {
         try {
             // From documentation available at http://opencsv.sourceforge.net/
+            EventConverter converter = new EventConverter();
+            List<EventBean> eventBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.eventCSVPath))).withType(EventBean.class).build().parse();
+            List<Event> events = converter.convertFromBeans(eventBeans);
 
-            List<Event> events = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.eventCSVPath))).withType(Event.class).build().parse();
             return events;
 
         } catch (FileNotFoundException e) {
@@ -87,10 +91,12 @@ public class CSVGateway implements Gateway {
 
     public void saveEvents(List<Event> events) {
         try {
+            EventConverter converter = new EventConverter();
+            List<EventBean> eventBeans = converter.convertToBeans(events);
             // From documentation available at http://opencsv.sourceforge.net/
             FileWriter csvFileWriter = new FileWriter(this.eventCSVPath);
             StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
-            beanToCsv.write(events);
+            beanToCsv.write(eventBeans);
             csvFileWriter.close();
 
         } catch (IOException e) {
