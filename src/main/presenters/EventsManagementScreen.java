@@ -6,7 +6,7 @@ package main.presenters;
  * organize the speaker and room; as well as a presenting list of events for users
  *
  * @author Haoze Huang
- * @version 3.3
+ * @version 3.4
  * @since 2020-11-11
  */
 public class EventsManagementScreen {
@@ -72,7 +72,7 @@ public class EventsManagementScreen {
      * Print out request to get time in certain format
      */
     public void promptTime(){
-        System.out.println("Enter time (yyyy-MM-dd HH:mm):");
+        System.out.println("Enter time from 9AM to 5PM (yyyy-MM-dd HH:mm):");
     }
 
     /**
@@ -102,7 +102,8 @@ public class EventsManagementScreen {
      * Print request to ask user to input again due to invalid input
      */
     public void printInvalidInput() {
-        System.out.println("Invalid input. Try again.");
+        System.out.println("Modification failed");
+        System.out.println("One of the above input is invalid. Try again.");
     }
 
     /**

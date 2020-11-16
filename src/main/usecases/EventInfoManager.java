@@ -12,7 +12,7 @@ import java.util.Map;
  * The EventInfoManager modifies info for a particular Event given event id.
  *
  * @author Haoze Huang
- * @version 2.2
+ * @version 2.3
  * @since 2020-10-31
  */
 
@@ -121,6 +121,10 @@ public class EventInfoManager {
      * @return check for successful update
      */
     public boolean updateEventInfo(LocalDateTime newTime, String newRoomId) {
+        //check event happening between 9A.M to 5P.M
+        if ((9 > newTime.getHour()) || (newTime.getHour()> 17)){
+            return false;
+        }
         for (String id : schedule.keySet()) {
             Event e = schedule.get(id);
             //time conflict at same room

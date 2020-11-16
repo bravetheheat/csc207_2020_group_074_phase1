@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 public class UsersManager {
-    private static Map<String, User> registeredUsers;
+    private Map<String, User> registeredUsers;
 
     public UsersManager() {
         registeredUsers = new HashMap<>();
