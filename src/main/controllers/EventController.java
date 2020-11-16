@@ -1,11 +1,13 @@
 package main.controllers;
 
-import java.time.LocalDateTime;
-import java.util.*;
 import main.entities.Event;
-import main.usecases.EventsManager;
-import main.usecases.EventInfoManager;
-import main.usecases.EventBuilder;
+import main.entities.Room;
+import main.usecases.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * The EventController handles event management: create and cancel an event; add or remove a user from
@@ -16,13 +18,18 @@ import main.usecases.EventBuilder;
  * @since 2020-11-08
  */
 public class EventController {
-    private EventsManager eventsmanager;
+    private final EventsManager eventsManager;
+    private final UsersManager usersManager;
+    private final RoomManager roomManager;
+
 
     /**
      * Default constructor for an EventsController
      */
-    public EventController(){
-        this.eventsmanager = new EventsManager();
+    public EventController(ProgramController programController){
+        this.eventsManager = programController.getEventsManager();
+        this.usersManager = programController.getUsersManager();
+        this.roomManager = programController.getRoomManager();
     }
 
     /**
@@ -31,7 +38,7 @@ public class EventController {
      * @return true iff the event is successfully created
      */
     public boolean createEvent(EventBuilder eventbuilder){
-        return this.eventsmanager.scheduleEvent(eventbuilder);
+        return this.eventsManager.scheduleEvent(eventbuilder);
     }
 
     /**
@@ -66,7 +73,7 @@ public class EventController {
      * @return a list of Events scheduled
      */
     public ArrayList<Event> getAllEvents(){
-        return this.eventsmanager.getEvents();
+        return this.eventsManager.getEvents();
     }
 
     /**
@@ -122,7 +129,14 @@ public class EventController {
      * @return a string representation of all the events scheduled
      */
     public String getEventsInfo(){
-        return this.eventsmanager.toString();
+        String s = "Events: \n";
+        int num = 1;
+        for (UUID i: this.eventsManager.getSchedule().keySet()){
+            String eToString = "Event #" + num + " "+getSingleEventInfo(i);
+            num += 1;
+            s += eToString;
+        }
+        return s;
     }
 
     /**
@@ -130,10 +144,24 @@ public class EventController {
      * @param eventId of an Event
      * @return a string representation of the event
      */
-    public String getSingleEventInfo(String eventId){
-        Map<String, Event> schedule = this.eventsmanager.getSchedule();
-        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
-        return eventinfomanager.eventRep();
+    public String getSingleEventInfo(UUID eventId){
+        String speakerName = "";
+        int roomNum = -1;
+        Event event = this.getSingleEvent(eventId);
+        for(UUID user: usersManager.getAllUsers()){
+            if(this.usersManager.fetchRole(user).equals("Speaker") && user == event.getSpeakerID()){
+                speakerName = usersManager.fetchUser(user).getUsername();
+            }
+        }
+        for(Room room: roomManager.getAllRoomsObject()){
+            if (room.getId() == event.getRoomID()){
+                roomNum = room.getRoomNum();
+            }
+        }
+        return "Title: " + event.getTitle() + "\n"
+                + "Time: " + event.getTime() + "\n"
+                + "Speaker: " + speakerName + "\n"
+                + "Room: " + roomNum;
     }
 
     /**

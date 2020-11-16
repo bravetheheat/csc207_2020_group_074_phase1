@@ -22,12 +22,6 @@ public class Event implements Serializable {
     private List<String> attendeesID;
 
     /**
-     * Empty constructor for deserialization
-     */
-    public Event() {
-    }
-
-    /**
      * A title, time, room number, and the ID of the speaker are required to
      * create an instance of Event.
      *
@@ -163,17 +157,4 @@ public class Event implements Serializable {
         this.speakerID = speakerID;
     }
 
-    /**
-     * Return the information about this event as a string.
-     *
-     * @return string representation of this event
-     */
-    @Override
-    public String toString() {
-        return "Title: " + this.title + "\n"
-                + "ID: " + this.id + "\n"
-                + "Time: " + this.time + "\n"
-                + "Room: " + this.roomID + "\n"
-                + "Speaker: " + this.speakerID + "\n";
-    }
 }

@@ -4,18 +4,22 @@ import main.controllers.ProgramController;
 import main.presenters.SpeakerScreen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * The SpeakerScreenController decides what to display, receives
  * input from keyboard, and tells the ProgramController what screen to go next.
  *
  * @author Yile Xie
- * @version 2.0
+ * @version 3.0
  * @since 2020-11-12
  */
 
 public class SpeakerScreenController extends ScreenController{
-    private SpeakerScreen presenter;
+    private final SpeakerScreen presenter;
+    private ArrayList<String> validInput;
+    private final UUID loggedInSpeaker;
 
     /**
      * A ProgramController is needed to instantiate a SpeakerScreenController
@@ -24,6 +28,8 @@ public class SpeakerScreenController extends ScreenController{
     public SpeakerScreenController(ProgramController programController) {
         super(programController);
         this.presenter = new SpeakerScreen();
+        this.loggedInSpeaker = this.programController.getAuthController().fetchLoggedInUser();
+        this.validInput = new ArrayList<>(Arrays.asList("0", "1", "2"));
     }
 
     /**
@@ -31,11 +37,13 @@ public class SpeakerScreenController extends ScreenController{
      */
     @Override
     public void start() {
+        this.presenter.welcomeMessage();
+        this.interact(this.loggedInSpeaker);
+        this.end();
+    }
+
+    public void interact(UUID loggedInSpeaker){
         this.presenter.prompt();
-        String loggedInSpeaker = this.programController.getAuthController().fetchLoggedInUser();
-        ArrayList<String> validInput = new ArrayList<>();
-        validInput.add("1");
-        validInput.add("2");
         String input = scanner.nextLine();
 
         while (!validInput.contains(input)){
@@ -45,16 +53,20 @@ public class SpeakerScreenController extends ScreenController{
         }
 
         switch (input) {
+            case "0":
+                this.programController.goToPreviousScreenController();
+                return;
             case "1":
                 ArrayList<String> talks =
                         this.IDtoString(this.programController.getEventController().getSpeakerEvents(loggedInSpeaker));
                 this.presenter.talkList(talks);
-                this.goToPreviousScreenController();
+                this.interact(loggedInSpeaker);
+                break;
             case "2":
-//                this.programController.setCurrentScreenController(new MessageScreenController(this.programController));
+                this.programController.setNewScreenController(new SpeakerMessageScreenController(this.programController));
+                break;
 
         }
-        this.end();
     }
 
     /**
@@ -65,8 +77,8 @@ public class SpeakerScreenController extends ScreenController{
 
     public ArrayList<String> IDtoString(ArrayList<String> talkList){
         ArrayList<String> talksString = new ArrayList<>();
-        for (String talk : talkList){
-            talksString.add(this.programController.getEventController().getSingleEventInfo(talk).toString());
+        for (UUID talk : talkList){
+            talksString.add(this.programController.getEventController().getSingleEventInfo(talk));
         }
         return talksString;
     }

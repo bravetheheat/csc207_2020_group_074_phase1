@@ -31,7 +31,7 @@ public class InboxController {
         String messageDate = this.messageManager.retrieveMessageDate(messageId).toString();
         String messageSender = this.getMessageSender(messageId);
 
-        return messageSender + " " + messageDate;
+        return messageSender + ": " + messageText + "\n" + "[Sent at " + messageDate + "]";
 
     }
 
