@@ -5,7 +5,6 @@ import main.presenters.SpeakerScreen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.UUID;
 
 /**
  * The SpeakerScreenController decides what to display, receives

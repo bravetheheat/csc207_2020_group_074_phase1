@@ -24,7 +24,7 @@ public class AttendeeScreenController extends ScreenController {
     public AttendeeScreenController(ProgramController programController) {
         super(programController);
         this.attendeeScreen = new AttendeeScreen();
-        String[] options = {"0", "1", "2", "3", "4"};
+        String[] options = {"0", "1", "2", "3"};
         this.prompts = (Arrays.asList(options));
     }
 
@@ -56,13 +56,13 @@ public class AttendeeScreenController extends ScreenController {
             case "1":
                 this.programController.setNewScreenController(new EventSignUpScreenController(this.programController));
                 break;
-            case "2":
+            /*case "2":
                 this.programController.setNewScreenController(new EventsManagementScreenController(this.programController));
-                break;
-            case "3":
+                break;*/
+            case "2":
                 this.programController.setNewScreenController(new AttendeeMessageScreenController(this.programController));
                 break;
-            case "4":
+            case "3":
                 this.programController.setNewScreenController(new InboxScreenController(this.programController));
                 break;
         }
