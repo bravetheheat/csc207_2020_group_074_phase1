@@ -1,11 +1,11 @@
 import main.entities.Attendee;
-import main.entities.Event;
 import main.entities.User;
 import main.usecases.EventBuilder;
 import main.usecases.EventsManager;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -89,22 +89,5 @@ public class EventsManagerTest {
         Assert.assertTrue(eventsManager.getEvents().contains(eventsManager.getEvents().get(1)));
     }
 
-
-    @Test
-    public void testToString(){
-        EventBuilder e1 = setUpEvent("Event1", time1, room1, speaker1);
-        eventsManager.scheduleEvent(e1);
-        Event expected1 = eventsManager.getEvents().get(0);
-        EventBuilder e2 = setUpEvent("Event2", time2, room1, speaker1);
-        eventsManager.scheduleEvent(e2);
-        Event expected2 = eventsManager.getEvents().get(1);
-        EventBuilder e3 = setUpEvent("Event3", time2, room2, speaker2);
-        eventsManager.scheduleEvent(e3);
-        Event expected3 = eventsManager.getEvents().get(2);
-        String expected = "Events: \n" + "Event #1 " + expected1.toString() + "\n" +
-                "Event #2 " +expected2.toString() +
-                "\n" + "Event #3 " + expected3.toString() + "\n";
-        Assert.assertEquals(expected, eventsManager.toString());
-    }
 
 }

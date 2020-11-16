@@ -1,9 +1,7 @@
 import main.entities.Attendee;
 import main.entities.Event;
 import main.entities.User;
-import main.usecases.EventBuilder;
-import main.usecases.EventInfoManager;
-import main.usecases.EventsManager;
+import main.usecases.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -106,4 +104,5 @@ public class EventsInfoTest {
         //test changing room and speaker conflict with event3
         Assert.assertFalse(eim.updateEventInfo(time3, room1));
     }
+
 }
