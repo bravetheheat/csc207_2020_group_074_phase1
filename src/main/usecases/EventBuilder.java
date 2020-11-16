@@ -18,22 +18,42 @@ public class EventBuilder {
     private String roomID;
     private String speakerID;
 
+    /**
+     * Set title of event
+     * @param title of event
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Set time of event
+     * @param time of event
+     */
     public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
+    /**
+     * Set room of event
+     * @param roomID of event
+     */
     public void setRoom(String roomID) {
         this.roomID = roomID;
     }
 
+    /**
+     * Set speaker of event
+     * @param speakerID of event
+     */
     public void setSpeaker(String speakerID) {
         this.speakerID = speakerID;
     }
 
+    /**
+     * Generate new event
+     * @return Event
+     */
     public Event toEvent() {
         return new Event(title, time, roomID, speakerID);
     }

@@ -73,7 +73,7 @@ public class EventsManager {
         ArrayList<Event> userEvents = new ArrayList<>();
         for (String i : schedule.keySet()) {
             for (String id : schedule.get(i).getAttendeesID()) {
-                if (id == userId) userEvents.add(schedule.get(i));
+                if (id.equals(userId)) userEvents.add(schedule.get(i));
             }
         }
         return userEvents;
@@ -88,7 +88,7 @@ public class EventsManager {
     public ArrayList<String> getSpeakerEvents(String speakerId) {
         ArrayList<String> speakerEvents = new ArrayList<>();
         for (String i : schedule.keySet()) {
-            if (schedule.get(i).getSpeakerID() == speakerId) speakerEvents.add(schedule.get(i).getId());
+            if (schedule.get(i).getSpeakerID().equals(speakerId)) speakerEvents.add(schedule.get(i).getId());
         }
         return speakerEvents;
     }
@@ -107,23 +107,6 @@ public class EventsManager {
         return events;
     }
 
-
-    /**
-     * String representation of EventsManager
-     *
-     * @return String representation of EventsManager
-     */
-    public String toString() {
-        String s = "Events: \n";
-        int num = 1;
-        for (String i : schedule.keySet()) {
-            Event e = schedule.get(i);
-            String eToString = "Event #" + num + " " + e.toString() + '\n';
-            num += 1;
-            s += eToString;
-        }
-        return s;
-    }
 
     /**
      * A getter of the schedule stored in EventsManager.
