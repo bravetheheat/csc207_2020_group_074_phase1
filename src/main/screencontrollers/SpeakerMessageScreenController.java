@@ -11,7 +11,7 @@ public class SpeakerMessageScreenController extends ScreenController{
 
     SpeakerMessageScreen speakerMessageScreen = new SpeakerMessageScreen();
     MessageController messageController;
-    UUID speaker;
+    String speaker;
 
 
     public SpeakerMessageScreenController(ProgramController programController){
@@ -81,7 +81,7 @@ public class SpeakerMessageScreenController extends ScreenController{
 
 
         ArrayList<Event> allEvents = this.messageController.eventsOfSpeaker(speaker);
-        ArrayList<UUID> finalTargetEvents = new ArrayList<>();
+        ArrayList<String> finalTargetEvents = new ArrayList<>();
         for(String identifier: selectedEvents){
             finalTargetEvents.add(allEvents.get(Integer.parseInt(identifier)-1).getId());
         }
@@ -110,7 +110,7 @@ public class SpeakerMessageScreenController extends ScreenController{
     }
 
     public void reply(){
-        ArrayList<UUID> potentialReceivers= messageController.replyOptionsForSpeaker(speaker);
+        ArrayList<String> potentialReceivers= messageController.replyOptionsForSpeaker(speaker);
         ArrayList<String> options = listBuilderWithIntegers(potentialReceivers.size());
         speakerMessageScreen.replyOptions(messageController.replyOptionsForSpeakerInString(speaker));
         String answerInString = scanner.nextLine();
@@ -121,7 +121,7 @@ public class SpeakerMessageScreenController extends ScreenController{
         // now answer is valid
 
         int answerInInteger = Integer.parseInt(answerInString);
-        UUID receiver = potentialReceivers.get(answerInInteger - 1);
+        String receiver = potentialReceivers.get(answerInInteger - 1);
 
         speakerMessageScreen.whatMessage();
         String messageContext = scanner.nextLine();

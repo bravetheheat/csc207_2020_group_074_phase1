@@ -11,12 +11,10 @@ import java.util.Deque;
 
 public class ProgramController {
     UsersManager usersManager;
-    ContactsManager contactsManager;
     EventsManager eventsManager;
     MessageManager messageManager;
     AuthController authController;
     EventController eventController;
-    ScreenController previousScreenController;
     Deque<ScreenController> screenControllerHistory = new ArrayDeque<>();
     ScreenController currentScreenController;
     InboxController inboxController;
@@ -27,7 +25,6 @@ public class ProgramController {
 
     public ProgramController() {
         this.usersManager = new UsersManager();
-        this.contactsManager = new ContactsManager();
         this.eventsManager = new EventsManager();
         this.messageManager = new MessageManager();
         this.inboxManager = new InboxManager();
@@ -64,10 +61,6 @@ public class ProgramController {
 
     public MessageManager getMessageManager() {
         return this.messageManager;
-    }
-
-    public ContactsManager getContactsManager() {
-        return this.contactsManager;
     }
 
     public EventController getEventController() {

@@ -5,7 +5,6 @@ import main.entities.Event;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * The EventsManager holds a list of Events, and modify Event with its corresponding Users.
@@ -17,23 +16,23 @@ import java.util.UUID;
 
 public class EventsManager {
 
-    private Map<UUID,Event> schedule = new LinkedHashMap<>();
+    private final Map<String, Event> schedule = new LinkedHashMap<>();
 
     /**
      * Add an Event to schedule with the given time. Throw an existent exception if
      * the given time is conflict with another Event
      *
-     * @param eventBuilder  that to be added
+     * @param eventBuilder that to be added
      * @return check for event being added
      */
     public boolean scheduleEvent(EventBuilder eventBuilder) {
         Event newEvent = eventBuilder.toEvent();
-        for(UUID id : schedule.keySet()){
+        for (String id : schedule.keySet()) {
             //if time conflict
             Event e = schedule.get(id);
-            if ((e.getRoomID() == newEvent.getRoomID()) && (e.getTime() == newEvent.getTime())){
+            if ((e.getRoomID() == newEvent.getRoomID()) && (e.getTime() == newEvent.getTime())) {
                 return false;
-            }else if((e.getTime() == newEvent.getTime()) && (e.getSpeakerID() == newEvent.getSpeakerID())){
+            } else if ((e.getTime() == newEvent.getTime()) && (e.getSpeakerID() == newEvent.getSpeakerID())) {
                 return false;
             }
         }
@@ -49,8 +48,8 @@ public class EventsManager {
      * @param canceledEventId that needs to be removed
      * @return check for successful removal
      */
-    public boolean removeEvent(UUID canceledEventId) {
-        if(schedule.containsKey(canceledEventId)){
+    public boolean removeEvent(String canceledEventId) {
+        if (schedule.containsKey(canceledEventId)) {
             schedule.remove(canceledEventId);
             return true;
         }
@@ -64,11 +63,11 @@ public class EventsManager {
      * @param userId to be get events from
      * @return userEvents
      */
-    public ArrayList<Event> getUserEvents(UUID userId) {
+    public ArrayList<Event> getUserEvents(String userId) {
         ArrayList<Event> userEvents = new ArrayList<>();
-        for(UUID i : schedule.keySet()){
-            for (UUID id : schedule.get(i).getAttendeesID()){
-                if(id == userId) userEvents.add(schedule.get(i));
+        for (String i : schedule.keySet()) {
+            for (String id : schedule.get(i).getAttendeesID()) {
+                if (id == userId) userEvents.add(schedule.get(i));
             }
         }
         return userEvents;
@@ -80,10 +79,10 @@ public class EventsManager {
      * @param speakerId to be get events from
      * @return speakerEvents
      */
-    public ArrayList<UUID> getSpeakerEvents(UUID speakerId) {
-        ArrayList<UUID> speakerEvents = new ArrayList<>();
-        for(UUID i : schedule.keySet()){
-            if(schedule.get(i).getSpeakerID() == speakerId) speakerEvents.add(schedule.get(i).getId());
+    public ArrayList<String> getSpeakerEvents(String speakerId) {
+        ArrayList<String> speakerEvents = new ArrayList<>();
+        for (String i : schedule.keySet()) {
+            if (schedule.get(i).getSpeakerID() == speakerId) speakerEvents.add(schedule.get(i).getId());
         }
         return speakerEvents;
     }
@@ -96,7 +95,7 @@ public class EventsManager {
      */
     public ArrayList<Event> getEvents() {
         ArrayList<Event> events = new ArrayList<>();
-        for (UUID i : schedule.keySet()){
+        for (String i : schedule.keySet()) {
             events.add(schedule.get(i));
         }
         return events;
@@ -104,11 +103,28 @@ public class EventsManager {
 
 
     /**
+     * String representation of EventsManager
+     *
+     * @return String representation of EventsManager
+     */
+    public String toString() {
+        String s = "Events: \n";
+        int num = 1;
+        for (String i : schedule.keySet()) {
+            Event e = schedule.get(i);
+            String eToString = "Event #" + num + " " + e.toString() + '\n';
+            num += 1;
+            s += eToString;
+        }
+        return s;
+    }
+
+    /**
      * A getter of the schedule stored in EventsManager.
      *
      * @return the schedule of EventsManager
      */
-    public Map<UUID, Event> getSchedule() {
+    public Map<String, Event> getSchedule() {
         return schedule;
     }
 }

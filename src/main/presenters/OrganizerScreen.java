@@ -1,4 +1,5 @@
 package main.presenters;
+
 /**
  * The OrganizerScreen is a presenter class that displays attendee options.
  *
@@ -14,7 +15,7 @@ public class OrganizerScreen {
 
     }
 
-    public void printScreenName(){
+    public void printScreenName() {
         System.out.println("Here is the organizer screen");
     }
 

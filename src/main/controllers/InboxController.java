@@ -17,16 +17,16 @@ public class InboxController {
         this.usersManager = usersManager;
     }
 
-    public Map<UUID, String> getMessagesOfUser(UUID userId) {
-        List<UUID> userMessages = this.inboxManager.getMessagesOfUser(userId);
-        Map<UUID, String> messageDict = new LinkedHashMap<>();
-        for (UUID messageId:  userMessages) {
+    public Map<String, String> getMessagesOfUser(String userId) {
+        List<String> userMessages = this.inboxManager.getMessagesOfUser(userId);
+        Map<String, String> messageDict = new LinkedHashMap<>();
+        for (String messageId:  userMessages) {
             messageDict.put(messageId, getMessageString(messageId));
         }
         return messageDict;
     }
 
-    public String getMessageString(UUID messageId) {
+    public String getMessageString(String messageId) {
         String messageText = this.messageManager.retrieveMessageText(messageId);
         String messageDate = this.messageManager.retrieveMessageDate(messageId).toString();
         String messageSender = this.getMessageSender(messageId);
@@ -35,8 +35,8 @@ public class InboxController {
 
     }
 
-    private String getMessageSender(UUID messageId) {
-        UUID userId = this.messageManager.retrieveMessageSender(messageId);
+    private String getMessageSender(String messageId) {
+        String userId = this.messageManager.retrieveMessageSender(messageId);
         String sender = this.usersManager.getUsernameFromID(userId);
         return sender;
 

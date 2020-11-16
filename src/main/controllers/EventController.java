@@ -46,7 +46,7 @@ public class EventController {
      * @param eventId of an Event
      * @return true iff the event is successfully removed
      */
-    public boolean removeEvent(UUID eventId){
+    public boolean removeEvent(String eventId){
         return this.eventsManager.removeEvent(eventId);
     }
 
@@ -55,7 +55,7 @@ public class EventController {
      * @param userId user id of a specific User
      * @return a list of events of this User given userid.
      */
-    public ArrayList<Event> getUserEvents(UUID userId){
+    public ArrayList<Event> getUserEvents(String userId){
         return this.eventsManager.getUserEvents(userId);
     }
 
@@ -64,7 +64,7 @@ public class EventController {
      * @param userId user id of a specific Speaker
      * @return a list of events of this User given userid.
      */
-    public ArrayList<UUID> getSpeakerEvents(UUID userId){
+    public ArrayList<String> getSpeakerEvents(String userId){
         return this.eventsManager.getSpeakerEvents(userId);
     }
 
@@ -82,8 +82,8 @@ public class EventController {
      * @param userId needs to be added to the event
      * @return ture iff the user is successfully added
      */
-    public boolean addUser(UUID eventId, UUID userId){
-        Map<UUID, Event> schedule = this.eventsManager.getSchedule();
+    public boolean addUser(String eventId, String userId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
         return eventInfoManager.addUser(userId);
     }
@@ -94,8 +94,8 @@ public class EventController {
      * @param userId needs to be removed from the event
      * @return ture iff the user is successfully removed
      */
-    public boolean removeUser(UUID eventId, UUID userId){
-        Map<UUID, Event> schedule = this.eventsManager.getSchedule();
+    public boolean removeUser(String eventId, String userId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
         return eventInfoManager.removeUser(userId);
     }
@@ -106,8 +106,8 @@ public class EventController {
      * @param userId of the attendee User
      * @return true iff the attendee User has successfully signed up the spot
      */
-    public boolean signupEvent(UUID eventId, UUID userId){
-        Map<UUID, Event> schedule = this.eventsManager.getSchedule();
+    public boolean signupEvent(String eventId, String userId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.addUser(userId);
     }
@@ -118,8 +118,8 @@ public class EventController {
      * @param userId of the attendee User
      * @return true iff the attendee User has successfully cancelled the spot
      */
-    public boolean cancelEvent(UUID eventId, UUID userId){
-        Map<UUID, Event> schedule = this.eventsManager.getSchedule();
+    public boolean cancelEvent(String eventId, String userId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.removeUser(userId);
     }
@@ -131,7 +131,7 @@ public class EventController {
     public String getEventsInfo(){
         String s = "Events: \n";
         int num = 1;
-        for (UUID i: this.eventsManager.getSchedule().keySet()){
+        for (String i: this.eventsManager.getSchedule().keySet()){
             String eToString = "Event #" + num + " "+getSingleEventInfo(i);
             num += 1;
             s += eToString;
@@ -144,11 +144,11 @@ public class EventController {
      * @param eventId of an Event
      * @return a string representation of the event
      */
-    public String getSingleEventInfo(UUID eventId){
+    public String getSingleEventInfo(String eventId){
         String speakerName = "";
         int roomNum = -1;
         Event event = this.getSingleEvent(eventId);
-        for(UUID user: usersManager.getAllUsers()){
+        for(String user: usersManager.getAllUsers()){
             if(this.usersManager.fetchRole(user).equals("Speaker") && user == event.getSpeakerID()){
                 speakerName = usersManager.fetchUser(user).getUsername();
             }
@@ -169,8 +169,8 @@ public class EventController {
      * @param eventId of an Event
      * @return an Event
      */
-    public Event getSingleEvent(UUID eventId){
-        Map<UUID, Event> schedule = this.eventsManager.getSchedule();
+    public Event getSingleEvent(String eventId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.getEvent();
     }
@@ -181,8 +181,8 @@ public class EventController {
      * @param speakerId of the Speaker
      * @return ture iff the speaker is successfully added to the event
      */
-    public boolean addSpeaker(UUID eventId, UUID speakerId){
-        Map<UUID, Event> schedule = this.eventsManager.getSchedule();
+    public boolean addSpeaker(String eventId, String speakerId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.addSpeaker(speakerId);
     }
@@ -193,8 +193,8 @@ public class EventController {
      * @param speakerId of the Speaker
      * @return true iff the speaker is successfully removed from the event
      */
-    public boolean removeSpeaker(UUID eventId, UUID speakerId){
-        Map<UUID, Event> schedule = this.eventsManager.getSchedule();
+    public boolean removeSpeaker(String eventId, String speakerId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.removeSpeaker(speakerId);
     }
@@ -206,8 +206,8 @@ public class EventController {
      * @param newRoomId of the event
      * @return true iff the new information of the Event is updated
      */
-    public boolean updateEventInfo(UUID eventId, LocalDateTime newTime, UUID newRoomId){
-        Map<UUID, Event> schedule = this.eventsManager.getSchedule();
+    public boolean updateEventInfo(String eventId, LocalDateTime newTime, String newRoomId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
         return eventinfomanager.updateEventInfo(newTime, newRoomId);
     }
@@ -217,9 +217,9 @@ public class EventController {
      * @param index of the event
      * @return the event id
      */
-    public UUID getEventId(int index){
-        Map<UUID, Event> schedule = this.eventsManager.getSchedule();
-        ArrayList<UUID> eventIds = new ArrayList<>(schedule.keySet());
+    public String getEventId(int index){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        ArrayList<String> eventIds = new ArrayList<>(schedule.keySet());
         return eventIds.get(index);
     }
 }

@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class AuthController {
 
-    private UUID loggedInUser = null;
+    private String loggedInUser = null;
     private UsersManager usersManager;
     private ProgramController programController;
 
@@ -46,7 +46,7 @@ public class AuthController {
     }
 
     /**
-     * Logins the user and stores the logged in user's UUID in the private store
+     * Logins the user and stores the logged in user's String in the private store
      *
      * @param username Username
      * @param password Password
@@ -78,9 +78,9 @@ public class AuthController {
     /**
      * Fetches the current logged in user
      *
-     * @return UUID of the current logged in user
+     * @return String of the current logged in user
      */
-    public UUID fetchLoggedInUser() {
+    public String fetchLoggedInUser() {
         return this.loggedInUser;
     }
 

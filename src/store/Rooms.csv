@@ -1,4 +1,4 @@
-"CAPACITY","ID","ROOMNUM","SCHEDULE"
-"2","ddd6cc5f-94ae-4bf8-8a30-24663ede1449","1","{}"
-"2","27b1cd93-46b9-4a44-843d-49f0cbbe455e","2","{}"
-"2","e3fc0659-f405-4930-af22-6d0ad45bca6e","3","{}"
+"CAPACITY","EVENTID","EVENTTIME","ID","ROOMNUM"
+"2","","","35acc81a-4f23-4e6e-81e7-8ff4860fbc2d","1"
+"2","","","81712b43-e993-41d9-8363-23a5d430c851","2"
+"2","","","713a24bf-b175-427a-99b7-b5c58fffbc4d","3"

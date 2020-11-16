@@ -13,23 +13,23 @@ public class EventsManagerTest {
     EventsManager eventsManager;
     LocalDateTime time1;
     LocalDateTime time2;
-    UUID room1;
-    UUID room2;
-    UUID speaker1;
-    UUID speaker2;
+    String room1;
+    String room2;
+    String speaker1;
+    String speaker2;
 
     @Before
     public void setUp(){
         this.eventsManager = new EventsManager();
         time1 = LocalDateTime.of(2020, 1,1, 12, 0 );
         time2 = LocalDateTime.of(2020, 1,1, 16, 0 );
-        room1 = UUID.randomUUID();
-        room2 = UUID.randomUUID();
-        speaker1 = UUID.randomUUID();
-        speaker2 = UUID.randomUUID();
+        room1 = UUID.randomUUID().toString();
+        room2 = UUID.randomUUID().toString();
+        speaker1 = UUID.randomUUID().toString();
+        speaker2 = UUID.randomUUID().toString();
     }
 
-    public EventBuilder setUpEvent(String title, LocalDateTime time, UUID roomID, UUID speakerID){
+    public EventBuilder setUpEvent(String title, LocalDateTime time, String roomID, String speakerID){
         EventBuilder eb = new EventBuilder();
         eb.setTitle(title);
         eb.setRoom(roomID);
@@ -65,8 +65,8 @@ public class EventsManagerTest {
         Assert.assertFalse(eventsManager.removeEvent(e2.toEvent().getId()));
         //test success removes
         eventsManager.scheduleEvent(e2);
-        UUID e1id =  eventsManager.getEvents().get(0).getId();
-        UUID e2id =  eventsManager.getEvents().get(1).getId();
+        String e1id =  eventsManager.getEvents().get(0).getId();
+        String e2id =  eventsManager.getEvents().get(1).getId();
         Assert.assertTrue(eventsManager.removeEvent(e1id));
         Assert.assertTrue(eventsManager.removeEvent(e2id));
     }

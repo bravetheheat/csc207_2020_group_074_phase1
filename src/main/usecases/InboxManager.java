@@ -3,25 +3,24 @@ package main.usecases;
 import main.entities.Inbox;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class InboxManager {
 
-    private final Map<UUID, Inbox> inboxes = new HashMap<>();
+    private final Map<String, Inbox> inboxes = new HashMap<>();
 
     public InboxManager() {
 
     }
 
-    public void createInboxForUser(UUID userId) {
+    public void createInboxForUser(String userId) {
         Inbox newInbox = new Inbox(userId);
         this.inboxes.put(userId, newInbox);
     }
 
-    public UUID getInboxUUIDFromUserUUID(UUID userId) {
+    public String getInboxUUIDFromUserUUID(String userId) {
 
         for (Inbox x : inboxes.values()) {
             if (userId.equals(x.getUser())) {
@@ -31,7 +30,7 @@ public class InboxManager {
         return null;
     }
 
-    public List<UUID> getMessagesOfUser(UUID userId) {
+    public List<String> getMessagesOfUser(String userId) {
         for (Inbox x : inboxes.values()) {
             if (userId.equals(x.getUser())) {
                 return x.getMessages();
@@ -40,7 +39,7 @@ public class InboxManager {
         return new LinkedList<>();
     }
 
-    public void putMessageInToInbox(UUID message, UUID receiver){
+    public void putMessageInToInbox(String message, String receiver) {
 
         Inbox box = this.inboxes.get(receiver);
         if (box == null) {

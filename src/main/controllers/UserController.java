@@ -1,10 +1,9 @@
 package main.controllers;
 
 import main.entities.Event;
-import main.usecases.ContactsManager;
 import main.usecases.MessageManager;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * The UserController is an abstract class for controllers of all user types.
@@ -16,8 +15,7 @@ import java.util.*;
 public abstract class UserController {
 
 
-    protected UUID loggedInUser;
-    protected ContactsManager contactsManager;
+    protected String loggedInUser;
     protected MessageManager messageManager;
     protected EventController eventController;
 
@@ -28,7 +26,7 @@ public abstract class UserController {
      */
     public UserController(ProgramController programController) {
         this.loggedInUser = programController.getAuthController().fetchLoggedInUser();
-        this.contactsManager = programController.getContactsManager();
+
         this.messageManager = programController.getMessageManager();
         this.eventController = programController.getEventController();
     }

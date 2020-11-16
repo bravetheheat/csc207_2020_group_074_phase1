@@ -8,7 +8,7 @@
 //import java.util.Arrays;
 //import java.util.HashMap;
 //import java.util.Map;
-//import java.util.UUID;
+//import java.util.String;
 //
 ///**
 // * Test cases for <code>ChatRoomManager</code>
@@ -19,13 +19,13 @@
 // */
 //public class ChatRoomManagerTest {
 //    ChatRoomManager chatRoomManager1, chatRoomManager2;
-//    Map<UUID, ChatRoom> chatRoomList1, chatRoomList2;
+//    Map<String, ChatRoom> chatRoomList1, chatRoomList2;
 //    ChatRoom chatRoom1, chatRoom2, chatRoom3;
 //
 //    // create id's
-//    UUID id1 = UUID.randomUUID();
-//    UUID id2 = UUID.randomUUID();
-//    UUID id3 = UUID.randomUUID();
+//    String id1 = UUID.randomUUID().toString();
+//    String id2 = UUID.randomUUID().toString();
+//    String id3 = UUID.randomUUID().toString();
 //
 //    @Before
 //    public void setUp() {
@@ -53,14 +53,14 @@
 //
 //    @Test
 //    public void testCreateChatRoom() {
-//        UUID chatRoom2ID = chatRoomManager2.createChatRoom();
+//        String chatRoom2ID = chatRoomManager2.createChatRoom();
 //        Assert.assertEquals(3, chatRoomList1.size());
 //        Assert.assertTrue(chatRoomList1.containsKey(chatRoom2ID));
 //    }
 //
 //    @Test
 //    public void testDeleteChatRoom() {
-//        UUID chatRoom1ID = chatRoomManager1.createChatRoom();
+//        String chatRoom1ID = chatRoomManager1.createChatRoom();
 //        chatRoomManager1.deleteChatRoom(chatRoom1ID);
 //        Assert.assertNull(chatRoomManager1.fetchChatRoom(chatRoom1ID));
 //    }

@@ -8,16 +8,15 @@ import main.presenters.InboxScreen;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class InboxScreenController extends ScreenController {
 
     InboxScreen presenter = new InboxScreen();
     InboxController inboxController;
-    Map<UUID, String> messages;
+    Map<String, String> messages;
 
     List<String> messageList;
-    List<UUID> messageIndexes;
+    List<String> messageIndexes;
 
     public InboxScreenController(ProgramController programController) {
         super(programController);
@@ -50,12 +49,12 @@ public class InboxScreenController extends ScreenController {
 
     private void fetchMessages() {
         AuthController currentAuthController = this.programController.getAuthController();
-        UUID currentUserId = currentAuthController.fetchLoggedInUser();
+        String currentUserId = currentAuthController.fetchLoggedInUser();
         this.messages = this.inboxController.getMessagesOfUser(currentUserId);
-        this.messageIndexes = new LinkedList<UUID>();
+        this.messageIndexes = new LinkedList<String>();
         this.messageList = new LinkedList<String>();
 
-        for (Map.Entry<UUID, String> entry : this.messages.entrySet()) {
+        for (Map.Entry<String, String> entry : this.messages.entrySet()) {
             this.messageIndexes.add(entry.getKey());
             this.messageList.add(entry.getValue());
         }
@@ -89,7 +88,7 @@ public class InboxScreenController extends ScreenController {
                 this.messageDetailPrompt();
                 return;
             }
-            UUID messageId = this.messageIndexes.get(messageNum - 1);
+            String messageId = this.messageIndexes.get(messageNum - 1);
             this.openMessageDetailScreen(messageId);
         } catch (NumberFormatException e) {
             this.presenter.invalidOption();
@@ -100,7 +99,7 @@ public class InboxScreenController extends ScreenController {
 
     }
 
-    private void openMessageDetailScreen(UUID messageId) {
+    private void openMessageDetailScreen(String messageId) {
         ScreenController messageDetailScreenController =
                 new MessageDetailScreenController(this.programController, messageId);
         this.programController.setNewScreenController(messageDetailScreenController);

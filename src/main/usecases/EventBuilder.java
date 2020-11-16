@@ -4,7 +4,6 @@ package main.usecases;
 import main.entities.Event;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * The EventBuilder get build event giving necessary info.
@@ -16,24 +15,26 @@ import java.util.UUID;
 public class EventBuilder {
     private String title;
     private LocalDateTime time;
-    private UUID roomID;
-    private UUID speakerID;
+    private String roomID;
+    private String speakerID;
 
-    public void setTitle(String title){
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setTime(LocalDateTime time){
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
-    public void setRoom(UUID roomID){
+    public void setRoom(String roomID) {
         this.roomID = roomID;
     }
 
-    public void setSpeaker(UUID speakerID){ this.speakerID = speakerID; }
+    public void setSpeaker(String speakerID) {
+        this.speakerID = speakerID;
+    }
 
-    public Event toEvent(){
+    public Event toEvent() {
         return new Event(title, time, roomID, speakerID);
     }
 }

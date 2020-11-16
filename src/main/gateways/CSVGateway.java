@@ -8,7 +8,9 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import main.entities.Event;
 import main.entities.Room;
 import main.entities.User;
+import main.gateways.beans.RoomBean;
 import main.gateways.beans.UserBean;
+import main.gateways.converters.RoomConverter;
 import main.usecases.UserFactory;
 
 import java.io.*;
@@ -103,8 +105,9 @@ public class CSVGateway implements Gateway {
     public List<Room> loadRooms() {
         try {
             // From documentation available at http://opencsv.sourceforge.net/
-
-            List<Room> rooms = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.roomCSVPath))).withType(Room.class).build().parse();
+            RoomConverter converter = new RoomConverter();
+            List<RoomBean> roomBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.roomCSVPath))).withType(RoomBean.class).build().parse();
+            List<Room> rooms = converter.convertFromBeans(roomBeans);
             return rooms;
 
         } catch (FileNotFoundException e) {
@@ -116,11 +119,13 @@ public class CSVGateway implements Gateway {
 
     public void saveRooms(List<Room> rooms) {
         try {
+            RoomConverter converter = new RoomConverter();
+            List<RoomBean> roomBeans = converter.convertToBeans(rooms);
             // From documentation available at http://opencsv.sourceforge.net/
             FileWriter csvFileWriter = new FileWriter(this.roomCSVPath);
 
             StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
-            beanToCsv.write(rooms);
+            beanToCsv.write(roomBeans);
             csvFileWriter.close();
 
         } catch (IOException e) {

@@ -37,7 +37,7 @@ public class UserAuthTest {
         boolean registerSuccess = this.authController.registerUser(username, password, userType);
         boolean loginSuccess = this.authController.login(username, password);
 
-        UUID loggedInUserId = this.authController.fetchLoggedInUser();
+        String loggedInUserId = this.authController.fetchLoggedInUser();
         User createdUser = this.usersManager.fetchUser(loggedInUserId);
 
         Assert.assertTrue(registerSuccess);
@@ -58,7 +58,7 @@ public class UserAuthTest {
         boolean registerSuccess = this.authController.registerUser(username, password, userType);
         boolean loginSuccess = this.authController.login(username, password);
 
-        UUID loggedInUserId = this.authController.fetchLoggedInUser();
+        String loggedInUserId = this.authController.fetchLoggedInUser();
         User createdUser = this.usersManager.fetchUser(loggedInUserId);
 
         Assert.assertTrue(registerSuccess);
@@ -79,7 +79,7 @@ public class UserAuthTest {
         boolean registerSuccess = this.authController.registerUser(username, password, userType);
         boolean loginSuccess = this.authController.login(username, password);
 
-        UUID loggedInUserId = this.authController.fetchLoggedInUser();
+        String loggedInUserId = this.authController.fetchLoggedInUser();
         User createdUser = this.usersManager.fetchUser(loggedInUserId);
 
         Assert.assertTrue(registerSuccess);
@@ -101,9 +101,9 @@ public class UserAuthTest {
 
         boolean loginSuccess = this.authController.login(username, password);
         boolean isLoggedIn = this.authController.isLoggedIn();
-        UUID loggedInUserId = this.authController.fetchLoggedInUser();
+        String loggedInUserId = this.authController.fetchLoggedInUser();
         this.authController.logout();
-        UUID loggedOutUserId = this.authController.fetchLoggedInUser();
+        String loggedOutUserId = this.authController.fetchLoggedInUser();
 
         Assert.assertTrue(loginSuccess);
         Assert.assertTrue(isLoggedIn);
@@ -119,7 +119,7 @@ public class UserAuthTest {
 
         // User newUser = new User(username, password);
         User newUser = new Attendee(username, password);
-        UUID newUserId = newUser.getId();
+        String newUserId = newUser.getId();
         this.usersManager.addUser(newUser);
         User addedUser = this.usersManager.fetchUser(newUserId);
         this.usersManager.removeUser(newUserId);

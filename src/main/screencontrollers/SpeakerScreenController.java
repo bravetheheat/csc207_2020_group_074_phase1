@@ -19,7 +19,7 @@ import java.util.UUID;
 public class SpeakerScreenController extends ScreenController{
     private final SpeakerScreen presenter;
     private ArrayList<String> validInput;
-    private final UUID loggedInSpeaker;
+    private final String loggedInSpeaker;
 
     /**
      * A ProgramController is needed to instantiate a SpeakerScreenController
@@ -42,7 +42,7 @@ public class SpeakerScreenController extends ScreenController{
         this.end();
     }
 
-    public void interact(UUID loggedInSpeaker){
+    public void interact(String loggedInSpeaker){
         this.presenter.prompt();
         String input = scanner.nextLine();
 
@@ -70,14 +70,14 @@ public class SpeakerScreenController extends ScreenController{
     }
 
     /**
-     * Return a list of strings for events, given a list of events UUID at which the speaker will be speaking.
-     * @param talkList list of UUID of the talks that the speaker will be giving
+     * Return a list of strings for events, given a list of events String at which the speaker will be speaking.
+     * @param talkList list of String of the talks that the speaker will be giving
      * @return a list of the string representation of the talks
      */
 
-    public ArrayList<String> IDtoString(ArrayList<UUID> talkList){
+    public ArrayList<String> IDtoString(ArrayList<String> talkList){
         ArrayList<String> talksString = new ArrayList<>();
-        for (UUID talk : talkList){
+        for (String talk : talkList){
             talksString.add(this.programController.getEventController().getSingleEventInfo(talk));
         }
         return talksString;

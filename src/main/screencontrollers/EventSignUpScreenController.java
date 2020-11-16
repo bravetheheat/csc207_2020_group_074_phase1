@@ -2,13 +2,11 @@ package main.screencontrollers;
 
 import main.controllers.EventController;
 import main.controllers.ProgramController;
-
 import main.entities.Event;
 import main.presenters.EventSignUpScreen;
 import main.usecases.UsersManager;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * The EventsSignupScreenController handles events sign up and cancellation:
@@ -38,7 +36,7 @@ public class EventSignUpScreenController extends ScreenController {
     public void mainOption() {
         this.presenter.promptCommand();
         String choice = this.scanner.nextLine();
-        switch (choice){
+        switch (choice) {
             case "1":
                 this.signUpOption();
                 break;
@@ -55,39 +53,47 @@ public class EventSignUpScreenController extends ScreenController {
 
     }
 
-    public boolean haveEvent(){
+    public boolean haveEvent() {
         ArrayList<Event> events = new ArrayList<Event>(this.eventController.getAllEvents());
         return events.size() > 0;
     }
 
-    public void signUpOption(){
+    public void signUpOption() {
         this.presenter.promptUserEmail();
         String userEmail = this.scanner.nextLine();
-        UUID userId = usersManager.getIDFromUsername(userEmail);
-        if(this.haveEvent()){
+        String userId = usersManager.getIDFromUsername(userEmail);
+        if (this.haveEvent()) {
             this.presenter.promptEvents(eventController.getEventsInfo());
             String eventIndex = this.scanner.nextLine();
             int index = Integer.parseInt(eventIndex);
-            UUID eventId = eventController.getEventId(index-1);
+            String eventId = eventController.getEventId(index-1);
             if (eventController.signupEvent(eventId, userId)) {
-            this.presenter.printSuccessMessage();
-            } else { this.presenter.printFailMessage();}
-        }else{this.presenter.printNoEventMessage();}
+                this.presenter.printSuccessMessage();
+            } else {
+                this.presenter.printFailMessage();
+            }
+        } else {
+            this.presenter.printNoEventMessage();
+        }
     }
 
-    public void cancelOption(){
+    public void cancelOption() {
         this.presenter.promptUserEmail();
         String userEmail = this.scanner.nextLine();
-        UUID userId = usersManager.getIDFromUsername(userEmail);
-        if(this.haveEvent()){
+        String userId = usersManager.getIDFromUsername(userEmail);
+        if (this.haveEvent()) {
             this.presenter.promptEvents(eventController.getEventsInfo());
             String eventIndex = this.scanner.nextLine();
             int index = Integer.parseInt(eventIndex);
-            UUID eventId = eventController.getEventId(index-1);
+            String eventId = eventController.getEventId(index-1);
             if (eventController.cancelEvent(eventId, userId)) {
                 this.presenter.printSuccessMessage();
-            } else { this.presenter.printFailMessage();}
-        }else{this.presenter.printNoEventMessage();}
+            } else {
+                this.presenter.printFailMessage();
+            }
+        } else {
+            this.presenter.printNoEventMessage();
+        }
     }
 
 }

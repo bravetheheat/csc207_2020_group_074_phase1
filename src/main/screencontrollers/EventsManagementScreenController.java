@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * The EventsManagementScreenController handles events information and management:
@@ -51,7 +50,7 @@ public class EventsManagementScreenController extends ScreenController {
     public void manageEvent() {
         presenter.promptCommand();
         String command = scanner.nextLine();
-        switch (command){
+        switch (command) {
             case "0":
                 programController.goToPreviousScreenController();
                 end();
@@ -101,7 +100,7 @@ public class EventsManagementScreenController extends ScreenController {
      *
      * @return verify if the room is successfully created
      */
-    public boolean createRoom(){
+    public boolean createRoom() {
         presenter.promptCreateRoom();
         String roomNum = scanner.nextLine();
         return organizerController.createRoom(Integer.parseInt(roomNum), 2);
@@ -117,7 +116,7 @@ public class EventsManagementScreenController extends ScreenController {
         presenter.promptCreateEvent();
         String title = scanner.nextLine();
         LocalDateTime time = getTime();
-        UUID speakerID = getSpeakerID();
+        String speakerID = getSpeakerID();
         presenter.promptRoom(organizerController.roomToString());
         String roomNum = scanner.nextLine();
         return organizerController.createEvent(title, time, Integer.parseInt(roomNum), speakerID);
@@ -129,7 +128,7 @@ public class EventsManagementScreenController extends ScreenController {
      * @return verify if the event is successfully removed
      */
     public boolean removeEvent() {
-        UUID eventID = getEventID();
+        String eventID = getEventID();
         return organizerController.removeEvent(eventID);
     }
 
@@ -139,7 +138,7 @@ public class EventsManagementScreenController extends ScreenController {
      * @return verify if the event time is successfully modified
      */
     public boolean modifyTime() {
-        UUID eventID = getEventID();
+        String eventID = getEventID();
         LocalDateTime time = getTime();
         return organizerController.updateTime(eventID, time);
     }
@@ -151,8 +150,8 @@ public class EventsManagementScreenController extends ScreenController {
      * @return verify if the speaker is successfully modified
      */
     public boolean modifySpeaker() {
-        UUID eventID = getEventID();
-        UUID speakerID = getSpeakerID();
+        String eventID = getEventID();
+        String speakerID = getSpeakerID();
         return organizerController.updateSpeaker(eventID, speakerID);
     }
 
@@ -162,7 +161,7 @@ public class EventsManagementScreenController extends ScreenController {
      * @return verify if the room is successfully modified
      */
     public boolean modifyRoom() {
-        UUID eventID = getEventID();
+        String eventID = getEventID();
         int roomID = getRoomNum();
         return organizerController.updateRoom(eventID, roomID);
     }
@@ -170,18 +169,18 @@ public class EventsManagementScreenController extends ScreenController {
     /**
      * Helper function to get event id base on input index
      *
-     * @return UUID of eventId
+     * @return String of eventId
      */
-    public UUID getEventID(){
+    public String getEventID() {
         String info = organizerController.getEventController().getEventsInfo();
         presenter.printSchedule(info);
         presenter.promptEvent();
         handleEmptyList(organizerController.getEventController().getAllEvents());
-        try{
+        try {
             String eventIndex = scanner.nextLine();
             int i = Integer.parseInt(eventIndex);
             return organizerController.getEventController().getEventId(i);
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             presenter.printInvalidInput();
             return getEventID();
         }
@@ -191,16 +190,16 @@ public class EventsManagementScreenController extends ScreenController {
     /**
      * Helper function to get speaker id base on input index
      *
-     * @return UUID of speakerId
+     * @return String of speakerId
      */
-    public UUID getSpeakerID() {
-        List<UUID> speakers = organizerController.getAllSpeakers();
+    public String getSpeakerID() {
+        List<String> speakers = organizerController.getAllSpeakers();
         handleEmptyList(speakers);
-        try{
+        try {
             presenter.promptSpeaker(organizerController.speakerToString());
             String speakerIndex = scanner.nextLine();
-            return speakers.get(Integer.parseInt(speakerIndex)-1);
-        }catch (IllegalArgumentException e) {
+            return speakers.get(Integer.parseInt(speakerIndex) - 1);
+        } catch (IllegalArgumentException e) {
             presenter.printInvalidInput();
             return getSpeakerID();
         }
@@ -215,11 +214,11 @@ public class EventsManagementScreenController extends ScreenController {
     public int getRoomNum() {
         List<Integer> rooms = organizerController.getAllRooms();
         handleEmptyList(rooms);
-        try{
+        try {
             presenter.promptRoom(organizerController.roomToString());
             String roomIndex = scanner.nextLine();
-            return rooms.get(Integer.parseInt(roomIndex)-1);
-        }catch (IllegalArgumentException e) {
+            return rooms.get(Integer.parseInt(roomIndex) - 1);
+        } catch (IllegalArgumentException e) {
             presenter.printInvalidInput();
             return getRoomNum();
         }
@@ -232,11 +231,11 @@ public class EventsManagementScreenController extends ScreenController {
      */
     public LocalDateTime getTime() {
         presenter.promptTime();
-        try{
+        try {
             String timeInput = scanner.nextLine();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             return LocalDateTime.parse(timeInput, formatter);
-        } catch (IllegalArgumentException | DateTimeParseException e){
+        } catch (IllegalArgumentException | DateTimeParseException e) {
             presenter.printInvalidInput();
             return getTime();
         }

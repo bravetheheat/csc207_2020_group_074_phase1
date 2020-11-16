@@ -3,11 +3,10 @@ package main.presenters;
 import main.usecases.UsersManager;
 
 import java.util.List;
-import java.util.UUID;
 
 public class OrganizerMessageScreen extends AttendeeMessageScreen {
 
-    public OrganizerMessageScreen(UsersManager usersManager, List<UUID> recipients) {
+    public OrganizerMessageScreen(UsersManager usersManager, List<String> recipients) {
         super(usersManager, recipients);
     }
 
