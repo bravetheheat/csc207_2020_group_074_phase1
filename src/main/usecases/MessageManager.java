@@ -1,8 +1,10 @@
 package main.usecases;
 
 import main.entities.Message;
+import main.gateways.Gateway;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,26 +19,13 @@ import java.util.Map;
  */
 public class MessageManager {
 
-    private final Map<String, Message> messageList;
+    private Map<String, Message> messageList;
 
     /**
      * Default constructor that instantiates a <code>MessageManager</code> object
      */
     public MessageManager() {
         this.messageList = new HashMap<>();
-    }
-
-    /**
-     * Instantiates a <code>MessageManager</code> object with a <code>messageList</code>
-     *
-     * @param messageList a dictionary that assigns an ID to each <code>Message</code>
-     */
-    public MessageManager(List<Message> messageList) {
-        this.messageList = new HashMap<>();
-        for (Message message : messageList) {
-            String messageId = message.getId();
-            this.messageList.put(messageId, message);
-        }
     }
 
     /**
@@ -84,6 +73,30 @@ public class MessageManager {
     public String retrieveMessageSender(String messageId) {
         Message message = this.messageList.get(messageId);
         return message.getSender();
+    }
+
+    /**
+     * Saves current store of Message to gateway
+     *
+     * @param gateway An implementation of the Gateway interface
+     */
+    public void saveMessagesToGateway(Gateway gateway) {
+        List<Message> messages = new ArrayList<>();
+        messages.addAll(this.messageList.values());
+        gateway.saveMessages(messages);
+    }
+
+    /**
+     * Imports and replaces current store of Message with Gateway-provided store
+     *
+     * @param gateway An implementation of the Gateway interface
+     */
+    public void loadMessagesFromGateway(Gateway gateway) {
+        this.messageList = new HashMap<>();
+        List<Message> messages = gateway.loadMessages();
+        for (Message message : messages) {
+            this.messageList.put(message.getId(), message);
+        }
     }
 
 

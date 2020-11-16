@@ -9,7 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RoomConverter {
+/**
+ * Implementation of Converter that serializes and deserializes Room
+ */
+public class RoomConverter implements Converter<RoomBean, Room>{
 
     public List<Room> convertFromBeans(List<RoomBean> roomBeans) {
         Map<String, Room> rooms = new HashMap<>();

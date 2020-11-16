@@ -8,7 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EventConverter implements Converter{
+/**
+ * Implementation of Converter that serializes and deserializes Event
+ */
+public class EventConverter implements Converter<EventBean, Event>{
 
     public List<Event> convertFromBeans(List<EventBean> eventBeans) {
         Map<String, Event> events = new HashMap<>();
