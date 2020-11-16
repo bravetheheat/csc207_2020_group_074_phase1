@@ -123,6 +123,11 @@ public class EventsManager {
         gateway.saveEvents(events);
     }
 
+    /**
+     * A loader to load events from gateway
+     *
+     * @param gateway Gateway
+     */
     public void loadEventsFromGateway(Gateway gateway) {
         this.schedule = new LinkedHashMap<>();
         List<Event> events = gateway.loadEvents();

@@ -9,11 +9,12 @@ public class UserManagementScreenController extends ScreenController {
 
     OrganizerController organizerController;
     UserManagementScreen presenter = new UserManagementScreen();
-    UsersManager usersManager = new UsersManager();
+    UsersManager usersManager;
 
     public UserManagementScreenController(ProgramController programController) {
         super(programController);
         organizerController = new OrganizerController(programController);
+        usersManager = programController.getUsersManager();
     }
 
     @Override
