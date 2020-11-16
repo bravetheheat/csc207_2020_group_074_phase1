@@ -80,7 +80,7 @@ public class EventsManager {
             EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
             List<String> users = eventInfoManager.getUsers();
             for (String user : users) {
-                if (user.equals(userId)){
+                if (user.equals(userId)) {
                     userEvents.add(eventId);
                 }
             }

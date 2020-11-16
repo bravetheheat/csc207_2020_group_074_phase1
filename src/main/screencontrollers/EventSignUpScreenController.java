@@ -80,7 +80,6 @@ public class EventSignUpScreenController extends ScreenController {
             int index = Integer.parseInt(eventIndex);
             String eventId = eventController.getEventId(index-1);
             if (eventController.signupEvent(eventId, userId)) {
-                eventController.addUser(eventId, userId);
                 List<String> users = eventController.getUsers(eventId);
                 this.presenter.printEventAttendee(users);
                 this.presenter.printSuccessMessage();
