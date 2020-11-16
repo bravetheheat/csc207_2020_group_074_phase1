@@ -2,7 +2,6 @@ package main.entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,7 +17,7 @@ public class Event {
     private LocalDateTime time;
     private String roomID;
     private String speakerID;
-    private final List<String> attendeesID;
+    private ArrayList<String> attendeesID;
 
     /**
      * No-arg constructor for deserialization
@@ -69,7 +68,7 @@ public class Event {
      *
      * @return attendeesID
      */
-    public List<String> getAttendeesID() {
+    public ArrayList<String> getAttendeesID() {
         return attendeesID;
     }
 

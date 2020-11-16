@@ -181,6 +181,6 @@ public class EventInfoManager {
         return "Title: " + event.getTitle() + "\n"
                 + "Time: " + event.getTime() + "\n"
                 + "Speaker: " + speakerName + "\n"
-                + "Room: " + roomNum;
+                + "Room: Room #" + roomNum;
     }
 }
