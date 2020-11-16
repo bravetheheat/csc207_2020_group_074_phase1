@@ -3,6 +3,7 @@ package main.screencontrollers;
 import main.controllers.ProgramController;
 import main.presenters.GatewayScreen;
 import main.usecases.EventsManager;
+import main.usecases.MessageManager;
 import main.usecases.RoomManager;
 import main.usecases.UsersManager;
 
@@ -24,7 +25,7 @@ public class GatewayScreenController extends ScreenController {
     }
 
     private void optionsPrompt() {
-        List<String> options = Arrays.asList("0", "1", "2", "3");
+        List<String> options = Arrays.asList("0", "1", "2", "3", "4");
         this.presenter.optionsPrompt();
         String choice = this.scanner.nextLine();
         while (!options.contains(choice)) {
@@ -45,6 +46,9 @@ public class GatewayScreenController extends ScreenController {
 
             case "3":
                 this.saveEvents();
+                break;
+            case "4":
+                this.saveMessages();
                 break;
         }
         return;
@@ -71,6 +75,14 @@ public class GatewayScreenController extends ScreenController {
         this.presenter.saveEvents();
         EventsManager eventsManager = this.programController.getEventsManager();
         eventsManager.saveEventsToGateway(this.programController.getGateway());
+        this.presenter.success();
+        this.optionsPrompt();
+    }
+
+    private void saveMessages() {
+        this.presenter.saveMessages();
+        MessageManager messageManager = this.programController.getMessageManager();
+        messageManager.saveMessagesToGateway(this.programController.getGateway());
         this.presenter.success();
         this.optionsPrompt();
     }

@@ -181,36 +181,4 @@ public class MessageController {
     }
 
 
-//    /**
-//     * get a list of user who have send messages to the speaker before
-//     * @param sender the id of the speaker
-//     * @return a list of user who have send messages to the speaker before
-//     */
-//    public List<String> couldBeMessagedBySpeakerThroughReply(String sender){
-//        List<String> receivers = new ArrayList<>();
-//        // search all chatrooms this speaker in.
-//        for(String chatRoom: chatRoomManager.fetchChatRoomsOfUser(sender)){
-//            // make sure there are only two participates
-//            if(chatRoomManager.fetchChatRoom(chatRoom).getParticipants().size() == 2){
-//                // search all messages to check if the attendee have send
-//                for(String message: chatRoomManager.fetchChatRoom(chatRoom).getMessages()){
-//
-//                    if(messageManager.retrieveMessageSender(message) != sender){
-//                        // get the uuid of the attendee
-//                        for(String user: chatRoomManager.fetchChatRoom(chatRoom).getParticipants()){
-//                            if(user != sender){
-//                                receivers.add(user);
-//                            }
-//                        }
-//                    }
-//
-//                }
-//
-//
-//            }
-//        }
-//        return receivers;
-//    }
-
-
 }
