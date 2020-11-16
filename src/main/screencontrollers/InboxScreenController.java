@@ -99,7 +99,7 @@ public class InboxScreenController extends ScreenController {
 
     }
 
-    private void openMessageDetailScreen(UUID messageId) {
+    private void openMessageDetailScreen(String messageId) {
         ScreenController messageDetailScreenController =
                 new MessageDetailScreenController(this.programController, messageId);
         this.programController.setNewScreenController(messageDetailScreenController);

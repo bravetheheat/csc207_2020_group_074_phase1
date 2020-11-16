@@ -66,7 +66,7 @@ public class EventSignUpScreenController extends ScreenController {
             this.presenter.promptEvents(eventController.getEventsInfo());
             String eventIndex = this.scanner.nextLine();
             int index = Integer.parseInt(eventIndex);
-            UUID eventId = eventController.getEventId(index-1);
+            String eventId = eventController.getEventId(index-1);
             if (eventController.signupEvent(eventId, userId)) {
                 this.presenter.printSuccessMessage();
             } else {
@@ -85,7 +85,7 @@ public class EventSignUpScreenController extends ScreenController {
             this.presenter.promptEvents(eventController.getEventsInfo());
             String eventIndex = this.scanner.nextLine();
             int index = Integer.parseInt(eventIndex);
-            UUID eventId = eventController.getEventId(index-1);
+            String eventId = eventController.getEventId(index-1);
             if (eventController.cancelEvent(eventId, userId)) {
                 this.presenter.printSuccessMessage();
             } else {

@@ -7,10 +7,10 @@ import main.presenters.MessageDetailScreen;
 import java.util.UUID;
 
 public class MessageDetailScreenController extends ScreenController {
-    UUID messageId;
+    String messageId;
     MessageDetailScreen presenter;
 
-    public MessageDetailScreenController(ProgramController programController, UUID messageId) {
+    public MessageDetailScreenController(ProgramController programController, String messageId) {
         super(programController);
         this.messageId = messageId;
         this.presenter = new MessageDetailScreen();
@@ -22,7 +22,7 @@ public class MessageDetailScreenController extends ScreenController {
         this.end();
     }
 
-    public void printDetails(UUID messageId){
+    public void printDetails(String messageId){
         InboxController inboxController = this.programController.getInboxController();
         String detail = inboxController.getMessageString(messageId);
         this.presenter.printDetails(detail);

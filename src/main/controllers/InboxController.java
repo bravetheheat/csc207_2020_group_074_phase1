@@ -26,7 +26,7 @@ public class InboxController {
         return messageDict;
     }
 
-    private String getMessageString(String messageId) {
+    public String getMessageString(String messageId) {
         String messageText = this.messageManager.retrieveMessageText(messageId);
         String messageDate = this.messageManager.retrieveMessageDate(messageId).toString();
         String messageSender = this.getMessageSender(messageId);

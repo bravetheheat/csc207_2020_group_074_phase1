@@ -104,7 +104,6 @@ public class RoomManager {
     public void loadRoomsFromGateway(Gateway gateway) {
         this.rooms = new HashMap<>();
         List<Room> loadedRooms = gateway.loadRooms();
-        System.out.println(loadedRooms);
         for (Room room : loadedRooms) {
             this.rooms.put(room.getId(), room);
         }

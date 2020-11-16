@@ -4,17 +4,13 @@ import main.gateways.CSVGateway;
 import main.gateways.Gateway;
 import main.screencontrollers.AnonymousScreenController;
 import main.screencontrollers.ScreenController;
-import main.usecases.InboxManager;
-import main.usecases.MessageManager;
-import main.usecases.RoomManager;
-import main.usecases.UsersManager;
+import main.usecases.*;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class ProgramController {
     UsersManager usersManager;
-    ContactsManager contactsManager;
     EventsManager eventsManager;
     MessageManager messageManager;
     AuthController authController;
@@ -29,7 +25,6 @@ public class ProgramController {
 
     public ProgramController() {
         this.usersManager = new UsersManager();
-        this.contactsManager = new ContactsManager();
         this.eventsManager = new EventsManager();
         this.messageManager = new MessageManager();
         this.inboxManager = new InboxManager();
