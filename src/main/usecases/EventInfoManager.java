@@ -73,7 +73,7 @@ public class EventInfoManager {
      */
     public boolean removeSpeaker(String removeSpeakerId) {
         //for one speaker event, do not have to worry about time conflict
-        if (event.getSpeakerID() != null && event.getSpeakerID() == removeSpeakerId) {
+        if (event.getSpeakerID() != null && event.getSpeakerID().equals(removeSpeakerId)) {
             event.setSpeakerID(null);
             return true;
         }
@@ -124,10 +124,10 @@ public class EventInfoManager {
         for (String id : schedule.keySet()) {
             Event e = schedule.get(id);
             //time conflict at same room
-            if ((e.getTime() == newTime) && (e.getRoomID() == newRoomId)) {
+            if ((e.getTime() == newTime) && (e.getRoomID().equals(newRoomId))) {
                 return false;
             }//speaker conflict at same time
-            else if ((e.getTime() == newTime) && (e.getSpeakerID() == event.getSpeakerID())) {
+            else if ((e.getTime() == newTime) && (e.getSpeakerID().equals(event.getSpeakerID()))) {
                 return false;
             }
         }
