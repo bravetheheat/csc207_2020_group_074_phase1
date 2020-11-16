@@ -16,11 +16,31 @@ public class LoginScreenController extends ScreenController {
     @Override
     public void start() {
         this.presenter.printScreenName();
-        this.login();
+        this.optionsPrompt();
         this.end();
     }
 
-    public void login() {
+    private void optionsPrompt() {
+        boolean validOptionChosen = false;
+        this.presenter.optionsPrompt();
+        String choice = this.scanner.nextLine();
+        while (!validOptionChosen) {
+            switch(choice) {
+                case"0":
+                    validOptionChosen = true;
+                    this.goToPreviousScreenController();
+
+                    return;
+                case"1":
+                    validOptionChosen = true;
+                    this.login();
+                    return;
+            }
+        }
+
+    }
+
+    private void login() {
         String username;
         String password;
 
@@ -48,7 +68,7 @@ public class LoginScreenController extends ScreenController {
 
     }
 
-    public void logout() {
+    private void logout() {
         this.authController.logout();
         this.presenter.signout();
     }
