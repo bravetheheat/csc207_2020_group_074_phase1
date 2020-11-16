@@ -18,7 +18,7 @@ public class Event {
     private LocalDateTime time;
     private String roomID;
     private String speakerID;
-    private final List<String> attendeesID;
+    private List<String> attendeesID;
 
     /**
      * No-arg constructor for deserialization
