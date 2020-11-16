@@ -18,15 +18,15 @@ import java.util.UUID;
  * @since 2020-11-08
  */
 public class EventController {
-
     private final EventsManager eventsManager;
     private final UsersManager usersManager;
     private final RoomManager roomManager;
 
+
     /**
      * Default constructor for an EventsController
      */
-    public EventController(ProgramController programController) {
+    public EventController(ProgramController programController){
         this.eventsManager = programController.getEventsManager();
         this.usersManager = programController.getUsersManager();
         this.roomManager = programController.getRoomManager();
@@ -131,8 +131,8 @@ public class EventController {
     public String getEventsInfo(){
         String s = "Events: \n";
         int num = 1;
-        for (UUID i : this.eventsManager.getSchedule().keySet()){
-            String eToString = "Event #" + num + " " + getSingleEventInfo(i);
+        for (UUID i: this.eventsManager.getSchedule().keySet()){
+            String eToString = "Event #" + num + " "+getSingleEventInfo(i);
             num += 1;
             s += eToString;
         }
