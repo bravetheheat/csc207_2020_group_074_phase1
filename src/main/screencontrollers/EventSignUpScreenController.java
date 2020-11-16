@@ -30,7 +30,7 @@ public class EventSignUpScreenController extends ScreenController {
         super(programController);
         organizerController = new OrganizerController(programController);
         eventController = organizerController.getEventController();
-        authController = new AuthController(programController);
+        authController = programController.getAuthController();
     }
 
     @Override
@@ -71,23 +71,31 @@ public class EventSignUpScreenController extends ScreenController {
     }
 
     public void signUpOption() {
-        String userEmail = authController.fetchLoggedInUser();
-        String userId = usersManager.getIDFromUsername(userEmail);
+        String userId = authController.fetchLoggedInUser();
         if (this.haveEvent()) {
-            String info = eventController.getEventsInfo();
-            this.presenter.promptSignupEvents(info);
-            String eventIndex = this.scanner.nextLine();
-            int index = Integer.parseInt(eventIndex);
-            String eventId = eventController.getEventId(index-1);
-            if (eventController.signupEvent(eventId, userId)) {
-                List<String> users = eventController.getUsers(eventId);
-                this.presenter.printEventAttendee(users);
-                this.presenter.printSuccessMessage();
-            } else {
+            try{
+                this.getSignUpInfo(userId);
+            }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
                 this.presenter.printFailMessage();
+                this.getSignUpInfo(userId);
             }
         } else {
             this.presenter.printNoEventMessage();
+        }
+    }
+
+    public void getSignUpInfo(String userId){
+        String info = eventController.getEventsInfo();
+        this.presenter.promptSignupEvents(info);
+        String eventIndex = this.scanner.nextLine();
+        int index = Integer.parseInt(eventIndex);
+        String eventId = eventController.getEventId(index-1);
+        if (eventController.signupEvent(eventId, userId)) {
+            List<String> users = eventController.getUsers(eventId);
+            this.presenter.printEventAttendee(users);
+            this.presenter.printSuccessMessage();
+        } else {
+            this.presenter.printFailMessage();
         }
     }
 
@@ -95,18 +103,27 @@ public class EventSignUpScreenController extends ScreenController {
         String userEmail = authController.fetchLoggedInUser();
         String userId = usersManager.getIDFromUsername(userEmail);
         if (this.userHaveEvent(userId)) {
-            String info = eventController.getUserEvents(userId);
-            this.presenter.promptCancelEvents(info);
-            String eventIndex = this.scanner.nextLine();
-            int index = Integer.parseInt(eventIndex);
-            String eventId = eventController.getEventId(index-1);
-            if (eventController.cancelEvent(eventId, userId)) {
-                this.presenter.printSuccessMessage();
-            } else {
+            try{
+                this.getCancelInfo(userId);
+            }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
                 this.presenter.printFailMessage();
+                this.getCancelInfo(userId);
             }
         } else {
             this.presenter.printNoEventMessage();
+        }
+    }
+
+    public void getCancelInfo(String userId){
+        String info = eventController.getUserEvents(userId);
+        this.presenter.promptCancelEvents(info);
+        String eventIndex = this.scanner.nextLine();
+        int index = Integer.parseInt(eventIndex);
+        String eventId = eventController.getEventId(index-1);
+        if (eventController.cancelEvent(eventId, userId)) {
+            this.presenter.printSuccessMessage();
+        } else {
+            this.presenter.printFailMessage();
         }
     }
 
