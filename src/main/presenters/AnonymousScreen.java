@@ -1,6 +1,5 @@
 package main.presenters;
 
-import main.controllers.ProgramController;
 
 public class AnonymousScreen {
 
