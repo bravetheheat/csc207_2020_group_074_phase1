@@ -26,10 +26,6 @@ public class EventSignUpScreen {
         System.out.println("Enter event index from the above list(Please enter a number, i.e., 1): ");
     }
 
-    public void promptUserEmail(){
-        System.out.println("Please enter your username: ");
-    }
-
     public void printErrorMessage(){
         System.out.println("Sorry, your input is invalid. Please try again.");
     }

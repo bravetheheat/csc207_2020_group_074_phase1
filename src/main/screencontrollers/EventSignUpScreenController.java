@@ -1,7 +1,9 @@
 package main.screencontrollers;
 
+import main.controllers.AuthController;
 import main.controllers.EventController;
 import main.controllers.ProgramController;
+import main.controllers.OrganizerController;
 import main.entities.Event;
 import main.presenters.EventSignUpScreen;
 import main.usecases.UsersManager;
@@ -19,11 +21,15 @@ public class EventSignUpScreenController extends ScreenController {
     EventSignUpScreen presenter = new EventSignUpScreen();
     UsersManager usersManager = new UsersManager();
     EventController eventController;
+    AuthController authController;
+    OrganizerController organizerController;
 
 
     public EventSignUpScreenController(ProgramController programController) {
         super(programController);
-        eventController = new EventController(programController);
+        organizerController = new OrganizerController(programController);
+        eventController = organizerController.getEventController();
+        authController = new AuthController(programController);
     }
 
     @Override
@@ -59,11 +65,11 @@ public class EventSignUpScreenController extends ScreenController {
     }
 
     public void signUpOption() {
-        this.presenter.promptUserEmail();
-        String userEmail = this.scanner.nextLine();
+        String userEmail = authController.fetchLoggedInUser();
         String userId = usersManager.getIDFromUsername(userEmail);
         if (this.haveEvent()) {
-            this.presenter.promptEvents(eventController.getEventsInfo());
+            String info = eventController.getEventsInfo();
+            this.presenter.promptEvents(info);
             String eventIndex = this.scanner.nextLine();
             int index = Integer.parseInt(eventIndex);
             String eventId = eventController.getEventId(index-1);
@@ -78,11 +84,11 @@ public class EventSignUpScreenController extends ScreenController {
     }
 
     public void cancelOption() {
-        this.presenter.promptUserEmail();
-        String userEmail = this.scanner.nextLine();
+        String userEmail = authController.fetchLoggedInUser();
         String userId = usersManager.getIDFromUsername(userEmail);
         if (this.haveEvent()) {
-            this.presenter.promptEvents(eventController.getEventsInfo());
+            String info = eventController.getEventsInfo();
+            this.presenter.promptEvents(info);
             String eventIndex = this.scanner.nextLine();
             int index = Integer.parseInt(eventIndex);
             String eventId = eventController.getEventId(index-1);
