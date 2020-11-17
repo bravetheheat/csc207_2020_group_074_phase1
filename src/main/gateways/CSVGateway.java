@@ -14,6 +14,7 @@ import main.gateways.beans.RoomBean;
 import main.gateways.beans.UserBean;
 import main.gateways.converters.EventConverter;
 import main.gateways.converters.RoomConverter;
+import main.gateways.converters.UserConverter;
 import main.usecases.UserFactory;
 
 import java.io.*;
@@ -38,39 +39,31 @@ public class CSVGateway implements Gateway {
 
 
     public List<User> loadUsers() {
-        List<User> users = new ArrayList<>();
-
         try {
             // From documentation available at http://opencsv.sourceforge.net/
+            UserConverter converter = new UserConverter();
+            List<UserBean> userBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.eventCSVPath))).withType(UserBean.class).build().parse();
+            List<User> users = converter.convertFromBeans(userBeans);
 
-            List<UserBean> userBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.userCSVPath))).withType(UserBean.class).withSkipLines(1).build().parse();
-
-            UserFactory userFactory = new UserFactory();
-            for (UserBean userBean : userBeans) {
-                User newUser = userFactory.getUser(userBean.getUsername(), userBean.getPassword(), userBean.getRole());
-                users.add(newUser);
-            }
-        } catch (FileNotFoundException e) {
-        } finally {
             return users;
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            return new ArrayList<>();
         }
 
 
     }
 
     public void saveUsers(List<User> users) {
-        List<UserBean> userBeans = new ArrayList<>();
-        for (User user : users) {
-            UserBean userBean = new UserBean();
-            userBean.setUsername(user.getUsername());
-            userBean.setPassword(user.getPassword());
-            userBean.setRole(user.getRole());
-        }
         try {
+            UserConverter converter = new UserConverter();
+            List<UserBean> userBeans = converter.convertToBeans(users);
             // From documentation available at http://opencsv.sourceforge.net/
             FileWriter csvFileWriter = new FileWriter(this.userCSVPath);
             StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
             beanToCsv.write(userBeans);
+            csvFileWriter.close();
 
         } catch (IOException e) {
             System.out.println("IOException. Error writing file.");
