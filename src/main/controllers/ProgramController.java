@@ -49,7 +49,7 @@ public class ProgramController {
         this.usersManager.loadUsersFromGateway(this.gateway);
         this.roomManager.loadRoomsFromGateway(this.gateway);
         this.eventsManager.loadEventsFromGateway(this.gateway);
-        this.messageManager.loadMessagesFromGateway(this.gateway);
+//        this.messageManager.loadMessagesFromGateway(this.gateway); // TODO: fix converter
     }
 
     public void nextScreenController() {

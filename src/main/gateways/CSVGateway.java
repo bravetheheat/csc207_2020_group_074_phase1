@@ -42,7 +42,7 @@ public class CSVGateway implements Gateway {
         try {
             // From documentation available at http://opencsv.sourceforge.net/
             UserConverter converter = new UserConverter();
-            List<UserBean> userBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.eventCSVPath))).withType(UserBean.class).build().parse();
+            List<UserBean> userBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.userCSVPath))).withType(UserBean.class).build().parse();
             List<User> users = converter.convertFromBeans(userBeans);
 
             return users;
