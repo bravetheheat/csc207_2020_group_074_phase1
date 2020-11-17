@@ -27,22 +27,24 @@ public class LoginScreenController extends ScreenController {
 
 
     private void optionsPrompt() {
-        boolean validOptionChosen = false;
+        //boolean validOptionChosen = false;
         this.presenter.optionsPrompt();
         String choice = this.scanner.nextLine();
-        while (!validOptionChosen) {
-            switch(choice) {
-                case"0":
-                    validOptionChosen = true;
-                    this.goToPreviousScreenController();
-
-                    return;
-                case"1":
-                    validOptionChosen = true;
-                    this.login();
-                    return;
+        //while (!validOptionChosen) {
+        switch(choice) {
+            case"0":
+                //validOptionChosen = true;
+                this.goToPreviousScreenController();
+                return;
+            case"1":
+                //validOptionChosen = true;
+                this.login();
+                return;
+            default:
+                this.presenter.invalidInput();
+                this.optionsPrompt();
             }
-        }
+        //}
 
     }
 

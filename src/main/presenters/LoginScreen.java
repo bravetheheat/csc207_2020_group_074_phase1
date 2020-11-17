@@ -42,9 +42,14 @@ public class LoginScreen {
     }
 
     public void error() {
-        System.out.println("Sorry, your username or password is incorrect. Please try again");
+        System.out.println("Sorry, your username or password is incorrect. Please try again.");
         System.out.println();
 
+    }
+
+    public void invalidInput(){
+        System.out.println("Sorry, your input is invalid. Please try again.");
+        System.out.println();
     }
 
 }
