@@ -4,6 +4,11 @@ import main.controllers.AuthController;
 import main.controllers.ProgramController;
 import main.presenters.RegisterScreen;
 
+/**
+ * RegisterScreenController handles the user registration interface
+ *
+ * @author David Zhao
+ */
 public class RegisterScreenController extends ScreenController {
 
     private final RegisterScreen presenter = new RegisterScreen();

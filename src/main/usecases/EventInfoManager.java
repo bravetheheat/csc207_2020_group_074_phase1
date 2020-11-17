@@ -35,11 +35,10 @@ public class EventInfoManager {
     }
 
     /**
-     *
-     * @param eventId that going to be modified
+     * @param eventId  that going to be modified
      * @param schedule of events
-     * @param rm to get room info
-     * @param um to get speaker info
+     * @param rm       to get room info
+     * @param um       to get speaker info
      */
     public EventInfoManager(String eventId, Map<String, Event> schedule, RoomManager rm, UsersManager um) {
         this.schedule = schedule;
@@ -122,7 +121,7 @@ public class EventInfoManager {
      */
     public boolean updateEventInfo(LocalDateTime newTime, String newRoomId) {
         //check event happening between 9A.M to 5P.M
-        if ((9 > newTime.getHour()) || (newTime.getHour()> 17)){
+        if ((9 > newTime.getHour()) || (newTime.getHour() > 17)) {
             return false;
         }
         for (String id : schedule.keySet()) {
@@ -168,13 +167,13 @@ public class EventInfoManager {
     public String toString() {
         String speakerName = "";
         int roomNum = -1;
-        for(String user: usersManager.getAllUsers()){
-            if(this.usersManager.fetchRole(user).equals("Speaker") && user.equals(event.getSpeakerID())){
+        for (String user : usersManager.getAllUsers()) {
+            if (this.usersManager.fetchRole(user).equals("Speaker") && user.equals(event.getSpeakerID())) {
                 speakerName = usersManager.fetchUser(user).getUsername();
             }
         }
-        for(Room room: roomManager.getAllRoomsObject()){
-            if (room.getId().equals(event.getRoomID())){
+        for (Room room : roomManager.getAllRoomsObject()) {
+            if (room.getId().equals(event.getRoomID())) {
                 roomNum = room.getRoomNum();
             }
         }

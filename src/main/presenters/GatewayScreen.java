@@ -1,5 +1,10 @@
 package main.presenters;
 
+/**
+ * Command line interface of GatewayScreenController
+ *
+ * @author David Zhao
+ */
 public class GatewayScreen {
 
     public void welcomeMessage() {

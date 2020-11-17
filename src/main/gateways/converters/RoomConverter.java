@@ -11,6 +11,8 @@ import java.util.Map;
 
 /**
  * Implementation of Converter that serializes and deserializes Room
+ *
+ * @author David Zhao
  */
 public class RoomConverter implements Converter<RoomBean, Room>{
 

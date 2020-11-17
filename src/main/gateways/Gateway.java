@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * Interface to save and load entities from an external data source
+ *
+ * @author David Zhao
  */
 public interface Gateway {
 

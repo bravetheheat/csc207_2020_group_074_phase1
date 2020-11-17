@@ -20,6 +20,7 @@ public class EventBuilder {
 
     /**
      * Set title of event
+     *
      * @param title of event
      */
     public void setTitle(String title) {
@@ -28,6 +29,7 @@ public class EventBuilder {
 
     /**
      * Set time of event
+     *
      * @param time of event
      */
     public void setTime(LocalDateTime time) {
@@ -36,6 +38,7 @@ public class EventBuilder {
 
     /**
      * Set room of event
+     *
      * @param roomID of event
      */
     public void setRoom(String roomID) {
@@ -44,6 +47,7 @@ public class EventBuilder {
 
     /**
      * Set speaker of event
+     *
      * @param speakerID of event
      */
     public void setSpeaker(String speakerID) {
@@ -52,6 +56,7 @@ public class EventBuilder {
 
     /**
      * Generate new event
+     *
      * @return Event
      */
     public Event toEvent() {

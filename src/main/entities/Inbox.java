@@ -8,8 +8,6 @@ import java.util.UUID;
  * The Inbox holds the messages of a user;
  *
  * @author David Zhao
- * @version 2.0
- * @since 2020-11-13
  */
 public class Inbox {
 
