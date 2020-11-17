@@ -1,5 +1,7 @@
 package main.presenters;
 
+import java.util.List;
+
 /**
  * The EventSignUpScreen handles the sign up screen for a User(Attendee)
  *
@@ -20,8 +22,14 @@ public class EventSignUpScreen {
         System.out.println("2. Cancel an event");
     }
 
-    public void promptEvents(String events){
+    public void promptSignupEvents(String events){
         System.out.println("You are signing up for an event, the following are the events that you can sign up for:");
+        System.out.println(events);
+        System.out.println("Enter event index from the above list(Please enter a number, i.e., 1): ");
+    }
+
+    public void promptCancelEvents(String events){
+        System.out.println("You are cancelling an event, the following are the events that you can cancel:");
         System.out.println(events);
         System.out.println("Enter event index from the above list(Please enter a number, i.e., 1): ");
     }
@@ -35,10 +43,14 @@ public class EventSignUpScreen {
     }
 
     public void printFailMessage(){
-        System.out.println("You already made this command.");
+        System.out.println("You've already made this command.");
     }
 
     public void printNoEventMessage(){
-        System.out.println("There's no events you can sign up.");
+        System.out.println("There's no events you can make actions on.");
+    }
+
+    public void printEventAttendee(List<String> users){
+        System.out.println(users);
     }
 }

@@ -12,7 +12,7 @@ import java.util.Map;
  * The EventsManager holds a list of Events, and modify Event with its corresponding Users.
  *
  * @author Haoze Huang
- * @version 2.1
+ * @version 2.3
  * @since 2020-10-31
  */
 
@@ -33,12 +33,16 @@ public class EventsManager {
      */
     public boolean scheduleEvent(EventBuilder eventBuilder) {
         Event newEvent = eventBuilder.toEvent();
+        //check event happening between 9A.M to 5P.M
+        if ((9 > newEvent.getTime().getHour()) || (newEvent.getTime().getHour()> 17)){
+            return false;
+        }
         for (String id : schedule.keySet()) {
             //if time conflict
             Event e = schedule.get(id);
-            if ((e.getRoomID() == newEvent.getRoomID()) && (e.getTime() == newEvent.getTime())) {
+            if ((e.getRoomID().equals(newEvent.getRoomID())) && (e.getTime() == newEvent.getTime())) {
                 return false;
-            } else if ((e.getTime() == newEvent.getTime()) && (e.getSpeakerID() == newEvent.getSpeakerID())) {
+            } else if ((e.getTime() == newEvent.getTime()) && (e.getSpeakerID().equals(newEvent.getSpeakerID()))) {
                 return false;
             }
         }
@@ -64,16 +68,21 @@ public class EventsManager {
 
 
     /**
-     * Get the list of events for a User given id
+     * Get the list of eventIds for a User given id
      *
      * @param userId to be get events from
      * @return userEvents
      */
-    public ArrayList<Event> getUserEvents(String userId) {
-        ArrayList<Event> userEvents = new ArrayList<>();
-        for (String i : schedule.keySet()) {
-            for (String id : schedule.get(i).getAttendeesID()) {
-                if (id.equals(userId)) userEvents.add(schedule.get(i));
+    public ArrayList<String> getUserEvents(String userId) {
+
+        ArrayList<String> userEvents = new ArrayList<>();
+        for (String eventId : schedule.keySet()) {
+            EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
+            List<String> users = eventInfoManager.getUsers();
+            for (String user : users) {
+                if (user.equals(userId)) {
+                    userEvents.add(eventId);
+                }
             }
         }
         return userEvents;
@@ -123,6 +132,11 @@ public class EventsManager {
         gateway.saveEvents(events);
     }
 
+    /**
+     * A loader to load events from gateway
+     *
+     * @param gateway Gateway
+     */
     public void loadEventsFromGateway(Gateway gateway) {
         this.schedule = new LinkedHashMap<>();
         List<Event> events = gateway.loadEvents();

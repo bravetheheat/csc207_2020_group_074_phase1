@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 public class UsersManager {
-    private static Map<String, User> registeredUsers;
+    private Map<String, User> registeredUsers;
 
     public UsersManager() {
         registeredUsers = new HashMap<>();
@@ -159,7 +159,7 @@ public class UsersManager {
      * @param id String of the user in question
      */
     public String userToString(String id) {
-        return "Username : " + fetchUser(id).getId() + "(" + fetchRole(id) + ")";
+        return "Username : " + fetchUser(id).getUsername() + "(" + fetchRole(id) + ")";
     }
 
     /**
@@ -172,7 +172,7 @@ public class UsersManager {
     }
 
     public void loadUsersFromGateway(Gateway gateway) {
-        registeredUsers = new HashMap<String, User>();
+        registeredUsers = new HashMap<>();
         List<User> loadedUsers = gateway.loadUsers();
         for (User user : loadedUsers) {
             registeredUsers.put(user.getId(), user);

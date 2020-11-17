@@ -5,14 +5,15 @@ import main.usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * The EventController handles event management: create and cancel an event; add or remove a user from
- * the attendee list; organize the speaker; as well as a getter for the current schedule of a User
+ * the attendee list; organize the speaker; as well as a getter for the current schedule of a User.
  *
  * @author Zewen Ma
- * @version 4.1
+ * @version 5.0
  * @since 2020-11-08
  */
 public class EventController {
@@ -22,7 +23,7 @@ public class EventController {
 
 
     /**
-     * Default constructor for an EventsController
+     * Default constructor for an EventsController.
      */
     public EventController(ProgramController programController){
         this.eventsManager = programController.getEventsManager();
@@ -31,34 +32,51 @@ public class EventController {
     }
 
     /**
-     * Creating an event to the schedule(stored in EventsManager)
-     * @param eventbuilder that creates an event
-     * @return true iff the event is successfully created
+     * Create an event to the schedule(stored in EventsManager).
+     * @param eventBuilder that creates an event.
+     * @return true iff the event is successfully created.
      */
-    public boolean createEvent(EventBuilder eventbuilder){
-        return this.eventsManager.scheduleEvent(eventbuilder);
+    public boolean createEvent(EventBuilder eventBuilder){
+        return this.eventsManager.scheduleEvent(eventBuilder);
     }
 
     /**
-     * Removing an event from the schedule(stored in EventsManager)
-     * @param eventId of an Event
-     * @return true iff the event is successfully removed
+     * Remove an event from the schedule(stored in EventsManager).
+     * @param eventId of an Event.
+     * @return true iff the event is successfully removed.
      */
     public boolean removeEvent(String eventId){
         return this.eventsManager.removeEvent(eventId);
     }
 
     /**
-     * Getting a list of events for a User given userid.
-     * @param userId user id of a specific User
-     * @return a list of events of this User given userid.
+     * Get a string representation of the events of a user given userId.
+     * @param userId user id of a specific User.
+     * @return a string of events of this User.
      */
-    public ArrayList<Event> getUserEvents(String userId){
+    public String getUserEvents(String userId){
+        ArrayList<String> ids = this.eventsManager.getUserEvents(userId);
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        StringBuilder s = new StringBuilder();
+        for (String eventId: ids){
+            EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+            s.append(eventInfoManager.toString());
+        }
+
+        return String.valueOf(s);
+    }
+
+    /**
+     * Get a list of eventIds of a User given userId.
+     * @param userId of the user.
+     * @return a list of eventIds that this user attend.
+     */
+    public ArrayList<String> getSignupEvents(String userId){
         return this.eventsManager.getUserEvents(userId);
     }
 
     /**
-     * Getting a list of events for a Speaker given userid.
+     * Get a list of events for a Speaker given userid.
      * @param userId user id of a specific Speaker
      * @return a list of events of this User given userid.
      */
@@ -67,18 +85,18 @@ public class EventController {
     }
 
     /**
-     * A getter of all events scheduled.
-     * @return a list of Events scheduled
+     * Get a list of all events scheduled.
+     * @return a list of Events scheduled.
      */
     public ArrayList<Event> getAllEvents(){
         return this.eventsManager.getEvents();
     }
 
     /**
-     * Add a user to a specific Event
-     * @param eventId of Events stored in eventsmanager
-     * @param userId needs to be added to the event
-     * @return ture iff the user is successfully added
+     * Add a user to a specific Event.
+     * @param eventId of Events stored in eventsManager.
+     * @param userId needs to be added to the event.
+     * @return ture iff the user is successfully added.
      */
     public boolean addUser(String eventId, String userId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
@@ -87,10 +105,10 @@ public class EventController {
     }
 
     /**
-     * Remove a user from a specific Event
-     * @param eventId of Events stored in eventsmanager
-     * @param userId needs to be removed from the event
-     * @return ture iff the user is successfully removed
+     * Remove a user from a specific Event.
+     * @param eventId of Events stored in eventsManager.
+     * @param userId needs to be removed from the event.
+     * @return ture iff the user is successfully removed.
      */
     public boolean removeUser(String eventId, String userId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
@@ -99,10 +117,11 @@ public class EventController {
     }
 
     /**
-     * A sign up method for an attendee User
-     * @param eventId of an Event that an attendee wants to attend
-     * @param userId of the attendee User
-     * @return true iff the attendee User has successfully signed up the spot
+     * A sign up method for an attendee User.
+     * Return true iff the attendee User has successfully signed up.
+     * @param eventId of an Event that an attendee wants to attend.
+     * @param userId of the attendee User.
+     * @return true iff the attendee User has successfully signed up.
      */
     public boolean signupEvent(String eventId, String userId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
@@ -111,10 +130,11 @@ public class EventController {
     }
 
     /**
-     * A cancellation method for an attendee User
-     * @param eventId of an Event that an attendee wants to cancel a spot
-     * @param userId of the attendee User
-     * @return true iff the attendee User has successfully cancelled the spot
+     * A cancellation method for an attendee User.
+     * Return true iff the attendee User has successfully cancelled the spot.
+     * @param eventId of an Event that an attendee wants to cancel a spot.
+     * @param userId of the attendee User.
+     * @return true iff the attendee User has successfully cancelled the spot.
      */
     public boolean cancelEvent(String eventId, String userId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
@@ -123,14 +143,14 @@ public class EventController {
     }
 
     /**
-     * An Attendee is able to view all the information of the Events scheduled as a string
-     * @return a string representation of all the events scheduled
+     * Get a string of all the information of the Events scheduled.
+     * @return a string representation of all the events scheduled.
      */
     public String getEventsInfo(){
         String s = "Events: \n";
         int num = 1;
         for (String i: this.eventsManager.getSchedule().keySet()){
-            String eToString = "Event #" + num + " "+getSingleEventInfo(i);
+            String eToString = "Event #" + num + " "+getSingleEventInfo(i) + "\n";
             num += 1;
             s += eToString;
         }
@@ -138,9 +158,9 @@ public class EventController {
     }
 
     /**
-     * An Attendee is able to view the information of a single Event as a string given eventId
-     * @param eventId of an Event
-     * @return a string representation of the event
+     * Get a string representation of an event.
+     * @param eventId of an Event.
+     * @return a string representation of the event.
      */
     public String getSingleEventInfo(String eventId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
@@ -149,9 +169,9 @@ public class EventController {
     }
 
     /**
-     * Return the Event given its eventId
-     * @param eventId of an Event
-     * @return an Event
+     * Return the Event given its eventId.
+     * @param eventId of an Event.
+     * @return an Event.
      */
     public Event getSingleEvent(String eventId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
@@ -160,10 +180,10 @@ public class EventController {
     }
 
     /**
-     * Return true iff a new speaker is successfully added to the event
-     * @param eventId of the Event
-     * @param speakerId of the Speaker
-     * @return ture iff the speaker is successfully added to the event
+     * Return true iff a new speaker is successfully added to the event.
+     * @param eventId of the Event.
+     * @param speakerId of the Speaker.
+     * @return ture iff the speaker is successfully added to the event.
      */
     public boolean addSpeaker(String eventId, String speakerId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
@@ -172,10 +192,10 @@ public class EventController {
     }
 
     /**
-     * Return true iff the speaker is successfully removed from the event
-     * @param eventId of the Event
-     * @param speakerId of the Speaker
-     * @return true iff the speaker is successfully removed from the event
+     * Return true iff the speaker is successfully removed from the event.
+     * @param eventId of the Event.
+     * @param speakerId of the Speaker.
+     * @return true iff the speaker is successfully removed from the event.
      */
     public boolean removeSpeaker(String eventId, String speakerId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
@@ -184,11 +204,11 @@ public class EventController {
     }
 
     /**
-     * Return true iff the new information of the Event is updated
-     * @param eventId of the event
-     * @param newTime of the event
-     * @param newRoomId of the event
-     * @return true iff the new information of the Event is updated
+     * Return true iff the new information of the Event is updated.
+     * @param eventId of the event.
+     * @param newTime of the event.
+     * @param newRoomId of the event.
+     * @return true iff the new information of the Event is updated.
      */
     public boolean updateEventInfo(String eventId, LocalDateTime newTime, String newRoomId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
@@ -197,13 +217,24 @@ public class EventController {
     }
 
     /**
-     * Return the event id given index
-     * @param index of the event
-     * @return the event id
+     * Return the event id given index.
+     * @param index of the event.
+     * @return the event id.
      */
     public String getEventId(int index){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
         ArrayList<String> eventIds = new ArrayList<>(schedule.keySet());
         return eventIds.get(index);
+    }
+
+    /**
+     * Return a list of Attendees in the Event given its eventId.
+     * @param eventId of the event.
+     * @return a list of Attendees in this event.
+     */
+    public List<String> getUsers(String eventId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+        return eventinfomanager.getUsers();
     }
 }

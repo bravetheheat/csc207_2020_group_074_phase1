@@ -48,7 +48,10 @@ public class ProgramController {
     }
 
     public void nextScreenController() {
-        this.currentScreenController.start();
+
+        if (this.currentScreenController != null) {
+            this.currentScreenController.start();
+        }
     }
 
     public AuthController getAuthController() {
@@ -71,7 +74,9 @@ public class ProgramController {
         return this.inboxManager;
     }
 
-    public InboxController getInboxController(){ return this.inboxController;}
+    public InboxController getInboxController() {
+        return this.inboxController;
+    }
 
     public RoomManager getRoomManager() {
         return this.roomManager;
@@ -114,6 +119,7 @@ public class ProgramController {
         return this.messageController;
     }
 
-    public EventsManager getEventsManager() { return this.eventsManager;
+    public EventsManager getEventsManager() {
+        return this.eventsManager;
     }
 }
