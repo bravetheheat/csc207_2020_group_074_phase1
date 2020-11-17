@@ -6,9 +6,7 @@ import java.util.UUID;
 /**
  * The Message is a uniquely-identifiable object that stores a message and its sender
  *
- * @author David Zhao
- * @version 1.0
- * @since 2020-10-31
+ * @author David Zhaos
  */
 public class Message {
 
@@ -79,7 +77,7 @@ public class Message {
      * @return a string representation of the message
      */
     public String toString() {
-        return this.sender.toString() + " at " + this.time.toString() + ": " + this.text;
+        return this.sender + " at " + this.time.toString() + ": " + this.text;
     }
 
 

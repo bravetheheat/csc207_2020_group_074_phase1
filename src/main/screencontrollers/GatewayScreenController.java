@@ -10,6 +10,11 @@ import main.usecases.UsersManager;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * GatewayScreenController handles the saving and loading of data from the default gateway.
+ *
+ * @author David Zhao
+ */
 public class GatewayScreenController extends ScreenController {
 
     private final GatewayScreen presenter = new GatewayScreen();

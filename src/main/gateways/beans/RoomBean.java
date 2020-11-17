@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 /**
  * RoomBean is used to serialize and deserialize Rooms
  * Each Room can be represented by one or more RoomBeans
+ *
+ * @author David Zhao
  */
 public class RoomBean implements Serializable {
     private String id;

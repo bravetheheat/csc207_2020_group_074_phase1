@@ -27,14 +27,15 @@ public abstract class ScreenController {
     abstract public void start();
 
     /**
-     * Ends the screen by calling the programController to run the next ScreenController.
+     * Ends the screen by calling the programController to run the next ScreenController. Must be called at the end
+     * of a screen.
      */
     protected void end() {
         this.programController.nextScreenController();
     }
 
     /**
-     * Goes to the previous screen controller
+     * Sets the next screen to be the one previous to the current one. end() must still be called.
      */
     protected void goToPreviousScreenController() {
         this.programController.goToPreviousScreenController();

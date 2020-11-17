@@ -2,6 +2,11 @@ package main.presenters;
 
 import java.util.List;
 
+/**
+ * Command line interface of InboxScreenController
+ *
+ * @author David Zhao
+ */
 public class InboxScreen {
 
     public void welcomeMessage() {

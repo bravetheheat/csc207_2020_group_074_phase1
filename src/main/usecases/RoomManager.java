@@ -94,6 +94,11 @@ public class RoomManager {
         return this.rooms.values();
     }
 
+    /**
+     * Saves Room objects to a specified Gateway
+     *
+     * @param gateway An implementation of the Gateway interface
+     */
     public void saveRoomsFromGateway(Gateway gateway) {
         List<Room> roomList = new ArrayList<>();
         roomList.addAll(this.rooms.values());
@@ -101,6 +106,11 @@ public class RoomManager {
 
     }
 
+    /**
+     * Loads Room objects from a specified Gateway
+     *
+     * @param gateway An implementation of the Gateway interface
+     */
     public void loadRoomsFromGateway(Gateway gateway) {
         this.rooms = new HashMap<>();
         List<Room> loadedRooms = gateway.loadRooms();

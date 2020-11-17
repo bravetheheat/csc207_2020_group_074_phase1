@@ -9,6 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The InboxScreenController handles the checking and reading of messages by the user
+ *
+ * @author David Zhao
+ */
 public class InboxScreenController extends ScreenController {
 
     InboxScreen presenter = new InboxScreen();
@@ -20,7 +25,7 @@ public class InboxScreenController extends ScreenController {
 
     public InboxScreenController(ProgramController programController) {
         super(programController);
-        this.inboxController = new InboxController(programController.getMessageManager(), programController.getInboxManager(), programController.getUsersManager());
+        this.inboxController = new InboxController(programController);
     }
 
     public void start() {

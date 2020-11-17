@@ -4,8 +4,6 @@ import main.controllers.InboxController;
 import main.controllers.ProgramController;
 import main.presenters.MessageDetailScreen;
 
-import java.util.UUID;
-
 public class MessageDetailScreenController extends ScreenController {
     String messageId;
     MessageDetailScreen presenter;
@@ -22,16 +20,16 @@ public class MessageDetailScreenController extends ScreenController {
         this.end();
     }
 
-    public void printDetails(String messageId){
-        InboxController inboxController = this.programController.getInboxController();
+    public void printDetails(String messageId) {
+        InboxController inboxController = new InboxController(this.programController);
         String detail = inboxController.getMessageString(messageId);
         this.presenter.printDetails(detail);
     }
 
-    public void returnPrompt(){
+    public void returnPrompt() {
         this.presenter.returnPrompt();
         String input = this.scanner.nextLine();
-        while (!input.equals("0")){
+        while (!input.equals("0")) {
             this.presenter.errorMessage();
             this.presenter.returnPrompt();
             input = this.scanner.nextLine();

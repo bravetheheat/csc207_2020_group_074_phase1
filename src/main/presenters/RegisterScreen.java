@@ -1,5 +1,10 @@
 package main.presenters;
 
+/**
+ * Command line interface of RegisterScreenController
+ *
+ * @author David Zhao
+ */
 public class RegisterScreen {
 
     public RegisterScreen() {

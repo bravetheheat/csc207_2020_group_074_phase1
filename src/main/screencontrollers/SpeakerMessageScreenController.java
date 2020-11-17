@@ -6,7 +6,6 @@ import main.controllers.MessageController;
 import main.entities.Event;
 import java.util.*;
 
-
 public class SpeakerMessageScreenController extends ScreenController{
 
     SpeakerMessageScreen speakerMessageScreen = new SpeakerMessageScreen();
@@ -26,7 +25,7 @@ public class SpeakerMessageScreenController extends ScreenController{
         end();
     }
 
-    public void mainPart(){
+    private void mainPart(){
         this.speakerMessageScreen.promt();
         String choice = this.scanner.nextLine();
         switch (choice) {
@@ -52,7 +51,7 @@ public class SpeakerMessageScreenController extends ScreenController{
         }
         this.programController.setNewScreenController(new SpeakerScreenController(programController));
     }
-    public void broadCast(){
+    private void broadCast(){
         // how many events the user want to broadcast to
         List<String> events = messageController.eventsOfSpeakerInString(speaker);
         ArrayList<String> potentialAnswer= listBuilderWithIntegers(events.size());

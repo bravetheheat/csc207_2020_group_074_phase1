@@ -4,6 +4,11 @@ import main.controllers.AuthController;
 import main.controllers.ProgramController;
 import main.presenters.LoginScreen;
 
+/**
+ * The LoginScreenController handles login functionality of the program
+ *
+ * @author David Zhao
+ */
 public class LoginScreenController extends ScreenController {
     private final LoginScreen presenter = new LoginScreen();
     private final AuthController authController;
@@ -19,6 +24,7 @@ public class LoginScreenController extends ScreenController {
         this.optionsPrompt();
         this.end();
     }
+
 
     private void optionsPrompt() {
         boolean validOptionChosen = false;
@@ -58,7 +64,7 @@ public class LoginScreenController extends ScreenController {
         boolean success = this.authController.login(username, password);
         if (!success) {
             this.presenter.error();
-            this.login();
+            this.optionsPrompt();
             return;
         }
 

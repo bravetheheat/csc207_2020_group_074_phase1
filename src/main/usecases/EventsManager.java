@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class EventsManager {
 
-    private Map<String, Event> schedule ;
+    private Map<String, Event> schedule;
 
     public EventsManager() {
         this.schedule = new LinkedHashMap<>();
@@ -34,7 +34,7 @@ public class EventsManager {
     public boolean scheduleEvent(EventBuilder eventBuilder) {
         Event newEvent = eventBuilder.toEvent();
         //check event happening between 9A.M to 5P.M
-        if ((9 > newEvent.getTime().getHour()) || (newEvent.getTime().getHour()> 17)){
+        if ((9 > newEvent.getTime().getHour()) || (newEvent.getTime().getHour() > 17)) {
             return false;
         }
         for (String id : schedule.keySet()) {
@@ -140,7 +140,7 @@ public class EventsManager {
     public void loadEventsFromGateway(Gateway gateway) {
         this.schedule = new LinkedHashMap<>();
         List<Event> events = gateway.loadEvents();
-        for (Event event: events) {
+        for (Event event : events) {
             this.schedule.put(event.getId(), event);
         }
     }

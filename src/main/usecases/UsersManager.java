@@ -30,18 +30,11 @@ public class UsersManager {
         }
     }
 
-    private Map<String, String> mapUsernameToUUID() {
-        Map<String, String> usernameToUUID = new HashMap<>();
-        for (String id : registeredUsers.keySet()) {
-            usernameToUUID.put(registeredUsers.get(id).getUsername(), id);
-        }
-        return usernameToUUID;
-    }
-
-    public String getIDFromUsername(String username) {
-        return mapUsernameToUUID().get(username);
-    }
-
+    /**
+     * Gets the username for a user with the given user ID
+     * @param userId The id of a User
+     * @return The specified user's username.
+     */
     public String getUsernameFromID(String userId) {
         User user = registeredUsers.get(userId);
         return user.getUsername();
@@ -171,6 +164,11 @@ public class UsersManager {
         return allUsers;
     }
 
+    /**
+     * Loads user data from a specified gateway
+     *
+     * @param gateway An implementation of the Gateway interface
+     */
     public void loadUsersFromGateway(Gateway gateway) {
         registeredUsers = new HashMap<>();
         List<User> loadedUsers = gateway.loadUsers();
@@ -179,6 +177,11 @@ public class UsersManager {
         }
     }
 
+    /**
+     * Saves user data to a specified gateway
+     *
+     * @param gateway An implementation of the Gateway interface
+     */
     public void saveUsersToGateway(Gateway gateway) {
         List<User> userList = new ArrayList<>();
         userList.addAll(registeredUsers.values());

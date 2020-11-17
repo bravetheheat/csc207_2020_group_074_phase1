@@ -3,6 +3,11 @@ package main.screencontrollers;
 import main.controllers.ProgramController;
 import main.presenters.AnonymousScreen;
 
+/**
+ * AnonymousScreenController handles the default interface for non-authenticated users
+ *
+ * @author David Zhao
+ */
 public class AnonymousScreenController extends ScreenController {
     AnonymousScreen presenter = new AnonymousScreen();
 
@@ -15,6 +20,7 @@ public class AnonymousScreenController extends ScreenController {
         this.mainOptions();
         this.end();
     }
+
     private void mainOptions() {
         this.presenter.printOptions();
         String choice = this.scanner.nextLine();
