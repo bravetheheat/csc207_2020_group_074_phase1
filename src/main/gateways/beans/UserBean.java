@@ -5,15 +5,13 @@ import java.io.Serializable;
 
 /**
  * UserBean is used to serialize and deserialize users
+ *
+ * @author David Zhao
  */
 public class UserBean implements Serializable {
-    @CsvBindByPosition(position=0)
+    private String id;
     private String username;
-
-    @CsvBindByPosition(position=1)
     private String password;
-
-    @CsvBindByPosition(position=2)
     private String role;
 
     public UserBean(){};

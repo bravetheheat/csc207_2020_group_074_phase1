@@ -1,6 +1,10 @@
 package main.presenters;
 
-
+/**
+ * Command line interface of AnonymousScreenController
+ *
+ * @author David Zhao
+ */
 public class AnonymousScreen {
 
     public AnonymousScreen() {

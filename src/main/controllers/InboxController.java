@@ -11,10 +11,11 @@ public class InboxController {
     InboxManager inboxManager;
     UsersManager usersManager;
 
-    public InboxController(MessageManager messageManager, InboxManager inboxManager, UsersManager usersManager) {
-        this.messageManager = messageManager;
-        this.inboxManager = inboxManager;
-        this.usersManager = usersManager;
+    public InboxController(ProgramController programController) {
+
+        this.messageManager = programController.getMessageManager();
+        this.inboxManager = programController.getInboxManager();
+        this.usersManager = programController.getUsersManager();
     }
 
     public Map<String, String> getMessagesOfUser(String userId) {

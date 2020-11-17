@@ -9,6 +9,11 @@ import main.usecases.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/**
+ * The main constructor of the application that coordinates functionality and stores Singleton objects
+ *
+ * @author David Zhao
+ */
 public class ProgramController {
     UsersManager usersManager;
     EventsManager eventsManager;
@@ -17,7 +22,6 @@ public class ProgramController {
     EventController eventController;
     Deque<ScreenController> screenControllerHistory = new ArrayDeque<>();
     ScreenController currentScreenController;
-    InboxController inboxController;
     InboxManager inboxManager;
     RoomManager roomManager;
     MessageController messageController;
@@ -28,7 +32,6 @@ public class ProgramController {
         this.eventsManager = new EventsManager();
         this.messageManager = new MessageManager();
         this.inboxManager = new InboxManager();
-        this.inboxController = new InboxController(messageManager, inboxManager, usersManager);
         this.roomManager = new RoomManager();
         this.authController = new AuthController(this, usersManager);
         this.currentScreenController = new AnonymousScreenController(this);
@@ -45,6 +48,7 @@ public class ProgramController {
     public void loadData() {
         this.usersManager.loadUsersFromGateway(this.gateway);
         this.roomManager.loadRoomsFromGateway(this.gateway);
+        this.eventsManager.loadEventsFromGateway(this.gateway);
     }
 
     public void nextScreenController() {
@@ -72,10 +76,6 @@ public class ProgramController {
 
     public InboxManager getInboxManager() {
         return this.inboxManager;
-    }
-
-    public InboxController getInboxController() {
-        return this.inboxController;
     }
 
     public RoomManager getRoomManager() {

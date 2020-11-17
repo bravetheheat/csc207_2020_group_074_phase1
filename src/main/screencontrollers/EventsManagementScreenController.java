@@ -54,6 +54,7 @@ public class EventsManagementScreenController extends ScreenController {
             case "0":
                 programController.goToPreviousScreenController();
                 end();
+                return;
             case "1":
                 if (createRoom()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();

@@ -6,6 +6,8 @@ import java.util.List;
 /**
  * Generic interface for converting to and from Beans, or objects that can be serialized and deserialized from strings
  *
+ * @author David Zhao
+ *
  * @param <Serializable> Serializable object
  * @param <T>            Original object
  */

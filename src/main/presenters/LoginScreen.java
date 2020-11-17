@@ -1,7 +1,9 @@
 package main.presenters;
 
 /**
- * CLI for LoginScreenController
+ * Command line interface of LoginScreenController
+ *
+ * @author David Zhao
  */
 public class LoginScreen {
 

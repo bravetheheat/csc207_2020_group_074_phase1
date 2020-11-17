@@ -20,6 +20,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gateway that uses CSVs to store data
+ *
+ * @author David Zhao
+ */
 public class CSVGateway implements Gateway {
 
     private final String userCSVPath = "src/store/Users.csv";
@@ -174,8 +179,6 @@ public class CSVGateway implements Gateway {
             System.out.println("Error writing file. Missing required field.");
         }
     }
-
-
 
 
 }
