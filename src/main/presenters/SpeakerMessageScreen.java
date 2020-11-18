@@ -50,6 +50,7 @@ public class SpeakerMessageScreen {
 
     public void congratulations() {
         System.out.println("Successful");
+        System.out.println();
     }
 
 

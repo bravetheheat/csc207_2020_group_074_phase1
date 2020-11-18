@@ -30,26 +30,25 @@ public class SpeakerMessageScreenController extends ScreenController{
         String choice = this.scanner.nextLine();
         switch (choice) {
             case "0":
-                this.programController.setNewScreenController(new SpeakerScreenController(programController));
+                this.programController.goToPreviousScreenController();
                 break;
             case "1":
-                reply();
-                this.programController.setNewScreenController(new SpeakerScreenController(programController));
+                this.reply();
+                this.mainPart();
                 break;
             case "2":
-                broadCast();
-                this.programController.setNewScreenController(new SpeakerScreenController(programController));
+                this.broadCast();
+                this.mainPart();
                 break;
             case "3":
                 this.programController.setNewScreenController(new InboxScreenController(programController));
                 break;
-
             default:
                 this.speakerMessageScreen.invalidInput(choice);
                 this.mainPart();
                 return;
         }
-        this.programController.setNewScreenController(new SpeakerScreenController(programController));
+        // this.programController.setNewScreenController(new SpeakerScreenController(programController));
     }
     private void broadCast(){
         // how many events the user want to broadcast to
