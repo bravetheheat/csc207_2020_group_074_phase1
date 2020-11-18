@@ -6,7 +6,6 @@ import main.controllers.OrganizerController;
 import main.controllers.ProgramController;
 import main.entities.Event;
 import main.presenters.EventSignUpScreen;
-import main.usecases.EventsManager;
 
 import java.util.ArrayList;
 
@@ -22,7 +21,6 @@ public class EventSignUpScreenController extends ScreenController {
     OrganizerController organizerController;
     EventController eventController;
     AuthController authController;
-    EventsManager eventsManager;
 
     /**
      * Default constructor.
@@ -33,7 +31,6 @@ public class EventSignUpScreenController extends ScreenController {
         organizerController = new OrganizerController(programController);
         eventController = organizerController.getEventController();
         authController = programController.getAuthController();
-        eventsManager = programController.getEventsManager();
     }
 
     /**
@@ -145,7 +142,7 @@ public class EventSignUpScreenController extends ScreenController {
 
     /**
      * Present information of the signed up events that can be cancelled.
-     * Present no events message if the user did not signed up for any events.
+     * Present no events signed up if the user did not signed up for any events.
      * @param userId of the User.
      */
     public void getCancelInfo(String userId){
@@ -153,8 +150,7 @@ public class EventSignUpScreenController extends ScreenController {
         this.presenter.promptCancelEvents(info);
         String eventIndex = this.scanner.nextLine();
         int index = Integer.parseInt(eventIndex);
-        ArrayList<String> eventIds = eventsManager.getUserEvents(userId);
-        String eventId = eventIds.get(index - 1);
+        String eventId = eventController.getEventId(index-1);
         if (eventController.cancelEvent(eventId, userId)) {
             this.presenter.printSuccessMessage();
         } else {
@@ -162,10 +158,6 @@ public class EventSignUpScreenController extends ScreenController {
         }
     }
 
-    /**
-     * Present information of the signed up events of this user.
-     * Present no events message if the user did not signed up for any events.
-     */
     public void getUserEvents(){
         String userId = authController.fetchLoggedInUser();
         if (this.userHaveEvent(userId)){

@@ -107,7 +107,7 @@ public class EventsManagementScreen {
     }
 
     /**
-     * Print message when there  is no corresponding entity for user to input
+     * Print message when there is no corresponding entity for user to input
      */
     public void printErrorMessage(){
         System.out.println("There is no entity of this type in the program yet");
