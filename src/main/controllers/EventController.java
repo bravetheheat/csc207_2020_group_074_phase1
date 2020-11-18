@@ -57,13 +57,16 @@ public class EventController {
     public String getUserEvents(String userId){
         ArrayList<String> ids = this.eventsManager.getUserEvents(userId);
         Map<String, Event> schedule = this.eventsManager.getSchedule();
-        StringBuilder s = new StringBuilder();
+        String s = "Events: \n";
+        int num = 1;
         for (String eventId: ids){
             EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
-            s.append(eventInfoManager.toString());
+            String eventInfo = eventInfoManager.toString();
+            String eToString = "Event #" + num + " "+eventInfo + "\n";
+            num += 1;
+            s += eToString;
         }
-
-        return String.valueOf(s);
+        return s;
     }
 
     /**
