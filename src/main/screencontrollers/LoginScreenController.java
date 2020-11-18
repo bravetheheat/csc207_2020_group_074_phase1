@@ -7,17 +7,26 @@ import main.presenters.LoginScreen;
 /**
  * The LoginScreenController handles login functionality of the program
  *
- * @author David Zhao
+ * @author David Zhao, Leyi Wang
+ * @version 1.0
  */
 public class LoginScreenController extends ScreenController {
     private final LoginScreen presenter = new LoginScreen();
     private final AuthController authController;
 
+    /**
+     * Constructor for LoginScreenController
+     *
+     * @param programController instance of ProgramController
+     */
     public LoginScreenController(ProgramController programController) {
         super(programController);
         this.authController = programController.getAuthController();
     }
 
+    /**
+     * Start and end the Login Screen.
+     */
     @Override
     public void start() {
         this.presenter.printScreenName();
@@ -25,7 +34,10 @@ public class LoginScreenController extends ScreenController {
         this.end();
     }
 
-
+    /**
+     * Login or go to previous screen base on input command,
+     * print the success or failure this command.
+     */
     private void optionsPrompt() {
         //boolean validOptionChosen = false;
         this.presenter.optionsPrompt();
@@ -48,6 +60,10 @@ public class LoginScreenController extends ScreenController {
 
     }
 
+    /**
+     * Login base on input command of username and password,
+     * print success or failure of logging in
+     */
     private void login() {
         String username;
         String password;
@@ -76,6 +92,9 @@ public class LoginScreenController extends ScreenController {
 
     }
 
+    /**
+     * Log out and print success or failure of logging out.
+     */
     private void logout() {
         this.authController.logout();
         this.presenter.signout();
