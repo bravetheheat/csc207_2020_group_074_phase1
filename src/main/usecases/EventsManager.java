@@ -126,6 +126,11 @@ public class EventsManager {
         return schedule;
     }
 
+    /**
+     * Save events to the gateway
+     *
+     * @param gateway Gateway
+     */
     public void saveEventsToGateway(Gateway gateway) {
         List<Event> events = new ArrayList<>();
         events.addAll(this.schedule.values());
