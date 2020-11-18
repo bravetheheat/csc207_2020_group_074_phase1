@@ -82,6 +82,11 @@ public class RoomManager {
         }
     }
 
+    /**
+     * Gets a list of all the room numbers
+     *
+     * @return List of all room numbers
+     */
     public List<Integer> getAllRooms() {
         List<Integer> allRooms = new ArrayList<Integer>();
         for (Room room : this.rooms.values()) {
@@ -90,6 +95,11 @@ public class RoomManager {
         return allRooms;
     }
 
+    /**
+     * Returns a collection of all the Room objects
+     *
+     * @return Collection of Room
+     */
     public Collection<Room> getAllRoomsObject() {
         return this.rooms.values();
     }

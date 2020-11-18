@@ -45,13 +45,17 @@ public class ProgramController {
 
     }
 
-    public void loadData() {
+    private void loadData() {
         this.usersManager.loadUsersFromGateway(this.gateway);
         this.roomManager.loadRoomsFromGateway(this.gateway);
         this.eventsManager.loadEventsFromGateway(this.gateway);
 //        this.messageManager.loadMessagesFromGateway(this.gateway); // TODO: fix converter
     }
 
+    /**
+     * Starts the next screen controller, if available.
+     * If not, then effectively ends the program.
+     */
     public void nextScreenController() {
 
         if (this.currentScreenController != null) {
@@ -87,6 +91,14 @@ public class ProgramController {
         return this.gateway;
     }
 
+    public MessageController getMessageController() {
+        return this.messageController;
+    }
+
+    public EventsManager getEventsManager() {
+        return this.eventsManager;
+    }
+
 
     /**
      * Sets the next "page" of the program and adds the current "page" into a history stack.
@@ -116,11 +128,5 @@ public class ProgramController {
         this.screenControllerHistory = new ArrayDeque<>();
     }
 
-    public MessageController getMessageController() {
-        return this.messageController;
-    }
 
-    public EventsManager getEventsManager() {
-        return this.eventsManager;
-    }
 }
