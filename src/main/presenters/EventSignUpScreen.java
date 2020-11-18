@@ -42,7 +42,7 @@ public class EventSignUpScreen {
     }
 
     public void printFailMessage(){
-        System.out.println("You've already made this command.");
+        System.out.println("You cannot make this command.");
     }
 
     public void printNoEventMessage(){
