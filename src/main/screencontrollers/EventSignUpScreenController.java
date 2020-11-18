@@ -158,9 +158,6 @@ public class EventSignUpScreenController extends ScreenController {
         }
     }
 
-    /**
-     * Get users event base on user input
-     */
     public void getUserEvents(){
         String userId = authController.fetchLoggedInUser();
         if (this.userHaveEvent(userId)){

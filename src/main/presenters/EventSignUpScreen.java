@@ -67,7 +67,7 @@ public class EventSignUpScreen {
      * Print message when there is no input for the current modification
      */
     public void printFailMessage(){
-        System.out.println("You've already made this command.");
+        System.out.println("You cannot make this command.");
     }
 
     /**
