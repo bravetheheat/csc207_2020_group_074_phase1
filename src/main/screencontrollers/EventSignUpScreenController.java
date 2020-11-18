@@ -8,7 +8,6 @@ import main.entities.Event;
 import main.presenters.EventSignUpScreen;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The EventsSignupScreenController handles events sign up and cancellation:
@@ -60,6 +59,9 @@ public class EventSignUpScreenController extends ScreenController {
             case "0":
                 this.goToPreviousScreenController();
                 break;
+            case "3":
+                this.getUserEvents();
+                break;
             default:
                 this.presenter.printErrorMessage();
                 this.mainOption();
@@ -95,7 +97,7 @@ public class EventSignUpScreenController extends ScreenController {
             try{
                 this.getSignUpInfo(userId);
             }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
-                this.presenter.printFailMessage();
+                this.presenter.printErrorMessage();
                 this.getSignUpInfo(userId);
             }
         } else {
@@ -115,8 +117,6 @@ public class EventSignUpScreenController extends ScreenController {
         int index = Integer.parseInt(eventIndex);
         String eventId = eventController.getEventId(index-1);
         if (eventController.signupEvent(eventId, userId)) {
-            List<String> users = eventController.getUsers(eventId);
-            this.presenter.printEventAttendee(users);
             this.presenter.printSuccessMessage();
         } else {
             this.presenter.printFailMessage();
@@ -132,7 +132,7 @@ public class EventSignUpScreenController extends ScreenController {
             try{
                 this.getCancelInfo(userId);
             }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
-                this.presenter.printFailMessage();
+                this.presenter.printErrorMessage();
                 this.getCancelInfo(userId);
             }
         } else {
@@ -158,5 +158,14 @@ public class EventSignUpScreenController extends ScreenController {
         }
     }
 
+    public void getUserEvents(){
+        String userId = authController.fetchLoggedInUser();
+        if (this.userHaveEvent(userId)){
+            String info = eventController.getUserEvents(userId);
+            this.presenter.promptEventSchedule(info);
+        }else{
+            this.presenter.printNoEventMessage();
+        }
+    }
 }
 

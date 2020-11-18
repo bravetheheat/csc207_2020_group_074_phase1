@@ -1,7 +1,5 @@
 package main.presenters;
 
-import java.util.List;
-
 /**
  * The EventSignUpScreen handles the sign up screen for a User(Attendee)
  *
@@ -20,6 +18,7 @@ public class EventSignUpScreen {
         System.out.println("0. Exit");
         System.out.println("1. Sign up for an event");
         System.out.println("2. Cancel an event");
+        System.out.println("3. Check the event that already signed up.");
     }
 
     public void promptSignupEvents(String events){
@@ -47,10 +46,11 @@ public class EventSignUpScreen {
     }
 
     public void printNoEventMessage(){
-        System.out.println("There's no events you can make actions on.");
+        System.out.println("There's no events here.");
     }
 
-    public void printEventAttendee(List<String> users){
-        System.out.println(users);
+    public void promptEventSchedule(String events){
+        System.out.println("Here are the events you signed up: \n");
+        System.out.println(events);
     }
 }
