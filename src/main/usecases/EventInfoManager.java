@@ -99,7 +99,7 @@ public class EventInfoManager {
                 notFull = roomManager.getRoomGivenRoomNum(n).getCapacity() >= eventSize;
             }
         }
-        if (!event.getAttendeesID().contains(newUserId) && notFull) {
+        if ((!event.getAttendeesID().contains(newUserId)) && notFull) {
             event.addAttendees(newUserId);
             return true;
         }
