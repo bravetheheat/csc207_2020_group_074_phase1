@@ -21,10 +21,13 @@ The following link contains our design of CRC cards, zoom meeting link, and inst
 Getting Started
 ------------
 
+<<<<<<< HEAD
+=======
 **Pre-requisites**
 
 * JDK 8 or above
 * [opencsv v5.3](http://opencsv.sourceforge.net/)
+>>>>>>> 02b2b115b113b8ab7919675d49d1fe905894d1ed
 
 **Running the Application**
 
@@ -56,16 +59,16 @@ The program will automatically load saved data from previous sessions.
 Contributors
 ------------
 
-Github id | Markus name | Student id
+Github id     | Markus id    | Student id
 ------------- | -------------| -------------
-oliphant0803  |              |
-YvetteXie     |   Yile Xie   |
-Hiraethwly    | Leyi Wang    | 1006318682
-Luke9248      |              |  
-kaka0905      |              |
-bravetheheat  | zhaodav3     | 1003323423
-AveritasR0679 |              |
-Jimmy         |              |
+oliphant0803  |  huan1825    | 1006073204
+YvetteXie     |  xieyile1    | 1005822987
+Hiraethwly    |  wangley6    | 1006318682
+Luke9248      |  renruomi    | 1005889013 
+kaka0905      |  mazewen1    | 1005968375
+bravetheheat  |  zhaodav3    | 1003323423
+AveritasR0679 |  stevenY     | 1005712873
+Jimmy         |   liyi69     | 1002660499
 
 Contribution Guideline
 ------------
