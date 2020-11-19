@@ -84,5 +84,7 @@ who writes this class.
 UML Diagram
 ------------
 ![UML Diagram](./uml-without-connections.png)
+
+![UML Diagram with Connections](./main-with-connections.png)
  
 

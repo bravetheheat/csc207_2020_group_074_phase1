@@ -15,13 +15,14 @@ import java.util.Arrays;
  * @since 2020-11-12
  */
 
-public class SpeakerScreenController extends ScreenController{
+public class SpeakerScreenController extends ScreenController {
     private final SpeakerScreen presenter;
-    private ArrayList<String> validInput;
     private final String loggedInSpeaker;
+    private final ArrayList<String> validInput;
 
     /**
      * A ProgramController is needed to instantiate a SpeakerScreenController
+     *
      * @param programController to be sent to the constructor of the super class
      */
     public SpeakerScreenController(ProgramController programController) {
@@ -45,11 +46,11 @@ public class SpeakerScreenController extends ScreenController{
     /**
      * Validate input from keyboard and tells ProgramController which screen to proceed to.
      */
-    public void interact(String loggedInSpeaker){
+    public void interact(String loggedInSpeaker) {
         this.presenter.prompt();
         String input = scanner.nextLine();
 
-        while (!validInput.contains(input)){
+        while (!validInput.contains(input)) {
             this.presenter.errorMessage();
             this.presenter.prompt();
             input = scanner.nextLine();
@@ -74,13 +75,14 @@ public class SpeakerScreenController extends ScreenController{
 
     /**
      * Return a list of strings for events, given a list of events String at which the speaker will be speaking.
+     *
      * @param talkList list of String of the talks that the speaker will be giving
      * @return a list of the string representation of the talks
      */
 
-    public ArrayList<String> IDtoString(ArrayList<String> talkList){
+    public ArrayList<String> IDtoString(ArrayList<String> talkList) {
         ArrayList<String> talksString = new ArrayList<>();
-        for (String talk : talkList){
+        for (String talk : talkList) {
             talksString.add(this.programController.getEventController().getSingleEventInfo(talk));
         }
         return talksString;
