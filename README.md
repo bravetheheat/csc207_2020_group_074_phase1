@@ -23,6 +23,33 @@ Getting Started
 
 (to be contined...)
 
+**Running the Application**
+
+Run the main() method of main.controllers.main
+
+
+
+**After Startup**
+
+After starting the program, you will be faced with two options:
+1. Login - Choose this option to login using an existing account
+2. Register - Choose this option to create a new account
+
+**Usage**
+
+After logging in, you will be given a screen with a number of options depending on your user type. These are where
+you will be able to register for events, send messsages, and check your messages. Organizers will have the additional 
+capability to manage users, manage events and rooms, and save the data in the application.
+
+**Data Management**
+
+Organizers can manually save the data from their current session in the Data Management screen.
+
+The program will automatically load saved data from previous sessions.
+
+
+
+
 
 Contributors
 ------------
@@ -34,7 +61,7 @@ YvetteXie     |   Yile Xie   |
 Hiraethwly    | Leyi Wang    | 1006318682
 Luke9248      |              |  
 kaka0905      |              |
-bravetheheat  |David Zijian Zhao|
+bravetheheat  | zhaodav3     | 1003323423
 AveritasR0679 |              |
 Jimmy         |              |
 
@@ -49,5 +76,8 @@ branch and commit changes to our own branch. By submitting a pull request, we me
 TA can check out the pull requests, addition and the java doc of each class that demonstrates the author 
 who writes this class. 
 
+UML Diagram
+------------
+![UML Diagram](./uml-without-connections.png)
  
 
