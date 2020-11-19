@@ -32,7 +32,8 @@ public class SpeakerScreenController extends ScreenController{
     }
 
     /**
-     * Validate input from keyboard and tells ProgramController which screen to proceed to.
+     * Display the text on the Speaker Screen, initialize the collection of user input, and
+     * go to the corresponding preceding screen
      */
     @Override
     public void start() {
@@ -41,6 +42,9 @@ public class SpeakerScreenController extends ScreenController{
         this.end();
     }
 
+    /**
+     * Validate input from keyboard and tells ProgramController which screen to proceed to.
+     */
     public void interact(String loggedInSpeaker){
         this.presenter.prompt();
         String input = scanner.nextLine();
@@ -53,7 +57,7 @@ public class SpeakerScreenController extends ScreenController{
 
         switch (input) {
             case "0":
-                this.programController.goToPreviousScreenController();
+                this.programController.getAuthController().logout();
                 return;
             case "1":
                 ArrayList<String> talks =

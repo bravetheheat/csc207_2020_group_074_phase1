@@ -4,6 +4,9 @@ import main.controllers.InboxController;
 import main.controllers.ProgramController;
 import main.presenters.MessageDetailScreen;
 
+/**
+ * @
+ */
 public class MessageDetailScreenController extends ScreenController {
     String messageId;
     MessageDetailScreen presenter;
