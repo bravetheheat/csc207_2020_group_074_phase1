@@ -53,6 +53,14 @@ public class ProgramController {
         this.inboxManager.loadFromGateway(this.gateway);
     }
 
+    private void saveData() {
+        this.usersManager.saveUsersToGateway(this.gateway);
+        this.roomManager.saveRoomsToGateway(this.gateway);
+        this.eventsManager.saveEventsToGateway(this.gateway);
+        this.messageManager.saveMessagesToGateway(this.gateway);
+        this.inboxManager.saveToGateway(this.gateway);
+    }
+
     /**
      * Starts the next screen controller, if available.
      * If not, then effectively ends the program.
@@ -61,6 +69,9 @@ public class ProgramController {
 
         if (this.currentScreenController != null) {
             this.currentScreenController.start();
+        } else {
+            // Save data on exit
+            saveData();
         }
     }
 
