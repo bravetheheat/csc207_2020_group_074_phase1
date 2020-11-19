@@ -7,11 +7,13 @@ import java.time.LocalDateTime;
 /**
  * EventBean is used to serialize and deserialize Event objects into string form
  * Each Event can be represented by one or more EventBeans
+ *
+ * @author David Zhao
  */
 public class EventBean implements Serializable {
     private String id;
     private String title;
-    private LocalDateTime time;
+    private String time;
     private String roomID;
     private String speakerID;
     private String attendeeId;
@@ -28,11 +30,11 @@ public class EventBean implements Serializable {
         this.title = title;
     }
 
-    public LocalDateTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

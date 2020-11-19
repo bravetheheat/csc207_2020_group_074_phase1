@@ -1,7 +1,10 @@
 package main.presenters;
 
-import main.controllers.ProgramController;
-
+/**
+ * Command line interface of AnonymousScreenController
+ *
+ * @author David Zhao
+ */
 public class AnonymousScreen {
 
     public AnonymousScreen() {

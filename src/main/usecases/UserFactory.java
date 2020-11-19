@@ -13,7 +13,6 @@ import main.entities.User;
  * @since 2020-11-02
  */
 public class UserFactory {
-    //use getUser method to get object of type user
 
     /**
      * Create a user with username and password and type.

@@ -14,7 +14,7 @@ import java.util.List;
  * create and cancel an event; organize the speaker and room; as well as get events info
  *
  * @author Haoze Huang
- * @version 3.3
+ * @version 3.4
  * @since 2020-11-11
  */
 public class EventsManagementScreenController extends ScreenController {
@@ -54,6 +54,7 @@ public class EventsManagementScreenController extends ScreenController {
             case "0":
                 programController.goToPreviousScreenController();
                 end();
+                return;
             case "1":
                 if (createRoom()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
@@ -97,13 +98,20 @@ public class EventsManagementScreenController extends ScreenController {
 
     /**
      * Create an event base on organizer input room number, capacity if fixed at 2 for phase 1
+     * Only proceed until user input valid input
      *
      * @return verify if the room is successfully created
      */
     public boolean createRoom() {
-        presenter.promptCreateRoom();
-        String roomNum = scanner.nextLine();
-        return organizerController.createRoom(Integer.parseInt(roomNum), 2);
+        try{
+            presenter.promptCreateRoom();
+            String roomNum = scanner.nextLine();
+            return organizerController.createRoom(Integer.parseInt(roomNum), 2);
+        }catch (IllegalArgumentException e){
+            presenter.printInvalidInput();
+            return createRoom();
+        }
+
     }
 
 
@@ -168,6 +176,7 @@ public class EventsManagementScreenController extends ScreenController {
 
     /**
      * Helper function to get event id base on input index
+     * Only proceed until user input valid input
      *
      * @return String of eventId
      */
@@ -179,8 +188,8 @@ public class EventsManagementScreenController extends ScreenController {
         try {
             String eventIndex = scanner.nextLine();
             int i = Integer.parseInt(eventIndex);
-            return organizerController.getEventController().getEventId(i);
-        } catch (IllegalArgumentException e) {
+            return organizerController.getEventController().getEventId(i-1);
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             presenter.printInvalidInput();
             return getEventID();
         }
@@ -189,6 +198,7 @@ public class EventsManagementScreenController extends ScreenController {
 
     /**
      * Helper function to get speaker id base on input index
+     * Only proceed until user input valid input
      *
      * @return String of speakerId
      */
@@ -199,7 +209,7 @@ public class EventsManagementScreenController extends ScreenController {
             presenter.promptSpeaker(organizerController.speakerToString());
             String speakerIndex = scanner.nextLine();
             return speakers.get(Integer.parseInt(speakerIndex) - 1);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             presenter.printInvalidInput();
             return getSpeakerID();
         }
@@ -208,6 +218,7 @@ public class EventsManagementScreenController extends ScreenController {
 
     /**
      * Helper function to get room num base on input num
+     * Only proceed until user input valid input
      *
      * @return roomNum
      */
@@ -218,7 +229,7 @@ public class EventsManagementScreenController extends ScreenController {
             presenter.promptRoom(organizerController.roomToString());
             String roomIndex = scanner.nextLine();
             return rooms.get(Integer.parseInt(roomIndex) - 1);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             presenter.printInvalidInput();
             return getRoomNum();
         }
@@ -226,6 +237,7 @@ public class EventsManagementScreenController extends ScreenController {
 
     /**
      * Helper function to get time base on input format
+     * Only proceed until user input valid input
      *
      * @return time in LocalDateTime
      */
@@ -241,6 +253,11 @@ public class EventsManagementScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Handles situation where no corresponding entity to input
+     *
+     * @param list of the entity
+     */
     public void handleEmptyList(List list) {
         if (list.size() == 0) {
             presenter.printErrorMessage();

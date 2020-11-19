@@ -9,6 +9,11 @@ import main.usecases.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/**
+ * The main constructor of the application that coordinates functionality and stores Singleton objects
+ *
+ * @author David Zhao
+ */
 public class ProgramController {
     UsersManager usersManager;
     EventsManager eventsManager;
@@ -17,7 +22,6 @@ public class ProgramController {
     EventController eventController;
     Deque<ScreenController> screenControllerHistory = new ArrayDeque<>();
     ScreenController currentScreenController;
-    InboxController inboxController;
     InboxManager inboxManager;
     RoomManager roomManager;
     MessageController messageController;
@@ -28,7 +32,6 @@ public class ProgramController {
         this.eventsManager = new EventsManager();
         this.messageManager = new MessageManager();
         this.inboxManager = new InboxManager();
-        this.inboxController = new InboxController(messageManager, inboxManager, usersManager);
         this.roomManager = new RoomManager();
         this.authController = new AuthController(this, usersManager);
         this.currentScreenController = new AnonymousScreenController(this);
@@ -42,13 +45,23 @@ public class ProgramController {
 
     }
 
-    public void loadData() {
+    private void loadData() {
         this.usersManager.loadUsersFromGateway(this.gateway);
         this.roomManager.loadRoomsFromGateway(this.gateway);
+        this.eventsManager.loadEventsFromGateway(this.gateway);
+        this.messageManager.loadMessagesFromGateway(this.gateway);
+        this.inboxManager.loadFromGateway(this.gateway);
     }
 
+    /**
+     * Starts the next screen controller, if available.
+     * If not, then effectively ends the program.
+     */
     public void nextScreenController() {
-        this.currentScreenController.start();
+
+        if (this.currentScreenController != null) {
+            this.currentScreenController.start();
+        }
     }
 
     public AuthController getAuthController() {
@@ -71,14 +84,20 @@ public class ProgramController {
         return this.inboxManager;
     }
 
-    public InboxController getInboxController(){ return this.inboxController;}
-
     public RoomManager getRoomManager() {
         return this.roomManager;
     }
 
     public Gateway getGateway() {
         return this.gateway;
+    }
+
+    public MessageController getMessageController() {
+        return this.messageController;
+    }
+
+    public EventsManager getEventsManager() {
+        return this.eventsManager;
     }
 
 
@@ -110,10 +129,5 @@ public class ProgramController {
         this.screenControllerHistory = new ArrayDeque<>();
     }
 
-    public MessageController getMessageController() {
-        return this.messageController;
-    }
 
-    public EventsManager getEventsManager() { return this.eventsManager;
-    }
 }

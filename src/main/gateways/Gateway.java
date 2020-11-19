@@ -1,14 +1,13 @@
 package main.gateways;
 
-import main.entities.Event;
-import main.entities.Message;
-import main.entities.Room;
-import main.entities.User;
+import main.entities.*;
 
 import java.util.List;
 
 /**
  * Interface to save and load entities from an external data source
+ *
+ * @author David Zhao
  */
 public interface Gateway {
 
@@ -68,4 +67,18 @@ public interface Gateway {
      * @return List of Message
      */
     List<Message> loadMessages();
+
+    /**
+     * Save Inbox objects
+     *
+     * @param inboxes List of Inbox to save
+     */
+    void saveInboxes(List<Inbox> inboxes);
+
+    /**
+     * Load Inbox objects
+     *
+     * @return List of Inbox
+     */
+    List<Inbox> loadInboxes();
 }

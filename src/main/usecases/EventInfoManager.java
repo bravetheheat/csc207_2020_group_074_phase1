@@ -12,7 +12,7 @@ import java.util.Map;
  * The EventInfoManager modifies info for a particular Event given event id.
  *
  * @author Haoze Huang
- * @version 2.2
+ * @version 2.3
  * @since 2020-10-31
  */
 
@@ -35,11 +35,10 @@ public class EventInfoManager {
     }
 
     /**
-     *
-     * @param eventId that going to be modified
+     * @param eventId  that going to be modified
      * @param schedule of events
-     * @param rm to get room info
-     * @param um to get speaker info
+     * @param rm       to get room info
+     * @param um       to get speaker info
      */
     public EventInfoManager(String eventId, Map<String, Event> schedule, RoomManager rm, UsersManager um) {
         this.schedule = schedule;
@@ -90,7 +89,17 @@ public class EventInfoManager {
      * @return check if user is added
      */
     public boolean addUser(String newUserId) {
-        if (!event.getAttendeesID().contains(newUserId)) {
+        boolean notFull = false;
+        String roomId = event.getRoomID();
+        int eventSize = event.getAttendeesID().size();
+        for (int n : roomManager.getAllRooms()){
+            //get the room object base on event's room id
+            if (roomManager.getRoomIDGivenRoomNum(n).equals(roomId)){
+                //check if the room is full
+                notFull = roomManager.getRoomGivenRoomNum(n).getCapacity() >= eventSize;
+            }
+        }
+        if ((!event.getAttendeesID().contains(newUserId)) && notFull) {
             event.addAttendees(newUserId);
             return true;
         }
@@ -121,6 +130,10 @@ public class EventInfoManager {
      * @return check for successful update
      */
     public boolean updateEventInfo(LocalDateTime newTime, String newRoomId) {
+        //check event happening between 9A.M to 5P.M
+        if ((9 > newTime.getHour()) || (newTime.getHour() > 17)) {
+            return false;
+        }
         for (String id : schedule.keySet()) {
             Event e = schedule.get(id);
             //time conflict at same room
@@ -164,19 +177,19 @@ public class EventInfoManager {
     public String toString() {
         String speakerName = "";
         int roomNum = -1;
-        for(String user: usersManager.getAllUsers()){
-            if(this.usersManager.fetchRole(user).equals("Speaker") && user.equals(event.getSpeakerID())){
+        for (String user : usersManager.getAllUsers()) {
+            if (this.usersManager.fetchRole(user).equals("Speaker") && user.equals(event.getSpeakerID())) {
                 speakerName = usersManager.fetchUser(user).getUsername();
             }
         }
-        for(Room room: roomManager.getAllRoomsObject()){
-            if (room.getId().equals(event.getRoomID())){
+        for (Room room : roomManager.getAllRoomsObject()) {
+            if (room.getId().equals(event.getRoomID())) {
                 roomNum = room.getRoomNum();
             }
         }
         return "Title: " + event.getTitle() + "\n"
                 + "Time: " + event.getTime() + "\n"
                 + "Speaker: " + speakerName + "\n"
-                + "Room: " + roomNum;
+                + "Room: Room #" + roomNum + "\n";
     }
 }

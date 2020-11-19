@@ -2,11 +2,10 @@ package main.screencontrollers;
 
 import main.controllers.AuthController;
 import main.controllers.EventController;
-import main.controllers.ProgramController;
 import main.controllers.OrganizerController;
+import main.controllers.ProgramController;
 import main.entities.Event;
 import main.presenters.EventSignUpScreen;
-import main.usecases.UsersManager;
 
 import java.util.ArrayList;
 
@@ -14,24 +13,29 @@ import java.util.ArrayList;
  * The EventsSignupScreenController handles events sign up and cancellation:
  *
  * @author Zewen Ma
- * @version 3.2
+ * @version 4.0
  * @since 2020-11-11
  */
 public class EventSignUpScreenController extends ScreenController {
     EventSignUpScreen presenter = new EventSignUpScreen();
-    UsersManager usersManager = new UsersManager();
+    OrganizerController organizerController;
     EventController eventController;
     AuthController authController;
-    OrganizerController organizerController;
 
-
+    /**
+     * Default constructor.
+     * @param programController instance of ProgramController.
+     */
     public EventSignUpScreenController(ProgramController programController) {
         super(programController);
         organizerController = new OrganizerController(programController);
         eventController = organizerController.getEventController();
-        authController = new AuthController(programController);
+        authController = programController.getAuthController();
     }
 
+    /**
+     * Start the screen and exit to organizer screen base on inputs.
+     */
     @Override
     public void start() {
         this.presenter.printScreenMessage();
@@ -39,6 +43,9 @@ public class EventSignUpScreenController extends ScreenController {
         this.end();
     }
 
+    /**
+     * Deals with the input option.
+     */
     public void mainOption() {
         this.presenter.promptCommand();
         String choice = this.scanner.nextLine();
@@ -52,6 +59,9 @@ public class EventSignUpScreenController extends ScreenController {
             case "0":
                 this.goToPreviousScreenController();
                 break;
+            case "3":
+                this.getUserEvents();
+                break;
             default:
                 this.presenter.printErrorMessage();
                 this.mainOption();
@@ -59,48 +69,103 @@ public class EventSignUpScreenController extends ScreenController {
 
     }
 
+    /**
+     * Return true iff the schedule have at least one event.
+     * @return true iff the schedule have at least one event.
+     */
     public boolean haveEvent() {
-        ArrayList<Event> events = new ArrayList<Event>(this.eventController.getAllEvents());
+        ArrayList<Event> events = new ArrayList<Event>(eventController.getAllEvents());
         return events.size() > 0;
     }
 
+    /**
+     * Return true iff the user signed up for at least one event.
+     * @param userId of the user.
+     * @return true iff the user signed up for at least one event.
+     */
+    public boolean userHaveEvent(String userId){
+        ArrayList<String> events = new ArrayList<>(eventController.getSignupEvents(userId));
+        return events.size() > 0;
+    }
+
+    /**
+     * Deals the sign up option (Option 1).
+     */
     public void signUpOption() {
-        String userEmail = authController.fetchLoggedInUser();
-        String userId = usersManager.getIDFromUsername(userEmail);
+        String userId = authController.fetchLoggedInUser();
         if (this.haveEvent()) {
-            String info = eventController.getEventsInfo();
-            this.presenter.promptEvents(info);
-            String eventIndex = this.scanner.nextLine();
-            int index = Integer.parseInt(eventIndex);
-            String eventId = eventController.getEventId(index-1);
-            if (eventController.signupEvent(eventId, userId)) {
-                this.presenter.printSuccessMessage();
-            } else {
-                this.presenter.printFailMessage();
+            try{
+                this.getSignUpInfo(userId);
+            }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
+                this.presenter.printErrorMessage();
+                this.getSignUpInfo(userId);
             }
         } else {
             this.presenter.printNoEventMessage();
         }
     }
 
+    /**
+     * Present information of the scheduled events (includes the events a user signed up for) that can be signed up.
+     * Present Error message if the user re-sign up for an event that already signed up.
+     * @param userId of the User.
+     */
+    public void getSignUpInfo(String userId){
+        String info = eventController.getEventsInfo();
+        this.presenter.promptSignupEvents(info);
+        String eventIndex = this.scanner.nextLine();
+        int index = Integer.parseInt(eventIndex);
+        String eventId = eventController.getEventId(index-1);
+        if (eventController.signupEvent(eventId, userId)) {
+            this.presenter.printSuccessMessage();
+        } else {
+            this.presenter.printFailMessage();
+        }
+    }
+
+    /**
+     * Deals the sign up option (Option 2).
+     */
     public void cancelOption() {
-        String userEmail = authController.fetchLoggedInUser();
-        String userId = usersManager.getIDFromUsername(userEmail);
-        if (this.haveEvent()) {
-            String info = eventController.getEventsInfo();
-            this.presenter.promptEvents(info);
-            String eventIndex = this.scanner.nextLine();
-            int index = Integer.parseInt(eventIndex);
-            String eventId = eventController.getEventId(index-1);
-            if (eventController.cancelEvent(eventId, userId)) {
-                this.presenter.printSuccessMessage();
-            } else {
-                this.presenter.printFailMessage();
+        String userId = authController.fetchLoggedInUser();
+        if (this.userHaveEvent(userId)) {
+            try{
+                this.getCancelInfo(userId);
+            }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
+                this.presenter.printErrorMessage();
+                this.getCancelInfo(userId);
             }
         } else {
             this.presenter.printNoEventMessage();
         }
     }
 
+    /**
+     * Present information of the signed up events that can be cancelled.
+     * Present no events signed up if the user did not signed up for any events.
+     * @param userId of the User.
+     */
+    public void getCancelInfo(String userId){
+        String info = eventController.getUserEvents(userId);
+        this.presenter.promptCancelEvents(info);
+        String eventIndex = this.scanner.nextLine();
+        int index = Integer.parseInt(eventIndex);
+        String eventId = eventController.getEventId(index-1);
+        if (eventController.cancelEvent(eventId, userId)) {
+            this.presenter.printSuccessMessage();
+        } else {
+            this.presenter.printFailMessage();
+        }
+    }
+
+    public void getUserEvents(){
+        String userId = authController.fetchLoggedInUser();
+        if (this.userHaveEvent(userId)){
+            String info = eventController.getUserEvents(userId);
+            this.presenter.promptEventSchedule(info);
+        }else{
+            this.presenter.printNoEventMessage();
+        }
+    }
 }
 

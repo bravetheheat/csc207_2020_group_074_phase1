@@ -5,21 +5,19 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import main.entities.Event;
-import main.entities.Message;
-import main.entities.Room;
-import main.entities.User;
-import main.gateways.beans.EventBean;
-import main.gateways.beans.RoomBean;
-import main.gateways.beans.UserBean;
-import main.gateways.converters.EventConverter;
-import main.gateways.converters.RoomConverter;
-import main.usecases.UserFactory;
+import main.entities.*;
+import main.gateways.beans.*;
+import main.gateways.converters.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gateway that uses CSVs to store data
+ *
+ * @author David Zhao
+ */
 public class CSVGateway implements Gateway {
 
     private final String userCSVPath = "src/store/Users.csv";
@@ -33,39 +31,31 @@ public class CSVGateway implements Gateway {
 
 
     public List<User> loadUsers() {
-        List<User> users = new ArrayList<>();
-
         try {
             // From documentation available at http://opencsv.sourceforge.net/
+            UserConverter converter = new UserConverter();
+            List<UserBean> userBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.userCSVPath))).withType(UserBean.class).build().parse();
+            List<User> users = converter.convertFromBeans(userBeans);
 
-            List<UserBean> userBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.userCSVPath))).withType(UserBean.class).withSkipLines(1).build().parse();
-
-            UserFactory userFactory = new UserFactory();
-            for (UserBean userBean : userBeans) {
-                User newUser = userFactory.getUser(userBean.getUsername(), userBean.getPassword(), userBean.getRole());
-                users.add(newUser);
-            }
-        } catch (FileNotFoundException e) {
-        } finally {
             return users;
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            return new ArrayList<>();
         }
 
 
     }
 
     public void saveUsers(List<User> users) {
-        List<UserBean> userBeans = new ArrayList<>();
-        for (User user : users) {
-            UserBean userBean = new UserBean();
-            userBean.setUsername(user.getUsername());
-            userBean.setPassword(user.getPassword());
-            userBean.setRole(user.getRole());
-        }
         try {
+            UserConverter converter = new UserConverter();
+            List<UserBean> userBeans = converter.convertToBeans(users);
             // From documentation available at http://opencsv.sourceforge.net/
             FileWriter csvFileWriter = new FileWriter(this.userCSVPath);
             StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
             beanToCsv.write(userBeans);
+            csvFileWriter.close();
 
         } catch (IOException e) {
             System.out.println("IOException. Error writing file.");
@@ -148,8 +138,9 @@ public class CSVGateway implements Gateway {
 
     public List<Message> loadMessages() {
         try {
-            List<Message> messages = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.messageCSVPath))).withType(Message.class).build().parse();
-
+            MessageConverter messageConverter = new MessageConverter();
+            List<MessageBean> messageBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.messageCSVPath))).withType(MessageBean.class).build().parse();
+            List<Message> messages = messageConverter.convertFromBeans(messageBeans);
             return messages;
 
         } catch (FileNotFoundException e) {
@@ -160,10 +151,12 @@ public class CSVGateway implements Gateway {
 
     public void saveMessages(List<Message> messages) {
         try {
+            MessageConverter messageConverter = new MessageConverter();
+            List<MessageBean> messageBeans = messageConverter.convertToBeans(messages);
             FileWriter csvFileWriter = new FileWriter(this.messageCSVPath);
 
             StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
-            beanToCsv.write(messages);
+            beanToCsv.write(messageBeans);
             csvFileWriter.close();
 
         } catch (IOException e) {
@@ -175,7 +168,40 @@ public class CSVGateway implements Gateway {
         }
     }
 
+    public List<Inbox> loadInboxes() {
+        try {
+            InboxConverter converter = new InboxConverter();
+            List<InboxBean> inboxBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.inboxCSVPath))).withType(InboxBean.class).build().parse();
+            List<Inbox> inboxes = converter.convertFromBeans(inboxBeans);
+            return inboxes;
 
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            return new ArrayList<>();
+        }
+
+    }
+
+    public void saveInboxes(List<Inbox> inboxes) {
+        try {
+            InboxConverter converter = new InboxConverter();
+            List<InboxBean> inboxBeans = converter.convertToBeans(inboxes);
+
+            FileWriter csvFileWriter = new FileWriter(this.inboxCSVPath);
+
+            StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
+            beanToCsv.write(inboxBeans);
+            csvFileWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("IOException. Error writing file.");
+        } catch (CsvDataTypeMismatchException e) {
+            System.out.println("Error writing file. Check your data format.");
+        } catch (CsvRequiredFieldEmptyException e) {
+            System.out.println("Error writing file. Missing required field.");
+        }
+    }
 
 
 }

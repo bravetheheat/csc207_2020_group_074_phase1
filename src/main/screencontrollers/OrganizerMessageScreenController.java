@@ -4,6 +4,7 @@ import main.controllers.ProgramController;
 import main.presenters.OrganizerMessageScreen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * OrganizerMessageScreenController is the screen where the organizer can choose who to message.
@@ -37,17 +38,11 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
             if (next.equals("all") || next.equals("attendees") || next.equals("speakers")) {
                 sendMessage(next);
             } else {
-                ArrayList<String> inputs = new ArrayList<>();
-                for (int i = 0; i < next.length(); i += 2) {
-                    inputs.add((next.substring(i, i + 1)));
-                }
+                ArrayList<String> inputs = new ArrayList<>(Arrays.asList(next.split(",")));
                 while (!isValid(inputs) && !next.equals("0")) {
                     this.organizerMessageScreen.prompt2(next);
                     next = this.scanner.nextLine();
-                    inputs = new ArrayList<>();
-                    for (int i = 0; i < next.length(); i += 2) {
-                        inputs.add((next.substring(i, i + 1)));
-                    }
+                    inputs = new ArrayList<>(Arrays.asList(next.split(",")));
                 }
                 if (next.equals("0")) {
                     break;
