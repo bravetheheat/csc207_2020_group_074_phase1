@@ -36,12 +36,18 @@ public class SpeakerMessageScreen {
     }
 
     public void replyOptions(List<String> users) {
-        System.out.println("Who would you like to reply");
-        int count = 1;
-        for (String user : users) {
-            System.out.println(count + ". " + user);
-            count++;
+        if(users.size() == 0){
+            System.out.println("There is no attendees in your events have messaged you.");
+            System.out.println("You are not able to message anyone.");
+        }else{
+            System.out.println("Who would you like to reply");
+            int count = 1;
+            for (String user : users) {
+                System.out.println(count + ". " + user);
+                count++;
+            }
         }
+
     }
 
     public void numOfEvents() {
@@ -52,5 +58,13 @@ public class SpeakerMessageScreen {
         System.out.println("Successful");
     }
 
+    public void noEvent(){
+        System.out.println("You have no event right now");
+        System.out.println("You could not broadcast to anyone.");
+    }
+
+    public void willBeReturned(){
+        System.out.println("You will be returned back to speaker screen");
+    }
 
 }

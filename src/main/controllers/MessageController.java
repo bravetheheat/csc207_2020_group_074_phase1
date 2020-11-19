@@ -24,6 +24,11 @@ public class MessageController {
     InboxManager inboxManager;
 
 
+    /**
+     * the constructor of the MessageController
+     * @param programController the main controller of the program which carries the information which
+     * this class needs
+     */
     public MessageController(ProgramController programController) {
         this.messageManager = programController.getMessageManager();
         this.eventController = programController.getEventController();
@@ -66,7 +71,7 @@ public class MessageController {
         // Search all users
         for (String receiver : usersManager.getAllUsers()) {
             // check if he is an organizer
-            if (receiver != sender) {
+            if (receiver.equals(sender)) {
                 receivers.add(receiver);
             }
         }
@@ -74,6 +79,11 @@ public class MessageController {
 
     }
 
+    /**
+     * get all events which the speaker in charge of
+     * @param speaker the speaker's id
+     * @return all events object which the speaker in charge of
+     */
     public ArrayList<Event> eventsOfSpeaker(String speaker) {
         ArrayList<Event> events = new ArrayList<>();
         for (String event : eventController.getSpeakerEvents(speaker)) {
@@ -83,6 +93,11 @@ public class MessageController {
 
     }
 
+    /**
+     * get all events in string format which the speaker in charge of
+     * @param speaker the speaker's id
+     * @return a list of events which the speaker in charge of
+     */
     public ArrayList<String> eventsOfSpeakerInString(String speaker) {
         ArrayList<String> events = new ArrayList<>();
         for (String event : eventController.getSpeakerEvents(speaker)) {
@@ -91,6 +106,11 @@ public class MessageController {
         return events;
     }
 
+    /**
+     * get all attendees which the speaker could message to
+     * @param speaker the speakers id
+     * @return a list of attendees' ids the speaker could message to
+     */
     public ArrayList<String> replyOptionsForSpeaker(String speaker) {
         ArrayList<String> ret = new ArrayList<>();
         for (String message : inboxManager.getMessagesOfUser(speaker)) {
@@ -101,6 +121,11 @@ public class MessageController {
         return ret;
     }
 
+    /**
+     * get all attendees' usernames which the speaker could message to
+     * @param speaker the id of the speaker
+     * @return a list of attendees' usernames
+     */
     public ArrayList<String> replyOptionsForSpeakerInString(String speaker) {
         ArrayList<String> ret = new ArrayList<>();
         for (String sender : replyOptionsForSpeaker(speaker)) {

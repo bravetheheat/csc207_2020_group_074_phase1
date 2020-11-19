@@ -10,6 +10,7 @@ import java.util.*;
  * this class stores all rooms which could hold events
  *
  * @author Ruoming Ren
+ * @since 2020-11-13
  */
 public class RoomManager {
 
@@ -82,18 +83,30 @@ public class RoomManager {
         }
     }
 
+    /**
+     * get all rooms' number which inside the program
+     * @return a list of rooms' number
+     */
     public List<Integer> getAllRooms() {
-        List<Integer> allRooms = new ArrayList<Integer>();
+        List<Integer> allRooms = new ArrayList<>();
         for (Room room : this.rooms.values()) {
             allRooms.add(room.getRoomNum());
         }
         return allRooms;
     }
 
+    /**
+     * get all rooms which inside the program
+     * @return a list of rooms' objects
+     */
     public Collection<Room> getAllRoomsObject() {
         return this.rooms.values();
     }
 
+    /**
+     * save all rooms which inside the program to the gateway.
+     * @param gateway the gateway of the program
+     */
     public void saveRoomsFromGateway(Gateway gateway) {
         List<Room> roomList = new ArrayList<>();
         roomList.addAll(this.rooms.values());
@@ -101,6 +114,10 @@ public class RoomManager {
 
     }
 
+    /**
+     * load all rooms which inside the gateway
+     * @param gateway the gateway of the program
+     */
     public void loadRoomsFromGateway(Gateway gateway) {
         this.rooms = new HashMap<>();
         List<Room> loadedRooms = gateway.loadRooms();

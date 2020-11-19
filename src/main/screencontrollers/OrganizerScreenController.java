@@ -9,7 +9,7 @@ import java.util.List;
  * input from ControllerScreen, and tells the ProgramController what screen to go next.
  *
  * @author Ruoming Ren
- * @version 1.0
+ * @version 2.0
  * @since 2020-11-11
  */
 public class OrganizerScreenController extends ScreenController{
