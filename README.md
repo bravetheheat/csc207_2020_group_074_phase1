@@ -21,12 +21,14 @@ The following link contains our design of CRC cards, zoom meeting link, and inst
 Getting Started
 ------------
 
-(to be contined...)
+**Pre-requisites**
+
+* JDK 8 or above
+* [opencsv v5.3](http://opencsv.sourceforge.net/)
 
 **Running the Application**
 
 Run the main() method of main.controllers.main
-
 
 
 **After Startup**
