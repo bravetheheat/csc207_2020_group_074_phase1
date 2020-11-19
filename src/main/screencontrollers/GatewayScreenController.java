@@ -2,10 +2,7 @@ package main.screencontrollers;
 
 import main.controllers.ProgramController;
 import main.presenters.GatewayScreen;
-import main.usecases.EventsManager;
-import main.usecases.MessageManager;
-import main.usecases.RoomManager;
-import main.usecases.UsersManager;
+import main.usecases.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +27,7 @@ public class GatewayScreenController extends ScreenController {
     }
 
     private void optionsPrompt() {
-        List<String> options = Arrays.asList("0", "1", "2", "3", "4");
+        List<String> options = Arrays.asList("0", "1", "2", "3", "4", "5", "6");
         this.presenter.optionsPrompt();
         String choice = this.scanner.nextLine();
         while (!options.contains(choice)) {
@@ -43,21 +40,39 @@ public class GatewayScreenController extends ScreenController {
 
                 return;
             case "1":
-                this.saveUsers();
+                this.saveAll();
                 break;
             case "2":
+                this.saveUsers();
+                break;
+            case "3":
                 this.saveRooms();
                 break;
 
-            case "3":
+            case "4":
                 this.saveEvents();
                 break;
-            case "4":
+            case "5":
                 this.saveMessages();
+
                 break;
+
+            case "6":
+                this.saveInboxes();
+                break;
+
         }
+        this.optionsPrompt();
         return;
 
+    }
+
+    private void saveAll() {
+        this.saveUsers();
+        this.saveEvents();
+        this.saveRooms();
+        this.saveInboxes();
+        this.saveMessages();
     }
 
     private void saveUsers() {
@@ -65,7 +80,7 @@ public class GatewayScreenController extends ScreenController {
         UsersManager usersManager = this.programController.getUsersManager();
         usersManager.saveUsersToGateway(this.programController.getGateway());
         this.presenter.success();
-        this.optionsPrompt();
+
     }
 
     private void saveRooms() {
@@ -73,7 +88,7 @@ public class GatewayScreenController extends ScreenController {
         RoomManager roomManager = this.programController.getRoomManager();
         roomManager.saveRoomsFromGateway(this.programController.getGateway());
         this.presenter.success();
-        this.optionsPrompt();
+
     }
 
     private void saveEvents() {
@@ -81,7 +96,7 @@ public class GatewayScreenController extends ScreenController {
         EventsManager eventsManager = this.programController.getEventsManager();
         eventsManager.saveEventsToGateway(this.programController.getGateway());
         this.presenter.success();
-        this.optionsPrompt();
+
     }
 
     private void saveMessages() {
@@ -89,6 +104,13 @@ public class GatewayScreenController extends ScreenController {
         MessageManager messageManager = this.programController.getMessageManager();
         messageManager.saveMessagesToGateway(this.programController.getGateway());
         this.presenter.success();
-        this.optionsPrompt();
+
+    }
+
+    private void saveInboxes() {
+        this.presenter.saveInboxes();
+        InboxManager inboxManager = this.programController.getInboxManager();
+        inboxManager.saveToGateway(this.programController.getGateway());
+        this.presenter.success();
     }
 }

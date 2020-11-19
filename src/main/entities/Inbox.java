@@ -12,14 +12,14 @@ import java.util.UUID;
 public class Inbox {
 
     private String id;
-    private final List<String> messages = new LinkedList<String>();
+    private List<String> messages;
     private String user;
 
     /**
-     * Empty constructor for deserialization
+     * No-arg constructor for deserialization
      */
     public Inbox() {
-
+        this.messages = new LinkedList<>();
     }
 
     /**
@@ -28,8 +28,23 @@ public class Inbox {
     public Inbox(String user) {
         this.id = UUID.randomUUID().toString();
         this.user = user;
+        this.messages = new LinkedList<>();
 
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+
 
 
     /**

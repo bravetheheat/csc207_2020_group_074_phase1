@@ -15,10 +15,12 @@ public class GatewayScreen {
     public void optionsPrompt() {
         System.out.println("Please choose from one of the following options:");
         System.out.println("0. Return to previous screen.");
-        System.out.println("1. Save users");
-        System.out.println("2. Save rooms");
-        System.out.println("3. Save events");
-        System.out.println("4. Save messages");
+        System.out.println("1. Save all");
+        System.out.println("2. Save users");
+        System.out.println("3. Save rooms");
+        System.out.println("4. Save events");
+        System.out.println("5. Save messages");
+        System.out.println("6. Save inboxes");
     }
 
     public void saveUsers() {
@@ -38,6 +40,11 @@ public class GatewayScreen {
 
     public void saveMessages() {
         System.out.println("Saving messages...");
+        System.out.println();
+    }
+
+    public void saveInboxes() {
+        System.out.println("Saving inboxes...");
         System.out.println();
     }
 
