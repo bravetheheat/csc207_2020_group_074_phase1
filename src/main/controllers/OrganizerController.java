@@ -134,7 +134,10 @@ public class OrganizerController extends AttendeeController {
         return usersManager.addUser(userName, password, "Speaker");
     }
 
-
+    /**
+     * get all speakers of the program
+     * @return a list of speakers which inside the program
+     */
     public List<String> getAllSpeakers() {
         List<String> speakers = new ArrayList<>();
         for (String user : usersManager.getAllUsers()) {
@@ -146,6 +149,10 @@ public class OrganizerController extends AttendeeController {
         return speakers;
     }
 
+    /**
+     * get all speakers in string format
+     * @return a string represent all speakers inside the program
+     */
     public String speakerToString() {
         String ret = "";
         int count = 1;
@@ -157,10 +164,18 @@ public class OrganizerController extends AttendeeController {
         return ret;
     }
 
+    /**
+     * get all rooms' numbers
+     * @return a list of rooms' numbers
+     */
     public List<Integer> getAllRooms() {
         return this.roomManager.getAllRooms();
     }
 
+    /**
+     * get all rooms in string format
+     * @return a string represent all rooms inside the program
+     */
     public String roomToString() {
         String ret = "";
         int count = 1;
@@ -171,6 +186,10 @@ public class OrganizerController extends AttendeeController {
         return ret;
     }
 
+    /**
+     * get the event controller of the program
+     * @return the event controller
+     */
     public EventController getEventController() {
         return eventController;
     }
