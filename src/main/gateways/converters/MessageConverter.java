@@ -21,6 +21,7 @@ public class MessageConverter implements Converter<MessageBean, Message> {
             message.setText(messageBean.getText());
             message.setSender(messageBean.getSender());
             message.setTime(LocalDateTime.parse(messageBean.getTime(), this.dateTimeFormatter));
+            messages.add(message);
 
         }
         return messages;

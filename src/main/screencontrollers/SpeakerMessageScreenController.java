@@ -36,7 +36,6 @@ public class SpeakerMessageScreenController extends ScreenController{
     public void start(){
         this.speakerMessageScreen.printScreenName();
         mainPart();
-        end();
     }
 
     /**
@@ -52,11 +51,11 @@ public class SpeakerMessageScreenController extends ScreenController{
             case "1":
                 this.reply();
                 this.mainPart();
-                break;
+                return;
             case "2":
                 this.broadCast();
                 this.mainPart();
-                break;
+                return;
             case "3":
                 this.programController.setNewScreenController(new InboxScreenController(programController));
                 break;
@@ -67,7 +66,7 @@ public class SpeakerMessageScreenController extends ScreenController{
         }
 
         speakerMessageScreen.willBeReturned();
-        this.programController.setNewScreenController(new SpeakerScreenController(programController));
+        this.end();
     }
 
     /**
