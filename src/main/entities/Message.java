@@ -23,6 +23,46 @@ public class Message {
     }
 
     /**
+     * Sets the ID of the message
+     * @param id Message ID
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Sets the text of the message
+     * @param text message text
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /**
+     * Gets the time of the message
+     * @return LocalDateTime time of the message
+     */
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    /**
+     * Sets the time of the message
+     * @param time LocalDateTime time
+     */
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    /**
+     * Sets the sender of the message
+     * @param sender ID of the sender
+     */
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    /**
      * Class constructor
      *
      * @param text   the text of the message

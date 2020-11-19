@@ -5,17 +5,9 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import main.entities.Event;
-import main.entities.Message;
-import main.entities.Room;
-import main.entities.User;
-import main.gateways.beans.EventBean;
-import main.gateways.beans.RoomBean;
-import main.gateways.beans.UserBean;
-import main.gateways.converters.EventConverter;
-import main.gateways.converters.RoomConverter;
-import main.gateways.converters.UserConverter;
-import main.usecases.UserFactory;
+import main.entities.*;
+import main.gateways.beans.*;
+import main.gateways.converters.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -146,8 +138,9 @@ public class CSVGateway implements Gateway {
 
     public List<Message> loadMessages() {
         try {
-            List<Message> messages = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.messageCSVPath))).withType(Message.class).build().parse();
-
+            MessageConverter messageConverter = new MessageConverter();
+            List<MessageBean> messageBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.messageCSVPath))).withType(MessageBean.class).build().parse();
+            List<Message> messages = messageConverter.convertFromBeans(messageBeans);
             return messages;
 
         } catch (FileNotFoundException e) {
@@ -158,10 +151,47 @@ public class CSVGateway implements Gateway {
 
     public void saveMessages(List<Message> messages) {
         try {
+            MessageConverter messageConverter = new MessageConverter();
+            List<MessageBean> messageBeans = messageConverter.convertToBeans(messages);
             FileWriter csvFileWriter = new FileWriter(this.messageCSVPath);
 
             StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
-            beanToCsv.write(messages);
+            beanToCsv.write(messageBeans);
+            csvFileWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("IOException. Error writing file.");
+        } catch (CsvDataTypeMismatchException e) {
+            System.out.println("Error writing file. Check your data format.");
+        } catch (CsvRequiredFieldEmptyException e) {
+            System.out.println("Error writing file. Missing required field.");
+        }
+    }
+
+    public List<Inbox> loadInboxes() {
+        try {
+            InboxConverter converter = new InboxConverter();
+            List<InboxBean> inboxBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.inboxCSVPath))).withType(InboxBean.class).build().parse();
+            List<Inbox> inboxes = converter.convertFromBeans(inboxBeans);
+            return inboxes;
+
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            return new ArrayList<>();
+        }
+
+    }
+
+    public void saveInboxes(List<Inbox> inboxes) {
+        try {
+            InboxConverter converter = new InboxConverter();
+            List<InboxBean> inboxBeans = converter.convertToBeans(inboxes);
+
+            FileWriter csvFileWriter = new FileWriter(this.inboxCSVPath);
+
+            StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(csvFileWriter).build();
+            beanToCsv.write(inboxBeans);
             csvFileWriter.close();
 
         } catch (IOException e) {
