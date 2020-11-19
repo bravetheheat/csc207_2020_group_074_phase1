@@ -71,7 +71,7 @@ public class MessageController {
         // Search all users
         for (String receiver : usersManager.getAllUsers()) {
             // check if he is an organizer and if he is the sender
-            if (!receiver.equals(sender) && !usersManager.fetchRole(receiver).equals("Organizer")) {
+            if (!receiver.equals(sender) &&!usersManager.fetchRole(receiver).equals("Organizer")) {
                 receivers.add(receiver);
             }
         }
