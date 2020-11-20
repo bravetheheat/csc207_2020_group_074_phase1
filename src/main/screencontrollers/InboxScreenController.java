@@ -28,6 +28,9 @@ public class InboxScreenController extends ScreenController {
         this.inboxController = new InboxController(programController);
     }
 
+    /**
+     * Call the presenter to print out the welcome message, prompt and collect user input
+     */
     public void start() {
         this.presenter.welcomeMessage();
         this.optionsPrompt();
