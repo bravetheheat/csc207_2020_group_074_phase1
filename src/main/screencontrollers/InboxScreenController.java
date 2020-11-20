@@ -23,6 +23,10 @@ public class InboxScreenController extends ScreenController {
     List<String> messageList;
     List<String> messageIndexes;
 
+    /**
+     * Base constructor for InboxScreenController
+     * @param programController A ProgramController instance
+     */
     public InboxScreenController(ProgramController programController) {
         super(programController);
         this.inboxController = new InboxController(programController);
