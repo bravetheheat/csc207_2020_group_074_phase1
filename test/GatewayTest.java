@@ -28,7 +28,5 @@ public class GatewayTest {
 
         this.gateway.saveRooms(rooms);
 
-
-
     }
 }

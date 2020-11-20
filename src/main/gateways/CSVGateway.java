@@ -140,6 +140,7 @@ public class CSVGateway implements Gateway {
         try {
             MessageConverter messageConverter = new MessageConverter();
             List<MessageBean> messageBeans = new CsvToBeanBuilder(new BufferedReader(new FileReader(this.messageCSVPath))).withType(MessageBean.class).build().parse();
+
             List<Message> messages = messageConverter.convertFromBeans(messageBeans);
             return messages;
 
