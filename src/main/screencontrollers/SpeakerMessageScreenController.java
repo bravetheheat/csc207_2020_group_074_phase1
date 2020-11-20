@@ -42,7 +42,7 @@ public class SpeakerMessageScreenController extends ScreenController{
      * the main mart of the screen controller
      */
     public void mainPart(){
-        this.speakerMessageScreen.promt();
+        this.speakerMessageScreen.prompt();
         String choice = this.scanner.nextLine();
         switch (choice) {
             case "0":

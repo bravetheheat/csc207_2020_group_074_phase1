@@ -158,6 +158,10 @@ public class EventSignUpScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Control the presenter to print out the list of events that the logged in user has
+     * signed up for
+     */
     public void getUserEvents(){
         String userId = authController.fetchLoggedInUser();
         if (this.userHaveEvent(userId)){
