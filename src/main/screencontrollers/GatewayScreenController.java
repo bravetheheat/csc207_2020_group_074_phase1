@@ -16,6 +16,11 @@ public class GatewayScreenController extends ScreenController {
 
     private final GatewayScreen presenter = new GatewayScreen();
 
+    /**
+     * A base constructor for GatewayScreenController
+     *
+     * @param programController A ProgramController instance
+     */
     public GatewayScreenController(ProgramController programController) {
         super(programController);
     }
