@@ -4,6 +4,7 @@ import main.entities.Room;
 import main.gateways.beans.RoomBean;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.Map;
  * @author David Zhao
  */
 public class RoomConverter implements Converter<RoomBean, Room>{
+
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     public List<Room> convertFromBeans(List<RoomBean> roomBeans) {
         Map<String, Room> rooms = new HashMap<>();
@@ -29,7 +32,9 @@ public class RoomConverter implements Converter<RoomBean, Room>{
                 rooms.put(currentRoom.getId(), currentRoom);
             }
 
-            currentRoom.addToSchedule(roomBean.getEventTime(), roomBean.getEventId());
+            LocalDateTime eventTime = LocalDateTime.parse(roomBean.getEventTime(), this.dateTimeFormatter);
+
+            currentRoom.addToSchedule(eventTime, roomBean.getEventId());
 
         }
         List<Room> roomList = new ArrayList<>();
@@ -47,7 +52,7 @@ public class RoomConverter implements Converter<RoomBean, Room>{
                     roomBean.setCapacity(room.getCapacity());
                     roomBean.setId(room.getId());
                     roomBean.setRoomNum(room.getRoomNum());
-                    roomBean.setEventTime(entry.getKey());
+                    roomBean.setEventTime(entry.getKey().format(dateTimeFormatter));
                     roomBean.setEventId(entry.getValue());
                     roomBeanList.add(roomBean);
                 }
