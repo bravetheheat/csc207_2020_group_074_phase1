@@ -111,16 +111,21 @@ public class EventSignUpScreenController extends ScreenController {
      * @param userId of the User.
      */
     public void getSignUpInfo(String userId){
-        String info = eventController.getEventsInfo();
-        this.presenter.promptSignupEvents(info);
-        String eventIndex = this.scanner.nextLine();
-        int index = Integer.parseInt(eventIndex);
-        String eventId = eventController.getEventId(index-1);
-        if (eventController.signupEvent(eventId, userId)) {
-            this.presenter.printSuccessMessage();
-        } else {
-            this.presenter.printFailMessage();
-        }
+        try {
+            String info = eventController.getEventsInfo();
+            this.presenter.promptSignupEvents(info);
+            String eventIndex = this.scanner.nextLine();
+            int index = Integer.parseInt(eventIndex);
+            String eventId = eventController.getEventId(index - 1);
+            if (eventController.signupEvent(eventId, userId)) {
+                this.presenter.printSuccessMessage();
+            } else {
+                this.presenter.printFailMessage();
+            }
+        }catch(NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
+            presenter.printNoEventMessage();
+            getSignUpInfo(userId);
+            }
     }
 
     /**
@@ -146,15 +151,20 @@ public class EventSignUpScreenController extends ScreenController {
      * @param userId of the User.
      */
     public void getCancelInfo(String userId){
-        String info = eventController.getUserEvents(userId);
-        this.presenter.promptCancelEvents(info);
-        String eventIndex = this.scanner.nextLine();
-        int index = Integer.parseInt(eventIndex);
-        String eventId = eventController.getEventId(index-1);
-        if (eventController.cancelEvent(eventId, userId)) {
-            this.presenter.printSuccessMessage();
-        } else {
-            this.presenter.printFailMessage();
+        try{
+            String info = eventController.getUserEvents(userId);
+            this.presenter.promptCancelEvents(info);
+            String eventIndex = this.scanner.nextLine();
+            int index = Integer.parseInt(eventIndex);
+            String eventId = eventController.getEventId(index-1);
+            if (eventController.cancelEvent(eventId, userId)) {
+                this.presenter.printSuccessMessage();
+            } else {
+                this.presenter.printFailMessage();
+            }
+        }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
+            presenter.printNoEventMessage();
+            this.getCancelInfo(userId);
         }
     }
 

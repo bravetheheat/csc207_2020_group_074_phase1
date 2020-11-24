@@ -40,9 +40,9 @@ public class EventsManager {
         for (String id : schedule.keySet()) {
             //if time conflict
             Event e = schedule.get(id);
-            if ((e.getRoomID().equals(newEvent.getRoomID())) && (e.getTime() == newEvent.getTime())) {
+            if ((e.getRoomID().equals(newEvent.getRoomID())) && (e.getTime().compareTo(newEvent.getTime())==0)) {
                 return false;
-            } else if ((e.getTime() == newEvent.getTime()) && (e.getSpeakerID().equals(newEvent.getSpeakerID()))) {
+            } else if ((e.getTime().compareTo(newEvent.getTime())==0) && (e.getSpeakerID().equals(newEvent.getSpeakerID()))) {
                 return false;
             }
         }
