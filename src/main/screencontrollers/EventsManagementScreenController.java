@@ -60,28 +60,23 @@ public class EventsManagementScreenController extends ScreenController {
                 manageEvent();
                 break;
             case "2":
-                if (createEvent()) presenter.printVerification();
-                else presenter.printInvalidInput();
+                if (createEvent()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "3":
-                if (removeEvent()) presenter.printVerification();
-                else presenter.printInvalidInput();
+                if (removeEvent()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "4":
-                if (modifyRoom()) presenter.printVerification();
-                else presenter.printInvalidInput();
+                if (modifyRoom()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "5":
-                if (modifyTime()) presenter.printVerification();
-                else presenter.printInvalidInput();
+                if (modifyTime()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "6":
-                if (modifySpeaker()) presenter.printVerification();
-                else presenter.printInvalidInput();
+                if (modifySpeaker()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "7":
