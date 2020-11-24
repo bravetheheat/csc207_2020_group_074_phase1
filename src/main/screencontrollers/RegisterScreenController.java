@@ -19,6 +19,10 @@ public class RegisterScreenController extends ScreenController {
         this.authController = programController.getAuthController();
     }
 
+    /**
+     * Call the presenter to print the screen name and text messages that the users would see during their
+     * registration
+     */
     public void start() {
         this.presenter.printScreenName();
         this.registration();

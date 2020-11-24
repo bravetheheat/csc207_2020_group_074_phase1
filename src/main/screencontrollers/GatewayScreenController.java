@@ -16,6 +16,11 @@ public class GatewayScreenController extends ScreenController {
 
     private final GatewayScreen presenter = new GatewayScreen();
 
+    /**
+     * A base constructor for GatewayScreenController
+     *
+     * @param programController A ProgramController instance
+     */
     public GatewayScreenController(ProgramController programController) {
         super(programController);
     }
@@ -86,7 +91,7 @@ public class GatewayScreenController extends ScreenController {
     private void saveRooms() {
         this.presenter.saveRooms();
         RoomManager roomManager = this.programController.getRoomManager();
-        roomManager.saveRoomsFromGateway(this.programController.getGateway());
+        roomManager.saveRoomsToGateway(this.programController.getGateway());
         this.presenter.success();
 
     }

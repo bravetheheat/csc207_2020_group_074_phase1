@@ -107,7 +107,7 @@ public class RoomManager {
      * save all rooms which inside the program to the gateway.
      * @param gateway the gateway of the program
      */
-    public void saveRoomsFromGateway(Gateway gateway) {
+    public void saveRoomsToGateway(Gateway gateway) {
         List<Room> roomList = new ArrayList<>();
         roomList.addAll(this.rooms.values());
         gateway.saveRooms(roomList);

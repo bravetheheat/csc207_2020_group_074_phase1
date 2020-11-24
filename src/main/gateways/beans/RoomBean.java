@@ -13,7 +13,7 @@ public class RoomBean implements Serializable {
     private String id;
     private int roomNum;
     private String eventId;
-    private LocalDateTime eventTime;
+    private String eventTime;
     private int capacity;
 
     public RoomBean() {
@@ -44,11 +44,11 @@ public class RoomBean implements Serializable {
         this.eventId = eventId;
     }
 
-    public LocalDateTime getEventTime() {
+    public String getEventTime() {
         return this.eventTime;
     }
 
-    public void setEventTime(LocalDateTime eventTime) {
+    public void setEventTime(String eventTime) {
         this.eventTime = eventTime;
     }
 

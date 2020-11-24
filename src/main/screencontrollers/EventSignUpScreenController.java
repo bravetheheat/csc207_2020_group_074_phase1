@@ -98,7 +98,7 @@ public class EventSignUpScreenController extends ScreenController {
                 this.getSignUpInfo(userId);
             }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
                 this.presenter.printErrorMessage();
-                this.getSignUpInfo(userId);
+                this.mainOption();
             }
         } else {
             this.presenter.printNoEventMessage();
@@ -122,10 +122,14 @@ public class EventSignUpScreenController extends ScreenController {
             } else {
                 this.presenter.printFailMessage();
             }
-        }catch(NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
+        }catch(NullPointerException e){
             presenter.printNoEventMessage();
-            getSignUpInfo(userId);
+            this.mainOption();
             }
+        catch (IllegalArgumentException | IndexOutOfBoundsException e){
+            presenter.printErrorMessage();
+            this.mainOption();
+        }
     }
 
     /**
@@ -138,7 +142,7 @@ public class EventSignUpScreenController extends ScreenController {
                 this.getCancelInfo(userId);
             }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
                 this.presenter.printErrorMessage();
-                this.getCancelInfo(userId);
+                this.mainOption();
             }
         } else {
             this.presenter.printNoEventMessage();
@@ -162,12 +166,19 @@ public class EventSignUpScreenController extends ScreenController {
             } else {
                 this.presenter.printFailMessage();
             }
-        }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
+        }catch (NullPointerException e){
             presenter.printNoEventMessage();
-            this.getCancelInfo(userId);
+            this.mainOption();
+        }catch (IllegalArgumentException | IndexOutOfBoundsException e){
+            presenter.printErrorMessage();
+            this.mainOption();
         }
     }
 
+    /**
+     * Control the presenter to print out the list of events that the logged in user has
+     * signed up for
+     */
     public void getUserEvents(){
         String userId = authController.fetchLoggedInUser();
         if (this.userHaveEvent(userId)){
