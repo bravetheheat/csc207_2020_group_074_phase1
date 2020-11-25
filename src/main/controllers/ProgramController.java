@@ -26,7 +26,7 @@ public class ProgramController {
     InboxManager inboxManager;
     RoomManager roomManager;
     MessageController messageController;
-    Gateway gateway = new SQLiteGateway();
+    Gateway gateway = new CSVGateway();
 
     public ProgramController() {
         this.usersManager = new UsersManager();
