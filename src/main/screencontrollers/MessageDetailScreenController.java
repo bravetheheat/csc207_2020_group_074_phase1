@@ -33,20 +33,15 @@ public class MessageDetailScreenController extends ScreenController {
         this.end();
     }
 
-    /**
-     * Print out the details of the message with given ID, including the text, the sender, and the time this message
-     * was sent
-     */
-    public void printDetails(String messageId) {
+
+    private void printDetails(String messageId) {
         InboxController inboxController = new InboxController(this.programController);
         String detail = inboxController.getMessageString(messageId);
         this.presenter.printDetails(detail);
     }
 
-    /**
-     * Prompt the user to enter 0 if they wish to return to their inbox screen
-     */
-    public void returnPrompt() {
+
+    private void returnPrompt() {
         this.presenter.returnPrompt();
         String input = this.scanner.nextLine();
         while (!input.equals("0")) {
@@ -54,8 +49,7 @@ public class MessageDetailScreenController extends ScreenController {
             this.presenter.returnPrompt();
             input = this.scanner.nextLine();
         }
-        //this.programController.setPreviousScreenController(this);
-        //this.programController.setCurrentScreenController(this.previousScreenController);
+        this.goToPreviousScreenController();
     }
 
 
