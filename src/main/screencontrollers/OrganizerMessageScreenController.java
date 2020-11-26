@@ -82,11 +82,11 @@ public class OrganizerMessageScreenController extends AttendeeMessageScreenContr
                 this.messageController.broadCastToAll(this.loggedInUser, next);
                 this.organizerMessageScreen.successMessage();
                 break;
-            case "attendee":
+            case "attendees":
                 this.messageController.broadCastToAttendees(this.loggedInUser, next);
                 this.organizerMessageScreen.successMessage();
                 break;
-            case "speaker":
+            case "speakers":
                 this.messageController.broadCastToSpeakers(this.loggedInUser, next);
                 this.organizerMessageScreen.successMessage();
         }
