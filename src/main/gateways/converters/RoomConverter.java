@@ -5,6 +5,7 @@ import main.gateways.beans.RoomBean;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,14 +16,14 @@ import java.util.Map;
  *
  * @author David Zhao
  */
-public class RoomConverter implements Converter<RoomBean, Room>{
+public class RoomConverter implements Converter<RoomBean, Room> {
 
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     public List<Room> convertFromBeans(List<RoomBean> roomBeans) {
         Map<String, Room> rooms = new HashMap<>();
 
-        for (RoomBean roomBean: roomBeans) {
+        for (RoomBean roomBean : roomBeans) {
             Room currentRoom = rooms.get(roomBean.getId());
             if (currentRoom == null) {
                 currentRoom = new Room();
@@ -31,8 +32,14 @@ public class RoomConverter implements Converter<RoomBean, Room>{
                 currentRoom.setRoomNum(roomBean.getRoomNum());
                 rooms.put(currentRoom.getId(), currentRoom);
             }
+            LocalDateTime eventTime;
+            try {
+                eventTime = LocalDateTime.parse(roomBean.getEventTime(), this.dateTimeFormatter);
+            } catch (DateTimeParseException e) {
+                eventTime = null;
 
-            LocalDateTime eventTime = LocalDateTime.parse(roomBean.getEventTime(), this.dateTimeFormatter);
+            }
+
 
             currentRoom.addToSchedule(eventTime, roomBean.getEventId());
 
@@ -45,8 +52,8 @@ public class RoomConverter implements Converter<RoomBean, Room>{
     public List<RoomBean> convertToBeans(List<Room> rooms) {
         List<RoomBean> roomBeanList = new ArrayList<>();
 
-        for (Room room:rooms) {
-            if (room.getSchedule().size()>0) {
+        for (Room room : rooms) {
+            if (room.getSchedule().size() > 0) {
                 for (Map.Entry<LocalDateTime, String> entry : room.getSchedule().entrySet()) {
                     RoomBean roomBean = new RoomBean();
                     roomBean.setCapacity(room.getCapacity());
@@ -57,8 +64,7 @@ public class RoomConverter implements Converter<RoomBean, Room>{
                     roomBeanList.add(roomBean);
                 }
 
-            }
-            else {
+            } else {
                 RoomBean roomBean = new RoomBean();
                 roomBean.setCapacity(room.getCapacity());
                 roomBean.setId(room.getId());
