@@ -64,8 +64,6 @@ public class SpeakerMessageScreenController extends ScreenController{
                 this.mainPart();
                 return;
         }
-
-        speakerMessageScreen.willBeReturned();
         this.end();
     }
 
