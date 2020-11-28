@@ -7,7 +7,9 @@ import java.util.UUID;
 /**
  * A class that represents an event at the conference.
  *
- * @author Yile Xie
+ * @author Yile Xie, Zewen Ma, Haoze Huang
+ * @version 1.0
+ * @since 2020-11-27
  */
 
 public class Event {
@@ -18,6 +20,7 @@ public class Event {
     private String roomID;
     private String speakerID;
     private ArrayList<String> attendeesID;
+    private ArrayList<String> speakersID;
 
     /**
      * No-arg constructor for deserialization
@@ -27,6 +30,7 @@ public class Event {
     }
 
     /**
+     * Single speaker event constructor
      * A title, time, room number, and the ID of the speaker are required to
      * create an instance of Event.
      *
@@ -41,6 +45,41 @@ public class Event {
         this.time = time;
         this.roomID = roomID;
         this.speakerID = speakerID;
+        this.attendeesID = new ArrayList<>();
+    }
+
+    /**
+     * No speaker event constructor.
+     * A title, time, and room number are required to create an instance of Event that has no speakers.
+     *
+     * @param title    of the Event
+     * @param time     of the Event
+     * @param roomID   of the Event
+     */
+    public Event(String title, LocalDateTime time, String roomID){
+        this.id = UUID.randomUUID().toString();
+        this.title = title;
+        this.time = time;
+        this.roomID = roomID;
+        this.attendeesID = new ArrayList<>();
+    }
+
+    /**
+     * Multiple speakers event constructor.
+     * A title, time, room number, and a list of speaker IDs are required to create an instance of Event
+     * with multiple speakers.
+     *
+     * @param title      of the Event
+     * @param time       of the Event
+     * @param roomID     of the Event
+     * @param speakersID of the Event
+     */
+    public Event(String title, LocalDateTime time, String roomID, ArrayList<String> speakersID){
+        this.id = UUID.randomUUID().toString();
+        this.title = title;
+        this.time = time;
+        this.roomID = roomID;
+        this.speakersID = speakersID;
         this.attendeesID = new ArrayList<>();
     }
 
