@@ -24,6 +24,7 @@ public class Event {
     private String type;
     private ArrayList<String> suggestedRooms;
     private int duration;
+    private int capacity;
 
     /**
      * No-arg constructor for deserialization
@@ -34,14 +35,16 @@ public class Event {
 
     /**
      * No speaker event constructor.
-     * A title, time, and room number are required to create an instance of Event that has no speakers.
+     * A title, time, room number, duration, and capacity
+     * are required to create an instance of Event that has no speakers.
      *
      * @param title    of the Event
      * @param time     of the Event
      * @param roomID   of the Event
      * @param duration of the Event (in minute)
+     * @param capacity of the Event
      */
-    public Event(String title, LocalDateTime time, String roomID, int duration){
+    public Event(String title, LocalDateTime time, String roomID, int duration, int capacity){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
@@ -50,20 +53,22 @@ public class Event {
         this.attendeesID = new ArrayList<>();
         this.suggestedRooms = new ArrayList<>();
         this.duration = duration;
+        this.capacity = capacity;
     }
 
     /**
      * Multiple and Single speakers event constructor.
-     * A title, time, room number, and a list of speaker IDs are required to create an instance of Event
-     * with multiple speakers.
+     * A title, time, room number, duration, and capacity
+     * are required to create an instance of Event with multiple speakers.
      *
      * @param title      of the Event
      * @param time       of the Event
      * @param roomID     of the Event
      * @param type       of the Event
      * @param duration   of the Event (in minute)
+     * @param capacity of the Event
      */
-    public Event(String title, LocalDateTime time, String roomID, String type, int duration){
+    public Event(String title, LocalDateTime time, String roomID, String type, int duration, int capacity){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
@@ -73,6 +78,7 @@ public class Event {
         this.suggestedRooms = new ArrayList<>();
         this.type = type;
         this.duration = duration;
+        this.capacity = capacity;
     }
 
     /**
@@ -227,6 +233,24 @@ public class Event {
      */
     public int getDuration(){
         return this.duration;
+    }
+
+    /**
+     * Get the capacity of the event
+     *
+     * @return the capacity of the event
+     */
+    public int getCapacity() {
+        return capacity;
+    }
+
+    /**
+     * Change the capacity of the event
+     *
+     * @param capacity of the event
+     */
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     /**
