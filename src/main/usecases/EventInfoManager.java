@@ -85,7 +85,7 @@ public class EventInfoManager {
     public boolean removeSpeaker(String removeSpeakerId) {
         String eventType = event.getType();
         // For Single Speaker Event and Multi Speaker Event
-        if (eventType.equals("SingleSpeakerEvent") | eventType.equals("MultiSpeakerEvent")){
+        if (eventType.equals("SingleSpeakerEvent") || eventType.equals("MultiSpeakerEvent")){
             if (event.getSpeakers() != null && event.getSpeakers().contains(removeSpeakerId)) {
                 event.removeSpeaker(removeSpeakerId);
                 return true;
@@ -161,6 +161,16 @@ public class EventInfoManager {
         }
         event.setTime(newTime);
         event.setRoomID(newRoomId);
+        return true;
+    }
+
+
+    public boolean checkConflictSpeaker(Event e1, Event e2){
+        for (String speaker: e1.getSpeakers()){
+            if (e2.getSpeakers().contains(speaker)){
+                return false;
+            }
+        }
         return true;
     }
 
