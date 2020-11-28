@@ -8,7 +8,7 @@ import java.util.UUID;
  * A class that represents an event at the conference.
  *
  * @author Yile Xie, Zewen Ma, Haoze Huang
- * @version 1.0
+ * @version 2.0
  * @since 2020-11-27
  */
 
@@ -31,6 +31,23 @@ public class Event {
     }
 
     /**
+     * No speaker event constructor.
+     * A title, time, and room number are required to create an instance of Event that has no speakers.
+     *
+     * @param title    of the Event
+     * @param time     of the Event
+     * @param roomID   of the Event
+     */
+    public Event(String title, LocalDateTime time, String roomID){
+        this.id = UUID.randomUUID().toString();
+        this.title = title;
+        this.time = time;
+        this.roomID = roomID;
+        this.type = "NoSpeakerEvent";
+        this.attendeesID = new ArrayList<>();
+    }
+
+    /**
      * Single speaker event constructor
      * A title, time, room number, and the ID of the speaker are required to
      * create an instance of Event.
@@ -46,22 +63,7 @@ public class Event {
         this.time = time;
         this.roomID = roomID;
         this.speakerID = speakerID;
-        this.attendeesID = new ArrayList<>();
-    }
-
-    /**
-     * No speaker event constructor.
-     * A title, time, and room number are required to create an instance of Event that has no speakers.
-     *
-     * @param title    of the Event
-     * @param time     of the Event
-     * @param roomID   of the Event
-     */
-    public Event(String title, LocalDateTime time, String roomID){
-        this.id = UUID.randomUUID().toString();
-        this.title = title;
-        this.time = time;
-        this.roomID = roomID;
+        this.type = "SingleSpeakerEvent";
         this.attendeesID = new ArrayList<>();
     }
 
@@ -81,6 +83,7 @@ public class Event {
         this.time = time;
         this.roomID = roomID;
         this.speakersID = speakersID;
+        this.type = "MultiSpeakerEvent";
         this.attendeesID = new ArrayList<>();
     }
 
@@ -203,15 +206,25 @@ public class Event {
     }
 
     /**
-     * Get the list of IDs of the speakers for the multi-speaker event
-     * @return speakersID
+     * Get type of the event
+     *
+     * @return the type of the event
      */
-    public ArrayList<String> getSpeakerList(){
+    public String getType(){
+        return this.type;
+    }
+
+    /**
+     * Get a list of speakers in the event
+     * @return an array list of speakerID
+     */
+    public ArrayList<String> getSpeakers(){
         return this.speakersID;
     }
 
     /**
      * Add a speaker to the speaker list.
+     *
      * @param speakerID of the speaker
      */
     public void addSpeaker(String speakerID){
@@ -220,10 +233,10 @@ public class Event {
 
     /**
      * Remove a speaker from the speaker list.
+     *
      * @param speakerID of the speaker
      */
     public void removeSpeaker(String speakerID){
         this.speakersID.remove(speakerID);
     }
-
 }
