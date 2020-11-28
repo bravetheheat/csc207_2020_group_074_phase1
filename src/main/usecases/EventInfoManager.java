@@ -4,6 +4,7 @@ import main.entities.Event;
 import main.entities.Room;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -106,11 +107,11 @@ public class EventInfoManager {
         boolean notFull = false;
         String roomId = event.getRoomID();
         int eventSize = event.getAttendeesID().size();
-        for (int n : roomManager.getAllRooms()){
+        for (Room r : roomManager.getAllRoomsObject()){
             //get the room object base on event's room id
-            if (roomManager.getRoomIDGivenRoomNum(n).equals(roomId)){
+            if (r.getId().equals(roomId)){
                 //check if the room is full
-                notFull = roomManager.getRoomGivenRoomNum(n).getCapacity() >= eventSize;
+                notFull = r.getCapacity() >= eventSize;
             }
         }
         if ((!event.getAttendeesID().contains(newUserId)) && notFull) {
@@ -205,5 +206,65 @@ public class EventInfoManager {
                 + "Time: " + event.getTime() + "\n"
                 + "Speaker: " + speakerName + "\n"
                 + "Room: Room #" + roomNum + "\n";
+    }
+
+    /**
+     * Get suggested rooms for an event based on the requirements
+     *
+     * @param category arraylist potentially included ["Tech", "Table", "Stage"]
+     * @return verification of the suggested rooms are added into event
+     */
+    public boolean getSuggestedRooms(ArrayList<String> category){
+        if (category.size() >=4){
+            return false;
+        }
+        if (category.contains("Tech") && category.contains("Table") && category.contains("Stage")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getHasTech() && room.getIsTable() && room.getHasStage()){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if (category.contains("Tech") && category.contains("Table")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getHasTech() && room.getIsTable()){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if (category.contains("Table") && category.contains("Stage")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getIsTable() && room.getHasStage()){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if(category.contains("Tech") && category.contains("Stage")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getHasTech() && room.getHasStage()){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if(category.contains("Tech")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getHasTech() ){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if(category.contains("Table")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getIsTable() ){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if(category.contains("Stage")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getHasStage()){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else{
+            for (Room room : roomManager.getAllRoomsObject()){
+                event.addSuggestedRooms(room.getId());
+            }
+        }
+        return true;
     }
 }
