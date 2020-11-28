@@ -51,46 +51,24 @@ public class Event {
     }
 
     /**
-     * Single speaker event constructor
-     * A title, time, room number, and the ID of the speaker are required to
-     * create an instance of Event.
-     *
-     * @param title     of the Event
-     * @param time      of the Event (starting time)
-     * @param roomID    in which this Event takes place
-     * @param speakerID of the speaker that speaks at this Event
-     * @param duration  of the Event (in minute)
-     */
-    public Event(String title, LocalDateTime time, String roomID, String speakerID, int duration) {
-        this.id = UUID.randomUUID().toString();
-        this.title = title;
-        this.time = time;
-        this.roomID = roomID;
-        this.speakerID = speakerID;
-        this.type = "SingleSpeakerEvent";
-        this.attendeesID = new ArrayList<>();
-        this.duration = duration;
-    }
-
-    /**
-     * Multiple speakers event constructor.
+     * Multiple and Single speakers event constructor.
      * A title, time, room number, and a list of speaker IDs are required to create an instance of Event
      * with multiple speakers.
      *
      * @param title      of the Event
      * @param time       of the Event
      * @param roomID     of the Event
-     * @param speakersID of the Event
+     * @param type       of the Event
      * @param duration   of the Event (in minute)
      */
-    public Event(String title, LocalDateTime time, String roomID, ArrayList<String> speakersID, int duration){
+    public Event(String title, LocalDateTime time, String roomID, String type, int duration){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
         this.roomID = roomID;
-        this.speakersID = speakersID;
-        this.type = "MultiSpeakerEvent";
+        this.speakersID = new ArrayList<>();
         this.attendeesID = new ArrayList<>();
+        this.type = type;
         this.duration = duration;
     }
 
@@ -204,7 +182,8 @@ public class Event {
     }
 
     /**
-     * Change the ID of speaker for this event.
+     * Change the ID of speaker for this event. (We are not going to use this method in Phase 2) See "getSpeakers"
+     * method
      *
      * @param speakerID to be changed to
      */
@@ -213,7 +192,7 @@ public class Event {
     }
 
     /**
-     * Get type of the event
+     * Get type of the event (We are not going to use this method in Phase 2) See "addSpeaker" method
      *
      * @return the type of the event
      */
@@ -223,6 +202,7 @@ public class Event {
 
     /**
      * Get a list of speakers in the event
+     *
      * @return an array list of speakerID
      */
     public ArrayList<String> getSpeakers(){
@@ -249,6 +229,7 @@ public class Event {
 
     /**
      * Set(Change) the duration of the event(in minute)
+     *
      * @param duration of the event
      */
     public void setDuration(int duration){
@@ -257,6 +238,7 @@ public class Event {
 
     /**
      * Get the duration of the event
+     *
      * @return the duration of the event
      */
     public int getDuration(){
