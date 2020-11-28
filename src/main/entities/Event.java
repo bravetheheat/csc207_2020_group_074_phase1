@@ -175,25 +175,6 @@ public class Event {
     }
 
     /**
-     * Get the ID of the speaker for this event.
-     *
-     * @return speakerID
-     */
-    public String getSpeakerID() {
-        return speakerID;
-    }
-
-    /**
-     * Change the ID of speaker for this event. (We are not going to use this method in Phase 2) See "getSpeakers"
-     * method
-     *
-     * @param speakerID to be changed to
-     */
-    public void setSpeakerID(String speakerID) {
-        this.speakerID = speakerID;
-    }
-
-    /**
      * Get type of the event (We are not going to use this method in Phase 2) See "addSpeaker" method
      *
      * @return the type of the event
