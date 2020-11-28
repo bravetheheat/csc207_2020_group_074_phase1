@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
  * The EventBuilder get build event giving necessary info.
  *
  * @author Haoze Huang
- * @version 1.0
+ * @version 2.0
  * @since 2020-11-10
  */
 public class EventBuilder {
     private String title;
     private LocalDateTime time;
     private String roomID;
-    private String speakerID;
+    private int duration;
 
     /**
      * Set title of event
@@ -46,20 +46,32 @@ public class EventBuilder {
     }
 
     /**
-     * Set speaker of event
+     * Set duration of event
      *
-     * @param speakerID of event
+     * @param duration of event
      */
-    public void setSpeaker(String speakerID) {
-        this.speakerID = speakerID;
-    }
+    public void setDuration(int duration){this.duration = duration;}
 
     /**
-     * Generate new event
+     * Generate new default event
      *
      * @return Event
      */
-    public Event toEvent() {
-        return new Event(title, time, roomID, speakerID);
+    public Event toDefaultEvent() {
+        return new Event(title, time, roomID, duration);
     }
+
+    /**
+     * Generate new various types of event
+     *
+     * @return Event
+     */
+    public Event toOneSpeakerEvent(){
+        return new Event(title, time, roomID, "One", duration);
+    }
+
+    public Event toMultiSpeakerEvent(){
+        return new Event(title, time, roomID, "Multi", duration);
+    }
+
 }
