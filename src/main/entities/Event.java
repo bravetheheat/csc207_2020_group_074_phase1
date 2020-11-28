@@ -21,7 +21,7 @@ public class Event {
     private String speakerID;
     private ArrayList<String> attendeesID;
     private ArrayList<String> speakersID;
-    private String type;
+    private String type; // NoSpeakerEvent; SingleSpeakerEvent; MultiSpeakerEvent
     private int duration;
 
     /**
@@ -170,25 +170,6 @@ public class Event {
      */
     public void setRoomID(String roomID) {
         this.roomID = roomID;
-    }
-
-    /**
-     * Get the ID of the speaker for this event.
-     *
-     * @return speakerID
-     */
-    public String getSpeakerID() {
-        return speakerID;
-    }
-
-    /**
-     * Change the ID of speaker for this event. (We are not going to use this method in Phase 2) See "getSpeakers"
-     * method
-     *
-     * @param speakerID to be changed to
-     */
-    public void setSpeakerID(String speakerID) {
-        this.speakerID = speakerID;
     }
 
     /**
