@@ -4,6 +4,7 @@ import main.entities.Event;
 import main.entities.Room;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -54,14 +55,25 @@ public class EventInfoManager {
      * @return verification of success addition
      */
     public boolean addSpeaker(String newSpeakerId) {
-        //for one speaker event
-        if (event.getSpeakerID() == null) {
-            event.setSpeakerID(newSpeakerId);
-            return true;
+        String eventType = event.getType();
+        // For Single Speaker Event
+        if (eventType.equals("SingleSpeakerEvent")){
+            if (event.getSpeakers().size() == 0) {
+                event.addSpeaker(newSpeakerId);
+                return true;
+            }
+            return false;
         }
+        // For Multiple Speaker Event
+        else if (eventType.equals("MultiSpeakerEvent")){
+            if (!event.getSpeakers().contains(newSpeakerId)){
+                event.addSpeaker(newSpeakerId);
+                return true;
+            }
+            return false;
+        }
+        // For No Speaker Event
         return false;
-        //for no speaker event (in phase 2)
-        //for multiple speaker event (in phase 2)
     }
 
     /**
@@ -71,14 +83,17 @@ public class EventInfoManager {
      * @return verification of success removal
      */
     public boolean removeSpeaker(String removeSpeakerId) {
-        //for one speaker event, do not have to worry about time conflict
-        if (event.getSpeakerID() != null && event.getSpeakerID().equals(removeSpeakerId)) {
-            event.setSpeakerID(null);
-            return true;
+        String eventType = event.getType();
+        // For Single Speaker Event and Multi Speaker Event
+        if (eventType.equals("SingleSpeakerEvent") | eventType.equals("MultiSpeakerEvent")){
+            if (event.getSpeakers() != null && event.getSpeakers().contains(removeSpeakerId)) {
+                event.removeSpeaker(removeSpeakerId);
+                return true;
+            }
+            return false;
         }
+        // For No Speaker Event
         return false;
-        //for no speaker event (in phase 2)
-        //for multiple speaker event (in phase 2)
     }
 
     /**
@@ -191,5 +206,65 @@ public class EventInfoManager {
                 + "Time: " + event.getTime() + "\n"
                 + "Speaker: " + speakerName + "\n"
                 + "Room: Room #" + roomNum + "\n";
+    }
+
+    /**
+     * Get suggested rooms for an event based on the requirements
+     *
+     * @param category arraylist potentially included ["Tech", "Table", "Stage"]
+     * @return verification of the suggested rooms are added into event
+     */
+    public boolean getSuggestedRooms(ArrayList<String> category){
+        if (category.size() >=4){
+            return false;
+        }
+        if (category.contains("Tech") && category.contains("Table") && category.contains("Stage")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getHasTech() && room.getIsTable() && room.getHasStage()){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if (category.contains("Tech") && category.contains("Table")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getHasTech() && room.getIsTable()){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if (category.contains("Table") && category.contains("Stage")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getIsTable() && room.getHasStage()){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if(category.contains("Tech") && category.contains("Stage")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getHasTech() && room.getHasStage()){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if(category.contains("Tech")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getHasTech() ){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if(category.contains("Table")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getIsTable() ){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else if(category.contains("Stage")){
+            for (Room room : roomManager.getAllRoomsObject()){
+                if(room.getHasStage()){
+                    event.addSuggestedRooms(room.getId());
+                }
+            }
+        }else{
+            for (Room room : roomManager.getAllRoomsObject()){
+                event.addSuggestedRooms(room.getId());
+            }
+        }
+        return true;
     }
 }

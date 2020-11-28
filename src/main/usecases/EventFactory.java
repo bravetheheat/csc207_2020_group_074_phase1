@@ -31,7 +31,6 @@ public class EventFactory {
         eb.setTitle(title);
         eb.setRoom(roomID);
         eb.setTime(time);
-        eb.setRequirement(requirement);
         eb.setDuration(duration);
         if (type == null){
             return eb.toDefaultEvent();

@@ -17,6 +17,9 @@ public class Room {
     // the room number instead of the String
     private Map<LocalDateTime, String> schedule;
     private int capacity;
+    private boolean isTable; // the room's layout is for a round table conference or it has rows of chairs.
+    private boolean hasTech; // the room has projector or microphone to present
+    private boolean hasStage; // the room has a stage for speaker to present
 
     /**
      * No-arg constructor for deserialization
@@ -34,6 +37,9 @@ public class Room {
         this.roomNum = roomNum;
         this.schedule = new HashMap<>();
         this.capacity = 2;
+        this.isTable = false;
+        this.hasStage = false;
+        this.hasTech = false;
     }
 
     /**
@@ -107,5 +113,29 @@ public class Room {
      */
     public void removeFromSchedule(LocalDateTime time, String event) {
         schedule.remove(time);
+    }
+
+    public void setStage(){
+        this.hasStage = true;
+    }
+
+    public void setTech(){
+        this.hasTech = true;
+    }
+
+    public void setToTable(){
+        this.isTable = true;
+    }
+
+    public boolean getIsTable(){
+        return this.isTable;
+    }
+
+    public boolean getHasTech(){
+        return this.hasTech;
+    }
+
+    public boolean getHasStage(){
+        return this.hasStage;
     }
 }

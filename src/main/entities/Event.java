@@ -22,7 +22,7 @@ public class Event {
     private ArrayList<String> attendeesID;
     private ArrayList<String> speakersID;
     private String type;
-    private String requirement;
+    private ArrayList<String> suggestedRooms;
     private int duration;
 
     /**
@@ -41,14 +41,14 @@ public class Event {
      * @param roomID   of the Event
      * @param duration of the Event (in minute)
      */
-    public Event(String title, LocalDateTime time, String roomID, String requirement, int duration){
+    public Event(String title, LocalDateTime time, String roomID, int duration){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
         this.roomID = roomID;
         this.type = "NoSpeakerEvent";
         this.attendeesID = new ArrayList<>();
-        this.requirement = requirement;
+        this.suggestedRooms = new ArrayList<>();
         this.duration = duration;
     }
 
@@ -63,13 +63,14 @@ public class Event {
      * @param type       of the Event
      * @param duration   of the Event (in minute)
      */
-    public Event(String title, LocalDateTime time, String roomID, String type, String requirement, int duration){
+    public Event(String title, LocalDateTime time, String roomID, String type, int duration){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
         this.roomID = roomID;
         this.speakersID = new ArrayList<>();
         this.attendeesID = new ArrayList<>();
+        this.suggestedRooms = new ArrayList<>();
         this.type = type;
         this.duration = duration;
     }
@@ -233,7 +234,16 @@ public class Event {
      *
      * @return the requirement of event
      */
-    public String getRequirement(){
-        return this.requirement;
+    public ArrayList<String> getSuggestedRooms(){
+        return this.suggestedRooms;
     }
+
+    public void addSuggestedRooms(String roomId){
+        this.suggestedRooms.add(roomId);
+    }
+
+    public void removedSuggestedRooms(String roomId){
+        this.suggestedRooms.remove(roomId);
+    }
+
 }
