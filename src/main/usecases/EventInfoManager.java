@@ -92,11 +92,11 @@ public class EventInfoManager {
         boolean notFull = false;
         String roomId = event.getRoomID();
         int eventSize = event.getAttendeesID().size();
-        for (int n : roomManager.getAllRooms()){
+        for (Room r : roomManager.getAllRoomsObject()){
             //get the room object base on event's room id
-            if (roomManager.getRoomIDGivenRoomNum(n).equals(roomId)){
+            if (r.getId().equals(roomId)){
                 //check if the room is full
-                notFull = roomManager.getRoomGivenRoomNum(n).getCapacity() >= eventSize;
+                notFull = r.getCapacity() >= eventSize;
             }
         }
         if ((!event.getAttendeesID().contains(newUserId)) && notFull) {
