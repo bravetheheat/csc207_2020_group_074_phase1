@@ -29,11 +29,11 @@ public class Room {
     /**
      * A room number is required to create an instance of Room.
      */
-    public Room(int roomNum) {
+    public Room(int roomNum, int capacity) {
         this.id = UUID.randomUUID().toString();
         this.roomNum = roomNum;
         this.schedule = new HashMap<>();
-        this.capacity = 2;
+        this.capacity = capacity;
     }
 
     /**
@@ -99,13 +99,13 @@ public class Room {
         schedule.put(time, event);
     }
 
-    /**
+    /*/**
      * Remove a pair of time and event from the schedule.
      *
      * @param time  that this room was booked
      * @param event corresponding to the time slot
-     */
+
     public void removeFromSchedule(LocalDateTime time, String event) {
         schedule.remove(time);
-    }
+    } */
 }

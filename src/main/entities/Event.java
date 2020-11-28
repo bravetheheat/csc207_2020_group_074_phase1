@@ -18,6 +18,7 @@ public class Event {
     private String roomID;
     private String speakerID;
     private ArrayList<String> attendeesID;
+    private int capacity;
 
     /**
      * No-arg constructor for deserialization
@@ -34,14 +35,16 @@ public class Event {
      * @param time      of the event (starting time)
      * @param roomID    in which this event takes place
      * @param speakerID of the speaker that speaks at this event
+     * @param capacity of the event
      */
-    public Event(String title, LocalDateTime time, String roomID, String speakerID) {
+    public Event(String title, LocalDateTime time, String roomID, String speakerID, int capacity) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
         this.roomID = roomID;
         this.speakerID = speakerID;
         this.attendeesID = new ArrayList<>();
+        this.capacity = capacity;
     }
 
     /**
@@ -162,4 +165,21 @@ public class Event {
         this.speakerID = speakerID;
     }
 
+    /**
+     * Get the maximum number of attendees allowed for this event.
+     *
+     * @return capacity
+     */
+    public int getCapacity(){
+        return this.capacity;
+    }
+
+    /**
+     * Change the capacity of this event.
+     *
+     * @param capacity to be changed to
+     */
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
 }
