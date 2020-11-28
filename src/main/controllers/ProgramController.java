@@ -2,7 +2,6 @@ package main.controllers;
 
 import main.gateways.CSVGateway;
 import main.gateways.Gateway;
-import main.gateways.sqlgateway.SQLiteGateway;
 import main.screencontrollers.AnonymousScreenController;
 import main.screencontrollers.ScreenController;
 import main.usecases.*;
@@ -26,7 +25,7 @@ public class ProgramController {
     InboxManager inboxManager;
     RoomManager roomManager;
     MessageController messageController;
-    Gateway gateway = new SQLiteGateway();
+    Gateway gateway = new CSVGateway();
 
     public ProgramController() {
         this.usersManager = new UsersManager();
