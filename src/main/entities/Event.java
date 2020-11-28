@@ -22,6 +22,7 @@ public class Event {
     private ArrayList<String> attendeesID;
     private ArrayList<String> speakersID;
     private String type;
+    private String requirement;
     private int duration;
 
     /**
@@ -40,13 +41,14 @@ public class Event {
      * @param roomID   of the Event
      * @param duration of the Event (in minute)
      */
-    public Event(String title, LocalDateTime time, String roomID, int duration){
+    public Event(String title, LocalDateTime time, String roomID, String requirement, int duration){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
         this.roomID = roomID;
         this.type = "NoSpeakerEvent";
         this.attendeesID = new ArrayList<>();
+        this.requirement = requirement;
         this.duration = duration;
     }
 
@@ -61,7 +63,7 @@ public class Event {
      * @param type       of the Event
      * @param duration   of the Event (in minute)
      */
-    public Event(String title, LocalDateTime time, String roomID, String type, int duration){
+    public Event(String title, LocalDateTime time, String roomID, String type, String requirement, int duration){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
@@ -243,5 +245,14 @@ public class Event {
      */
     public int getDuration(){
         return this.duration;
+    }
+
+    /**
+     * Get the requirement of the event
+     *
+     * @return the requirement of event
+     */
+    public String getRequirement(){
+        return this.requirement;
     }
 }
