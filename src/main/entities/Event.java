@@ -22,6 +22,7 @@ public class Event {
     private ArrayList<String> attendeesID;
     private ArrayList<String> speakersID;
     private String type;
+    private int duration;
 
     /**
      * No-arg constructor for deserialization
@@ -37,14 +38,16 @@ public class Event {
      * @param title    of the Event
      * @param time     of the Event
      * @param roomID   of the Event
+     * @param duration of the Event (in minute)
      */
-    public Event(String title, LocalDateTime time, String roomID){
+    public Event(String title, LocalDateTime time, String roomID, int duration){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
         this.roomID = roomID;
         this.type = "NoSpeakerEvent";
         this.attendeesID = new ArrayList<>();
+        this.duration = duration;
     }
 
     /**
@@ -52,12 +55,13 @@ public class Event {
      * A title, time, room number, and the ID of the speaker are required to
      * create an instance of Event.
      *
-     * @param title     of the event
-     * @param time      of the event (starting time)
-     * @param roomID    in which this event takes place
-     * @param speakerID of the speaker that speaks at this event
+     * @param title     of the Event
+     * @param time      of the Event (starting time)
+     * @param roomID    in which this Event takes place
+     * @param speakerID of the speaker that speaks at this Event
+     * @param duration  of the Event (in minute)
      */
-    public Event(String title, LocalDateTime time, String roomID, String speakerID) {
+    public Event(String title, LocalDateTime time, String roomID, String speakerID, int duration) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
@@ -65,6 +69,7 @@ public class Event {
         this.speakerID = speakerID;
         this.type = "SingleSpeakerEvent";
         this.attendeesID = new ArrayList<>();
+        this.duration = duration;
     }
 
     /**
@@ -76,8 +81,9 @@ public class Event {
      * @param time       of the Event
      * @param roomID     of the Event
      * @param speakersID of the Event
+     * @param duration   of the Event (in minute)
      */
-    public Event(String title, LocalDateTime time, String roomID, ArrayList<String> speakersID){
+    public Event(String title, LocalDateTime time, String roomID, ArrayList<String> speakersID, int duration){
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
@@ -85,6 +91,7 @@ public class Event {
         this.speakersID = speakersID;
         this.type = "MultiSpeakerEvent";
         this.attendeesID = new ArrayList<>();
+        this.duration = duration;
     }
 
     /**
@@ -238,5 +245,21 @@ public class Event {
      */
     public void removeSpeaker(String speakerID){
         this.speakersID.remove(speakerID);
+    }
+
+    /**
+     * Set(Change) the duration of the event(in minute)
+     * @param duration of the event
+     */
+    public void setDuration(int duration){
+        this.duration = duration;
+    }
+
+    /**
+     * Get the duration of the event
+     * @return the duration of the event
+     */
+    public int getDuration(){
+        return this.duration;
     }
 }
