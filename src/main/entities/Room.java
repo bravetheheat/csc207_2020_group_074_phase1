@@ -30,13 +30,13 @@ public class Room {
 
 
     /**
-     * A room number is required to create an instance of Room.
+     * A room number and a capacity are required to create an instance of Room.
      */
-    public Room(int roomNum) {
+    public Room(int roomNum, int capacity) {
         this.id = UUID.randomUUID().toString();
         this.roomNum = roomNum;
         this.schedule = new HashMap<>();
-        this.capacity = 2;
+        this.capacity = capacity;
         this.isTable = false;
         this.hasStage = false;
         this.hasTech = false;
