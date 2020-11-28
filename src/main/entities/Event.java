@@ -21,6 +21,7 @@ public class Event {
     private String speakerID;
     private ArrayList<String> attendeesID;
     private ArrayList<String> speakersID;
+    private String type;
 
     /**
      * No-arg constructor for deserialization
@@ -199,6 +200,30 @@ public class Event {
      */
     public void setSpeakerID(String speakerID) {
         this.speakerID = speakerID;
+    }
+
+    /**
+     * Get the list of IDs of the speakers for the multi-speaker event
+     * @return speakersID
+     */
+    public ArrayList<String> getSpeakerList(){
+        return this.speakersID;
+    }
+
+    /**
+     * Add a speaker to the speaker list.
+     * @param speakerID of the speaker
+     */
+    public void addSpeaker(String speakerID){
+        this.speakersID.add(speakerID);
+    }
+
+    /**
+     * Remove a speaker from the speaker list.
+     * @param speakerID of the speaker
+     */
+    public void removeSpeaker(String speakerID){
+        this.speakersID.remove(speakerID);
     }
 
 }
