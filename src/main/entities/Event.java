@@ -18,11 +18,9 @@ public class Event {
     private String title;
     private LocalDateTime time;
     private String roomID;
-    private String speakerID;
     private ArrayList<String> attendeesID;
     private ArrayList<String> speakersID;
     private String type;
-    private ArrayList<String> suggestedRooms;
     private int duration;
     private int capacity;
 
@@ -51,7 +49,6 @@ public class Event {
         this.roomID = roomID;
         this.type = "NoSpeakerEvent";
         this.attendeesID = new ArrayList<>();
-        this.suggestedRooms = new ArrayList<>();
         this.duration = duration;
         this.capacity = capacity;
     }
@@ -75,7 +72,6 @@ public class Event {
         this.roomID = roomID;
         this.speakersID = new ArrayList<>();
         this.attendeesID = new ArrayList<>();
-        this.suggestedRooms = new ArrayList<>();
         this.type = type;
         this.duration = duration;
         this.capacity = capacity;
@@ -253,21 +249,6 @@ public class Event {
         this.capacity = capacity;
     }
 
-    /**
-     * Get the requirement of the event
-     *
-     * @return the requirement of event
-     */
-    public ArrayList<String> getSuggestedRooms(){
-        return this.suggestedRooms;
-    }
 
-    public void addSuggestedRooms(String roomId){
-        this.suggestedRooms.add(roomId);
-    }
-
-    public void removedSuggestedRooms(String roomId){
-        this.suggestedRooms.remove(roomId);
-    }
 
 }

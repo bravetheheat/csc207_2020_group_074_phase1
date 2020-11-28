@@ -7,6 +7,8 @@ import main.presenters.EventsManagementScreen;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -102,6 +104,7 @@ public class EventsManagementScreenController extends ScreenController {
             presenter.promptCreateRoom();
             String roomNum = scanner.nextLine();
             return organizerController.createRoom(Integer.parseInt(roomNum), 2);
+            //capacity is no longer 2, will modify later
         }catch (IllegalArgumentException e){
             presenter.printInvalidInput();
             return createRoom();
@@ -118,11 +121,13 @@ public class EventsManagementScreenController extends ScreenController {
     public boolean createEvent() {
         presenter.promptCreateEvent();
         String title = scanner.nextLine();
+        String type = getType();
+        int duration = getDuration();
+        int capacity = getCapacity();
         LocalDateTime time = getTime();
-        String speakerID = getSpeakerID();
-        presenter.promptRoom(organizerController.roomToString());
-        String roomNum = scanner.nextLine();
-        return organizerController.createEvent(title, time, Integer.parseInt(roomNum), speakerID);
+        String speakerID = getSpeakerID(); //Modify later
+        int roomNum = getRoomNum();
+        return organizerController.createEvent(title, time, roomNum, duration, capacity, type);
     }
 
     /**
@@ -218,10 +223,13 @@ public class EventsManagementScreenController extends ScreenController {
      * @return roomNum
      */
     public int getRoomNum() {
-        List<Integer> rooms = organizerController.getAllRooms();
+        presenter.promptRequirement();
+        String cateString = scanner.nextLine();
+        ArrayList<String> category = new ArrayList<>(Arrays.asList(cateString.split(",")));
+        List<Integer> rooms = organizerController.getEventController().getSuggestedRooms(category);
         handleEmptyList(rooms);
         try {
-            presenter.promptRoom(organizerController.roomToString());
+            presenter.promptRoom(rooms.toString());// change to suggested room to string
             String roomIndex = scanner.nextLine();
             return rooms.get(Integer.parseInt(roomIndex) - 1);
         } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
@@ -247,6 +255,46 @@ public class EventsManagementScreenController extends ScreenController {
             return getTime();
         }
     }
+
+    public int getCapacity() {
+        try {
+            presenter.promptCapacity();
+            String capacity = scanner.nextLine();
+            return Integer.parseInt(capacity);
+        } catch (IllegalArgumentException e) {
+            presenter.printInvalidInput();
+            return getCapacity();
+        }
+    }
+
+    public int getDuration() {
+        try {
+            presenter.promptDuration();
+            String duration = scanner.nextLine();
+            return Integer.parseInt(duration);
+        } catch (IllegalArgumentException e) {
+            presenter.printInvalidInput();
+            return getDuration();
+        }
+    }
+
+    public String getType() {
+        try {
+            presenter.promptType();
+            String type = scanner.nextLine();
+            if (type.equals("One")) {
+                return "OneSpeakerEvent";
+            }else if (type.equals("Multi")){
+                return "MultiSpeakerEvent";
+            }else{
+                return "NoSpeakerEvent";
+            }
+        } catch (IllegalArgumentException e) {
+            presenter.printInvalidInput();
+            return getType();
+        }
+    }
+
 
     /**
      * Handles situation where no corresponding entity to input
