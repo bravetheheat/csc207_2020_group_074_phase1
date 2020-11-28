@@ -130,8 +130,8 @@ public class UsersManager {
         StringBuilder usersInfo;
         usersInfo = new StringBuilder();
         for (User user : registeredUsers.values()) {
-            String userInfo = "User #:" + user.getId() + "\n" + "Username :" + user.getUsername()
-                    + "\n" + "Password :" + user.getPassword() + "\n";
+            String userInfo = "User #:" + user.getId() + "\n" + "Username: " + user.getUsername()
+                    + "\n" + "Password: " + user.getPassword() + "\n" + "User Type: " + user.getRole() +"\n";
             usersInfo.append(userInfo);
         }
         return usersInfo.toString();
