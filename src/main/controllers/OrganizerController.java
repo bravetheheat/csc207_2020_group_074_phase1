@@ -55,10 +55,12 @@ public class OrganizerController extends AttendeeController {
      * @param title   the title of the event
      * @param time    the time of the event
      * @param roomNum the roomNum of the event
-     * @param speaker the speaker of the event
+     * @param duration the duration of the event
+     * @param capacity the capacity of the event
+     * @param type the type of the event
      * @return true if the event be created successfully.
      */
-    public boolean createEvent(String title, LocalDateTime time, int roomNum, String speaker) {
+    public boolean createEvent(String title, LocalDateTime time, int roomNum, int duration, int capacity, String type) {
         if (roomManager.getRoomGivenRoomNum(roomNum) == null) {
             return false;
         }
@@ -66,8 +68,9 @@ public class OrganizerController extends AttendeeController {
         newEvent.setTitle(title);
         newEvent.setTime(time);
         newEvent.setRoom(roomManager.getRoomIDGivenRoomNum(roomNum));
-        newEvent.setSpeaker(speaker);
-        return eventController.createEvent(newEvent);
+        newEvent.setDuration(duration);
+        newEvent.setCapacity(capacity);
+        return eventController.createEvent(newEvent, type);
     }
 
     /**

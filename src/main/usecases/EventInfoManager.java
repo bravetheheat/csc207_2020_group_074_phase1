@@ -185,86 +185,50 @@ public class EventInfoManager {
     }
 
     /**
-     * Get event information as a string representation
+     * Get one speaker event information as a string representation
      *
      * @return the information of the event as a string representation.
      */
     public String toString() {
-        String speakerName = "";
+        String speakerName = speakersOfEvent();
         int roomNum = -1;
-        for (String user : usersManager.getAllUsers()) {
-            if (this.usersManager.fetchRole(user).equals("Speaker") && user.equals(event.getSpeakerID())) {
-                speakerName = usersManager.fetchUser(user).getUsername();
-            }
-        }
         for (Room room : roomManager.getAllRoomsObject()) {
             if (room.getId().equals(event.getRoomID())) {
                 roomNum = room.getRoomNum();
             }
         }
+
         return "Title: " + event.getTitle() + "\n"
                 + "Time: " + event.getTime() + "\n"
                 + "Speaker: " + speakerName + "\n"
-                + "Room: Room #" + roomNum + "\n";
+                + "Room: Room #" + roomNum + "\n"
+                + "Duration: " + event.getDuration() + " mins \n"
+                + "Capacity: " + event.getCapacity() + " people \n"
+                + "Type: " + event.getType() + "\n";
     }
 
-    /**
-     * Get suggested rooms for an event based on the requirements
-     *
-     * @param category arraylist potentially included ["Tech", "Table", "Stage"]
-     * @return verification of the suggested rooms are added into event
-     */
-    public boolean getSuggestedRooms(ArrayList<String> category){
-        if (category.size() >=4){
-            return false;
+    public String speakersOfEvent(){
+        String speakerName = "";
+        switch (event.getType()){
+            case "NoSpeakerEvent":
+                speakerName = "It is no speaker event";
+            case "OneSpeakerEvent":
+                for (String user : usersManager.getAllUsers()) {
+                    if (this.usersManager.fetchRole(user).equals("Speaker") && user.equals(event.getSpeakers().get(0))) {
+                        speakerName = usersManager.fetchUser(user).getUsername();
+                    }
+                }
+                break;
+            case "MultiSpeakerEvent":
+                for (String user : usersManager.getAllUsers()){
+                    if(this.usersManager.fetchRole(user).equals("Speaker") && event.getSpeakers().contains(user)){
+                        speakerName = speakerName + "; " + usersManager.fetchUser(user).getUsername();
+                    }
+                }
         }
-        if (category.contains("Tech") && category.contains("Table") && category.contains("Stage")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getHasTech() && room.getIsTable() && room.getHasStage()){
-                    event.addSuggestedRooms(room.getId());
-                }
-            }
-        }else if (category.contains("Tech") && category.contains("Table")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getHasTech() && room.getIsTable()){
-                    event.addSuggestedRooms(room.getId());
-                }
-            }
-        }else if (category.contains("Table") && category.contains("Stage")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getIsTable() && room.getHasStage()){
-                    event.addSuggestedRooms(room.getId());
-                }
-            }
-        }else if(category.contains("Tech") && category.contains("Stage")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getHasTech() && room.getHasStage()){
-                    event.addSuggestedRooms(room.getId());
-                }
-            }
-        }else if(category.contains("Tech")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getHasTech() ){
-                    event.addSuggestedRooms(room.getId());
-                }
-            }
-        }else if(category.contains("Table")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getIsTable() ){
-                    event.addSuggestedRooms(room.getId());
-                }
-            }
-        }else if(category.contains("Stage")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getHasStage()){
-                    event.addSuggestedRooms(room.getId());
-                }
-            }
-        }else{
-            for (Room room : roomManager.getAllRoomsObject()){
-                event.addSuggestedRooms(room.getId());
-            }
-        }
-        return true;
+        return speakerName;
     }
+
+
+
 }

@@ -48,6 +48,10 @@ public class EventsManagementScreen {
         System.out.println("Enter event title:");
     }
 
+    public void promptRequirement(){
+        System.out.println("Enter requirements for your event [Tech, Table, Stage]");
+        System.out.println("Enter your input by comma: ");
+    }
     /**
      * Print out list of rooms and ask user choose room number
      * @param roomList List of available rooms
@@ -66,6 +70,19 @@ public class EventsManagementScreen {
         System.out.println("Here are the available speakers");
         System.out.println(speakerList);
         System.out.println("Enter speaker index from the above list (Starting from 1):");
+    }
+
+    public void promptDuration(){
+        System.out.println("Enter duration in minutes: ");
+    }
+
+    public void promptCapacity(){
+        System.out.println("Enter capacity of the event: ");
+    }
+
+    public void promptType(){
+        System.out.println("Enter type of the event: Select from [One, Multi]");
+        System.out.println("Any other inputs will automatically create default event");
     }
 
     /**

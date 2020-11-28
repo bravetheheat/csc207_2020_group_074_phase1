@@ -31,22 +31,27 @@ public class EventsManager {
      * @param eventBuilder that to be added
      * @return check for event being added
      */
-    public boolean scheduleEvent(EventBuilder eventBuilder) {
-        Event newEvent = eventBuilder.toEvent();
+    public boolean scheduleEvent(EventBuilder eventBuilder, String type) {
+        EventFactory eventFactory= new EventFactory(eventBuilder);
+        Event newEvent = eventFactory.getEvent(type);
         //check event happening between 9A.M to 5P.M
         if ((9 > newEvent.getTime().getHour()) || (newEvent.getTime().getHour() > 17)) {
             return false;
         }
-        for (String id : schedule.keySet()) {
-            //if time conflict
-            Event e = schedule.get(id);
-            if ((e.getRoomID().equals(newEvent.getRoomID())) && (e.getTime().compareTo(newEvent.getTime())==0)) {
-                return false;
-            } else if ((e.getTime().compareTo(newEvent.getTime())==0) && (e.getSpeakerID().equals(newEvent.getSpeakerID()))) {
-                return false;
-            }
-        }
-        schedule.put(newEvent.getId(), newEvent);
+        //Need to modify
+//        for (String id : schedule.keySet()) {
+//            //if time conflict
+//            Event e = schedule.get(id);
+//            if ((e.getRoomID().equals(newEvent.getRoomID())) && (e.getTime().compareTo(newEvent.getTime())==0)) {
+//                return false;
+//            } else if ((e.getTime().compareTo(newEvent.getTime())==0) && (e.getSpeakerID().equals(newEvent.getSpeakerID()))) {
+//                return false;
+//            }
+//            // need to check time conflict
+//            // need to check room conflict
+//            // need to check any of the speaker in a speaker list is conflict
+//        }
+//        schedule.put(newEvent.getId(), newEvent);
         return true;
     }
 
