@@ -157,6 +157,9 @@ public class EventInfoManager {
             }//speaker conflict at same time
             else if ((e.getTime() == newTime) && (e.getSpeakerID().equals(event.getSpeakerID()))) {
                 return false;
+            }//check capacity of the new room
+            else if (e.getCapacity() > roomManager.getRoomGivenId(newRoomId).getCapacity()){
+                return false;
             }
         }
         event.setTime(newTime);
