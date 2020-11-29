@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * this class stores all rooms which could hold events
  *
- * @author Ruoming Ren
+ * @author Ruoming Ren, Yile Xie
  * @since 2020-11-13
  */
 public class RoomManager {
@@ -33,10 +33,23 @@ public class RoomManager {
                 return false;
             }
         }
-        Room newRoom = new Room(roomNum);
-        newRoom.setCapacity(capacity);
+        Room newRoom = new Room(roomNum,capacity);
         rooms.put(newRoom.getId(), newRoom);
         return true;
+    }
+
+    /**
+     * Return a room that corresponds to the given roomId iff the roomId exists in rooms
+     * @param roomId of the target room
+     * @return the room corresponding to the given roomId
+     */
+    public Room getRoomGivenId(String roomId){
+        if (!rooms.containsKey(roomId)){
+            return null;
+        }
+        else{
+            return rooms.get(roomId);
+        }
     }
 
     /**
@@ -67,6 +80,15 @@ public class RoomManager {
             }
         }
         return target;
+    }
+
+    /**
+     * Return the capacity of the target room provided its room number
+     * @param roomNum of the room
+     * @return the capacity of the room with given room number
+     */
+    public int getRoomCapacityGivenRoomNum(int roomNum){
+        return this.getRoomGivenRoomNum(roomNum).getCapacity();
     }
 
     /**
