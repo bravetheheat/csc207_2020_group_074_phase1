@@ -131,19 +131,19 @@ public class UsersManager {
         usersInfo = new StringBuilder();
         for (User user : registeredUsers.values()) {
             String userInfo = "User #:" + user.getId() + "\n" + "Username: " + user.getUsername()
-                    + "\n" + "Password: " + user.getPassword() + "\n" + "User Type: " + user.getRole() +"\n";
+                    + "\n" + "Password: " + user.getPassword() + "\n" + "User Type: " + user.getType() +"\n";
             usersInfo.append(userInfo);
         }
         return usersInfo.toString();
     }
 
     /**
-     * Returns the role of the user.
+     * Returns the type of the user.
      *
      * @param user String of the user in question.
      */
-    public String fetchRole(String user) {
-        return fetchUser(user).getRole();
+    public String fetchType(String user) {
+        return fetchUser(user).getType();
     }
 
     /**
@@ -152,7 +152,7 @@ public class UsersManager {
      * @param id String of the user in question
      */
     public String userToString(String id) {
-        return "Username : " + fetchUser(id).getUsername() + "(" + fetchRole(id) + ")";
+        return "Username : " + fetchUser(id).getUsername() + "(" + fetchType(id) + ")";
     }
 
     /**

@@ -1,8 +1,5 @@
 package main.usecases;
 
-import main.entities.Attendee;
-import main.entities.Organizer;
-import main.entities.Speaker;
 import main.entities.User;
 
 /**
@@ -26,13 +23,13 @@ public class UserFactory {
             return null;
         }
         if (userType.equalsIgnoreCase("Attendee")) {
-            return new Attendee(username, password);
+            return new User(username, password, "Attendee");
 
         } else if (userType.equalsIgnoreCase("Organizer")) {
-            return new Organizer(username, password);
+            return new User(username, password, "Organizer");
 
         } else if (userType.equalsIgnoreCase("Speaker")) {
-            return new Speaker(username, password);
+            return new User(username, password, "Organizer");
         }
 
         return null;

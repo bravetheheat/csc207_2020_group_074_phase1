@@ -142,7 +142,7 @@ public class OrganizerController extends AttendeeController {
         List<String> speakers = new ArrayList<>();
         for (String user : usersManager.getAllUsers()) {
             // check if he is a speaker
-            if (this.usersManager.fetchRole(user).equals("Speaker")) {
+            if (this.usersManager.fetchType(user).equals("Speaker")) {
                 speakers.add(user);
             }
         }
