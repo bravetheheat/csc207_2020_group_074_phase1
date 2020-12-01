@@ -95,14 +95,18 @@ public class EventsManager {
 
     /**
      * Get the list of events for a Speaker given id
-     *
+     * Modified by Zewen Ma on 2020.11.30
      * @param speakerId to be get events from
      * @return speakerEvents
      */
     public ArrayList<String> getSpeakerEvents(String speakerId) {
         ArrayList<String> speakerEvents = new ArrayList<>();
-        for (String i : schedule.keySet()) {
-            if (schedule.get(i).getSpeakerID().equals(speakerId)) speakerEvents.add(schedule.get(i).getId());
+        for (String eventId : schedule.keySet()) {
+            Event event = schedule.get(eventId);
+            ArrayList<String> speakers = event.getSpeakers();
+            if (speakers.contains(speakerId)){
+                speakerEvents.add(schedule.get(eventId).getId());
+            }
         }
         return speakerEvents;
     }
