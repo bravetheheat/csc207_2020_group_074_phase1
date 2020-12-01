@@ -4,7 +4,7 @@ import main.entities.Event;
 import main.entities.Room;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +12,8 @@ import java.util.Map;
 /**
  * The EventInfoManager modifies info for a particular Event given event id.
  *
- * @author Haoze Huang
- * @version 2.3
+ * @author Haoze Huang， Zewen Ma
+ * @version 3.0
  * @since 2020-10-31
  */
 
@@ -144,18 +144,18 @@ public class EventInfoManager {
      * @param newRoomId of event
      * @return check for successful update
      */
-    public boolean updateEventInfo(LocalDateTime newTime, String newRoomId) {
-        //check event happening between 9A.M to 5P.M
+    public boolean updateEventInfo(LocalDateTime newTime, String newRoomId, int duration) {
+        //check event starting and ending between 9A.M to 5P.M
         if ((9 > newTime.getHour()) || (newTime.getHour() > 17)) {
             return false;
         }
         for (String id : schedule.keySet()) {
             Event e = schedule.get(id);
             //time conflict at same room
-            if ((e.getTime() == newTime) && (e.getRoomID().equals(newRoomId))) {
+            if ((this.checkConflictTime(e, newTime, duration)) && (e.getRoomID().equals(newRoomId))) {
                 return false;
             }//speaker conflict at same time
-            else if ((e.getTime() == newTime) && (e.getSpeakerID().equals(event.getSpeakerID()))) {
+            else if ((this.checkConflictTime(e, newTime, duration))  && (this.checkConflictSpeaker(e, event))) {
                 return false;
             }//check capacity of the new room
             else if (e.getCapacity() > roomManager.getRoomGivenId(newRoomId).getCapacity()){
@@ -167,7 +167,68 @@ public class EventInfoManager {
         return true;
     }
 
+    /**
+     * Return true iff the input time and duration of an Event is conflict with the scheduled event.
+     * Zewen Ma
+     * @param event that already scheduled
+     * @param time of the newly input event
+     * @param duration of the newly input event
+     * @return true when there is a conflict
+     */
+    public boolean checkConflictTime(Event event, LocalDateTime time, int duration){
+        LocalDateTime eventTime = event.getTime();
+        int eventDuration = event.getDuration();
+        Map<String, Integer> eventEndTime = this.getEndTime(eventTime, eventDuration);
+        int eventHour = eventEndTime.get("hour"); // end hour of the event
+        int eventMin = eventEndTime.get("minute"); // end min of the event
+        Map<String, Integer> inputEndTime = this.getEndTime(time, duration);
+        int inputHour = inputEndTime.get("hour"); // end hour of the input time
+        int inputMin = inputEndTime.get("minute"); // end min of the input time
+        if (eventTime.getHour() <= time.getHour()){
+            return !((inputHour >= eventHour) && (inputMin >= eventMin));
+            // Given: the start hour of scheduled event is less than or equal to the newly event's
+            // if the end hour and min of input time is greater than or equal to the
+            // end hour and min of the scheduled event, then there is not conflict. Add a "not" to make the
+            // method return ture when there is a conflict.
+        }
+        else{
+            return !(eventTime.getHour() >= inputHour && eventTime.getMinute() >= inputMin);
+            // Given: the start hour of scheduled event is greater than the newly event's
+            // if the end hour and of the input event is less than or equal to these of the
+            // scheduled event, then there is not conlict. Add a "not" to make the method return
+            // ture when there is a conflict.
+        }
+    }
 
+
+    /**
+     * Return A map whose key are "hour" and "min", representing the hour and min of the end time of the event.
+     * Zewen Ma
+     * @param time of the event
+     * @param duration of the event
+     * @return a map representation of the end time of the event
+     */
+    public Map<String, Integer> getEndTime(LocalDateTime time, int duration){
+        Map<String, Integer> result = new LinkedHashMap<>();
+        int min = time.getMinute() + duration % 60;
+        int hour = time.getHour();
+        if (min >= 60){
+            hour = hour + 1;
+            min = min - 60;
+        }
+        result.put("hour", hour);
+        result.put("minute", min);
+        return result;
+    }
+
+
+    /**
+     * Return true iff there exists a speaker in Event e1 also is in Event e2.
+     * Zewen Ma
+     * @param e1 Event #1
+     * @param e2 Event #2
+     * @return true if they contains the same speaker(s).
+     */
     public boolean checkConflictSpeaker(Event e1, Event e2){
         for (String speaker: e1.getSpeakers()){
             if (e2.getSpeakers().contains(speaker)){
