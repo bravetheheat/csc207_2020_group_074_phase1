@@ -1,7 +1,0 @@
-"ID","PASSWORD","ROLE","USERNAME"
-"f54bcd1f-df0d-4b47-ba63-fa0dd68a10aa","12345","Speaker","speaker1@gmail.com"
-"e3a03f2e-a32a-443f-8ceb-fc8956cc8c28","12345","Speaker","speaker2@gmail.com"
-"b48f44b4-91b0-4ad7-9542-9ebdb09829a2","12345","Attendee","attendee1@gmail.com"
-"ad72b7bc-5a62-4c2d-a4ad-e86615cf1e62","12345","Attendee","attendee2@gmail.com"
-"53c066da-bf6f-40c3-a2fb-d351a5671d46","12345","Organizer","organizer@gmail.com"
-"78648649-fc51-46a3-98aa-4e1dde25a23b","12345","Organizer","organizer2@gmail.com"
