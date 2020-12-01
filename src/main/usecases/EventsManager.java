@@ -103,9 +103,11 @@ public class EventsManager {
         ArrayList<String> speakerEvents = new ArrayList<>();
         for (String eventId : schedule.keySet()) {
             Event event = schedule.get(eventId);
-            ArrayList<String> speakers = event.getSpeakers();
-            if (speakers.contains(speakerId)){
-                speakerEvents.add(schedule.get(eventId).getId());
+            if (!event.getType().equals("NoSpeakerEvent")){
+                ArrayList<String> speakers = event.getSpeakers();
+                if (speakers.contains(speakerId)){
+                    speakerEvents.add(schedule.get(eventId).getId());
+                }
             }
         }
         return speakerEvents;
