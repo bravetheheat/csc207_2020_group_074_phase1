@@ -142,6 +142,7 @@ public class EventInfoManager {
      *
      * @param newTime   of event
      * @param newRoomId of event
+     * @param duration of event
      * @return check for successful update
      */
     public boolean updateEventInfo(LocalDateTime newTime, String newRoomId, int duration) {
@@ -166,6 +167,7 @@ public class EventInfoManager {
         }
         event.setTime(newTime);
         event.setRoomID(newRoomId);
+        event.setDuration(duration);
         return true;
     }
 
