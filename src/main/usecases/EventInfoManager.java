@@ -167,6 +167,16 @@ public class EventInfoManager {
         return true;
     }
 
+    /**
+     * Update the capacity of the event and return true to notify the controller
+     * Pre-condition: The new capacity should be positive
+     * @param newCapacity
+     * @return true after the capacity has been updated
+     */
+    public boolean updateCapacity(int newCapacity){
+        this.event.setCapacity(newCapacity);
+        return true;
+    }
 
     public boolean checkConflictSpeaker(Event e1, Event e2){
         for (String speaker: e1.getSpeakers()){
