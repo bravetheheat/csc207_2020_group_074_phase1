@@ -146,7 +146,9 @@ public class EventInfoManager {
      */
     public boolean updateEventInfo(LocalDateTime newTime, String newRoomId, int duration) {
         //check event starting and ending between 9A.M to 5P.M
-        if ((9 > newTime.getHour()) || (newTime.getHour() > 17)) {
+        Map<String, Integer> inputTime = this.getEndTime(newTime, duration);
+        int inputTimeHour = inputTime.get("hour");
+        if ((9 > newTime.getHour()) || (inputTimeHour > 17)) {
             return false;
         }
         for (String id : schedule.keySet()) {
