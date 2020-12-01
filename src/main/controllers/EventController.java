@@ -213,12 +213,13 @@ public class EventController {
      * @param eventId of the event.
      * @param newTime of the event.
      * @param newRoomId of the event.
+     * @param duration of the event
      * @return true iff the new information of the Event is updated.
      */
-    public boolean updateEventInfo(String eventId, LocalDateTime newTime, String newRoomId){
+    public boolean updateEventInfo(String eventId, LocalDateTime newTime, String newRoomId, int duration){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule);
-        return eventinfomanager.updateEventInfo(newTime, newRoomId);
+        return eventinfomanager.updateEventInfo(newTime, newRoomId, duration);
     }
 
     /**
