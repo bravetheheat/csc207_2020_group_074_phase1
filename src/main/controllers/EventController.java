@@ -301,5 +301,10 @@ public class EventController {
         return suggestedRooms;
     }
 
+    public ArrayList<String> getEventSpeakers(String eventId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+        return eventinfomanager.getEventSpeakers(eventId);
+    }
 
 }

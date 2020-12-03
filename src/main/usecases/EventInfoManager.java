@@ -4,6 +4,7 @@ import main.entities.Event;
 import main.entities.Room;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -307,6 +308,8 @@ public class EventInfoManager {
         return speakerName;
     }
 
-
+    public ArrayList<String> getEventSpeakers(String eventId){
+        return schedule.get(eventId).getSpeakers();
+    }
 
 }
