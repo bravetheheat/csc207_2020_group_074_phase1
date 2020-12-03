@@ -173,6 +173,17 @@ public class EventInfoManager {
     }
 
     /**
+     * Update the capacity of the event and return true to notify the controller
+     * Pre-condition: The new capacity should be positive
+     * @param newCapacity
+     * @return true after the capacity has been updated
+     */
+    public boolean updateCapacity(int newCapacity){
+        this.event.setCapacity(newCapacity);
+        return true;
+    }
+
+    /**
      * Return true iff the input time and duration of an Event is conflict with the scheduled event.
      * Zewen Ma
      * @param event that already scheduled
