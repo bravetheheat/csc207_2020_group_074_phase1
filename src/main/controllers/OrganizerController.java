@@ -88,28 +88,69 @@ public class OrganizerController extends AttendeeController {
      *
      * @param event the uuid of the event
      * @param time  the new time of the event
+     * @param duration of the new event //Zewen Ma
      * @return true if the event's time have been successfully update or the new time has no difference with the
      * old time. Return false if the new time is conflict with other event and the time haven't been successfully
      * updated.
      */
-    public boolean updateTime(String event, LocalDateTime time) {
+    public boolean updateTime(String event, LocalDateTime time, int duration) {
         String roomId = eventController.getSingleEvent(event).getRoomID();
-        return eventController.updateEventInfo(event, time, roomId);
+        return eventController.updateEventInfo(event, time, roomId, duration);
+    }
+
+//    /**
+//     * change the speaker of the event
+//     *
+//     * @param event   the uuid of the event
+//     * @param speaker the new speaker of the event
+//     * @return true if the new speaker have been successfully updated or the new speaker is already inside the
+//     * old speakers' list. Return false if the time of the new speaker is not available
+//     */
+//    public boolean updateSpeaker(String event, String speaker) {
+//
+//        return eventController.removeSpeaker(event, eventController.getSingleEvent(event).getSpeakerID())
+//                && eventController.addSpeaker(event, speaker);
+//
+//    }
+
+    /**
+     * Return true iff the speaker is successfully updated
+     * @param eventId of the single speaker event
+     * @param speakerId of the speaker
+     * @return true if the update has successfully execute
+     */
+    public boolean updateSingleEventSpeaker(String eventId, String speakerId){
+        ArrayList<String> currentSpeaker = eventController.getEventSpeakers(eventId);
+        if (currentSpeaker != null){
+            String previousSpeaker = currentSpeaker.get(0);
+            eventController.removeSpeaker(eventId, previousSpeaker);
+            return eventController.addSpeaker(eventId, speakerId);
+        }
+        return eventController.addSpeaker(eventId, speakerId);
     }
 
     /**
-     * change the speaker of the event
-     *
-     * @param event   the uuid of the event
-     * @param speaker the new speaker of the event
-     * @return true if the new speaker have been successfully updated or the new speaker is already inside the
-     * old speakers' list. Return false if the time of the new speaker is not available
+     * Return true iff the speaker is successfully removed from the speaker list
+     * @param eventId of the multi speaker event
+     * @param speakerId of the speaker
+     * @return true iff the speaker is in the speaker list of the event and is removed successfully
      */
-    public boolean updateSpeaker(String event, String speaker) {
+    public boolean removeSpeakerMultiEvent(String eventId, String speakerId){
+        ArrayList<String> currentSpeaker = eventController.getEventSpeakers(eventId);
+        if (currentSpeaker != null){
+            return eventController.removeSpeaker(eventId, speakerId);
+        }
+        return false;
+    }
 
-        return eventController.removeSpeaker(event, eventController.getSingleEvent(event).getSpeakerID())
-                && eventController.addSpeaker(event, speaker);
-
+    /**
+     * Return true iff the speaker is successfully added
+     * @param eventId of the multi speaker event
+     * @param speakerId of the speaker
+     * @return true iff the speaker is not in the speaker list previously and is added successfully
+     */
+    public boolean addSpeakerMultiEvent(String eventId, String speakerId){
+        return eventController.addSpeaker(eventId, speakerId);
     }
 
     /**
