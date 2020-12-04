@@ -16,7 +16,7 @@ import java.util.List;
  * create and cancel an event; organize the speaker and room; as well as get events info
  *
  * @author Haoze Huang
- * @version 3.5
+ * @version 3.6
  * @since 2020-11-11
  */
 public class EventsManagementScreenController extends ScreenController {
@@ -77,8 +77,8 @@ public class EventsManagementScreenController extends ScreenController {
                 if (modifyTime()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
-            case "6"://will add removeSpeaker later
-                if (addSpeaker()) presenter.printVerification(); else presenter.printInvalidInput();
+            case "6":
+                if (modifySpeaker()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "7":
@@ -208,23 +208,54 @@ public class EventsManagementScreenController extends ScreenController {
 
     }
 
-    public boolean addSpeaker(){
+    public boolean modifySpeaker(){
         String eventID = getEventID();
         String type = this.organizerController.getEventController().getEventType(eventID);
         if(type.equals("OneSpeakerEvent")){
             String speakerID = getOneSpeakerID();
             return organizerController.updateSingleEventSpeaker(eventID, speakerID);
         }else if(type.equals("MultiSpeakerEvent")){
-            for(String speakerID: getMultiSpeakerID()){
-                if(!organizerController.addSpeakerMultiEvent(eventID, speakerID)){
+            try{
+                presenter.promptModifyMultiSpeaker();
+                String option = scanner.nextLine();
+                if (Integer.parseInt(option) == 1){
+                    return addMultipleSpeaker(eventID);
+                }else if (Integer.parseInt(option) == 2){
+                    return removeSpeaker(eventID);
+                }else{
                     return false;
                 }
+            }catch(IllegalArgumentException | NullPointerException e){
+                presenter.printInvalidInput();
+                return modifySpeaker();
             }
-            return true;
         }else{
             presenter.printNoSpeakerEventMessage();
             return true;
         }
+    }
+
+    public boolean removeSpeaker(String eventID){
+        try {
+            String speakerList = organizerController.getEventController().getEventSpeakersToString(eventID);
+            ArrayList<String> speakers = organizerController.getEventController().getEventSpeakers(eventID);
+            presenter.showEventSpeaker(speakerList);
+            String speakerIndex = scanner.nextLine();
+            String speakerId = speakers.get(Integer.parseInt(speakerIndex) - 1);
+            return organizerController.removeSpeakerMultiEvent(eventID, speakerId);
+        }catch (IllegalArgumentException | NullPointerException | IndexOutOfBoundsException e){
+            presenter.printInvalidInput();
+            return removeSpeaker(eventID);
+        }
+    }
+
+    public boolean addMultipleSpeaker(String eventID){
+        for(String speakerID: getMultiSpeakerID()){
+            if(!organizerController.addSpeakerMultiEvent(eventID, speakerID)){
+                return false;
+            }
+        }
+        return true;
     }
 
     public ArrayList<String> getMultiSpeakerID(){
