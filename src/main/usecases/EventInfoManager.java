@@ -269,7 +269,7 @@ public class EventInfoManager {
     }
 
     public String speakersOfEvent(){
-        String speakerName = "";
+        String speakerName = " ";
         switch (event.getType()){
             case "NoSpeakerEvent":
                 speakerName = "It is no speaker event";
@@ -281,9 +281,11 @@ public class EventInfoManager {
                 }
                 break;
             case "MultiSpeakerEvent":
+                int i = 0;
                 for (String user : usersManager.getAllUsers()){
                     if(this.usersManager.fetchRole(user).equals("Speaker") && event.getSpeakers().contains(user)){
-                        speakerName = speakerName + "; " + usersManager.fetchUser(user).getUsername();
+                        speakerName = speakerName + "\n " + i + ". " + usersManager.fetchUser(user).getUsername();
+                        i ++;
                     }
                 }
         }

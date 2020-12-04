@@ -8,7 +8,7 @@ import java.util.List;
  * organize the speaker and room; as well as a presenting list of events for users
  *
  * @author Haoze Huang
- * @version 3.4
+ * @version 3.6
  * @since 2020-11-11
  */
 public class EventsManagementScreen {
@@ -163,5 +163,16 @@ public class EventsManagementScreen {
 
     public void promptNumberOfSpeaker(List<String> speakers){
         System.out.println("How many speakers are you adding at once[1 to " + speakers.size()+ "]");
+    }
+
+    public void promptModifyMultiSpeaker(){
+        System.out.println("This is multiSpeaker Event, add or remove speaker?");
+        System.out.println("1. Add Speaker");
+        System.out.println("2. RemoveSpeaker");
+    }
+
+    public void showEventSpeaker(String speakerList){
+        System.out.println("Here are the available speakers, enter index");
+        System.out.println(speakerList);
     }
 }

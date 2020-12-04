@@ -308,6 +308,12 @@ public class EventController {
         return eventinfomanager.getEventSpeakers(eventId);
     }
 
+    public String getEventSpeakersToString(String eventId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+        return eventinfomanager.speakersOfEvent();
+    }
+
     public String getEventType(String eventId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
