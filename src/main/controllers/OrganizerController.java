@@ -1,14 +1,14 @@
 package main.controllers;
 
+import main.entities.Event;
 import main.entities.Room;
 import main.entities.User;
-import main.usecases.EventBuilder;
-import main.usecases.RoomManager;
-import main.usecases.UsersManager;
+import main.usecases.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Apart from the responsibilities listed in the UserController, the OrganizerController handles advance actions
@@ -24,6 +24,7 @@ public class OrganizerController extends AttendeeController {
 
     UsersManager usersManager;
     RoomManager roomManager;
+    EventsManager eventsManager;
 
 
     /**
@@ -35,6 +36,7 @@ public class OrganizerController extends AttendeeController {
         super(programController);
         this.usersManager = programController.getUsersManager();
         this.roomManager = programController.getRoomManager();
+        this.eventsManager = programController.getEventsManager();
     }
 
     /**
@@ -86,16 +88,18 @@ public class OrganizerController extends AttendeeController {
     /**
      * Update the time of the event
      *
-     * @param event the uuid of the event
+     * @param eventId the uuid of the event
      * @param time  the new time of the event
-     * @param duration of the new event //Zewen Ma
      * @return true if the event's time have been successfully update or the new time has no difference with the
      * old time. Return false if the new time is conflict with other event and the time haven't been successfully
      * updated.
      */
-    public boolean updateTime(String event, LocalDateTime time, int duration) {
-        String roomId = eventController.getSingleEvent(event).getRoomID();
-        return eventController.updateEventInfo(event, time, roomId, duration);
+    public boolean updateTime(String eventId, LocalDateTime time) {
+        Map<String, Event> schedule = eventsManager.getSchedule();
+        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+        String roomId = eventInfoManager.getRoomId(eventId);
+        int duration = eventInfoManager.getDuration(eventId);
+        return eventController.updateEventInfo(eventId, time, roomId, duration);
     }
 
 //    /**
@@ -156,15 +160,18 @@ public class OrganizerController extends AttendeeController {
     /**
      * update the room of the event
      *
-     * @param event   the uuid of the event
+     * @param eventId   the uuid of the event
      * @param roomNum the new room of the event
      * @return true if room of the event have been successfully update of the new room has no difference with the
      * old room. Return false if the room has been occupied at that time
      */
-    public boolean updateRoom(String event, int roomNum) {
-        LocalDateTime time = eventController.getSingleEvent(event).getTime();
-        String room = roomManager.getRoomIDGivenRoomNum(roomNum);
-        return eventController.updateEventInfo(event, time, room);
+    public boolean updateRoom(String eventId, int roomNum) {
+        Map<String, Event> schedule = eventsManager.getSchedule();
+        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+        LocalDateTime time = eventInfoManager.getTime(eventId);
+        String roomId = roomManager.getRoomIDGivenRoomNum(roomNum);
+        int duration = eventInfoManager.getDuration(eventId);
+        return eventController.updateEventInfo(eventId, time, roomId, duration);
     }
 
     /**
