@@ -32,8 +32,10 @@ public class EventsManagementScreen {
         System.out.println("4. Modify room");
         System.out.println("5. Modify time");
         System.out.println("6. Modify speaker");
-        System.out.println("7. Print out schedule");
+        System.out.println("7. Modify event capacity");
+        System.out.println("8. Print out schedule");
     }
+
 
     /**
      * Ask for user to input room number to create a specific room
@@ -43,6 +45,14 @@ public class EventsManagementScreen {
     }
 
     /**
+     * Prompt user to input the room capacity
+     */
+    public void promptRoomCapacity(){
+        System.out.println("Please enter the capacity for this room.");
+    }
+
+
+    /**
      * Ask for user to input event title when creating an event
      */
     public void promptCreateEvent(){
@@ -50,6 +60,9 @@ public class EventsManagementScreen {
         System.out.println("Enter event title:");
     }
 
+    /**
+     * Prompt user to input event requirements when creating an event
+     */
     public void promptRequirement(){
         System.out.println("Enter requirements for your event [Tech, Table, Stage]");
         System.out.println("Enter your input by comma: ");
@@ -74,14 +87,23 @@ public class EventsManagementScreen {
         System.out.println("Enter speaker index from the above list (Starting from 1):");
     }
 
+    /**
+     * Prompt user to input event duration when creating an event
+     */
     public void promptDuration(){
         System.out.println("Enter duration in minutes: ");
     }
 
+    /**
+     * Prompt user to input event capacity when creating an event
+     */
     public void promptCapacity(){
         System.out.println("Enter capacity of the event: ");
     }
 
+    /**
+     * Prompt user to input the type of event when creating an event
+     */
     public void promptType(){
         System.out.println("Enter type of the event: Select from [One, Multi]");
         System.out.println("Any other inputs will automatically create default event");
