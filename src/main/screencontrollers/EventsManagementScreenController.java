@@ -133,14 +133,6 @@ public class EventsManagementScreenController extends ScreenController {
         return organizerController.createEvent(title, time, roomNum, duration, capacity, type);
     }
 
-    /**
-     * Modify the capacity of the event
-     *
-     * @return verify if the event capacity is successfully modified
-     */
-    private boolean modifyEventCapacity() {
-        return organizerController.updateCapacity(this.getEventID(), this.getEventCapacity());
-    }
 
     /**
      * Cancel an event base on organizer input eventID.
