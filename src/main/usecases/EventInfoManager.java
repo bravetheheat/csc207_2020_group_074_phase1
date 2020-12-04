@@ -347,4 +347,8 @@ public class EventInfoManager {
     public LocalDateTime getTime(String eventId){
         return schedule.get(eventId).getTime();
     }
+
+    public String getType(){
+        return event.getType();
+    }
 }

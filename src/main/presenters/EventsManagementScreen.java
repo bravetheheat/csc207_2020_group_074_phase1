@@ -1,6 +1,8 @@
 package main.presenters;
 
 
+import java.util.List;
+
 /**
  * The EventsManagementScreen presents events information and management: create and cancel an event;
  * organize the speaker and room; as well as a presenting list of events for users
@@ -35,6 +37,7 @@ public class EventsManagementScreen {
     }
     
 
+
     /**
      * Ask for user to input room number to create a specific room
      */
@@ -48,6 +51,7 @@ public class EventsManagementScreen {
     public void promptRoomCapacity(){
         System.out.println("Please enter the capacity for this room.");
     }
+
 
     /**
      * Ask for user to input event title when creating an event
@@ -151,5 +155,13 @@ public class EventsManagementScreen {
     public void printErrorMessage(){
         System.out.println("There is no entity of this type in the program yet");
         System.out.println("Program will now back to options");
+    }
+
+    public void printNoSpeakerEventMessage(){
+        System.out.println("This is an no speaker event");
+    }
+
+    public void promptNumberOfSpeaker(List<String> speakers){
+        System.out.println("How many speakers are you adding at once[1 to " + speakers.size()+ "]");
     }
 }

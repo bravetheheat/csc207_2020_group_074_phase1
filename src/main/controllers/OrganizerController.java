@@ -121,6 +121,7 @@ public class OrganizerController extends AttendeeController {
         return eventController.updateEventInfo(eventId, time, roomId, duration, newCapacity);
     }
 
+
 //    /**
 //     * change the speaker of the event
 //     *

@@ -16,7 +16,7 @@ import java.util.List;
  * create and cancel an event; organize the speaker and room; as well as get events info
  *
  * @author Haoze Huang
- * @version 3.4
+ * @version 3.5
  * @since 2020-11-11
  */
 public class EventsManagementScreenController extends ScreenController {
@@ -77,8 +77,8 @@ public class EventsManagementScreenController extends ScreenController {
                 if (modifyTime()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
-            case "6":
-                if (modifySpeaker()) presenter.printVerification(); else presenter.printInvalidInput();
+            case "6"://will add removeSpeaker later
+                if (addSpeaker()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "7":
@@ -127,11 +127,19 @@ public class EventsManagementScreenController extends ScreenController {
         String title = scanner.nextLine();
         String type = getType();
         int duration = getDuration();
-        int capacity = getEventCapacity();
+        int capacity = getEventCapacity();;
         LocalDateTime time = getTime();
-        String speakerID = getSpeakerID(); //Modify later
         int roomNum = getRoomNum();
         return organizerController.createEvent(title, time, roomNum, duration, capacity, type);
+    }
+
+    /**
+     * Modify the capacity of the event
+     *
+     * @return verify if the event capacity is successfully modified
+     */
+    private boolean modifyEventCapacity() {
+        return organizerController.updateCapacity(this.getEventID(), this.getEventCapacity());
     }
 
     /**
@@ -164,16 +172,16 @@ public class EventsManagementScreenController extends ScreenController {
         return organizerController.updateCapacity(this.getEventID(), this.getEventCapacity());
     }
 
-    /**
-     * Change speaker of the event
-     *
-     * @return verify if the speaker is successfully modified
-     */
-    public boolean modifySpeaker() {
-        String eventID = getEventID();
-        String speakerID = getSpeakerID();
-        return organizerController.updateSpeaker(eventID, speakerID);
-    }
+//    /**
+//     * Change speaker of the event
+//     *
+//     * @return verify if the speaker is successfully modified
+//     */
+//    public boolean modifySpeaker() {
+//        String eventID = getEventID();
+//        String speakerID = getSpeakerID();
+//        return organizerController.updateSpeaker(eventID, speakerID);
+//    }
 
     /**
      * Change room of the event
@@ -208,13 +216,51 @@ public class EventsManagementScreenController extends ScreenController {
 
     }
 
+    public boolean addSpeaker(){
+        String eventID = getEventID();
+        String type = this.organizerController.getEventController().getEventType(eventID);
+        if(type.equals("OneSpeakerEvent")){
+            String speakerID = getOneSpeakerID();
+            return organizerController.updateSingleEventSpeaker(eventID, speakerID);
+        }else if(type.equals("MultiSpeakerEvent")){
+            for(String speakerID: getMultiSpeakerID()){
+                if(!organizerController.addSpeakerMultiEvent(eventID, speakerID)){
+                    return false;
+                }
+            }
+            return true;
+        }else{
+            presenter.printNoSpeakerEventMessage();
+            return true;
+        }
+    }
+
+    public ArrayList<String> getMultiSpeakerID(){
+        List<String> speakers = organizerController.getAllSpeakers();
+        handleEmptyList(speakers);
+        try {
+            presenter.promptNumberOfSpeaker(speakers);
+            ArrayList<String> newSpeakerList = new ArrayList<>();
+            String numSpeaker = scanner.nextLine();
+            for(int i=0; i <=Integer.parseInt(numSpeaker); i++){
+                presenter.promptSpeaker(organizerController.speakerToString());
+                String speakerIndex = scanner.nextLine();
+                newSpeakerList.add(speakers.get(Integer.parseInt(speakerIndex) - 1));
+            }
+            return newSpeakerList;
+        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+            presenter.printInvalidInput();
+            return getMultiSpeakerID();
+        }
+    }
+
     /**
      * Helper function to get speaker id base on input index
      * Only proceed until user input valid input
      *
-     * @return String of speakerId
+     * @return String of one speakerId
      */
-    public String getSpeakerID() {
+    public String getOneSpeakerID() {
         List<String> speakers = organizerController.getAllSpeakers();
         handleEmptyList(speakers);
         try {
@@ -223,7 +269,7 @@ public class EventsManagementScreenController extends ScreenController {
             return speakers.get(Integer.parseInt(speakerIndex) - 1);
         } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             presenter.printInvalidInput();
-            return getSpeakerID();
+            return getOneSpeakerID();
         }
 
     }
