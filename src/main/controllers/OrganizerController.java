@@ -99,7 +99,8 @@ public class OrganizerController extends AttendeeController {
         EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
         String roomId = eventInfoManager.getRoomId(eventId);
         int duration = eventInfoManager.getDuration(eventId);
-        return eventController.updateEventInfo(eventId, time, roomId, duration);
+        int capacity = eventInfoManager.getCapacity();
+        return eventController.updateEventInfo(eventId, time, roomId, duration, capacity);
     }
 
 //    /**
@@ -171,7 +172,8 @@ public class OrganizerController extends AttendeeController {
         LocalDateTime time = eventInfoManager.getTime(eventId);
         String roomId = roomManager.getRoomIDGivenRoomNum(roomNum);
         int duration = eventInfoManager.getDuration(eventId);
-        return eventController.updateEventInfo(eventId, time, roomId, duration);
+        int capacity = eventInfoManager.getCapacity();
+        return eventController.updateEventInfo(eventId, time, roomId, duration, capacity);
     }
 
     /**
