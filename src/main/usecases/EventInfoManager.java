@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * The EventInfoManager modifies info for a particular Event given event id.
  *
- * @author Haoze Huang， Zewen Ma
+ * @author Haoze Huang， Zewen Ma, Yile Xie
  * @version 3.0
  * @since 2020-10-31
  */
@@ -139,14 +139,15 @@ public class EventInfoManager {
 
 
     /**
-     * Update time and room of a particular Event iff no conflict
+     * Update time, capacity, and room of a particular Event iff no conflict
      *
      * @param newTime   of event
      * @param newRoomId of event
      * @param duration of event
+     * @param newCapacity of event
      * @return check for successful update
      */
-    public boolean updateEventInfo(LocalDateTime newTime, String newRoomId, int duration) {
+    public boolean updateEventInfo(LocalDateTime newTime, String newRoomId, int duration, int newCapacity) {
         //check event starting and ending between 9A.M to 5P.M
         Map<String, Integer> inputTime = this.getEndTime(newTime, duration);
         int inputTimeHour = inputTime.get("hour");
@@ -162,24 +163,14 @@ public class EventInfoManager {
             else if ((this.checkConflictTime(e, newTime, duration))  && (this.checkConflictSpeaker(e, event))) {
                 return false;
             }//check capacity of the new room
-            else if (e.getCapacity() > roomManager.getRoomGivenId(newRoomId).getCapacity()){
+            else if (newCapacity > roomManager.getRoomGivenId(newRoomId).getCapacity()){
                 return false;
             }
         }
         event.setTime(newTime);
         event.setRoomID(newRoomId);
         event.setDuration(duration);
-        return true;
-    }
-
-    /**
-     * Update the capacity of the event and return true to notify the controller
-     * Pre-condition: The new capacity should be positive
-     * @param newCapacity
-     * @return true after the capacity has been updated
-     */
-    public boolean updateCapacity(int newCapacity){
-        this.event.setCapacity(newCapacity);
+        event.setCapacity(newCapacity);
         return true;
     }
 
@@ -254,26 +245,6 @@ public class EventInfoManager {
         return true;
     }
 
-
-    /**
-     * Get Users for a particular Event
-     *
-     * @return usersId
-     */
-    public List<String> getUsers() {
-        return event.getAttendeesID();
-    }
-
-
-    /**
-     * Get event info
-     *
-     * @return eventInfo
-     */
-    public Event getEvent() {
-        return event;
-    }
-
     /**
      * Get one speaker event information as a string representation
      *
@@ -317,6 +288,33 @@ public class EventInfoManager {
                 }
         }
         return speakerName;
+    }
+
+    /**
+     * Get Users for a particular Event
+     *
+     * @return usersId
+     */
+    public List<String> getUsers() {
+        return event.getAttendeesID();
+    }
+
+    /**
+     * Get the capacity of a particular Event
+     *
+     * @return capacity of the event
+     */
+    public int getCapacity(){
+        return event.getCapacity();
+    }
+
+    /**
+     * Get event info
+     *
+     * @return eventInfo
+     */
+    public Event getEvent() {
+        return event;
     }
 
     public ArrayList<String> getEventSpeakers(String eventId){
