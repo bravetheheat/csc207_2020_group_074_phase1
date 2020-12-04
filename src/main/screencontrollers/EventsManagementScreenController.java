@@ -127,12 +127,11 @@ public class EventsManagementScreenController extends ScreenController {
         String title = scanner.nextLine();
         String type = getType();
         int duration = getDuration();
-        int capacity = getEventCapacity();;
+        int capacity = getEventCapacity();
         LocalDateTime time = getTime();
         int roomNum = getRoomNum();
         return organizerController.createEvent(title, time, roomNum, duration, capacity, type);
     }
-
 
     /**
      * Cancel an event base on organizer input eventID.
