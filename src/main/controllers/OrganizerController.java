@@ -103,6 +103,24 @@ public class OrganizerController extends AttendeeController {
         return eventController.updateEventInfo(eventId, time, roomId, duration, capacity);
     }
 
+    /**
+     * Update the capacity of the event
+     *
+     * @param eventId the uuid of the event
+     * @param newCapacity  the new capacity of the event
+     * @return true if the event's time have been successfully update or the new time has no difference with the
+     * old time. Return false if the new time is conflict with other event and the time haven't been successfully
+     * updated.
+     */
+    public boolean updateCapacity(String eventId, int newCapacity){
+        Map<String, Event> schedule = eventsManager.getSchedule();
+        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+        String roomId = eventInfoManager.getRoomId(eventId);
+        LocalDateTime time = eventInfoManager.getTime(eventId);
+        int duration = eventInfoManager.getDuration(eventId);
+        return eventController.updateEventInfo(eventId, time, roomId, duration, newCapacity);
+    }
+
 //    /**
 //     * change the speaker of the event
 //     *

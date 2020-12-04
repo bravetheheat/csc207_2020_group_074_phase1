@@ -30,8 +30,10 @@ public class EventsManagementScreen {
         System.out.println("4. Modify room");
         System.out.println("5. Modify time");
         System.out.println("6. Modify speaker");
-        System.out.println("7. Print out schedule");
+        System.out.println("7. Modify event capacity");
+        System.out.println("8. Print out schedule");
     }
+    
 
     /**
      * Ask for user to input room number to create a specific room
@@ -40,6 +42,12 @@ public class EventsManagementScreen {
         System.out.println("You are creating a room, please enter the room number (integer only):");
     }
 
+    /**
+     * Prompt user to input the room capacity
+     */
+    public void promptRoomCapacity(){
+        System.out.println("Please enter the capacity for this room.");
+    }
     /**
      * Ask for user to input event title when creating an event
      */

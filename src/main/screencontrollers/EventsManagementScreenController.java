@@ -82,6 +82,10 @@ public class EventsManagementScreenController extends ScreenController {
                 manageEvent();
                 break;
             case "7":
+                if (modifyEventCapacity()) presenter.printVerification(); else presenter.printInvalidInput();
+                manageEvent();
+                break;
+            case "8":
                 String info = organizerController.getEventController().getEventsInfo();
                 presenter.printSchedule(info);
                 manageEvent();
@@ -91,7 +95,6 @@ public class EventsManagementScreenController extends ScreenController {
                 manageEvent();
         }
     }
-
 
     /**
      * Create an event base on organizer input room number, capacity if fixed at 2 for phase 1
@@ -103,8 +106,9 @@ public class EventsManagementScreenController extends ScreenController {
         try{
             presenter.promptCreateRoom();
             String roomNum = scanner.nextLine();
-            return organizerController.createRoom(Integer.parseInt(roomNum), 2);
-            //capacity is no longer 2, will modify later
+            presenter.promptRoomCapacity();
+            String capacity = scanner.nextLine();
+            return organizerController.createRoom(Integer.parseInt(roomNum), Integer.parseInt(capacity));
         }catch (IllegalArgumentException e){
             presenter.printInvalidInput();
             return createRoom();
@@ -123,7 +127,7 @@ public class EventsManagementScreenController extends ScreenController {
         String title = scanner.nextLine();
         String type = getType();
         int duration = getDuration();
-        int capacity = getCapacity();
+        int capacity = getEventCapacity();
         LocalDateTime time = getTime();
         String speakerID = getSpeakerID(); //Modify later
         int roomNum = getRoomNum();
@@ -151,6 +155,14 @@ public class EventsManagementScreenController extends ScreenController {
         return organizerController.updateTime(eventID, time);
     }
 
+    /**
+     * Modify the capacity of the event
+     *
+     * @return verify if the event capacity is successfully modified
+     */
+    private boolean modifyEventCapacity() {
+        return organizerController.updateCapacity(this.getEventID(), this.getEventCapacity());
+    }
 
     /**
      * Change speaker of the event
@@ -256,17 +268,29 @@ public class EventsManagementScreenController extends ScreenController {
         }
     }
 
-    public int getCapacity() {
+    /**
+     * Helper function to get the capacity on input format
+     * Only proceed until user input valid input
+     *
+     * @return capacity of the event
+     */
+    public int getEventCapacity() {
         try {
             presenter.promptCapacity();
             String capacity = scanner.nextLine();
             return Integer.parseInt(capacity);
         } catch (IllegalArgumentException e) {
             presenter.printInvalidInput();
-            return getCapacity();
+            return getEventCapacity();
         }
     }
 
+    /**
+     * Helper function to get the duration of the event based on input format
+     * Only proceed until user input valid input
+     *
+     * @return duration of the event
+     */
     public int getDuration() {
         try {
             presenter.promptDuration();
@@ -278,6 +302,12 @@ public class EventsManagementScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Helper function to get the type of event base on input format
+     * Only proceed until user input valid input
+     *
+     * @return type of event in String
+     */
     public String getType() {
         try {
             presenter.promptType();
