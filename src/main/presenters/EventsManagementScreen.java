@@ -35,6 +35,7 @@ public class EventsManagementScreen {
         System.out.println("7. Modify event capacity");
         System.out.println("8. Print out schedule");
     }
+    
 
 
     /**
@@ -67,6 +68,7 @@ public class EventsManagementScreen {
         System.out.println("Enter requirements for your event [Tech, Table, Stage]");
         System.out.println("Enter your input by comma: ");
     }
+
     /**
      * Print out list of rooms and ask user choose room number
      * @param roomList List of available rooms

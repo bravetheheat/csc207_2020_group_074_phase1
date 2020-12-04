@@ -96,7 +96,6 @@ public class EventsManagementScreenController extends ScreenController {
         }
     }
 
-
     /**
      * Create an event base on organizer input room number, capacity if fixed at 2 for phase 1
      * Only proceed until user input valid input
@@ -110,7 +109,6 @@ public class EventsManagementScreenController extends ScreenController {
             presenter.promptRoomCapacity();
             String capacity = scanner.nextLine();
             return organizerController.createRoom(Integer.parseInt(roomNum), Integer.parseInt(capacity));
-            //capacity is no longer 2, will modify later
         }catch (IllegalArgumentException e){
             presenter.printInvalidInput();
             return createRoom();
@@ -165,6 +163,14 @@ public class EventsManagementScreenController extends ScreenController {
         return organizerController.updateTime(eventID, time);
     }
 
+    /**
+     * Modify the capacity of the event
+     *
+     * @return verify if the event capacity is successfully modified
+     */
+    private boolean modifyEventCapacity() {
+        return organizerController.updateCapacity(this.getEventID(), this.getEventCapacity());
+    }
 
 //    /**
 //     * Change speaker of the event
