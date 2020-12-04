@@ -323,4 +323,30 @@ public class EventInfoManager {
         return schedule.get(eventId).getSpeakers();
     }
 
+    /**
+     * Return the room id of given event
+     * @param eventId of the Event
+     * @return a string representation of the room id of given eventId
+     */
+    public String getRoomId(String eventId){
+        return schedule.get(eventId).getRoomID();
+    }
+
+    /**
+     * Return the duration of given event
+     * @param eventId of the Event
+     * @return an integer representation of the duration of given eventId
+     */
+    public int getDuration(String eventId){
+        return schedule.get(eventId).getDuration();
+    }
+
+    /**
+     * Return the start time of given event
+     * @param eventId of the event
+     * @return a LocalDateTime representation of the start time of given eventId
+     */
+    public LocalDateTime getTime(String eventId){
+        return schedule.get(eventId).getTime();
+    }
 }
