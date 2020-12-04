@@ -127,19 +127,10 @@ public class EventsManagementScreenController extends ScreenController {
         String title = scanner.nextLine();
         String type = getType();
         int duration = getDuration();
-        int capacity = getEventCapacity();;
+        int capacity = getEventCapacity();
         LocalDateTime time = getTime();
         int roomNum = getRoomNum();
         return organizerController.createEvent(title, time, roomNum, duration, capacity, type);
-    }
-
-    /**
-     * Modify the capacity of the event
-     *
-     * @return verify if the event capacity is successfully modified
-     */
-    private boolean modifyEventCapacity() {
-        return organizerController.updateCapacity(this.getEventID(), this.getEventCapacity());
     }
 
     /**
