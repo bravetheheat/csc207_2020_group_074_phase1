@@ -15,8 +15,38 @@ public class EventBean implements Serializable {
     private String title;
     private String time;
     private String roomID;
-    private String speakerID;
-    private String attendeeId;
+    private String speakersID;
+    private String attendeesId;
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    private String type;
+    private int duration;
+    private int capacity;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
 
     public EventBean() {
 
@@ -46,20 +76,20 @@ public class EventBean implements Serializable {
         this.roomID = roomID;
     }
 
-    public String getSpeakerID() {
-        return speakerID;
+    public String getSpeakersID() {
+        return speakersID;
     }
 
-    public void setSpeakerID(String speakerID) {
-        this.speakerID = speakerID;
+    public void setSpeakersID(String speakerID) {
+        this.speakersID = speakerID;
     }
 
-    public String getAttendeeId() {
-        return attendeeId;
+    public String getAttendeesId() {
+        return attendeesId;
     }
 
-    public void setAttendeeId(String attendeeId) {
-        this.attendeeId = attendeeId;
+    public void setAttendeesId(String attendeeId) {
+        this.attendeesId = attendeeId;
     }
 
     public String getId() {
