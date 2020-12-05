@@ -122,20 +122,6 @@ public class OrganizerController extends AttendeeController {
     }
 
 
-//    /**
-//     * change the speaker of the event
-//     *
-//     * @param event   the uuid of the event
-//     * @param speaker the new speaker of the event
-//     * @return true if the new speaker have been successfully updated or the new speaker is already inside the
-//     * old speakers' list. Return false if the time of the new speaker is not available
-//     */
-//    public boolean updateSpeaker(String event, String speaker) {
-//
-//        return eventController.removeSpeaker(event, eventController.getSingleEvent(event).getSpeakerID())
-//                && eventController.addSpeaker(event, speaker);
-//
-//    }
 
     /**
      * Return true iff the speaker is successfully updated
@@ -248,10 +234,11 @@ public class OrganizerController extends AttendeeController {
      * get all rooms in string format
      * @return a string represent all rooms inside the program
      */
-    public String roomToString() {
+    public String roomToString(List<Integer> suggestedRooms) {
         String ret = "";
         int count = 1;
-        for (Room room : roomManager.getAllRoomsObject()) {
+        for (int roomNum : suggestedRooms) {
+            Room room = roomManager.getRoomGivenRoomNum(roomNum);
             ret = ret + count + ". Room #" + room.getRoomNum() + "\n";
             count++;
         }

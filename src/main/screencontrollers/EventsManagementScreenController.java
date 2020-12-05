@@ -163,16 +163,6 @@ public class EventsManagementScreenController extends ScreenController {
         return organizerController.updateCapacity(this.getEventID(), this.getEventCapacity());
     }
 
-//    /**
-//     * Change speaker of the event
-//     *
-//     * @return verify if the speaker is successfully modified
-//     */
-//    public boolean modifySpeaker() {
-//        String eventID = getEventID();
-//        String speakerID = getSpeakerID();
-//        return organizerController.updateSpeaker(eventID, speakerID);
-//    }
 
     /**
      * Change room of the event
@@ -207,6 +197,11 @@ public class EventsManagementScreenController extends ScreenController {
 
     }
 
+    /**
+     * modify the speaker of the event base on the type
+     *
+     * @return verification if the speaker is modified
+     */
     public boolean modifySpeaker(){
         String eventID = getEventID();
         String type = this.organizerController.getEventController().getEventType(eventID);
@@ -234,6 +229,11 @@ public class EventsManagementScreenController extends ScreenController {
         }
     }
 
+    /**
+     * remove a speaker for multiple speaker event
+     * @param eventID event id
+     * @return verification of a removal
+     */
     public boolean removeSpeaker(String eventID){
         try {
             String speakerList = organizerController.getEventController().getEventSpeakersToString(eventID);
@@ -248,6 +248,11 @@ public class EventsManagementScreenController extends ScreenController {
         }
     }
 
+    /**
+     * add list of speakers to the event
+     * @param eventID event id
+     * @return verification of a addition of list of speaker
+     */
     public boolean addMultipleSpeaker(String eventID){
         for(String speakerID: getMultiSpeakerID()){
             if(!organizerController.addSpeakerMultiEvent(eventID, speakerID)){
@@ -257,6 +262,11 @@ public class EventsManagementScreenController extends ScreenController {
         return true;
     }
 
+    /**
+     * get collection of speaker Id of a multiple speaker event
+     *
+     * @return collection of speaker Id of a multiple speaker event
+     */
     public ArrayList<String> getMultiSpeakerID(){
         List<String> speakers = organizerController.getAllSpeakers();
         handleEmptyList(speakers);
@@ -309,7 +319,7 @@ public class EventsManagementScreenController extends ScreenController {
         List<Integer> rooms = organizerController.getEventController().getSuggestedRooms(category);
         handleEmptyList(rooms);
         try {
-            presenter.promptRoom(rooms.toString());// change to suggested room to string
+            presenter.promptRoom(organizerController.roomToString(rooms));
             String roomIndex = scanner.nextLine();
             return rooms.get(Integer.parseInt(roomIndex) - 1);
         } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
