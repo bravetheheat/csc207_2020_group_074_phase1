@@ -253,6 +253,13 @@ public class EventInfoManager {
     public String toString() {
         String speakerName = speakersOfEvent();
         int roomNum = -1;
+
+        for (String user : usersManager.getAllUsers()) {
+            if (this.usersManager.fetchType(user).equals("Speaker") && user.equals(event.getSpeakerID())) {
+                speakerName = usersManager.fetchUser(user).getUsername();
+            }
+        }
+
         for (Room room : roomManager.getAllRoomsObject()) {
             if (room.getId().equals(event.getRoomID())) {
                 roomNum = room.getRoomNum();

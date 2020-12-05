@@ -7,22 +7,13 @@ package main.presenters;
  */
 public class AnonymousScreen {
 
-    /**
-     * Base no-arg constructor
-     */
     public AnonymousScreen() {
     }
 
-    /**
-     * Prints a welcome message
-     */
     public void printWelcomeMessage() {
         System.out.println("Welcome to Program X!");
     }
 
-    /**
-     * Prints a list of options
-     */
     public void printOptions() {
         System.out.println("Please choose from the following screens:");
         System.out.println("0. Exit");
@@ -31,9 +22,6 @@ public class AnonymousScreen {
 
     }
 
-    /**
-     * Prints an invalid input error message
-     */
     public void printInvalidInputErrorMessage() {
         System.out.println("Sorry, your input was invalid. Please try again.");
     }

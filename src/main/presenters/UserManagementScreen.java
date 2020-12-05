@@ -7,7 +7,7 @@ package main.presenters;
  * @version 1.0
  */
 
-public class  UserManagementScreen {
+public class UserManagementScreen {
 
     /**
      * Print the screen name for event management screen
@@ -22,19 +22,18 @@ public class  UserManagementScreen {
      */
     public void promptCommand() {
         System.out.println("What would you like to modify, choose one option (number only) from below:");
-        System.out.println("1. Add User");
+        System.out.println("1. Add Speaker");
         System.out.println("2. Display user list");
         System.out.println("3. Exit the screen");
     }
 
     /**
-     * Ask user to input username, password and user type in order to add a user.
+     * Ask user to input username and password of speaker in order to add a speaker.
      */
-    public void promptCreateUser() {
-        System.out.println("You are adding a user, please enter the following information line by line:");
+    public void promptCreateSpeaker() {
+        System.out.println("You are adding a speaker, please enter the following information line by line:");
         System.out.println("Line 1 -- Enter user name: ");
         System.out.println("Line 2 -- Enter user password: ");
-        System.out.println("Line 2 -- Enter user type: ");
     }
 
     /**
@@ -57,14 +56,14 @@ public class  UserManagementScreen {
      * Print success of adding a speaker.
      */
     public void printValidAdding() {
-        System.out.println("Successfully added user!");
+        System.out.println("Successfully added speaker!");
     }
 
     /**
      * Print failure of adding a speaker.
      */
     public void printInvalidAdding() {
-        System.out.println("Fail to add user! Please try again. This failure may due to repeated username.");
+        System.out.println("Fail to add speaker! Please try again.");
     }
 
 }
