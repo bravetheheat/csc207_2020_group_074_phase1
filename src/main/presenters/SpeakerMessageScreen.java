@@ -9,7 +9,7 @@ public class SpeakerMessageScreen {
         System.out.println("Speaker Message Screen");
     }
 
-    public void promt() {
+    public void prompt() {
         System.out.println("Input 1 if you want to reply to a user");
         System.out.println("Input 2 if you want to broadcast");
         System.out.println("Input 3 if you want to read messages you received");

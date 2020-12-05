@@ -43,7 +43,7 @@ public class UserConverter implements Converter<UserBean, User>{
             userBean.setId(user.getId());
             userBean.setUsername(user.getUsername());
             userBean.setPassword(user.getPassword());
-            userBean.setRole(user.getRole());
+            userBean.setRole(user.getType());
             userBeanList.add(userBean);
         }
 
