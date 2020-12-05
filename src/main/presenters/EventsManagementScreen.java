@@ -157,20 +157,34 @@ public class EventsManagementScreen {
         System.out.println("Program will now back to options");
     }
 
+    /**
+     * Print message indicating the event has no speaker
+     */
     public void printNoSpeakerEventMessage(){
         System.out.println("This is an no speaker event");
     }
 
+    /**
+     * Print the speakers of multiple speaker event
+     * @param speakers list of speakers id
+     */
     public void promptNumberOfSpeaker(List<String> speakers){
         System.out.println("How many speakers are you adding at once[1 to " + speakers.size()+ "]");
     }
 
+    /**
+     * Print the options user may want to modify speaker in multiple speaker event
+     */
     public void promptModifyMultiSpeaker(){
         System.out.println("This is multiSpeaker Event, add or remove speaker?");
         System.out.println("1. Add Speaker");
         System.out.println("2. RemoveSpeaker");
     }
 
+    /**
+     * print a string representation of speaker in the event
+     * @param speakerList string representation of speaker in the event
+     */
     public void showEventSpeaker(String speakerList){
         System.out.println("Here are the available speakers, enter index");
         System.out.println(speakerList);

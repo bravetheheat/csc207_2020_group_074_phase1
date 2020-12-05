@@ -254,11 +254,11 @@ public class EventInfoManager {
         String speakerName = speakersOfEvent();
         int roomNum = -1;
 
-        for (String user : usersManager.getAllUsers()) {
+        /*for (String user : usersManager.getAllUsers()) {
             if (this.usersManager.fetchType(user).equals("Speaker") && user.equals(event.getSpeakerID())) {
                 speakerName = usersManager.fetchUser(user).getUsername();
             }
-        }
+        }*/
 
         for (Room room : roomManager.getAllRoomsObject()) {
             if (room.getId().equals(event.getRoomID())) {
@@ -282,7 +282,7 @@ public class EventInfoManager {
                 speakerName = "It is no speaker event";
             case "OneSpeakerEvent":
                 for (String user : usersManager.getAllUsers()) {
-                    if (this.usersManager.fetchRole(user).equals("Speaker") && user.equals(event.getSpeakers().get(0))) {
+                    if (this.usersManager.fetchType(user).equals("Speaker") && user.equals(event.getSpeakers().get(0))) {
                         speakerName = usersManager.fetchUser(user).getUsername();
                     }
                 }
@@ -290,7 +290,7 @@ public class EventInfoManager {
             case "MultiSpeakerEvent":
                 int i = 0;
                 for (String user : usersManager.getAllUsers()){
-                    if(this.usersManager.fetchRole(user).equals("Speaker") && event.getSpeakers().contains(user)){
+                    if(this.usersManager.fetchType(user).equals("Speaker") && event.getSpeakers().contains(user)){
                         speakerName = speakerName + "\n " + i + ". " + usersManager.fetchUser(user).getUsername();
                         i ++;
                     }
