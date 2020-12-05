@@ -18,11 +18,9 @@ public class Event {
     private String title;
     private LocalDateTime time;
     private String roomID;
-    private String speakerID;
-    private ArrayList<String> attendeesID;
-    private ArrayList<String> speakersID;
+    private final ArrayList<String> attendeesID;
+    private final ArrayList<String> speakersID;
     private String type;
-    private ArrayList<String> suggestedRooms;
     private int duration;
     private int capacity;
 
@@ -31,6 +29,7 @@ public class Event {
      */
     public Event() {
         this.attendeesID = new ArrayList<>();
+        this.speakersID = new ArrayList<>();
     }
 
     /**
@@ -44,14 +43,14 @@ public class Event {
      * @param duration of the Event (in minute)
      * @param capacity of the Event
      */
-    public Event(String title, LocalDateTime time, String roomID, int duration, int capacity){
+    public Event(String title, LocalDateTime time, String roomID, int duration, int capacity) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
         this.roomID = roomID;
         this.type = "NoSpeakerEvent";
         this.attendeesID = new ArrayList<>();
-        this.suggestedRooms = new ArrayList<>();
+        this.speakersID = new ArrayList<>();
         this.duration = duration;
         this.capacity = capacity;
     }
@@ -61,21 +60,20 @@ public class Event {
      * A title, time, room number, duration, and capacity
      * are required to create an instance of Event with multiple speakers.
      *
-     * @param title      of the Event
-     * @param time       of the Event
-     * @param roomID     of the Event
-     * @param type       of the Event
-     * @param duration   of the Event (in minute)
+     * @param title    of the Event
+     * @param time     of the Event
+     * @param roomID   of the Event
+     * @param type     of the Event
+     * @param duration of the Event (in minute)
      * @param capacity of the Event
      */
-    public Event(String title, LocalDateTime time, String roomID, String type, int duration, int capacity){
+    public Event(String title, LocalDateTime time, String roomID, String type, int duration, int capacity) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.time = time;
         this.roomID = roomID;
         this.speakersID = new ArrayList<>();
         this.attendeesID = new ArrayList<>();
-        this.suggestedRooms = new ArrayList<>();
         this.type = type;
         this.duration = duration;
         this.capacity = capacity;
@@ -186,8 +184,17 @@ public class Event {
      *
      * @return the type of the event
      */
-    public String getType(){
+    public String getType() {
         return this.type;
+    }
+
+    /**
+     * Sets the type of the event
+     *
+     * @param type sets type of event
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -195,7 +202,7 @@ public class Event {
      *
      * @return an array list of speakerID
      */
-    public ArrayList<String> getSpeakers(){
+    public ArrayList<String> getSpeakers() {
         return this.speakersID;
     }
 
@@ -204,7 +211,7 @@ public class Event {
      *
      * @param speakerID of the speaker
      */
-    public void addSpeaker(String speakerID){
+    public void addSpeaker(String speakerID) {
         this.speakersID.add(speakerID);
     }
 
@@ -213,17 +220,8 @@ public class Event {
      *
      * @param speakerID of the speaker
      */
-    public void removeSpeaker(String speakerID){
+    public void removeSpeaker(String speakerID) {
         this.speakersID.remove(speakerID);
-    }
-
-    /**
-     * Set(Change) the duration of the event(in minute)
-     *
-     * @param duration of the event
-     */
-    public void setDuration(int duration){
-        this.duration = duration;
     }
 
     /**
@@ -231,8 +229,17 @@ public class Event {
      *
      * @return the duration of the event
      */
-    public int getDuration(){
+    public int getDuration() {
         return this.duration;
+    }
+
+    /**
+     * Set(Change) the duration of the event(in minute)
+     *
+     * @param duration of the event
+     */
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     /**
@@ -253,21 +260,5 @@ public class Event {
         this.capacity = capacity;
     }
 
-    /**
-     * Get the requirement of the event
-     *
-     * @return the requirement of event
-     */
-    public ArrayList<String> getSuggestedRooms(){
-        return this.suggestedRooms;
-    }
-
-    public void addSuggestedRooms(String roomId){
-        this.suggestedRooms.add(roomId);
-    }
-
-    public void removedSuggestedRooms(String roomId){
-        this.suggestedRooms.remove(roomId);
-    }
 
 }

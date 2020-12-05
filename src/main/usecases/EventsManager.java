@@ -3,6 +3,7 @@ package main.usecases;
 import main.entities.Event;
 import main.gateways.Gateway;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,14 +12,15 @@ import java.util.Map;
 /**
  * The EventsManager holds a list of Events, and modify Event with its corresponding Users.
  *
- * @author Haoze Huang
- * @version 2.3
+ * @author Haoze Huang, Zewen Ma
+ * @version 2.4
  * @since 2020-10-31
  */
 
 public class EventsManager {
 
     private Map<String, Event> schedule;
+    private RoomManager roomManager;
 
     public EventsManager() {
         this.schedule = new LinkedHashMap<>();
@@ -31,25 +33,104 @@ public class EventsManager {
      * @param eventBuilder that to be added
      * @return check for event being added
      */
-    public boolean scheduleEvent(EventBuilder eventBuilder) {
-        Event newEvent = eventBuilder.toEvent();
+    public boolean scheduleEvent(EventBuilder eventBuilder, String type) {
+        EventFactory eventFactory= new EventFactory(eventBuilder);
+        Event newEvent = eventFactory.getEvent(type);
         //check event happening between 9A.M to 5P.M
-        if ((9 > newEvent.getTime().getHour()) || (newEvent.getTime().getHour() > 17)) {
+        LocalDateTime time = newEvent.getTime();
+        String newRoomId = newEvent.getRoomID();
+        int duration = newEvent.getDuration();
+        int newCapacity = newEvent.getCapacity();
+        Map<String, Integer> inputTime = this.getEndTime(time, duration);
+        int inputTimeHour = inputTime.get("hour");
+        if ((9 > time.getHour()) || (inputTimeHour > 17)) {
             return false;
         }
         for (String id : schedule.keySet()) {
-            //if time conflict
             Event e = schedule.get(id);
-            if ((e.getRoomID().equals(newEvent.getRoomID())) && (e.getTime().compareTo(newEvent.getTime())==0)) {
+            //time conflict at same room
+            if ((this.checkConflictTime(e, time, duration)) && (e.getRoomID().equals(newRoomId))) {
                 return false;
-            } else if ((e.getTime().compareTo(newEvent.getTime())==0) && (e.getSpeakerID().equals(newEvent.getSpeakerID()))) {
+            }//speaker conflict at same time
+            else if ((this.checkConflictTime(e, time, duration))  && (this.checkConflictSpeaker(e, newEvent))) {
+                return false;
+            }//check capacity of the new room
+            else if (newCapacity > roomManager.getRoomGivenId(newRoomId).getCapacity()){
                 return false;
             }
         }
-        schedule.put(newEvent.getId(), newEvent);
+        newEvent.setTime(time);
+        newEvent.setRoomID(newRoomId);
+        newEvent.setDuration(duration);
+        newEvent.setCapacity(newCapacity);
+        return true;
+        //Need to modify
+//        for (String id : schedule.keySet()) {
+//            //if time conflict
+//            Event e = schedule.get(id);
+//            if ((e.getRoomID().equals(newEvent.getRoomID())) && (e.getTime().compareTo(newEvent.getTime())==0)) {
+//                return false;
+//            } else if ((e.getTime().compareTo(newEvent.getTime())==0) && (e.getSpeakerID().equals(newEvent.getSpeakerID()))) {
+//                return false;
+//            }
+//            // need to check time conflict
+//            // need to check room conflict
+//            // need to check any of the speaker in a speaker list is conflict
+//        }
+//        schedule.put(newEvent.getId(), newEvent);
+    }
+    /**
+     * Return true iff there exists a speaker in Event e1 also is in Event e2.
+     * Zewen Ma
+     * @param e1 Event #1
+     * @param e2 Event #2
+     * @return true if they contains the same speaker(s).
+     */
+    public boolean checkConflictSpeaker(Event e1, Event e2){
+        for (String speaker: e1.getSpeakers()){
+            if (e2.getSpeakers().contains(speaker)){
+                return false;
+            }
+        }
         return true;
     }
+    public Map<String, Integer> getEndTime(LocalDateTime time, int duration){
+        Map<String, Integer> result = new LinkedHashMap<>();
+        int min = time.getMinute() + duration % 60;
+        int hour = time.getHour();
+        if (min >= 60){
+            hour = hour + 1;
+            min = min - 60;
+        }
+        result.put("hour", hour);
+        result.put("minute", min);
+        return result;
+    }
 
+    public boolean checkConflictTime(Event event, LocalDateTime time, int duration){
+        LocalDateTime eventTime = event.getTime();
+        int eventDuration = event.getDuration();
+        Map<String, Integer> eventEndTime = this.getEndTime(eventTime, eventDuration);
+        int eventHour = eventEndTime.get("hour"); // end hour of the event
+        int eventMin = eventEndTime.get("minute"); // end min of the event
+        Map<String, Integer> inputEndTime = this.getEndTime(time, duration);
+        int inputHour = inputEndTime.get("hour"); // end hour of the input time
+        int inputMin = inputEndTime.get("minute"); // end min of the input time
+        if (eventTime.getHour() <= time.getHour()){
+            return !((inputHour >= eventHour) && (inputMin >= eventMin));
+            // Given: the start hour of scheduled event is less than or equal to the newly event's
+            // if the end hour and min of input time is greater than or equal to the
+            // end hour and min of the scheduled event, then there is not conflict. Add a "not" to make the
+            // method return ture when there is a conflict.
+        }
+        else{
+            return !(eventTime.getHour() >= inputHour && eventTime.getMinute() >= inputMin);
+            // Given: the start hour of scheduled event is greater than the newly event's
+            // if the end hour and of the input event is less than or equal to these of the
+            // scheduled event, then there is not conlict. Add a "not" to make the method return
+            // ture when there is a conflict.
+        }
+    }
 
     /**
      * Remove an Event from the EventSchedule, if schedule is empty or Event is not in
@@ -90,14 +171,20 @@ public class EventsManager {
 
     /**
      * Get the list of events for a Speaker given id
-     *
+     * Modified by Zewen Ma on 2020.11.30
      * @param speakerId to be get events from
      * @return speakerEvents
      */
     public ArrayList<String> getSpeakerEvents(String speakerId) {
         ArrayList<String> speakerEvents = new ArrayList<>();
-        for (String i : schedule.keySet()) {
-            if (schedule.get(i).getSpeakerID().equals(speakerId)) speakerEvents.add(schedule.get(i).getId());
+        for (String eventId : schedule.keySet()) {
+            Event event = schedule.get(eventId);
+            if (!event.getType().equals("NoSpeakerEvent")){
+                ArrayList<String> speakers = event.getSpeakers();
+                if (speakers.contains(speakerId)){
+                    speakerEvents.add(schedule.get(eventId).getId());
+                }
+            }
         }
         return speakerEvents;
     }

@@ -1,12 +1,14 @@
 package main.presenters;
 
 
+import java.util.List;
+
 /**
  * The EventsManagementScreen presents events information and management: create and cancel an event;
  * organize the speaker and room; as well as a presenting list of events for users
  *
  * @author Haoze Huang
- * @version 3.4
+ * @version 3.6
  * @since 2020-11-11
  */
 public class EventsManagementScreen {
@@ -30,8 +32,11 @@ public class EventsManagementScreen {
         System.out.println("4. Modify room");
         System.out.println("5. Modify time");
         System.out.println("6. Modify speaker");
-        System.out.println("7. Print out schedule");
+        System.out.println("7. Modify event capacity");
+        System.out.println("8. Print out schedule");
     }
+    
+
 
     /**
      * Ask for user to input room number to create a specific room
@@ -41,11 +46,27 @@ public class EventsManagementScreen {
     }
 
     /**
+     * Prompt user to input the room capacity
+     */
+    public void promptRoomCapacity(){
+        System.out.println("Please enter the capacity for this room.");
+    }
+
+
+    /**
      * Ask for user to input event title when creating an event
      */
     public void promptCreateEvent(){
         System.out.println("You are creating a event, please enter the following information line by line:");
         System.out.println("Enter event title:");
+    }
+
+    /**
+     * Prompt user to input event requirements when creating an event
+     */
+    public void promptRequirement(){
+        System.out.println("Enter requirements for your event [Tech, Table, Stage]");
+        System.out.println("Enter your input by comma: ");
     }
 
     /**
@@ -66,6 +87,28 @@ public class EventsManagementScreen {
         System.out.println("Here are the available speakers");
         System.out.println(speakerList);
         System.out.println("Enter speaker index from the above list (Starting from 1):");
+    }
+
+    /**
+     * Prompt user to input event duration when creating an event
+     */
+    public void promptDuration(){
+        System.out.println("Enter duration in minutes: ");
+    }
+
+    /**
+     * Prompt user to input event capacity when creating an event
+     */
+    public void promptCapacity(){
+        System.out.println("Enter capacity of the event: ");
+    }
+
+    /**
+     * Prompt user to input the type of event when creating an event
+     */
+    public void promptType(){
+        System.out.println("Enter type of the event: Select from [One, Multi]");
+        System.out.println("Any other inputs will automatically create default event");
     }
 
     /**
@@ -112,5 +155,24 @@ public class EventsManagementScreen {
     public void printErrorMessage(){
         System.out.println("There is no entity of this type in the program yet");
         System.out.println("Program will now back to options");
+    }
+
+    public void printNoSpeakerEventMessage(){
+        System.out.println("This is an no speaker event");
+    }
+
+    public void promptNumberOfSpeaker(List<String> speakers){
+        System.out.println("How many speakers are you adding at once[1 to " + speakers.size()+ "]");
+    }
+
+    public void promptModifyMultiSpeaker(){
+        System.out.println("This is multiSpeaker Event, add or remove speaker?");
+        System.out.println("1. Add Speaker");
+        System.out.println("2. RemoveSpeaker");
+    }
+
+    public void showEventSpeaker(String speakerList){
+        System.out.println("Here are the available speakers, enter index");
+        System.out.println(speakerList);
     }
 }

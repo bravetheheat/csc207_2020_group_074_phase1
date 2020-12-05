@@ -17,6 +17,7 @@ public class EventBuilder {
     private LocalDateTime time;
     private String roomID;
     private int duration;
+    private int capacity;
 
     /**
      * Set title of event
@@ -53,12 +54,18 @@ public class EventBuilder {
     public void setDuration(int duration){this.duration = duration;}
 
     /**
+     * Set capacity of event
+     *
+     * @param capacity of event
+     */
+    public void setCapacity(int capacity){this.capacity = capacity;}
+    /**
      * Generate new default event
      *
      * @return Event
      */
     public Event toDefaultEvent() {
-        return new Event(title, time, roomID, duration);
+        return new Event(title, time, roomID, duration, capacity);
     }
 
     /**
@@ -67,11 +74,11 @@ public class EventBuilder {
      * @return Event
      */
     public Event toOneSpeakerEvent(){
-        return new Event(title, time, roomID, "One", duration);
+        return new Event(title, time, roomID, "OneSpeakerEvent", duration, capacity);
     }
 
     public Event toMultiSpeakerEvent(){
-        return new Event(title, time, roomID, "Multi", duration);
+        return new Event(title, time, roomID, "MultiSpeakerEvent", duration, capacity);
     }
 
 }
