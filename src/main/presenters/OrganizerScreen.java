@@ -15,16 +15,10 @@ public class OrganizerScreen {
 
     }
 
-    /**
-     * Print out the current screen name
-     */
     public void printScreenName() {
         System.out.println("Here is the organizer screen");
     }
 
-    /**
-     * Print out the list of options that the user have
-     */
     public void prompt() {
         System.out.println("Choose from the following options by entering a number:");
         System.out.println("0. Logout");
@@ -36,9 +30,6 @@ public class OrganizerScreen {
         System.out.println("6. Data Management");
     }
 
-    /**
-     * Notify the users that there input was invalid
-     */
     public void prompt2(String input) {
         System.out.println(input + " was not one of the options.");
     }
