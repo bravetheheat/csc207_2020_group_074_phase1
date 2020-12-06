@@ -7,16 +7,17 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginScreen extends JFrame {
+public class LoginUI extends JFrame {
 
     private ProgramController programController;
-//    private JButton backButton;
-//    private JTextField emailTextField;
-//    private JPasswordField PasswordField;
-//    private JButton logInButton;
+    private JPanel panel1;
+    private JButton backButton;
+    private JTextField emailTextField;
+    private JPasswordField PasswordField;
+    private JButton logInButton;
     private final AuthController authController;
 
-    public LoginScreen(ProgramController programController) {
+    public LoginUI(ProgramController programController) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
         this.authController = programController.getAuthController();
