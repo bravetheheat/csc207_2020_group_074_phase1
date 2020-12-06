@@ -6,14 +6,15 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LandingScreen extends JFrame {
+public class LandingUI extends JFrame {
     private ProgramController programController;
-//    private JTextField welcomeText;
-//    private JButton exitButton;
-//    private JButton logInButton;
-//    private JButton registerButton;
+    private JPanel mainPanel;
+    private JTextField welcomeText;
+    private JButton exitButton;
+    private JButton logInButton;
+    private JButton registerButton;
 
-    public LandingScreen (ProgramController programController) {
+    public LandingUI(ProgramController programController) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
 
