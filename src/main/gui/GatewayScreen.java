@@ -6,14 +6,14 @@ import javax.swing.*;
 
 public class GatewayScreen extends JFrame {
     private ProgramController programController;
-    private JButton button1;
-    private JPanel panel1;
-    private JButton saveAllButton;
-    private JButton saveUsersButton;
-    private JButton saveRoomsButton;
-    private JButton saveEventsButton;
-    private JButton saveMessagesButton;
-    private JButton saveInboxesButton;
+//    private JButton button1;
+//    private JPanel panel1;
+//    private JButton saveAllButton;
+//    private JButton saveUsersButton;
+//    private JButton saveRoomsButton;
+//    private JButton saveEventsButton;
+//    private JButton saveMessagesButton;
+//    private JButton saveInboxesButton;
 
     public GatewayScreen (ProgramController programController) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
 public class LoginScreen extends JFrame {
 
     private ProgramController programController;
-    private JButton backButton;
-    private JTextField emailTextField;
-    private JPasswordField PasswordField;
-    private JButton logInButton;
+//    private JButton backButton;
+//    private JTextField emailTextField;
+//    private JPasswordField PasswordField;
+//    private JButton logInButton;
     private final AuthController authController;
 
     public LoginScreen(ProgramController programController) {
@@ -21,21 +21,21 @@ public class LoginScreen extends JFrame {
         this.programController = programController;
         this.authController = programController.getAuthController();
 
-        logInButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String username = emailTextField.getText();
-                String password = String.valueOf(PasswordField.getPassword());
-
-            }
-        });
-        // need to find out how to display wrong information message
-
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // nextScreen = new LandingScreen(programController);
-            }
-        });
+//        logInButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                String username = emailTextField.getText();
+//                String password = String.valueOf(PasswordField.getPassword());
+//
+//            }
+//        });
+//        // need to find out how to display wrong information message
+//
+//        backButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                // nextScreen = new LandingScreen(programController);
+//            }
+//        });
     }
 }
