@@ -56,12 +56,12 @@
           <text value="Modify speaker"/>
         </properties>
       </component>
-      <component id="f1776" class="javax.swing.JButton" binding="seeSecheduleButton" default-binding="true">
+      <component id="f1776" class="javax.swing.JButton" binding="seeScheduleButton">
         <constraints>
           <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="See sechedule"/>
+          <text value="See schedule"/>
         </properties>
       </component>
       <component id="e50d8" class="javax.swing.JTextField" binding="textField1" default-binding="true">
