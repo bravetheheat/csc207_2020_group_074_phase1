@@ -4,8 +4,8 @@ import main.controllers.AuthController;
 import main.controllers.ProgramController;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+@SuppressWarnings("FieldCanBeLocal")
 
 public class LoginUI extends JFrame {
 
@@ -18,25 +18,26 @@ public class LoginUI extends JFrame {
     private final AuthController authController;
 
     public LoginUI(ProgramController programController) {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
+
+        this.setSize(600, 500);
+        this.setContentPane(panel1);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+
         this.authController = programController.getAuthController();
 
-        logInButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String username = emailTextField.getText();
-                String password = String.valueOf(PasswordField.getPassword());
+        logInButton.addActionListener(e -> {
+            String username = emailTextField.getText();
+            String password = String.valueOf(PasswordField.getPassword());
 
-            }
         });
         // need to find out how to display wrong information message
 
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // nextScreen = new LandingScreen(programController);
-            }
+        backButton.addActionListener(e -> {
+            new LandingUI(programController);
+            dispose();
         });
     }
 }
