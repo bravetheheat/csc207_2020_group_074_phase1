@@ -10,7 +10,7 @@ import javax.swing.*;
 public class LoginUI extends JFrame {
 
     private ProgramController programController;
-    private JPanel panel1;
+    private JPanel loginPanel;
     private JButton backButton;
     private JTextField emailTextField;
     private JPasswordField PasswordField;
@@ -21,7 +21,7 @@ public class LoginUI extends JFrame {
         this.programController = programController;
 
         this.setSize(600, 500);
-        this.setContentPane(panel1);
+        this.setContentPane(loginPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
