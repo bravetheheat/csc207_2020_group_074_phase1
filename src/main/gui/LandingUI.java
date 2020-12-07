@@ -3,8 +3,8 @@ package main.gui;
 import main.controllers.ProgramController;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+@SuppressWarnings("FieldCanBeLocal")
 
 public class LandingUI extends JFrame {
     private ProgramController programController;
@@ -14,27 +14,36 @@ public class LandingUI extends JFrame {
     private JButton logInButton;
     private JButton registerButton;
 
+
     public LandingUI(ProgramController programController) {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
 
-//        exitButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // programController.setNextScreen(null);
-//            }
-//        });
-//        logInButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // nextScreen = new LoginScreen(programController);
-//            }
-//        });
-//        registerButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // nextScreen = new RegisterScreen(programController);
-//            }
-//        });
+        this.setTitle("Program X");
+        this.setSize(600, 500);
+//        this.add(mainPanel);
+//        this.add(welcomeText);
+//        this.add(exitButton);
+//        this.add(logInButton);
+//        this.add(registerButton);
+        this.setContentPane(this.mainPanel);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+
+        exitButton.addActionListener(e -> {
+            // programController.setNextScreen(null);
+        });
+
+        logInButton.addActionListener(e -> {
+            new LoginUI(programController);
+            dispose();
+        });
+
+        registerButton.addActionListener(e -> {
+            new RegisterUI(programController);
+            dispose();
+        });
+
     }
+
 }
