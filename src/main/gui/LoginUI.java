@@ -22,21 +22,21 @@ public class LoginUI extends JFrame {
         this.programController = programController;
         this.authController = programController.getAuthController();
 
-//        logInButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String username = emailTextField.getText();
-//                String password = String.valueOf(PasswordField.getPassword());
-//
-//            }
-//        });
-//        // need to find out how to display wrong information message
-//
-//        backButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // nextScreen = new LandingScreen(programController);
-//            }
-//        });
+        logInButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = emailTextField.getText();
+                String password = String.valueOf(PasswordField.getPassword());
+
+            }
+        });
+        // need to find out how to display wrong information message
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // nextScreen = new LandingScreen(programController);
+            }
+        });
     }
 }
