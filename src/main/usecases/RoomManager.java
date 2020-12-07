@@ -83,6 +83,31 @@ public class RoomManager {
     }
 
     /**
+     * add constraints to room base on list of constraints
+     *
+     * @param roomNum room number
+     * @param category room constraints
+     * @return verification if there is any room constaints are modified
+     */
+    public boolean addConstraintToRoom(int roomNum, ArrayList<String> category){
+        Room room = getRoomGivenRoomNum(roomNum);
+        if (room == null){
+            return false;
+        }
+        if (!category.contains("Tech") && !category.contains("Table") && !category.contains("Stage")){
+            return true;
+        }
+        if (category.contains("Tech")) {
+            room.setTech();
+        }if (category.contains("Table")){
+            room.setToTable();
+        }if (category.contains("Stage")){
+            room.setStage();
+        }
+        return true;
+    }
+
+    /**
      * Return the capacity of the target room provided its room number
      * @param roomNum of the room
      * @return the capacity of the room with given room number

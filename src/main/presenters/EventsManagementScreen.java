@@ -27,13 +27,14 @@ public class EventsManagementScreen {
         System.out.println("What would you like to modify, choose one option (number only) from below:");
         System.out.println("0. Back to organizer screen");
         System.out.println("1. Create room");
-        System.out.println("2. Create event");
-        System.out.println("3. Cancel event");
-        System.out.println("4. Modify room");
-        System.out.println("5. Modify time");
-        System.out.println("6. Modify speaker");
-        System.out.println("7. Modify event capacity");
-        System.out.println("8. Print out schedule");
+        System.out.println("2. Edit room");
+        System.out.println("3. Create event");
+        System.out.println("4. Cancel event");
+        System.out.println("5. Modify room");
+        System.out.println("6. Modify time");
+        System.out.println("7. Modify speaker");
+        System.out.println("8. Modify event capacity");
+        System.out.println("9. Print out schedule");
     }
     
 
@@ -66,6 +67,7 @@ public class EventsManagementScreen {
      */
     public void promptRequirement(){
         System.out.println("Enter requirements for your event [Tech, Table, Stage]");
+        System.out.println("Enter any alphanumerical input if there is no requirement for your event");
         System.out.println("Enter your input by comma: ");
     }
 
@@ -107,8 +109,8 @@ public class EventsManagementScreen {
      * Prompt user to input the type of event when creating an event
      */
     public void promptType(){
-        System.out.println("Enter type of the event: Select from [One, Multi]");
-        System.out.println("Any other inputs will automatically create default event");
+        System.out.println("Enter type of the event: Select from [NoSpeakerEvent, OneSpeakerEvent, MultiSpeakerEvent]");
+        System.out.println("Any other alphanumeric inputs will automatically create NoSpeakerEvent");
     }
 
     /**
@@ -118,6 +120,9 @@ public class EventsManagementScreen {
         System.out.println("Enter time from 9AM to 5PM (yyyy-MM-dd HH:mm):");
     }
 
+    public void promptRoomNum(){
+        System.out.println("Enter the room index that you want to edit:");
+    }
     /**
      * Print out request to get event index
      */
@@ -125,6 +130,11 @@ public class EventsManagementScreen {
         System.out.println("Enter event index from the above list (Starting from 1):");
     }
 
+    public void promptRoomConstraint(){
+        System.out.println("Enter the constraints of this room: [Tech, Table, Stage]");
+        System.out.println("Any other alphanumeric inputs will automatically create no constraint rooms");
+        System.out.println("Enter your input by comma: ");
+    }
     /**
      * Print out all available events
      * @param info of all the events

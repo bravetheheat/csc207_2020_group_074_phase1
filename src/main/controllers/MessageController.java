@@ -71,7 +71,7 @@ public class MessageController {
         // Search all users
         for (String receiver : usersManager.getAllUsers()) {
             // check if he is an organizer and if he is the sender
-            if (!receiver.equals(sender) &&!usersManager.fetchRole(receiver).equals("Organizer")) {
+            if (!receiver.equals(sender) &&!usersManager.fetchType(receiver).equals("Organizer")) {
                 receivers.add(receiver);
             }
         }
@@ -155,7 +155,7 @@ public class MessageController {
         List<String> attendees = new ArrayList<>();
         List<String> receivers = this.receiversForAttendeeAndOrganizer(sender);
         for (String user : receivers) {
-            if (this.usersManager.fetchRole(user).equals("Attendee")) {
+            if (this.usersManager.fetchType(user).equals("Attendee")) {
                 attendees.add(user);
             }
         }
@@ -173,7 +173,7 @@ public class MessageController {
         List<String> speakers = new ArrayList<>();
         List<String> receivers = this.receiversForAttendeeAndOrganizer(sender);
         for (String user : receivers) {
-            if (this.usersManager.fetchRole(user).equals("Speaker")) {
+            if (this.usersManager.fetchType(user).equals("Speaker")) {
                 speakers.add(user);
             }
         }

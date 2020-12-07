@@ -200,7 +200,7 @@ public class OrganizerController extends AttendeeController {
         List<String> speakers = new ArrayList<>();
         for (String user : usersManager.getAllUsers()) {
             // check if he is a speaker
-            if (this.usersManager.fetchRole(user).equals("Speaker")) {
+            if (this.usersManager.fetchType(user).equals("Speaker")) {
                 speakers.add(user);
             }
         }
@@ -230,6 +230,16 @@ public class OrganizerController extends AttendeeController {
         return this.roomManager.getAllRooms();
     }
 
+    /**
+     * add constraints to room base on list of constraints
+     *
+     * @param roomNum room number
+     * @param category room constraints
+     * @return verification if there is any room constaints are modified
+     */
+    public boolean addConstraintToRoom(int roomNum, ArrayList<String> category){
+        return roomManager.addConstraintToRoom(roomNum, category);
+    }
     /**
      * get all rooms in string format
      * @return a string represent all rooms inside the program

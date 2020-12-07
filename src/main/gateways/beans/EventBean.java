@@ -17,6 +17,10 @@ public class EventBean implements Serializable {
     private String roomID;
     private String speakersID;
     private String attendeesId;
+    private String type;
+    private int duration;
+    private int capacity;
+
 
     public int getDuration() {
         return duration;
@@ -34,9 +38,7 @@ public class EventBean implements Serializable {
         this.capacity = capacity;
     }
 
-    private String type;
-    private int duration;
-    private int capacity;
+
 
     public String getType() {
         return type;

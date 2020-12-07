@@ -4,23 +4,12 @@ import main.usecases.UsersManager;
 
 import java.util.List;
 
-/**
- *  The OrganizerMessageScreen display the text that an organizer sees when they choose to message others
- */
 public class OrganizerMessageScreen extends AttendeeMessageScreen {
 
-    /**
-     * A usersManager and a list of recipients are required to create an OrganizerMessageScreen
-     * @param usersManager that stores the users of this conference
-     * @param recipients for this organizer
-     */
     public OrganizerMessageScreen(UsersManager usersManager, List<String> recipients) {
         super(usersManager, recipients);
     }
 
-    /**
-     * Prompt the user to enter one option from the given list
-     */
     public void prompt() {
         int count = 1;
         System.out.println("Please select a users to message by entering numbers separated by comma. (e.g. 1,3,4,5)");

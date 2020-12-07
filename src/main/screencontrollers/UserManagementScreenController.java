@@ -49,7 +49,7 @@ public class UserManagementScreenController extends ScreenController {
         String command = scanner.nextLine();
         switch (command) {
             case "1":
-                if (createUser()) {
+                if (createSpeaker()) {
                     this.presenter.printValidAdding();
                 } else {
                     this.presenter.printInvalidAdding();
@@ -71,12 +71,11 @@ public class UserManagementScreenController extends ScreenController {
     /**
      * Creating a user based on input command.
      */
-    public boolean createUser() {
-        this.presenter.promptCreateUser();
+    public boolean createSpeaker() {
+        this.presenter.promptCreateSpeaker();
         String username = scanner.nextLine();
         String password = scanner.nextLine();
-        String userType = scanner.nextLine();
-        return this.usersManager.addUser(username, password, userType);
+        return this.usersManager.addUser(username, password, "Speaker");
     }
 
 
