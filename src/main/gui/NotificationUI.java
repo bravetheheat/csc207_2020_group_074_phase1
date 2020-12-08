@@ -1,6 +1,6 @@
 package main.gui;
 
-import main.controllers.ProgramController;
+import main.guilisteners.BackButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,19 +12,20 @@ import java.awt.*;
  */
 @SuppressWarnings("FieldCanBeLocal")
 
-public class RegisterMessageUI extends JFrame {
-    private ProgramController programController;
+public class NotificationUI extends JFrame {
+//    private ProgramController programController;
     private JButton backButton;
+    private BackButtonListener backButtonListener;
 
-    public RegisterMessageUI(ProgramController programController) {
-        this.programController = programController;
+    public NotificationUI() {
+//        this.programController = programController;
 
         this.setLayout(null);
 
         setSize(600, 500);
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 
         // back button
@@ -35,10 +36,19 @@ public class RegisterMessageUI extends JFrame {
         add(backButton);
 
         backButton.addActionListener(e -> {
-            programController.saveForNext();
-            new RegisterUI(programController);
-            dispose();
+//            programController.saveForNext();
+//            new RegisterUI();
+//            dispose();
+            notifyListenerOnBackButtonClicked();
         });
+    }
+
+    public void addBackButtonListener(BackButtonListener listener) {
+        backButtonListener = listener;
+    }
+
+    public void notifyListenerOnBackButtonClicked() {
+        backButtonListener.onBackButtonClicked();
     }
 
     public void addMessage(JLabel jLabel, String message) {
