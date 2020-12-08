@@ -1,7 +1,5 @@
 package main.gui;
 
-import main.controllers.ProgramController;
-
 import javax.swing.*;
 
 /**
@@ -11,12 +9,12 @@ import javax.swing.*;
  */
 @SuppressWarnings("FieldCanBeLocal")
 
-public class RegisterMessageSuccessfulUI extends RegisterMessageUI {
+public class RegisterMessageSuccessfulUI extends NotificationUI {
     private JLabel jLabel;
 
 
-    public RegisterMessageSuccessfulUI(ProgramController programController) {
-        super(programController);
+    public RegisterMessageSuccessfulUI() {
+        super();
 
         // message labels
         jLabel = new JLabel();

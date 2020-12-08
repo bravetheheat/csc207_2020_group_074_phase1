@@ -5,11 +5,14 @@ import main.guilisteners.RegisterUIListener;
 
 import javax.swing.*;
 
+/**
+ * The register screen in which users can enter info to sign up.
+ *
+ * @author Steven Yuan
+ */
 @SuppressWarnings("FieldCanBeLocal")
 
 public class RegisterUI extends JFrame {
-//    private ProgramController programController;
-//    private AuthController authController;
     private JButton backButton;
     private JPanel registerPanel;
     private JButton confirmButton;
@@ -22,44 +25,17 @@ public class RegisterUI extends JFrame {
     private BackButtonListener backButtonListener;
 
     public RegisterUI() {
-//        this.programController = programController;
-//        this.authController = programController.getAuthController();
-
         this.setSize(600, 500);
         this.setContentPane(registerPanel);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
-        confirmButton.addActionListener(e -> {
-//            String userType = userTypeTextField.getText();
-//            String username = userNameTextField.getText();
-//            String password = String.valueOf((passwordField.getPassword()));
-//            if (!userType.equals("Attendee") && !userType.equals("Organizer")) {
-//                new RegisterMessageErrorUI(programController);
-//                dispose();
-//            }
-//            boolean success = this.authController.registerUser(
-//                    username, password, userType);
-//            if (!success) {
-//                programController.saveForNext();
-//                new RegisterMessageErrorUI(programController);
-//                dispose();
-//            }
-//            else {
-//                programController.saveForNext();
-//                new RegisterMessageSuccessfulUI(programController);
-//                dispose();
-//            }
-            notifyListenerOnConfirmButtonClicked();
-
-        });
-
-
+        confirmButton.addActionListener(e -> notifyListenerOnConfirmButtonClicked());
 
         backButton.addActionListener(e -> notifyListenerOnBackButtonClicked());
-
     }
+
 
     public void addRegisterUIListener(RegisterUIListener listener) {
         registerUIListener = listener;
