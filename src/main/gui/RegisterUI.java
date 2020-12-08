@@ -40,12 +40,12 @@ public class RegisterUI extends JFrame {
             boolean success = this.authController.registerUser(
                     username, password, userType);
             if (!success) {
-                System.out.println("try again!");
+                programController.saveForNext();
                 new RegisterMessageErrorUI(programController);
                 dispose();
             }
             else {
-                System.out.println("successful!");
+                programController.saveForNext();
                 new RegisterMessageSuccessfulUI(programController);
                 dispose();
             }

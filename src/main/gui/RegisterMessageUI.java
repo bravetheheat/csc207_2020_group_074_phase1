@@ -35,6 +35,7 @@ public class RegisterMessageUI extends JFrame {
         add(backButton);
 
         backButton.addActionListener(e -> {
+            programController.saveForNext();
             new RegisterUI(programController);
             dispose();
         });
