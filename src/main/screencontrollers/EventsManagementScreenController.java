@@ -62,30 +62,34 @@ public class EventsManagementScreenController extends ScreenController {
                 manageEvent();
                 break;
             case "2":
-                if (createEvent()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (editRoom()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "3":
-                if (removeEvent()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (createEvent()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "4":
-                if (modifyRoom()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (removeEvent()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "5":
-                if (modifyTime()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (modifyRoom()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "6":
-                if (modifySpeaker()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (modifyTime()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "7":
-                if (modifyEventCapacity()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (modifySpeaker()) presenter.printVerification(); else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "8":
+                if (modifyEventCapacity()) presenter.printVerification(); else presenter.printInvalidInput();
+                manageEvent();
+                break;
+            case "9":
                 String info = organizerController.getEventController().getEventsInfo();
                 presenter.printSchedule(info);
                 manageEvent();
@@ -114,6 +118,21 @@ public class EventsManagementScreenController extends ScreenController {
             return createRoom();
         }
 
+    }
+
+    public boolean editRoom(){
+        try{
+            presenter.promptRoomNum();
+            String roomInput = scanner.nextLine();
+            int roomNum = Integer.parseInt(roomInput);
+            presenter.promptRoomConstraint();
+            String cateString = scanner.nextLine();
+            ArrayList<String> constraints = new ArrayList<>(Arrays.asList(cateString.split(",")));
+            return organizerController.addConstraintToRoom(roomNum, constraints);
+        }catch (IllegalArgumentException | NullPointerException e){
+            presenter.printInvalidInput();
+            return editRoom();
+        }
     }
 
 
@@ -313,16 +332,16 @@ public class EventsManagementScreenController extends ScreenController {
      * @return roomNum
      */
     public int getRoomNum() {
-        presenter.promptRequirement();
-        String cateString = scanner.nextLine();
-        ArrayList<String> category = new ArrayList<>(Arrays.asList(cateString.split(",")));
-        List<Integer> rooms = organizerController.getEventController().getSuggestedRooms(category);
-        handleEmptyList(rooms);
         try {
+            presenter.promptRequirement();
+            String cateString = scanner.nextLine();
+            ArrayList<String> category = new ArrayList<>(Arrays.asList(cateString.split(",")));
+            List<Integer> rooms = organizerController.getEventController().getSuggestedRooms(category);
+            handleEmptyList(rooms);
             presenter.promptRoom(organizerController.roomToString(rooms));
             String roomIndex = scanner.nextLine();
             return rooms.get(Integer.parseInt(roomIndex) - 1);
-        } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+        } catch (IllegalArgumentException | IndexOutOfBoundsException | NullPointerException e) {
             presenter.printInvalidInput();
             return getRoomNum();
         }
@@ -390,9 +409,9 @@ public class EventsManagementScreenController extends ScreenController {
         try {
             presenter.promptType();
             String type = scanner.nextLine();
-            if (type.equals("One")) {
+            if (type.equals("OneSpeakerEvent")) {
                 return "OneSpeakerEvent";
-            }else if (type.equals("Multi")){
+            }else if (type.equals("MultiSpeakerEvent")){
                 return "MultiSpeakerEvent";
             }else{
                 return "NoSpeakerEvent";

@@ -63,21 +63,9 @@ public class EventsManager {
         newEvent.setRoomID(newRoomId);
         newEvent.setDuration(duration);
         newEvent.setCapacity(newCapacity);
+        schedule.put(newEvent.getId(), newEvent);
         return true;
-        //Need to modify
-//        for (String id : schedule.keySet()) {
-//            //if time conflict
-//            Event e = schedule.get(id);
-//            if ((e.getRoomID().equals(newEvent.getRoomID())) && (e.getTime().compareTo(newEvent.getTime())==0)) {
-//                return false;
-//            } else if ((e.getTime().compareTo(newEvent.getTime())==0) && (e.getSpeakerID().equals(newEvent.getSpeakerID()))) {
-//                return false;
-//            }
-//            // need to check time conflict
-//            // need to check room conflict
-//            // need to check any of the speaker in a speaker list is conflict
-//        }
-//        schedule.put(newEvent.getId(), newEvent);
+
     }
     /**
      * Return true iff there exists a speaker in Event e1 also is in Event e2.
