@@ -70,6 +70,13 @@ public class EventController {
         return s;
     }
 
+    public int getRoomNum(String eventId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
+        String roomId = eventInfoManager.getRoomId(eventId);
+        return roomManager.getRoomNumGivenId(roomId);
+    }
+
     /**
      * Get a list of eventIds of a User given userId.
      * @param userId of the user.
