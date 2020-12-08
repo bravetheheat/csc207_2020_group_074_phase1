@@ -5,8 +5,6 @@ import main.screencontrollers.*;
 import main.usecases.UserInformationManager;
 import main.usecases.UsersManager;
 
-import java.util.UUID;
-
 /**
  * The AuthController handles authentication, maintains a record of who is logged in, and
  * returns the appropriate controller
@@ -39,7 +37,7 @@ public class AuthController {
     /**
      * Set the UsersManager of the AuthController
      *
-     * @param usersManager
+     * @param usersManager use case of the user entity
      */
     public void setUsersManager(UsersManager usersManager) {
         this.usersManager = usersManager;
@@ -107,6 +105,17 @@ public class AuthController {
             case "Speaker": return new SpeakerScreenController(this.programController);
             default: return null;
         }
+    }
+
+    /**
+     * Return the type of the current logged in user
+     *
+     * @return the type of the logged in user
+     */
+    public String getUserType() {
+        User currentUser = this.usersManager.fetchUser(this.loggedInUser);
+        UserInformationManager userInfo = new UserInformationManager(currentUser);
+        return userInfo.getType();
     }
 
 
