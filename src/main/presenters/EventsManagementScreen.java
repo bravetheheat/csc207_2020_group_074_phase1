@@ -121,7 +121,7 @@ public class EventsManagementScreen {
     }
 
     public void promptRoomNum(){
-        System.out.println("Enter the room index that you want to edit:");
+        System.out.println("Enter the room number that you want to edit:");
     }
     /**
      * Print out request to get event index
