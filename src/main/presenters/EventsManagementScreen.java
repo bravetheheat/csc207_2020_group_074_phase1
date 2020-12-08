@@ -78,7 +78,7 @@ public class EventsManagementScreen {
     public void promptRoom(String roomList){
         System.out.println("Here are the available rooms");
         System.out.println(roomList);
-        System.out.println("Enter room number from the above list (integer only):");
+        System.out.println("Enter room index from the above list (integer only):");
     }
 
     /**
