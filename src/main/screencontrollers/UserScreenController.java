@@ -1,6 +1,6 @@
 package main.screencontrollers;
 import main.controllers.ProgramController;
-import main.presenters.OrganizerScreen;
+import main.presenters.UserScreen;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,20 +12,22 @@ import java.util.List;
  * @version 2.0
  * @since 2020-11-11
  */
-public class OrganizerScreenController extends ScreenController{
+public class UserScreenController extends ScreenController{
 
-    private OrganizerScreen organizerScreen;
+    private UserScreen userScreen;
     private List<String> prompts;
+    private String userType;
 
-    public OrganizerScreenController(ProgramController programController) {
+    public UserScreenController(ProgramController programController, String userType) {
         super(programController);
-        this.organizerScreen = new OrganizerScreen();
+        this.userScreen = new UserScreen();
         String[] options = {"0", "1", "2", "3", "4", "5", "6"};
         this.prompts = (Arrays.asList(options));
+        this.userType = userType;
     }
 
     public void start() {
-        this.organizerScreen.printScreenName();
+        this.userScreen.printScreenName();
         this.run();
         this.end();
     }
@@ -34,11 +36,11 @@ public class OrganizerScreenController extends ScreenController{
      * Checks valid input from Organizer and tells ProgramController what screen to go next.
      */
     public void run() {
-        this.organizerScreen.prompt();
+        this.userScreen.prompt();
         String next = this.scanner.nextLine();
         while (!this.prompts.contains(next)){
-            this.organizerScreen.prompt2(next);
-            this.organizerScreen.prompt();
+            this.userScreen.prompt2(next);
+            this.userScreen.prompt();
             next = this.scanner.nextLine();
         }
         // for avoiding error which is nextScreenController may not be initialize
@@ -48,7 +50,7 @@ public class OrganizerScreenController extends ScreenController{
                 this.programController.getAuthController().logout();
                 return;
             case "1":
-                nextScreenController = new UserManagementScreenController(this.programController);
+                nextScreenController = new UserManagementScreenController(this.programController, userType);
                 break;
             case "2":
                 nextScreenController = new EventsManagementScreenController(this.programController);

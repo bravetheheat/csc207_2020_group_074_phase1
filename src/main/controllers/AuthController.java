@@ -101,7 +101,12 @@ public class AuthController {
 
         switch(userRole){
             case "Attendee": return new AttendeeScreenController(this.programController);
-            case "Organizer": return new OrganizerScreenController(this.programController);
+            case "Organizer":
+                return new UserScreenController(this.programController,"Organizer");
+            case "AdminUser":
+                return new UserScreenController(this.programController,"AdminUser");
+            case "VipUser":
+                return new UserScreenController(this.programController,"VipUser");
             case "Speaker": return new SpeakerScreenController(this.programController);
             default: return null;
         }
