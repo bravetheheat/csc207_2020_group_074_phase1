@@ -52,6 +52,14 @@ public class RoomManager {
         }
     }
 
+    public int getRoomNumGivenId(String roomId){
+        if (getRoomGivenId(roomId) != null){
+            return getRoomGivenId(roomId).getRoomNum();
+        }else{
+            return -1;
+        }
+    }
+
     /**
      * the method will return the id of a room given its roomNum
      *

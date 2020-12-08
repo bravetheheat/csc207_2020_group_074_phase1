@@ -121,6 +121,10 @@ public class OrganizerController extends AttendeeController {
         return eventController.updateEventInfo(eventId, time, roomId, duration, newCapacity);
     }
 
+    public boolean checkCapacityInBound(int roomNum, int eventCap){
+        return roomManager.getRoomCapacityGivenRoomNum(roomNum) >= eventCap;
+    }
+
 
 
     /**

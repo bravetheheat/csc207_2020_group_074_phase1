@@ -128,6 +128,12 @@ public class EventsManagementScreenController extends ScreenController {
             presenter.promptRoomConstraint();
             String cateString = scanner.nextLine();
             ArrayList<String> constraints = new ArrayList<>(Arrays.asList(cateString.split(",")));
+            for (String item : constraints){
+                if(!item.equals("Tech") && (!item.equals("Table")) && (!item.equals("Stage"))){
+                    presenter.printInvalidInput();
+                    return editRoom();
+                }
+            }
             return organizerController.addConstraintToRoom(roomNum, constraints);
         }catch (IllegalArgumentException | NullPointerException e){
             presenter.printInvalidInput();
@@ -145,10 +151,10 @@ public class EventsManagementScreenController extends ScreenController {
         presenter.promptCreateEvent();
         String title = scanner.nextLine();
         String type = getType();
-        int duration = getDuration();
-        int capacity = getEventCapacity();
-        LocalDateTime time = getTime();
         int roomNum = getRoomNum();
+        int duration = getDuration();
+        int capacity = getEventCapacity(roomNum);
+        LocalDateTime time = getTime();
         return organizerController.createEvent(title, time, roomNum, duration, capacity, type);
     }
 
@@ -179,7 +185,9 @@ public class EventsManagementScreenController extends ScreenController {
      * @return verify if the event capacity is successfully modified
      */
     private boolean modifyEventCapacity() {
-        return organizerController.updateCapacity(this.getEventID(), this.getEventCapacity());
+        String eventId = this.getEventID();
+        int roomNum = organizerController.getEventController().getRoomNum(eventId);
+        return organizerController.updateCapacity(eventId, this.getEventCapacity(roomNum));
     }
 
 
@@ -336,6 +344,12 @@ public class EventsManagementScreenController extends ScreenController {
             presenter.promptRequirement();
             String cateString = scanner.nextLine();
             ArrayList<String> category = new ArrayList<>(Arrays.asList(cateString.split(",")));
+            for (String item : category){
+                if(!item.equals("Tech") && (!item.equals("Table")) && (!item.equals("Stage"))){
+                    presenter.printInvalidInput();
+                    return getRoomNum();
+                }
+            }
             List<Integer> rooms = organizerController.getEventController().getSuggestedRooms(category);
             handleEmptyList(rooms);
             presenter.promptRoom(organizerController.roomToString(rooms));
@@ -371,14 +385,19 @@ public class EventsManagementScreenController extends ScreenController {
      *
      * @return capacity of the event
      */
-    public int getEventCapacity() {
+    public int getEventCapacity(int roomNum) {
         try {
             presenter.promptCapacity();
             String capacity = scanner.nextLine();
-            return Integer.parseInt(capacity);
+            if (organizerController.checkCapacityInBound(roomNum, Integer.parseInt(capacity))){
+                return Integer.parseInt(capacity);
+            }else{
+                presenter.printInvalidInput();
+                return getEventCapacity(roomNum);
+            }
         } catch (IllegalArgumentException e) {
             presenter.printInvalidInput();
-            return getEventCapacity();
+            return getEventCapacity(roomNum);
         }
     }
 
