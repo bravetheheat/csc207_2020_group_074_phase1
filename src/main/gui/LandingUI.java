@@ -1,6 +1,5 @@
 package main.gui;
 
-import main.controllers.ProgramController;
 import main.guilisteners.LoginButtonListener;
 import main.guilisteners.RegisterButtonListener;
 
@@ -14,7 +13,6 @@ import javax.swing.*;
 @SuppressWarnings("FieldCanBeLocal")
 
 public class LandingUI extends JFrame {
-    private ProgramController programController;
     private JPanel mainPanel;
     private JButton logInButton;
     private JButton registerButton;
