@@ -26,11 +26,13 @@ public class LandingUI extends JFrame {
         this.setVisible(true);
 
         logInButton.addActionListener(e -> {
+            programController.saveForNext();
             new LoginUI(programController);
             dispose();
         });
 
         registerButton.addActionListener(e -> {
+            programController.saveForNext();
             new RegisterUI(programController);
             dispose();
         });
