@@ -1,7 +1,7 @@
 package main.guilisteners;
 
 /**
- * The LoginUIListener handles login functionality of the program
+ * The LoginUIListener listens to actions performed on the login button in the login screen
  *
  * @author Steven Yuan
  * @version 1.0
