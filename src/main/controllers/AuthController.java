@@ -37,7 +37,7 @@ public class AuthController {
     /**
      * Set the UsersManager of the AuthController
      *
-     * @param usersManager
+     * @param usersManager use case of the user entity
      */
     public void setUsersManager(UsersManager usersManager) {
         this.usersManager = usersManager;
@@ -110,6 +110,17 @@ public class AuthController {
             case "Speaker": return new SpeakerScreenController(this.programController);
             default: return null;
         }
+    }
+
+    /**
+     * Return the type of the current logged in user
+     *
+     * @return the type of the logged in user
+     */
+    public String getUserType() {
+        User currentUser = this.usersManager.fetchUser(this.loggedInUser);
+        UserInformationManager userInfo = new UserInformationManager(currentUser);
+        return userInfo.getType();
     }
 
 

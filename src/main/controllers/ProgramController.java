@@ -45,6 +45,12 @@ public class ProgramController {
 
     }
 
+    public void startUI() {
+        this.loadData();
+    }
+
+    public void saveForNext() {this.saveData();}
+
     private void loadData() {
         this.usersManager.loadUsersFromGateway(this.gateway);
         this.roomManager.loadRoomsFromGateway(this.gateway);

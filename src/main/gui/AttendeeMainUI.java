@@ -13,9 +13,12 @@ public class AttendeeMainUI extends JFrame {
     private JButton inboxButton;
 
     public AttendeeMainUI(ProgramController programController) {
+        this.setSize(600, 500);
+        this.setContentPane(panel1);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
         this.programController = programController;
-
 
     }
 }

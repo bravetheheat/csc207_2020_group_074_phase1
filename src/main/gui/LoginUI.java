@@ -1,42 +1,101 @@
 package main.gui;
 
-import main.controllers.AuthController;
-import main.controllers.ProgramController;
+import main.guilisteners.BackButtonListener;
+import main.guilisteners.LoginUIListener;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+/**
+ * The login screen in which users can enter account info and log in.
+ *
+ * @author Steven Yuan
+ */
+@SuppressWarnings("FieldCanBeLocal")
 
 public class LoginUI extends JFrame {
 
-    private ProgramController programController;
-    private JPanel panel1;
+//    private ProgramController programController;
+    private JPanel loginPanel;
     private JButton backButton;
     private JTextField emailTextField;
-    private JPasswordField PasswordField;
     private JButton logInButton;
-    private final AuthController authController;
+    private JPasswordField passwordField;
+    private JLabel loginTitleLabel;
+//    private final AuthController authController;
+    private LoginUIListener loginUIListener;
+    private BackButtonListener backButtonListener;
 
-    public LoginUI(ProgramController programController) {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.programController = programController;
-        this.authController = programController.getAuthController();
+    public LoginUI() {
 
-//        logInButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String username = emailTextField.getText();
-//                String password = String.valueOf(PasswordField.getPassword());
-//
+        this.setSize(600, 500);
+        this.setContentPane(loginPanel);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+
+
+        logInButton.addActionListener(e -> {
+//            String username = emailTextField.getText();
+//            String password = String.valueOf((passwordField.getPassword()));
+//            if (authController.login(username, password)) {
+//                String userType = authController.getUserType();
+//                switch(userType){
+//                    case "Attendee":
+//                        System.out.println("go to attendee");
+//                        programController.saveForNext();
+//                        new AttendeeMainUI(programController);
+//                        dispose();
+//                        break;
+//                    case "Organizer":
+//                        System.out.println("go to organizer");
+//                        programController.saveForNext();
+//                        new OrganizerMainUI(programController);
+//                        dispose();
+//                        break;
+//                    case "Speaker":
+//                        System.out.println("go to speaker");
+//                        programController.saveForNext();
+//                        new SpeakerMainUI(programController);
+//                        dispose();
+//                        break;
+//                    default:
+//                        programController.saveForNext();
+//                        new RegisterMessageErrorUI(programController);
+//                        dispose();
+//                }
 //            }
-//        });
-//        // need to find out how to display wrong information message
-//
-//        backButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // nextScreen = new LandingScreen(programController);
-//            }
-//        });
+            notifyListenerOnLoginButtonClicked();
+        });
+
+        backButton.addActionListener(e -> {
+//            programController.saveForNext();
+//            new LandingUI(programController);
+//            dispose();
+            notifyListenerOnBackButtonClicked();
+        });
+    }
+
+    public void addLoginUIListener(LoginUIListener listener) {
+        loginUIListener = listener;
+    }
+
+    public void addBackButtonListener(BackButtonListener listener) {
+        backButtonListener = listener;
+    }
+
+    public void notifyListenerOnLoginButtonClicked() {
+        loginUIListener.onLoginButtonClicked();
+    }
+
+    public void notifyListenerOnBackButtonClicked() {
+        backButtonListener.onBackButtonClicked();
+    }
+
+    public String getUserName() {
+        return emailTextField.getText();
+    }
+
+    public String getPwd() {
+        return String.valueOf((passwordField.getPassword()));
     }
 }
