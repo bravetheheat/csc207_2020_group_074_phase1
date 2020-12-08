@@ -5,6 +5,11 @@ import main.guilisteners.LoginUIListener;
 
 import javax.swing.*;
 
+/**
+ * The login screen in which users can enter account info and log in.
+ *
+ * @author Steven Yuan
+ */
 @SuppressWarnings("FieldCanBeLocal")
 
 public class LoginUI extends JFrame {
