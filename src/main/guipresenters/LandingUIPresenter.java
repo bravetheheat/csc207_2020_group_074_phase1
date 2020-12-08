@@ -7,7 +7,13 @@ import main.gui.RegisterUI;
 import main.guilisteners.LoginButtonListener;
 import main.guilisteners.RegisterButtonListener;
 
+/**
+ * The presenter for <code>LandingUI</code>
+ *
+ * @author Steven Yuan
+ */
 @SuppressWarnings("FieldCanBeLocal")
+
 public class LandingUIPresenter implements LoginButtonListener, RegisterButtonListener {
 
     private LandingUI landingUI;
