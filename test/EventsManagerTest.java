@@ -1,33 +1,78 @@
-//import main.entities.Attendee;
-//import main.entities.User;
-//import main.usecases.EventBuilder;
-//import main.usecases.EventsManager;
-//import org.junit.Assert;
-//import org.junit.Before;
-//import org.junit.Test;
-//
-//import java.time.LocalDateTime;
-//import java.util.UUID;
-//
-//public class EventsManagerTest {
-//    EventsManager eventsManager;
-//    LocalDateTime time1;
-//    LocalDateTime time2;
-//    String room1;
-//    String room2;
-//    String speaker1;
-//    String speaker2;
-//
-//    @Before
-//    public void setUp(){
-//        this.eventsManager = new EventsManager();
-//        time1 = LocalDateTime.of(2020, 1,1, 12, 0 );
-//        time2 = LocalDateTime.of(2020, 1,1, 16, 0 );
-//        room1 = UUID.randomUUID().toString();
-//        room2 = UUID.randomUUID().toString();
-//        speaker1 = UUID.randomUUID().toString();
-//        speaker2 = UUID.randomUUID().toString();
-//    }
+import main.entities.Event;
+import main.usecases.EventsManager;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.time.LocalDateTime;
+import java.util.*;
+
+public class EventsManagerTest {
+    EventsManager eventsManager;
+    LocalDateTime time1;
+    LocalDateTime time2;
+    LocalDateTime time3;
+    LocalDateTime time4;
+    int duration1;
+    int duration2;
+    int duration3;
+    int duration4;
+    Event event1;
+    Event event2;
+    Event event3;
+
+    @Before
+    public void setUp() {
+        this.eventsManager = new EventsManager();
+        time1 = LocalDateTime.of(2020, 1, 1, 16, 30);
+        time2 = LocalDateTime.of(2020, 1, 1, 16, 0);
+        time3 = LocalDateTime.of(2020, 1, 1, 15,0);
+        time4 = LocalDateTime.of(2020,1,1,17,10);
+        duration1 = 120;
+        duration2 = 135;
+        duration3 = 10;
+        duration4 = 80;
+        event1 = new Event("hello", time1, "0", duration1, 40);
+        event2 = new Event("hi", time2, "0", 40, 40);
+        event3 = new Event("bye", time3, "0", 60, 40);
+    }
+
+    @Test
+    public void testGetEndTime(){
+        Map<String, Integer> map = new LinkedHashMap<>();
+        map.put("hour", 18);
+        map.put("minute", 30);
+        Assert.assertTrue(eventsManager.getEndTime(time1, duration1).equals(map));
+    }
+
+    @Test
+    public void testGetEndTime2(){
+        Map<String, Integer> map = new LinkedHashMap<>();
+        map.put("hour", 18);
+        map.put("minute", 15);
+        Assert.assertTrue(eventsManager.getEndTime(time2, duration2).equals(map));
+    }
+
+    @Test
+    public void testGetEndTime3(){
+        Map<String, Integer> map = new LinkedHashMap<>();
+        map.put("hour", 18);
+        map.put("minute", 45);
+        Assert.assertTrue(eventsManager.getEndTime(time1, duration2).equals(map));
+    }
+
+    @Test
+    public void testCheckConflictTime(){
+        Assert.assertFalse(eventsManager.checkConflictTime(event1, time2, duration3));
+    }
+
+    @Test
+    public void testCheckConflictTime1(){
+        Assert.assertTrue(eventsManager.checkConflictTime(event2, time3, 100));
+    }
+}
+
+
 //
 //    public EventBuilder setUpEvent(String title, LocalDateTime time, String roomID, String speakerID){
 //        EventBuilder eb = new EventBuilder();
