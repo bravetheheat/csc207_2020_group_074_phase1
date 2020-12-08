@@ -13,7 +13,7 @@ import java.util.Map;
  * The EventsManager holds a list of Events, and modify Event with its corresponding Users.
  *
  * @author Haoze Huang, Zewen Ma
- * @version 2.4
+ * @version 2.5
  * @since 2020-10-31
  */
 
@@ -85,11 +85,7 @@ public class EventsManager {
     public Map<String, Integer> getEndTime(LocalDateTime time, int duration){
         Map<String, Integer> result = new LinkedHashMap<>();
         int min = time.getMinute() + duration % 60;
-        int hour = time.getHour();
-        if (min >= 60){
-            hour = hour + 1;
-            min = min - 60;
-        }
+        int hour = time.getHour() + duration / 60;
         result.put("hour", hour);
         result.put("minute", min);
         return result;
@@ -98,25 +94,40 @@ public class EventsManager {
     public boolean checkConflictTime(Event event, LocalDateTime time, int duration){
         LocalDateTime eventTime = event.getTime();
         int eventDuration = event.getDuration();
+        int eventStartHour = event.getTime().getHour();
+        int eventStartMin = event.getTime().getMinute();
+        int newTimeHour = time.getHour();
+        int newTimeMin = time.getMinute();
         Map<String, Integer> eventEndTime = this.getEndTime(eventTime, eventDuration);
         int eventHour = eventEndTime.get("hour"); // end hour of the event
         int eventMin = eventEndTime.get("minute"); // end min of the event
         Map<String, Integer> inputEndTime = this.getEndTime(time, duration);
         int inputHour = inputEndTime.get("hour"); // end hour of the input time
         int inputMin = inputEndTime.get("minute"); // end min of the input time
-        if (eventTime.getHour() <= time.getHour()){
-            return !((inputHour >= eventHour) && (inputMin >= eventMin));
-            // Given: the start hour of scheduled event is less than or equal to the newly event's
-            // if the end hour and min of input time is greater than or equal to the
-            // end hour and min of the scheduled event, then there is not conflict. Add a "not" to make the
-            // method return ture when there is a conflict.
+        if (eventStartHour == newTimeHour){
+            if (inputHour < eventHour){
+                if (inputHour > eventStartHour){
+                    return true;
+                }
+                else{
+                    return inputMin > eventStartMin;
+                }
+            }
+            else {
+                return true;
+            }
         }
-        else{
-            return !(eventTime.getHour() >= inputHour && eventTime.getMinute() >= inputMin);
-            // Given: the start hour of scheduled event is greater than the newly event's
-            // if the end hour and of the input event is less than or equal to these of the
-            // scheduled event, then there is not conlict. Add a "not" to make the method return
-            // ture when there is a conflict.
+        else if (eventStartHour > newTimeHour){
+            if (eventStartHour == inputHour){
+                return inputMin > eventStartMin;
+            }else{
+                return true;
+            }
+        }else{
+            if (eventHour == newTimeHour){
+                return newTimeMin < eventMin;
+            }
+            return true;
         }
     }
 
