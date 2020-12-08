@@ -21,7 +21,6 @@ public class EventController {
     private final EventsManager eventsManager;
     private final UsersManager usersManager;
     private final RoomManager roomManager;
-    private ArrayList<Integer> suggestedRooms;
 
 
     /**
@@ -69,6 +68,13 @@ public class EventController {
             s += eToString;
         }
         return s;
+    }
+
+    public int getRoomNum(String eventId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
+        String roomId = eventInfoManager.getRoomId(eventId);
+        return roomManager.getRoomNumGivenId(roomId);
     }
 
     /**
@@ -252,50 +258,64 @@ public class EventController {
      * @return verification of the suggested rooms are added into event
      */
     public ArrayList<Integer> getSuggestedRooms(ArrayList<String> category){
-        if (category.contains("Tech") && category.contains("Table") && category.contains("Stage")){
+        System.out.println(category);
+        ArrayList<Integer> suggestedRooms = new ArrayList<>();
+        if (!category.contains("Tech") && !category.contains("Table") && !category.contains("Stage")) {
             for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getHasTech() && room.getIsTable() && room.getHasStage()){
+                suggestedRooms.add(room.getRoomNum());
+            }
+            return suggestedRooms;
+        }
+        if(category.contains("Tech")) {
+            for (Room room : roomManager.getAllRoomsObject()) {
+                if (room.getHasTech()) {
                     suggestedRooms.add(room.getRoomNum());
                 }
             }
-        }else if (category.contains("Tech") && category.contains("Table")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getHasTech() && room.getIsTable()){
-                    suggestedRooms.add(room.getRoomNum());
-                }
-            }
-        }else if (category.contains("Table") && category.contains("Stage")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getIsTable() && room.getHasStage()){
-                    suggestedRooms.add(room.getRoomNum());
-                }
-            }
-        }else if(category.contains("Tech") && category.contains("Stage")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getHasTech() && room.getHasStage()){
-                    suggestedRooms.add(room.getRoomNum());
-                }
-            }
-        }else if(category.contains("Tech")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getHasTech() ){
-                    suggestedRooms.add(room.getRoomNum());
-                }
-            }
-        }else if(category.contains("Table")){
+            return suggestedRooms;
+        }
+        if(category.contains("Table")){
             for (Room room : roomManager.getAllRoomsObject()){
                 if(room.getIsTable() ){
                     suggestedRooms.add(room.getRoomNum());
                 }
             }
-        }else if(category.contains("Stage")){
-            for (Room room : roomManager.getAllRoomsObject()){
-                if(room.getHasStage()){
+            return suggestedRooms;
+        }
+        if(category.contains("Stage")) {
+            for (Room room : roomManager.getAllRoomsObject()) {
+                if (room.getHasStage()) {
                     suggestedRooms.add(room.getRoomNum());
                 }
             }
-        }else{
-            for (Room room : roomManager.getAllRoomsObject()){
+            return suggestedRooms;
+        }
+        if (category.contains("Tech") && category.contains("Table")) {
+            for (Room room : roomManager.getAllRoomsObject()) {
+                if (room.getHasTech() && room.getIsTable()) {
+                    suggestedRooms.add(room.getRoomNum());
+                }
+            }
+            return suggestedRooms;
+        }
+        if (category.contains("Table") && category.contains("Stage")) {
+            for (Room room : roomManager.getAllRoomsObject()) {
+                if (room.getIsTable() && room.getHasStage()) {
+                    suggestedRooms.add(room.getRoomNum());
+                }
+            }
+            return suggestedRooms;
+        }
+        if(category.contains("Tech") && category.contains("Stage")) {
+            for (Room room : roomManager.getAllRoomsObject()) {
+                if (room.getHasTech() && room.getHasStage()) {
+                    suggestedRooms.add(room.getRoomNum());
+                }
+            }
+            return suggestedRooms;
+        }
+        for (Room room : roomManager.getAllRoomsObject()) {
+            if (room.getHasTech() && room.getHasStage() && room.getIsTable()) {
                 suggestedRooms.add(room.getRoomNum());
             }
         }

@@ -52,6 +52,14 @@ public class RoomManager {
         }
     }
 
+    public int getRoomNumGivenId(String roomId){
+        if (getRoomGivenId(roomId) != null){
+            return getRoomGivenId(roomId).getRoomNum();
+        }else{
+            return -1;
+        }
+    }
+
     /**
      * the method will return the id of a room given its roomNum
      *
@@ -80,6 +88,31 @@ public class RoomManager {
             }
         }
         return target;
+    }
+
+    /**
+     * add constraints to room base on list of constraints
+     *
+     * @param roomNum room number
+     * @param category room constraints
+     * @return verification if there is any room constaints are modified
+     */
+    public boolean addConstraintToRoom(int roomNum, ArrayList<String> category){
+        Room room = getRoomGivenRoomNum(roomNum);
+        if (room == null){
+            return false;
+        }
+        if (!category.contains("Tech") && !category.contains("Table") && !category.contains("Stage")){
+            return true;
+        }
+        if (category.contains("Tech")) {
+            room.setTech();
+        }if (category.contains("Table")){
+            room.setToTable();
+        }if (category.contains("Stage")){
+            room.setStage();
+        }
+        return true;
     }
 
     /**
