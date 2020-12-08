@@ -30,7 +30,10 @@ public class UserFactory {
 
         } else if (userType.equalsIgnoreCase("Speaker")) {
             return new User(username, password, "Organizer");
-        }
+        } else if (userType.equalsIgnoreCase("AdminUser")) {
+            return new User(username, password, "AdminUser");
+        } else if (userType.equalsIgnoreCase("VipUser")) {
+            return new User(username, password, "VipUser"); }
 
         return null;
     }

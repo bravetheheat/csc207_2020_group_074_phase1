@@ -7,7 +7,7 @@ package main.presenters;
  * @version 1.0
  */
 
-public class UserManagementScreen {
+public class  UserManagementScreen {
 
     /**
      * Print the screen name for event management screen
@@ -22,18 +22,47 @@ public class UserManagementScreen {
      */
     public void promptCommand() {
         System.out.println("What would you like to modify, choose one option (number only) from below:");
-        System.out.println("1. Add Speaker");
+        System.out.println("1. Add User");
         System.out.println("2. Display user list");
         System.out.println("3. Exit the screen");
     }
 
     /**
-     * Ask user to input username and password of speaker in order to add a speaker.
+     * Print available options for admin users to choose.
      */
-    public void promptCreateSpeaker() {
-        System.out.println("You are adding a speaker, please enter the following information line by line:");
+    public void promptCommandAdminUser() {
+        System.out.println("What would you like to modify, choose one option (number only) from below:");
+        System.out.println("1. Add User");
+        System.out.println("2. Display user list");
+        System.out.println("3. Delete User by ID");
+        System.out.println("4. Delete User by username");
+        System.out.println("5. Exit the screen");
+    }
+
+    /**
+     * Ask user to input username, password and user type in order to add a user.
+     */
+    public void promptCreateUser() {
+        System.out.println("You are adding a user, please enter the following information line by line:");
         System.out.println("Line 1 -- Enter user name: ");
         System.out.println("Line 2 -- Enter user password: ");
+        System.out.println("Line 2 -- Enter user type: ");
+    }
+
+    /**
+     * Ask user to input if in order to remove a user.
+     */
+    public void promptRemoveUserByID() {
+        System.out.println("You are removing a user, please enter the following information line by line:");
+        System.out.println("Line 1 -- Enter user ID: ");
+    }
+
+    /**
+     * Ask user to input username in order to remove a user.
+     */
+    public void promptRemoveUserByName() {
+        System.out.println("You are removing a user, please enter the following information line by line:");
+        System.out.println("Line 1 -- Enter user name: ");
     }
 
     /**
@@ -53,17 +82,24 @@ public class UserManagementScreen {
     }
 
     /**
-     * Print success of adding a speaker.
+     * Print success of adding a user.
      */
     public void printValidAdding() {
-        System.out.println("Successfully added speaker!");
+        System.out.println("Successfully added user!");
     }
 
     /**
-     * Print failure of adding a speaker.
+     * Print failure of adding a user.
      */
     public void printInvalidAdding() {
-        System.out.println("Fail to add speaker! Please try again.");
+        System.out.println("Fail to add user! Please try again. This failure may due to repeated username.");
     }
 
+    public void printValidRemoving() {
+        System.out.println("Successfully removed user!");
+    }
+
+    public void printInvalidRemoving() {
+        System.out.println("Fail to remove user! Please try again.");
+    }
 }

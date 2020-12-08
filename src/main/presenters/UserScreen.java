@@ -7,16 +7,16 @@ package main.presenters;
  * @version 1.0
  * @since 2020-11-11
  */
-public class OrganizerScreen {
+public class UserScreen {
     /**
      * Constructor of an OrganizerScreen.
      */
-    public OrganizerScreen() {
+    public UserScreen() {
 
     }
 
     public void printScreenName() {
-        System.out.println("Here is the organizer screen");
+        System.out.println("Here is the user screen");
     }
 
     public void prompt() {

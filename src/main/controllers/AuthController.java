@@ -5,8 +5,6 @@ import main.screencontrollers.*;
 import main.usecases.UserInformationManager;
 import main.usecases.UsersManager;
 
-import java.util.UUID;
-
 /**
  * The AuthController handles authentication, maintains a record of who is logged in, and
  * returns the appropriate controller
@@ -103,7 +101,12 @@ public class AuthController {
 
         switch(userRole){
             case "Attendee": return new AttendeeScreenController(this.programController);
-            case "Organizer": return new OrganizerScreenController(this.programController);
+            case "Organizer":
+                return new UserScreenController(this.programController,"Organizer");
+            case "AdminUser":
+                return new UserScreenController(this.programController,"AdminUser");
+            case "VipUser":
+                return new UserScreenController(this.programController,"VipUser");
             case "Speaker": return new SpeakerScreenController(this.programController);
             default: return null;
         }
