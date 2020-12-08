@@ -6,6 +6,11 @@ import main.gui.*;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.LoginUIListener;
 
+/**
+ * The presenter for <code>LoginUI</code>
+ *
+ * @author Steven Yuan
+ */
 public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
 
     ProgramController programController;
