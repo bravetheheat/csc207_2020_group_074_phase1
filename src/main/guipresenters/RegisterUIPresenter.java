@@ -9,6 +9,11 @@ import main.gui.RegisterUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.RegisterUIListener;
 
+/**
+ * The presenter for <code>RegisterUI</code>
+ *
+ * @author Steven Yuan
+ */
 public class RegisterUIPresenter implements RegisterUIListener, BackButtonListener {
 
     RegisterUI registerUI;
