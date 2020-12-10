@@ -13,7 +13,7 @@ public class UserManagementUI extends JFrame {
     private JTextField textField2;
     private JList UserList;
 
-    public UserManagementUI(ProgramController programController) {
+    public UserManagementUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
     }

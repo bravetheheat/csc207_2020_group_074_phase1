@@ -12,7 +12,7 @@ public class AttendeeMessageUI extends JFrame {
     private JButton sendButton;
     private ProgramController programController;
 
-    public AttendeeMessageUI(ProgramController programController) {
+    public AttendeeMessageUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
 

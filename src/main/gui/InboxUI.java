@@ -9,10 +9,8 @@ public class InboxUI extends JFrame {
     private JButton backButton;
     private JPanel panel1;
     private JList list1;
-    private ProgramController programController;
 
-    public InboxUI(ProgramController programController) {
+    public InboxUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.programController = programController;
     }
 }

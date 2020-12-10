@@ -15,7 +15,7 @@ public class GatewayUI extends JFrame {
     private JButton saveMessagesButton;
     private JButton saveInboxesButton;
 
-    public GatewayUI(ProgramController programController) {
+    public GatewayUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
     }

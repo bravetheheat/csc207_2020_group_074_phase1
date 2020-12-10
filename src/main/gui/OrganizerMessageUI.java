@@ -15,7 +15,7 @@ public class OrganizerMessageUI extends JFrame {
     private JButton allAttendeesButton;
     private JButton allSpeakersButton;
 
-    public OrganizerMessageUI(ProgramController programController) {
+    public OrganizerMessageUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
     }

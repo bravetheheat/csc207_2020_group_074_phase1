@@ -21,7 +21,7 @@ public class EventsManagementUI extends JFrame {
     private JList EventList;
     private ProgramController programController;
 
-    public EventsManagementUI(ProgramController programController) {
+    public EventsManagementUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
 

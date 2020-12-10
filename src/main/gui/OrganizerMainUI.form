@@ -24,12 +24,12 @@
           <text value="User management"/>
         </properties>
       </component>
-      <component id="b241f" class="javax.swing.JButton" binding="manageAndEventOrButton" default-binding="true">
+      <component id="b241f" class="javax.swing.JButton" binding="manageEventRoomButton">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Manage and event or create a room"/>
+          <text value="Manage an event or create a room"/>
         </properties>
       </component>
       <component id="515ea" class="javax.swing.JButton" binding="registeredEventsButton" default-binding="true">
@@ -48,7 +48,7 @@
           <text value="Data management"/>
         </properties>
       </component>
-      <component id="9e619" class="javax.swing.JButton" binding="messagesButton" default-binding="true">
+      <component id="9e619" class="javax.swing.JButton" binding="messageButton">
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="1" use-parent-layout="false"/>
         </constraints>
