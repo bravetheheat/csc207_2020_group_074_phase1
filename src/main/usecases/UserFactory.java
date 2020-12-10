@@ -16,7 +16,7 @@ public class UserFactory {
      *
      * @param username that is the username of the user
      * @param password that is the password of the user
-     * @param userType that is the type of the user which are attendees, organizer and speaker.
+     * @param userType that is the type of the user which are attendees, organizer, speaker and AdminUser.
      */
     public User getUser(String username, String password, String userType) {
         if (userType == null) {
@@ -30,10 +30,9 @@ public class UserFactory {
 
         } else if (userType.equalsIgnoreCase("Speaker")) {
             return new User(username, password, "Organizer");
+
         } else if (userType.equalsIgnoreCase("AdminUser")) {
-            return new User(username, password, "AdminUser");
-        } else if (userType.equalsIgnoreCase("VipUser")) {
-            return new User(username, password, "VipUser"); }
+            return new User(username, password, "AdminUser"); }
 
         return null;
     }
