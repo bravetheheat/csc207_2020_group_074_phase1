@@ -17,4 +17,8 @@ public interface ILandingUI extends IView {
     void notifyListenerOnLoginButtonClicked();
 
     void notifyListenerOnRegisterButtonClicked();
+
+    ILoginUI goToLoginUI();
+
+    IRegisterUI goToRegisterUI();
 }
