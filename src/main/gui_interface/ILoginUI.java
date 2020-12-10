@@ -12,14 +12,16 @@ import main.guilisteners.LoginUIListener;
 public interface ILoginUI extends IView {
 
     /**
-     * Add the class that implements <code>LoginUIListener</code>
-     * @param listener listens to actions performed on the login button and switch screen
+     * Listens to actions performed on the login button and switch screen
+     *
+     * @param listener the object that implements <code>LoginUIListener</code>
      */
     void addLoginUIListener(LoginUIListener listener);
 
     /**
-     * Add the class that implements <code>BackButtonListener</code>
-     * @param listener listens to actions performed on the back button and switch screen
+     * Listens to actions performed on the back button and switch screen
+     *
+     * @param listener the object that implements <code>BackButtonListener</code>
      */
     void addBackButtonListener(BackButtonListener listener);
 
