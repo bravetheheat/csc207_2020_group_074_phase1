@@ -7,11 +7,11 @@ package main.presenters;
  * @version 1.0
  * @since 2020-11-11
  */
-public class UserScreen {
+public class OrganizerScreen {
     /**
      * Constructor of an OrganizerScreen.
      */
-    public UserScreen() {
+    public OrganizerScreen() {
 
     }
 
