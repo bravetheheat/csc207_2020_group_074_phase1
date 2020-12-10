@@ -37,7 +37,7 @@ public class UserManagementScreenController extends ScreenController {
     public void start() {
         this.presenter.printScreenName();
         ScreenController nextScreenController;
-        if(this.userType.equals("AdminUser")) {
+        if(this.userType.equals("Admin")) {
             this.userManagementAdminUser();
             nextScreenController = new AdminUserScreenController(this.programController, userType);
         }

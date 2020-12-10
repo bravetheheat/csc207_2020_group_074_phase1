@@ -14,20 +14,20 @@ import java.util.List;
  */
 public class OrganizerScreenController extends ScreenController{
 
-    private OrganizerScreen userScreen;
+    private OrganizerScreen organizerScreen;
     private List<String> prompts;
     private String userType;
 
     public OrganizerScreenController(ProgramController programController, String userType) {
         super(programController);
-        this.userScreen = new OrganizerScreen();
+        this.organizerScreen = new OrganizerScreen();
         String[] options = {"0", "1", "2", "3", "4", "5", "6"};
         this.prompts = (Arrays.asList(options));
         this.userType = userType;
     }
 
     public void start() {
-        this.userScreen.printScreenName();
+        this.organizerScreen.printScreenName();
         this.run();
         this.end();
     }
@@ -36,11 +36,11 @@ public class OrganizerScreenController extends ScreenController{
      * Checks valid input from Organizer and tells ProgramController what screen to go next.
      */
     public void run() {
-        this.userScreen.prompt();
+        this.organizerScreen.prompt();
         String next = this.scanner.nextLine();
         while (!this.prompts.contains(next)){
-            this.userScreen.prompt2(next);
-            this.userScreen.prompt();
+            this.organizerScreen.prompt2(next);
+            this.organizerScreen.prompt();
             next = this.scanner.nextLine();
         }
         // for avoiding error which is nextScreenController may not be initialize
