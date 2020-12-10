@@ -100,6 +100,8 @@ public class UserManagementScreenController extends ScreenController {
                 if(removeUserbyName())this.presenter.printValidRemoving();
                 else this.presenter.printInvalidRemoving();
                 break;
+            case "5":
+                break;
             default:
                 presenter.printInvalidInput();
                 userManagement();
