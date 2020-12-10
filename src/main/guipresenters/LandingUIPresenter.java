@@ -1,9 +1,9 @@
 package main.guipresenters;
 
 import main.controllers.ProgramController;
-import main.gui.LandingUI;
-import main.gui.LoginUI;
-import main.gui.RegisterUI;
+import main.gui_interface.ILandingUI;
+import main.gui_interface.ILoginUI;
+import main.gui_interface.IRegisterUI;
 import main.guilisteners.LoginButtonListener;
 import main.guilisteners.RegisterButtonListener;
 
@@ -16,32 +16,35 @@ import main.guilisteners.RegisterButtonListener;
 
 public class LandingUIPresenter implements LoginButtonListener, RegisterButtonListener {
 
-    private LandingUI landingUI;
+    private ILandingUI iLandingUI;
     private ProgramController programController;
-    private LoginUI loginUI;
-    private RegisterUI registerUI;
+    private ILoginUI iLoginUI;
+    private IRegisterUI iRegisterUI;
 
-    public LandingUIPresenter(LandingUI landingUI, ProgramController programController) {
-        this.landingUI = landingUI;
+    public LandingUIPresenter(ILandingUI landingUI, ProgramController programController) {
+        this.iLandingUI = landingUI;
         this.programController = programController;
         programController.startUI();
-        landingUI.addLoginButtonListener(this);
-        landingUI.addRegisterButtonLister(this);
+        iLandingUI.addLoginButtonListener(this);
+        iLandingUI.addRegisterButtonLister(this);
     }
+
+//    public void addLoginUI(ILoginUI iLoginUI) {
+//        iLoginUI = iLoginUI;
+//    }
+
 
     @Override
     public void onLoginButtonClicked() {
         programController.saveForNext();
-        loginUI = new LoginUI();
-        new LoginUIPresenter(loginUI, programController);
-        landingUI.dispose();
+        iLoginUI = iLandingUI.goToLoginUI();
+        new LoginUIPresenter(iLoginUI, programController);
     }
 
     @Override
     public void onRegisterButtonClicked() {
         programController.saveForNext();
-        registerUI = new RegisterUI();
-        new RegisterUIPresenter(registerUI, programController);
-        landingUI.dispose();
+        iRegisterUI = iLandingUI.goToRegisterUI();
+        new RegisterUIPresenter(iRegisterUI, programController);
     }
 }

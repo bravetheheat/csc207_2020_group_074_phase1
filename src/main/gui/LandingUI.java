@@ -1,10 +1,10 @@
 package main.gui;
 
-import main.controllers.ProgramController;
 import main.gui_interface.ILandingUI;
+import main.gui_interface.ILoginUI;
+import main.gui_interface.IRegisterUI;
 import main.guilisteners.LoginButtonListener;
 import main.guilisteners.RegisterButtonListener;
-import main.guipresenters.LoginUIPresenter;
 
 import javax.swing.*;
 
@@ -23,6 +23,7 @@ public class LandingUI extends JFrame implements ILandingUI {
     private LoginButtonListener loginButtonListener;
     private RegisterButtonListener registerButtonListener;
     private LoginUI loginUI;
+    private RegisterUI registerUI;
 
     public LandingUI() {
         this.setTitle("Program X");
@@ -59,8 +60,16 @@ public class LandingUI extends JFrame implements ILandingUI {
     }
 
     @Override
-    public void goToNext(ProgramController programController) {
+    public ILoginUI goToLoginUI() {
         loginUI = new LoginUI();
-        new LoginUIPresenter(loginUI, programController);
+        this.dispose();
+        return loginUI;
+    }
+
+    @Override
+    public IRegisterUI goToRegisterUI() {
+        registerUI = new RegisterUI();
+        this.dispose();
+        return registerUI;
     }
 }

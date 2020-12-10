@@ -1,5 +1,6 @@
 package main.gui;
 
+import main.gui_interface.ILoginUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.LoginUIListener;
 
@@ -12,18 +13,17 @@ import javax.swing.*;
  */
 @SuppressWarnings("FieldCanBeLocal")
 
-public class LoginUI extends JFrame {
+public class LoginUI extends JFrame implements ILoginUI {
 
-//    private ProgramController programController;
     private JPanel loginPanel;
     private JButton backButton;
     private JTextField emailTextField;
     private JButton logInButton;
     private JPasswordField passwordField;
     private JLabel loginTitleLabel;
-//    private final AuthController authController;
     private LoginUIListener loginUIListener;
     private BackButtonListener backButtonListener;
+    private LandingUI landingUI;
 
     public LoginUI() {
 
@@ -34,68 +34,45 @@ public class LoginUI extends JFrame {
         this.setVisible(true);
 
 
-        logInButton.addActionListener(e -> {
-//            String username = emailTextField.getText();
-//            String password = String.valueOf((passwordField.getPassword()));
-//            if (authController.login(username, password)) {
-//                String userType = authController.getUserType();
-//                switch(userType){
-//                    case "Attendee":
-//                        System.out.println("go to attendee");
-//                        programController.saveForNext();
-//                        new AttendeeMainUI(programController);
-//                        dispose();
-//                        break;
-//                    case "Organizer":
-//                        System.out.println("go to organizer");
-//                        programController.saveForNext();
-//                        new OrganizerMainUI(programController);
-//                        dispose();
-//                        break;
-//                    case "Speaker":
-//                        System.out.println("go to speaker");
-//                        programController.saveForNext();
-//                        new SpeakerMainUI(programController);
-//                        dispose();
-//                        break;
-//                    default:
-//                        programController.saveForNext();
-//                        new RegisterMessageErrorUI(programController);
-//                        dispose();
-//                }
-//            }
-            notifyListenerOnLoginButtonClicked();
-        });
+        logInButton.addActionListener(e -> notifyListenerOnLoginButtonClicked());
 
-        backButton.addActionListener(e -> {
-//            programController.saveForNext();
-//            new LandingUI(programController);
-//            dispose();
-            notifyListenerOnBackButtonClicked();
-        });
+        backButton.addActionListener(e -> notifyListenerOnBackButtonClicked());
     }
 
+    @Override
     public void addLoginUIListener(LoginUIListener listener) {
         loginUIListener = listener;
     }
 
+    @Override
     public void addBackButtonListener(BackButtonListener listener) {
         backButtonListener = listener;
     }
 
+    @Override
     public void notifyListenerOnLoginButtonClicked() {
         loginUIListener.onLoginButtonClicked();
     }
 
+    @Override
     public void notifyListenerOnBackButtonClicked() {
         backButtonListener.onBackButtonClicked();
     }
 
+    @Override
     public String getUserName() {
         return emailTextField.getText();
     }
 
+    @Override
     public String getPwd() {
         return String.valueOf((passwordField.getPassword()));
+    }
+
+    @Override
+    public LandingUI goToLandingUI() {
+        landingUI = new LandingUI();
+        this.dispose();
+        return landingUI;
     }
 }
