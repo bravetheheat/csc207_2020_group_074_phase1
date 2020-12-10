@@ -2,10 +2,9 @@ package main.guipresenters;
 
 import main.controllers.AuthController;
 import main.controllers.ProgramController;
-import main.gui.LandingUI;
-import main.gui.RegisterMessageErrorUI;
-import main.gui.RegisterMessageSuccessfulUI;
-import main.gui.RegisterUI;
+import main.gui_interface.ILandingUI;
+import main.gui_interface.INotificationUI;
+import main.gui_interface.IRegisterUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.RegisterUIListener;
 
@@ -16,15 +15,17 @@ import main.guilisteners.RegisterUIListener;
  */
 public class RegisterUIPresenter implements RegisterUIListener, BackButtonListener {
 
-    RegisterUI registerUI;
+    IRegisterUI iRegisterUI;
     ProgramController programController;
     AuthController authController;
-    LandingUI landingUI;
-    RegisterMessageSuccessfulUI registerMessageSuccessfulUI;
-    RegisterMessageErrorUI registerMessageErrorUI;
+    ILandingUI iLandingUI;
+//    RegisterMessageSuccessfulUI registerMessageSuccessfulUI;
+//    RegisterMessageErrorUI iRegisterMessageErrorUI;
+    INotificationUI iRegisterMessageSuccessfulUI;
+    INotificationUI iRegisterMessageErrorUI;
 
-    public RegisterUIPresenter(RegisterUI registerUI, ProgramController programController) {
-        this.registerUI = registerUI;
+    public RegisterUIPresenter(IRegisterUI registerUI, ProgramController programController) {
+        this.iRegisterUI = registerUI;
         this.programController = programController;
         this.authController = programController.getAuthController();
         registerUI.addRegisterUIListener(this);
@@ -32,35 +33,37 @@ public class RegisterUIPresenter implements RegisterUIListener, BackButtonListen
     }
     @Override
     public void onConfirmButtonClicked() {
-            String userType = registerUI.getUserType();
-            String username = registerUI.getUserName();
-            String password = registerUI.getPwd();
+            String userType = iRegisterUI.getUserType();
+            String username = iRegisterUI.getUserName();
+            String password = iRegisterUI.getPwd();
             if (!userType.equals("Attendee") && !userType.equals("Organizer")) {
-                registerMessageErrorUI = new RegisterMessageErrorUI();
-                new RegisterMessageErrorPresenter(registerMessageErrorUI, programController);
-                registerUI.dispose();
+//                iRegisterMessageErrorUI = new RegisterMessageErrorUI();
+//                new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
+//                iRegisterUI.dispose();
+                programController.saveForNext();
+                iRegisterMessageErrorUI = iRegisterUI.goToErrorUI();
+                new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
             }
             boolean success = this.authController.registerUser(
                     username, password, userType);
             if (!success) {
                 programController.saveForNext();
-                registerMessageErrorUI = new RegisterMessageErrorUI();
-                new RegisterMessageErrorPresenter(registerMessageErrorUI, programController);
-                registerUI.dispose();
+                iRegisterMessageErrorUI = iRegisterUI.goToErrorUI();
+                new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
             }
             else {
                 programController.saveForNext();
-                registerMessageSuccessfulUI = new RegisterMessageSuccessfulUI();
+                iRegisterMessageSuccessfulUI = iRegisterUI.goToSuccessfulUI();
                 new RegisterMessageSuccessfulPresenter(
-                        registerMessageSuccessfulUI, programController);
-                registerUI.dispose();
+                        iRegisterMessageSuccessfulUI, programController);
+//                iRegisterUI.dispose();
             }
     }
 
     @Override
     public void onBackButtonClicked() {
-        this.landingUI = new LandingUI();
-        new LandingUIPresenter(landingUI, programController);
-        registerUI.dispose();
+        programController.saveForNext();
+        iLandingUI = iRegisterUI.goToLandingUI();
+        new LandingUIPresenter(iLandingUI, programController);
     }
 }

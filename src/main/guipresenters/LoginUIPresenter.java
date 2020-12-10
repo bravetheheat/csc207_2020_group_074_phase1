@@ -3,6 +3,9 @@ package main.guipresenters;
 import main.controllers.AuthController;
 import main.controllers.ProgramController;
 import main.gui.*;
+import main.gui_interface.ILandingUI;
+import main.gui_interface.ILoginUI;
+import main.gui_interface.INotificationUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.LoginUIListener;
 
@@ -15,56 +18,56 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
 
     ProgramController programController;
     AuthController authController;
-    LoginUI loginUI;
-    LandingUI landingUI;
-    RegisterMessageErrorUI registerMessageErrorUI;
+    ILoginUI iLoginUI;
+    ILandingUI iLandingUI;
+    INotificationUI iRegisterMessageErrorUI;
 
-    public LoginUIPresenter(LoginUI loginUI, ProgramController programController) {
-        this.loginUI = loginUI;
+    public LoginUIPresenter(ILoginUI loginUI, ProgramController programController) {
+        this.iLoginUI = loginUI;
         this.programController = programController;
         this.authController = programController.getAuthController();
-        loginUI.addLoginUIListener(this);
-        loginUI.addBackButtonListener(this);
+        this.iLoginUI.addLoginUIListener(this);
+        this.iLoginUI.addBackButtonListener(this);
     }
 
     @Override
     public void onLoginButtonClicked() {
-            String username = loginUI.getUserName();
-            String password = loginUI.getPwd();
+            String username = iLoginUI.getUserName();
+            String password = iLoginUI.getPwd();
             if (authController.login(username, password)) {
                 String userType = authController.getUserType();
                 switch(userType){
                     case "Attendee":
-                        System.out.println("go to attendee");
+//                        System.out.println("go to attendee");
                         programController.saveForNext();
                         new AttendeeMainUI(programController);
-                        loginUI.dispose();
+                        iLoginUI.dispose();
                         break;
                     case "Organizer":
-                        System.out.println("go to organizer");
+//                        System.out.println("go to organizer");
                         programController.saveForNext();
                         new OrganizerMainUI(programController);
-                        loginUI.dispose();
+                        iLoginUI.dispose();
                         break;
                     case "Speaker":
-                        System.out.println("go to speaker");
+//                        System.out.println("go to speaker");
                         programController.saveForNext();
                         new SpeakerMainUI(programController);
-                        loginUI.dispose();
+                        iLoginUI.dispose();
                         break;
                     default:
                         programController.saveForNext();
-                        new RegisterMessageErrorPresenter(registerMessageErrorUI,
+                        new RegisterMessageErrorPresenter(iRegisterMessageErrorUI,
                                 programController);
-                        loginUI.dispose();
+                        iLoginUI.dispose();
                 }
             }
     }
 
     @Override
     public void onBackButtonClicked() {
-        this.landingUI = new LandingUI();
-        new LandingUIPresenter(landingUI, programController);
-        loginUI.dispose();
+        this.iLandingUI = iLoginUI.goToLandingUI();
+        new LandingUIPresenter(iLandingUI, programController);
+//        iLoginUI.dispose();
     }
 }

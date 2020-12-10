@@ -1,8 +1,8 @@
 package main.guipresenters;
 
 import main.controllers.ProgramController;
-import main.gui.RegisterMessageErrorUI;
-import main.gui.RegisterUI;
+import main.gui_interface.INotificationUI;
+import main.gui_interface.IRegisterUI;
 import main.guilisteners.BackButtonListener;
 
 /**
@@ -15,21 +15,21 @@ import main.guilisteners.BackButtonListener;
 public class RegisterMessageErrorPresenter implements BackButtonListener {
 
     private ProgramController programController;
-    private RegisterMessageErrorUI registerMessageErrorUI;
-    private RegisterUI registerUI;
+    private INotificationUI iRegisterMessageErrorUI;
+    private IRegisterUI iRegisterUI;
 
-    public RegisterMessageErrorPresenter(RegisterMessageErrorUI registerMessageErrorUI,
+    public RegisterMessageErrorPresenter(INotificationUI registerMessageErrorUI,
                                          ProgramController programController) {
         this.programController = programController;
-        this.registerMessageErrorUI = registerMessageErrorUI;
-        registerMessageErrorUI.addBackButtonListener(this);
+        this.iRegisterMessageErrorUI = registerMessageErrorUI;
+        this.iRegisterMessageErrorUI.addBackButtonListener(this);
     }
 
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
-        this.registerUI = new RegisterUI();
-        new RegisterUIPresenter(registerUI, programController);
-        registerMessageErrorUI.dispose();
+        iRegisterUI = iRegisterMessageErrorUI.goToRegister();
+        new RegisterUIPresenter(iRegisterUI, programController);
+//        iRegisterMessageErrorUI.dispose();
     }
 }

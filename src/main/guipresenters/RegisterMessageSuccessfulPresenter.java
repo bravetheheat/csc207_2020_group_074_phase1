@@ -1,8 +1,8 @@
 package main.guipresenters;
 
 import main.controllers.ProgramController;
-import main.gui.RegisterMessageSuccessfulUI;
 import main.gui.RegisterUI;
+import main.gui_interface.INotificationUI;
 import main.guilisteners.BackButtonListener;
 
 /**
@@ -15,22 +15,24 @@ import main.guilisteners.BackButtonListener;
 public class RegisterMessageSuccessfulPresenter implements BackButtonListener {
 
     ProgramController programController;
-    private RegisterMessageSuccessfulUI registerMessageSuccessfulUI;
-    private RegisterUI registerUI;
+    private INotificationUI iRegisterMessageSuccessfulUI;
+    private RegisterUI iRegisterUI;
 
     public RegisterMessageSuccessfulPresenter(
-            RegisterMessageSuccessfulUI registerMessageSuccessfulUI,
+            INotificationUI registerMessageSuccessfulUI,
                                               ProgramController programController) {
         this.programController = programController;
-        this.registerMessageSuccessfulUI = registerMessageSuccessfulUI;
-        this.registerMessageSuccessfulUI.addBackButtonListener(this);
+        this.iRegisterMessageSuccessfulUI = registerMessageSuccessfulUI;
+        this.iRegisterMessageSuccessfulUI.addBackButtonListener(this);
     }
 
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
-        this.registerUI = new RegisterUI();
-        new RegisterUIPresenter(registerUI, programController);
-        registerMessageSuccessfulUI.dispose();
+//        this.registerUI = new RegisterUI();
+//        new RegisterUIPresenter(registerUI, programController);
+//        iRegisterMessageSuccessfulUI.dispose();
+        iRegisterUI = iRegisterMessageSuccessfulUI.goToRegister();
+        new RegisterUIPresenter(iRegisterUI, programController);
     }
 }
