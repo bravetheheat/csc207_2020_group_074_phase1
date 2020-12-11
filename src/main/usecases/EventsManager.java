@@ -203,6 +203,7 @@ public class EventsManager {
     }
 
 
+
     /**
      * A getter of the schedule stored in EventsManager.
      *
