@@ -34,23 +34,27 @@ public class RegisterUIPresenter implements RegisterUIListener, BackButtonListen
             String userType = iRegisterUI.getUserType();
             String username = iRegisterUI.getUserName();
             String password = iRegisterUI.getPwd();
-            if (!userType.equals("Attendee") && !userType.equals("Organizer")) {
-                programController.saveForNext();
+            if (userType.equals("") || username.equals("") || password.equals("")) {
                 iRegisterMessageErrorUI = iRegisterUI.goToErrorUI();
                 new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
             }
-            boolean success = this.authController.registerUser(
-                    username, password, userType);
-            if (!success) {
-                programController.saveForNext();
+            else if (!userType.equals("Attendee") && !userType.equals("Organizer")) {
                 iRegisterMessageErrorUI = iRegisterUI.goToErrorUI();
                 new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
             }
             else {
-                programController.saveForNext();
-                iRegisterMessageSuccessfulUI = iRegisterUI.goToSuccessfulUI();
-                new RegisterMessageSuccessfulPresenter(
-                        iRegisterMessageSuccessfulUI, programController);
+                boolean success = this.authController.registerUser(
+                        username, password, userType);
+                if (!success) {
+                    programController.saveForNext();
+                    iRegisterMessageErrorUI = iRegisterUI.goToErrorUI();
+                    new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
+                } else {
+                    programController.saveForNext();
+                    iRegisterMessageSuccessfulUI = iRegisterUI.goToSuccessfulUI();
+                    new RegisterMessageSuccessfulPresenter(
+                            iRegisterMessageSuccessfulUI, programController);
+                }
             }
     }
 

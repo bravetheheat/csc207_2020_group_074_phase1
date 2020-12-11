@@ -40,6 +40,15 @@ public class UsersManager {
         return user.getUsername();
     }
 
+    public String getIDFromUsername(String username) {
+        for (User user : registeredUsers.values()) {
+            if (user.getUsername().equals(username)) {
+                return user.getId();
+            }
+        }
+        return "";
+    }
+
 
     /**
      * Verify the authentication of new user with username, password and type of users.
@@ -156,6 +165,16 @@ public class UsersManager {
             usersInfo.append(userInfo);
         }
         return usersInfo.toString();
+    }
+
+    public ArrayList<String> getUserInfoFormatted() {
+        ArrayList<String> listOfUserInfo = new ArrayList<>();
+        for (User user : registeredUsers.values()) {
+            String userInfo = "User #:" + user.getId() + "\n" + "Username: " + user.getUsername()
+                    + "\n" + "Password: " + user.getPassword() + "\n" + "User Type: " + user.getType() +"\n";
+            listOfUserInfo.add(userInfo);
+        }
+        return listOfUserInfo;
     }
 
     /**
