@@ -14,14 +14,10 @@ import java.awt.*;
 @SuppressWarnings("FieldCanBeLocal")
 
 public class NotificationUI extends JFrame implements INotificationUI {
-//    private ProgramController programController;
     private JButton backButton;
     private BackButtonListener backButtonListener;
-    private RegisterUI registerUI;
 
     public NotificationUI() {
-//        this.programController = programController;
-
         this.setLayout(null);
 
         setSize(600, 500);
@@ -34,15 +30,9 @@ public class NotificationUI extends JFrame implements INotificationUI {
         backButton = new JButton("Back");
         Dimension dimBackButton = backButton.getPreferredSize();
         backButton.setBounds(0, 0, dimBackButton.width, dimBackButton.height);
-//        backButton.setLocation(0,0);
         add(backButton);
 
-        backButton.addActionListener(e -> {
-//            programController.saveForNext();
-//            new RegisterUI();
-//            dispose();
-            notifyListenerOnBackButtonClicked();
-        });
+        backButton.addActionListener(e -> notifyListenerOnBackButtonClicked());
     }
 
     @Override
@@ -63,13 +53,6 @@ public class NotificationUI extends JFrame implements INotificationUI {
         int yPos = (this.getHeight() - dim.height) / 2;
         jLabel.setBounds(xPos, yPos, dim.width, dim.height);
         this.add(jLabel);
-    }
-
-    @Override
-    public RegisterUI goToRegister() {
-        registerUI = new RegisterUI();
-        this.dispose();
-        return registerUI;
     }
 
 }

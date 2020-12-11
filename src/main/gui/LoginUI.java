@@ -5,6 +5,7 @@ import main.guilisteners.BackButtonListener;
 import main.guilisteners.LoginUIListener;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 /**
  * The login screen in which users can enter account info and log in.
@@ -24,6 +25,10 @@ public class LoginUI extends JFrame implements ILoginUI {
     private LoginUIListener loginUIListener;
     private BackButtonListener backButtonListener;
     private LandingUI landingUI;
+    private AttendeeMainUI attendeeMainUI;
+    private OrganizerMainUI organizerMainUI;
+    private SpeakerMainUI speakerMainUI;
+    private LoginMessageErrorUI loginMessageErrorUI;
 
     public LoginUI() {
 
@@ -74,5 +79,33 @@ public class LoginUI extends JFrame implements ILoginUI {
         landingUI = new LandingUI();
         this.dispose();
         return landingUI;
+    }
+
+    @Override
+    public AttendeeMainUI goToAttendeeMainUI() {
+        attendeeMainUI = new AttendeeMainUI();
+        this.dispose();
+        return attendeeMainUI;
+    }
+
+    @Override
+    public OrganizerMainUI goToOrganizerMainUI() {
+        organizerMainUI = new OrganizerMainUI();
+        this.dispose();
+        return organizerMainUI;
+    }
+
+    @Override
+    public SpeakerMainUI goToSpeakerMainUI(ArrayList<String> events) {
+        speakerMainUI = new SpeakerMainUI(events);
+        this.dispose();
+        return speakerMainUI;
+    }
+
+    @Override
+    public LoginMessageErrorUI goToLoginMessageErrorUI() {
+        loginMessageErrorUI = new LoginMessageErrorUI();
+        this.dispose();
+        return loginMessageErrorUI;
     }
 }

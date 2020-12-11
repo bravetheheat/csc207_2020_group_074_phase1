@@ -1,6 +1,5 @@
 package main.gui;
 
-import main.gateways.Gateway;
 import main.gui_interface.*;
 import main.guilisteners.*;
 
