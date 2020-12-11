@@ -285,15 +285,17 @@ public class EventController {
      * @return verification of the suggested rooms are added into event
      */
     public ArrayList<Integer> getSuggestedRooms(ArrayList<String> category){
-        System.out.println(category); // This shouldn't be in the controller
+        for (int i = 0; i < category.size(); i++){
+            category.set(i,category.get(i).toLowerCase());
+        }
         ArrayList<Integer> suggestedRooms = new ArrayList<>();
-        if (!category.contains("Tech") && !category.contains("Table") && !category.contains("Stage")) {
+        if (category.contains("none")) {
             for (Room room : roomManager.getAllRoomsObject()){
                 suggestedRooms.add(room.getRoomNum());
             }
             return suggestedRooms;
         }
-        if(category.contains("Tech")) {
+        if(category.contains("tech")) {
             for (Room room : roomManager.getAllRoomsObject()) {
                 if (room.getHasTech()) {
                     suggestedRooms.add(room.getRoomNum());
@@ -301,7 +303,7 @@ public class EventController {
             }
             return suggestedRooms;
         }
-        if(category.contains("Table")){
+        if(category.contains("table")){
             for (Room room : roomManager.getAllRoomsObject()){
                 if(room.getIsTable() ){
                     suggestedRooms.add(room.getRoomNum());
@@ -309,7 +311,7 @@ public class EventController {
             }
             return suggestedRooms;
         }
-        if(category.contains("Stage")) {
+        if(category.contains("stage")) {
             for (Room room : roomManager.getAllRoomsObject()) {
                 if (room.getHasStage()) {
                     suggestedRooms.add(room.getRoomNum());
@@ -317,7 +319,7 @@ public class EventController {
             }
             return suggestedRooms;
         }
-        if (category.contains("Tech") && category.contains("Table")) {
+        if (category.contains("tech") && category.contains("table")) {
             for (Room room : roomManager.getAllRoomsObject()) {
                 if (room.getHasTech() && room.getIsTable()) {
                     suggestedRooms.add(room.getRoomNum());
@@ -325,7 +327,7 @@ public class EventController {
             }
             return suggestedRooms;
         }
-        if (category.contains("Table") && category.contains("Stage")) {
+        if (category.contains("table") && category.contains("stage")) {
             for (Room room : roomManager.getAllRoomsObject()) {
                 if (room.getIsTable() && room.getHasStage()) {
                     suggestedRooms.add(room.getRoomNum());
@@ -333,7 +335,7 @@ public class EventController {
             }
             return suggestedRooms;
         }
-        if(category.contains("Tech") && category.contains("Stage")) {
+        if(category.contains("tech") && category.contains("stage")) {
             for (Room room : roomManager.getAllRoomsObject()) {
                 if (room.getHasTech() && room.getHasStage()) {
                     suggestedRooms.add(room.getRoomNum());
