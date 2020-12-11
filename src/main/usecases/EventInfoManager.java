@@ -261,19 +261,35 @@ public class EventInfoManager {
     }
 
     /**
-     * Get one speaker event information as a string representation
+     * Get event basic infomation as a string
+     *
+     * @return string representation of the event about its info
+     */
+    public String infoToString(){
+        int roomNum = -1;
+
+        for (Room room : roomManager.getAllRoomsObject()) {
+            if (room.getId().equals(event.getRoomID())) {
+                roomNum = room.getRoomNum();
+            }
+        }
+
+        return "Title: " + event.getTitle() + "\n"
+                + "Time: " + event.getTime() + "\n"
+                + "Room: Room #" + roomNum + "\n"
+                + "Duration: " + event.getDuration() + " mins \n"
+                + "Capacity: " + event.getCapacity() + " people \n"
+                + "Type: " + event.getType() + "\n";
+    }
+
+    /**
+     * Get event details as a string representation
      *
      * @return the information of the event as a string representation.
      */
     public String toString() {
         String speakerName = speakersOfEvent();
         int roomNum = -1;
-
-        /*for (String user : usersManager.getAllUsers()) {
-            if (this.usersManager.fetchType(user).equals("Speaker") && user.equals(event.getSpeakerID())) {
-                speakerName = usersManager.fetchUser(user).getUsername();
-            }
-        }*/
 
         for (Room room : roomManager.getAllRoomsObject()) {
             if (room.getId().equals(event.getRoomID())) {
