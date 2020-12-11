@@ -61,3 +61,5 @@ public class ListOfUsersUI extends JFrame implements IListOfUsersUI {
         return userManagementUI;
     }
 }
+
+
