@@ -132,7 +132,7 @@ public class EventsManagementScreen {
 
     public void promptRoomConstraint(){
         System.out.println("Enter constraint of room [Tech, Table, Stage]");
-        System.out.println("Enter 'None' if there is no requirement for your event");
+        System.out.println("Enter 'None' if there is no constraints for your room");
         System.out.println("Enter your input by comma: ");
     }
     /**
