@@ -285,7 +285,7 @@ public class EventController {
      * @return verification of the suggested rooms are added into event
      */
     public ArrayList<Integer> getSuggestedRooms(ArrayList<String> category){
-        System.out.println(category);
+        System.out.println(category); // This shouldn't be in the controller
         ArrayList<Integer> suggestedRooms = new ArrayList<>();
         if (!category.contains("Tech") && !category.contains("Table") && !category.contains("Stage")) {
             for (Room room : roomManager.getAllRoomsObject()){
