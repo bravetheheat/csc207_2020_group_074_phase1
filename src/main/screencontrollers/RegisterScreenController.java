@@ -65,10 +65,10 @@ public class RegisterScreenController extends ScreenController {
                 userType = "Organizer";
                 break;
             case "3":
-                userType = "AdminUser";
+                userType = "Admin";
                 break;
             case "4":
-                userType = "VipUser";
+                userType = "Speaker";
                 break;
             default:
                 this.presenter.invalidInput();

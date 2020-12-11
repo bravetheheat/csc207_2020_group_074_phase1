@@ -28,8 +28,8 @@ public class RegisterScreen {
         System.out.println("Select a user type:");
         System.out.println("1. Attendee");
         System.out.println("2. Organizer");
-        System.out.println("3. AdminUser");
-        System.out.println("4. VipUser");
+        System.out.println("3. Admin");
+        System.out.println("4. Speaker");
     }
 
     public void success() {
