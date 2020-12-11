@@ -129,7 +129,7 @@ public class EventsManagementScreenController extends ScreenController {
             String cateString = scanner.nextLine();
             ArrayList<String> constraints = new ArrayList<>(Arrays.asList(cateString.split(",")));
             for (String item : constraints){
-                if(!item.equals("Tech") && (!item.equals("Table")) && (!item.equals("Stage"))){
+                if(!item.equals("Tech") && (!item.equals("Table")) && (!item.equals("Stage"))&& (!item.equals("None"))){
                     presenter.printInvalidInput();
                     return editRoom();
                 }
@@ -345,7 +345,7 @@ public class EventsManagementScreenController extends ScreenController {
             String cateString = scanner.nextLine();
             ArrayList<String> category = new ArrayList<>(Arrays.asList(cateString.split(",")));
             for (String item : category){
-                if(!item.equals("Tech") && (!item.equals("Table")) && (!item.equals("Stage"))){
+                if(!item.equals("Tech") && (!item.equals("Table")) && (!item.equals("Stage"))&& (!item.equals("None"))){
                     presenter.printInvalidInput();
                     return getRoomNum();
                 }
