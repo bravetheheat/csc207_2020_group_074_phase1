@@ -343,7 +343,7 @@ public class EventsManagementScreenController extends ScreenController {
         try {
             presenter.promptRequirement();
             String cateString = scanner.nextLine();
-            ArrayList<String> category = new ArrayList<>(Arrays.asList(cateString.split(",")));
+            ArrayList<String> category = new ArrayList<>(Arrays.asList(cateString.split("[\\s]*[,][\\s]*")));
             for (String item : category){
                 if(!item.equals("Tech") && (!item.equals("Table")) && (!item.equals("Stage"))&& (!item.equals("None"))){
                     presenter.printInvalidInput();
