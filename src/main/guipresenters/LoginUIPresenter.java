@@ -1,13 +1,16 @@
 package main.guipresenters;
 
 import main.controllers.AuthController;
+import main.controllers.EventController;
 import main.controllers.ProgramController;
+import main.controllers.UserController;
 import main.gui.*;
 import main.gui_interface.ILandingUI;
 import main.gui_interface.ILoginUI;
 import main.gui_interface.INotificationUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.LoginUIListener;
+import main.usecases.UsersManager;
 
 /**
  * The presenter for <code>LoginUI</code>
@@ -54,7 +57,9 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
                     case "Speaker":
 //                        System.out.println("go to speaker");
                         programController.saveForNext();
-                        SpeakerMainUI speakerMainUI = new SpeakerMainUI();
+                        EventController eventController = this.programController.getEventController();
+                        SpeakerMainUI speakerMainUI = new SpeakerMainUI(eventController.getSpeakerEvents
+                                (this.authController.fetchLoggedInUser()));
                         new SpeakerMainUIPresenter(speakerMainUI, programController);
                         iLoginUI.dispose();
                         break;

@@ -1,6 +1,7 @@
 package main.guipresenters;
 
 import main.controllers.AuthController;
+import main.controllers.EventController;
 import main.controllers.ProgramController;
 import main.gui_interface.*;
 import main.guilisteners.InboxButtonListener;
@@ -8,8 +9,8 @@ import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.MessageButtonListener;
 
 public class SpeakerMainUIPresenter implements LogoutButtonListener, MessageButtonListener, InboxButtonListener {
-    AuthController authController;
     ProgramController programController;
+    AuthController authController;
     ISpeakerMainUI iSpeakerMainUI;
 
     public SpeakerMainUIPresenter(ISpeakerMainUI iSpeakerMainUI, ProgramController programController) {

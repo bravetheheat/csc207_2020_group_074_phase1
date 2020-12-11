@@ -6,6 +6,8 @@ import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.MessageButtonListener;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
     private JPanel panel1;
@@ -16,9 +18,9 @@ public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
     private JButton inboxButton;
     private InboxButtonListener inboxButtonListener;
     private JList TalksList;
-    //TODO find out how to make the list work
+    private JScrollPane listScroller;
 
-    public SpeakerMainUI() {
+    public SpeakerMainUI(ArrayList<String> events) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 500);
         this.setTitle("Program X");
@@ -29,6 +31,12 @@ public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
         this.logOutButton.addActionListener(e -> notifyListenerOnLogoutButtonClicked());
         this.messageButton.addActionListener(e -> notifyListenerOnMessageButtonClicked());
         this.inboxButton.addActionListener(e -> notifyListenerOnInboxButtonClicked());
+        this.TalksList = new JList(events.toArray());
+        this.TalksList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.TalksList.setLayoutOrientation(JList.VERTICAL);
+        this.TalksList.setVisibleRowCount(-1);
+        this.listScroller = new JScrollPane(this.TalksList);
+        listScroller.setPreferredSize(new Dimension(250, 80));
     }
 
     public void addLogoutButtonListener(LogoutButtonListener listener) {
@@ -53,6 +61,10 @@ public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
 
     public void notifyListenerOnInboxButtonClicked() {
         this.inboxButtonListener.onInboxButtonClicked();
+    }
+
+    public void createEventList() {
+
     }
 
     public ILandingUI goToLandingUI() {
