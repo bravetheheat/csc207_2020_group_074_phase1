@@ -1,10 +1,11 @@
 package main.gui;
 
 import main.controllers.ProgramController;
+import main.gui_interface.IGatewayUI;
 
 import javax.swing.*;
 
-public class GatewayUI extends JFrame {
+public class GatewayUI extends JFrame implements IGatewayUI {
     private ProgramController programController;
     private JButton button1;
     private JPanel panel1;
@@ -15,7 +16,7 @@ public class GatewayUI extends JFrame {
     private JButton saveMessagesButton;
     private JButton saveInboxesButton;
 
-    public GatewayUI(ProgramController programController) {
+    public GatewayUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
     }

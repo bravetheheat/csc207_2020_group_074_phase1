@@ -1,10 +1,11 @@
 package main.gui;
 
 import main.controllers.ProgramController;
+import main.gui_interface.IEventSignUpUI;
 
 import javax.swing.*;
 
-public class EventSignUpUI extends JFrame {
+public class EventSignUpUI extends JFrame implements IEventSignUpUI {
     private JButton backButton;
     private JPanel panel1;
     private JButton signUpForAnButton;
@@ -14,7 +15,7 @@ public class EventSignUpUI extends JFrame {
     private JButton confirmButton;
     private ProgramController programController;
 
-    public EventSignUpUI(ProgramController programController) {
+    public EventSignUpUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
     }
