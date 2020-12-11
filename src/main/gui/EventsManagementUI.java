@@ -5,7 +5,8 @@ import main.gui_interface.IEventsManagementUI;
 
 import javax.swing.*;
 
-public class EventsManagementUI extends JFrame implements IEventsManagementUI  {
+public class EventsManagementUI extends JFrame implements IEventsManagementUI {
+
     private JButton backButton;
     private JPanel panel1;
     private JButton createRoomButton;
@@ -23,8 +24,9 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI  {
     private ProgramController programController;
 
     public EventsManagementUI() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.programController = programController;
-
+        this.setTitle("Manage Events");
+        this.setSize(600, 500);
+        this.setContentPane(panel1);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

@@ -1,6 +1,5 @@
 package main.gui;
 
-import main.controllers.ProgramController;
 import main.gui_interface.IEventSignUpUI;
 
 import javax.swing.*;
@@ -13,10 +12,13 @@ public class EventSignUpUI extends JFrame implements IEventSignUpUI {
     private JButton checkEventDetailsButton;
     private JList list1;
     private JButton confirmButton;
-    private ProgramController programController;
 
     public EventSignUpUI() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.programController = programController;
+        this.setTitle("Event Sign Up");
+        this.setSize(600, 500);
+        this.setContentPane(panel1);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 }

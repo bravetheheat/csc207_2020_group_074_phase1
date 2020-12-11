@@ -7,8 +7,8 @@ public class UserManagementUIPresenter {
     ProgramController programController;
     IUserManagementUI iUserManagementUI;
 
-    public UserManagementUIPresenter(IUserManagementUI iUserManagementUI, ProgramController programController) {
+    public UserManagementUIPresenter(IUserManagementUI userManagementUI, ProgramController programController) {
         this.programController = programController;
-        this.iUserManagementUI = iUserManagementUI;
+        this.iUserManagementUI = userManagementUI;
     }
 }

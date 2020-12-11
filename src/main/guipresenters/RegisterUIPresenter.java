@@ -2,9 +2,7 @@ package main.guipresenters;
 
 import main.controllers.AuthController;
 import main.controllers.ProgramController;
-import main.gui_interface.ILandingUI;
-import main.gui_interface.INotificationUI;
-import main.gui_interface.IRegisterUI;
+import main.gui_interface.*;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.RegisterUIListener;
 
@@ -21,8 +19,8 @@ public class RegisterUIPresenter implements RegisterUIListener, BackButtonListen
     ILandingUI iLandingUI;
 //    RegisterMessageSuccessfulUI registerMessageSuccessfulUI;
 //    RegisterMessageErrorUI iRegisterMessageErrorUI;
-    INotificationUI iRegisterMessageSuccessfulUI;
-    INotificationUI iRegisterMessageErrorUI;
+    IRegisterMessageSuccessfulUI iRegisterMessageSuccessfulUI;
+    IRegisterMessageErrorUI iRegisterMessageErrorUI;
 
     public RegisterUIPresenter(IRegisterUI registerUI, ProgramController programController) {
         this.iRegisterUI = registerUI;
@@ -37,9 +35,6 @@ public class RegisterUIPresenter implements RegisterUIListener, BackButtonListen
             String username = iRegisterUI.getUserName();
             String password = iRegisterUI.getPwd();
             if (!userType.equals("Attendee") && !userType.equals("Organizer")) {
-//                iRegisterMessageErrorUI = new RegisterMessageErrorUI();
-//                new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
-//                iRegisterUI.dispose();
                 programController.saveForNext();
                 iRegisterMessageErrorUI = iRegisterUI.goToErrorUI();
                 new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
@@ -56,7 +51,6 @@ public class RegisterUIPresenter implements RegisterUIListener, BackButtonListen
                 iRegisterMessageSuccessfulUI = iRegisterUI.goToSuccessfulUI();
                 new RegisterMessageSuccessfulPresenter(
                         iRegisterMessageSuccessfulUI, programController);
-//                iRegisterUI.dispose();
             }
     }
 

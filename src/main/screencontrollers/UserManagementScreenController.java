@@ -43,7 +43,7 @@ public class UserManagementScreenController extends ScreenController {
         }
         else {
             this.userManagement();
-            nextScreenController = new OrganizerScreenController(this.programController, userType);}
+            nextScreenController = new OrganizerScreenController(this.programController,userType);}
         this.programController.setNewScreenController(nextScreenController);
         this.end();
     }

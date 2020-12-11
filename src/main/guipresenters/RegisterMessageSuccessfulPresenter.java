@@ -2,7 +2,7 @@ package main.guipresenters;
 
 import main.controllers.ProgramController;
 import main.gui.RegisterUI;
-import main.gui_interface.INotificationUI;
+import main.gui_interface.IRegisterMessageSuccessfulUI;
 import main.guilisteners.BackButtonListener;
 
 /**
@@ -15,11 +15,11 @@ import main.guilisteners.BackButtonListener;
 public class RegisterMessageSuccessfulPresenter implements BackButtonListener {
 
     ProgramController programController;
-    private INotificationUI iRegisterMessageSuccessfulUI;
+    private IRegisterMessageSuccessfulUI iRegisterMessageSuccessfulUI;
     private RegisterUI iRegisterUI;
 
     public RegisterMessageSuccessfulPresenter(
-            INotificationUI registerMessageSuccessfulUI,
+            IRegisterMessageSuccessfulUI registerMessageSuccessfulUI,
                                               ProgramController programController) {
         this.programController = programController;
         this.iRegisterMessageSuccessfulUI = registerMessageSuccessfulUI;
