@@ -103,8 +103,8 @@ public class AuthController {
             case "Attendee": return new AttendeeScreenController(this.programController);
             case "Organizer":
                 return new OrganizerScreenController(this.programController,"Organizer");
-            case "AdminUser":
-                return new AdminUserScreenController(this.programController,"AdminUser");
+            case "Admin":
+                return new AdminUserScreenController(this.programController,"Admin");
             case "Speaker": return new SpeakerScreenController(this.programController);
             default: return null;
         }
