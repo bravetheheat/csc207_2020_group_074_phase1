@@ -1,8 +1,10 @@
 package main.gui_interface;
 
-import main.gui.LandingUI;
+import main.gui.*;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.LoginUIListener;
+
+import java.util.ArrayList;
 
 /**
  * The interface for <code>LoginUI</code>
@@ -52,4 +54,12 @@ public interface ILoginUI extends IView {
      * @return <code>LandingUI</code>
      */
     LandingUI goToLandingUI();
+
+    AttendeeMainUI goToAttendeeMainUI();
+
+    OrganizerMainUI goToOrganizerMainUI();
+
+    SpeakerMainUI goToSpeakerMainUI(ArrayList<String> events);
+
+    LoginMessageErrorUI goToLoginMessageErrorUI();
 }

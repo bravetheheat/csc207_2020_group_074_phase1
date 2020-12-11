@@ -1,6 +1,6 @@
 package main.gui;
 
-import main.gui_interface.INotificationUI;
+import main.gui_interface.IRegisterMessageSuccessfulUI;
 
 import javax.swing.*;
 
@@ -11,9 +11,11 @@ import javax.swing.*;
  */
 @SuppressWarnings("FieldCanBeLocal")
 
-public class RegisterMessageSuccessfulUI extends NotificationUI implements INotificationUI {
-    private JLabel jLabel;
+public class RegisterMessageSuccessfulUI extends NotificationUI
+        implements IRegisterMessageSuccessfulUI {
 
+    private JLabel jLabel;
+    private RegisterUI registerUI;
 
     public RegisterMessageSuccessfulUI() {
         super();
@@ -23,6 +25,13 @@ public class RegisterMessageSuccessfulUI extends NotificationUI implements INoti
         addMessage(jLabel, "Successfully Registered!");
 
         setVisible(true);
+    }
+
+    @Override
+    public RegisterUI goToRegister() {
+        registerUI = new RegisterUI();
+        this.dispose();
+        return registerUI;
     }
 
 }

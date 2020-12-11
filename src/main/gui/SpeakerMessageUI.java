@@ -1,10 +1,11 @@
 package main.gui;
 
 import main.controllers.ProgramController;
+import main.gui_interface.ISpeakerMessageUI;
 
 import javax.swing.*;
 
-public class SpeakerMessageUI extends JFrame {
+public class SpeakerMessageUI extends JFrame implements ISpeakerMessageUI {
     private ProgramController programController;
     private JPanel panel1;
     private JList UserList;
@@ -14,8 +15,9 @@ public class SpeakerMessageUI extends JFrame {
     private JButton backButton;
     private JButton inboxButton;
 
-    public SpeakerMessageUI(ProgramController programController) {
+    public SpeakerMessageUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.programController = programController;
     }
+
 }

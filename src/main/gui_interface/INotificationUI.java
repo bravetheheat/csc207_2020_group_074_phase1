@@ -1,6 +1,5 @@
 package main.gui_interface;
 
-import main.gui.RegisterUI;
 import main.guilisteners.BackButtonListener;
 
 import javax.swing.*;
@@ -31,9 +30,4 @@ public interface INotificationUI {
      */
     void addMessage(JLabel jLabel, String message);
 
-    /**
-     * Open up the <code>RegisterUI</code> screen
-     * @return a <code>RegisterUI</code>
-     */
-    RegisterUI goToRegister();
 }

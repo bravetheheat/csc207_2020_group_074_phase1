@@ -180,6 +180,33 @@ public class EventController {
     }
 
     /**
+     * Get event basic infomation as a string
+     *
+     * @return string representation of the event about its info
+     */
+    public String getSingleEventBasicInfo(String eventId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+        return eventinfomanager.infoToString();
+    }
+
+    /**
+     * Get events basic infomation as a string
+     *
+     * @return string representation of the events about its info
+     */
+    public String getEventsBasicInfo(){
+        String eventsInfo = "";
+        int num = 1;
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        for (String id : schedule.keySet()){
+            eventsInfo = eventsInfo + "Event #" + num + "\n";
+            eventsInfo = eventsInfo + getSingleEventBasicInfo(id) + "\n\n";
+        }
+        return eventsInfo;
+    }
+
+    /**
      * Return the Event given its eventId.
      * @param eventId of an Event.
      * @return an Event.

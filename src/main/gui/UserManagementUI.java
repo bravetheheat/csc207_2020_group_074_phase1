@@ -5,6 +5,7 @@ import main.gui_interface.IUserManagementUI;
 import javax.swing.*;
 
 public class UserManagementUI extends JFrame implements IUserManagementUI {
+
     private JButton backButton;
     private JPanel panel1;
     private JButton confirmButton;
@@ -19,7 +20,6 @@ public class UserManagementUI extends JFrame implements IUserManagementUI {
         this.setSize(600, 500);
         this.setContentPane(panel1);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        this.programController = programController;
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
