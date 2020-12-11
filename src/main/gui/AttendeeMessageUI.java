@@ -1,10 +1,11 @@
 package main.gui;
 
 import main.controllers.ProgramController;
+import main.gui_interface.IAttendeeMessageUI;
 
 import javax.swing.*;
 
-public class AttendeeMessageUI extends JFrame {
+public class AttendeeMessageUI extends JFrame implements IAttendeeMessageUI {
     private JButton backButton;
     private JPanel panel1;
     private JList UsersList;

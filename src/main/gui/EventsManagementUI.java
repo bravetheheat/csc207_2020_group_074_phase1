@@ -1,10 +1,11 @@
 package main.gui;
 
 import main.controllers.ProgramController;
+import main.gui_interface.IEventsManagementUI;
 
 import javax.swing.*;
 
-public class EventsManagementUI extends JFrame {
+public class EventsManagementUI extends JFrame implements IEventsManagementUI  {
     private JButton backButton;
     private JPanel panel1;
     private JButton createRoomButton;

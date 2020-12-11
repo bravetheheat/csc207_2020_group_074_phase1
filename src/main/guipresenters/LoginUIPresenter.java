@@ -40,19 +40,22 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
                     case "Attendee":
 //                        System.out.println("go to attendee");
                         programController.saveForNext();
-                        new AttendeeMainUI(programController);
+                        AttendeeMainUI attendeeMainUI = new AttendeeMainUI();
+                        new AttendeeMainUIPresenter(attendeeMainUI, programController);
                         iLoginUI.dispose();
                         break;
                     case "Organizer":
 //                        System.out.println("go to organizer");
                         programController.saveForNext();
-                        new OrganizerMainUI(programController);
+                        OrganizerMainUI organizerMainUI = new OrganizerMainUI();
+                        new OrganizerMainUIPresenter(organizerMainUI, programController);
                         iLoginUI.dispose();
                         break;
                     case "Speaker":
 //                        System.out.println("go to speaker");
                         programController.saveForNext();
-                        new SpeakerMainUI(programController);
+                        SpeakerMainUI speakerMainUI = new SpeakerMainUI();
+                        new SpeakerMainUIPresenter(speakerMainUI, programController);
                         iLoginUI.dispose();
                         break;
                     default:

@@ -1,10 +1,11 @@
 package main.gui;
 
 import main.controllers.ProgramController;
+import main.gui_interface.IOrganizerMessageUI;
 
 import javax.swing.*;
 
-public class OrganizerMessageUI extends JFrame {
+public class OrganizerMessageUI extends JFrame implements IOrganizerMessageUI  {
     private ProgramController programController;
     private JButton backButton;
     private JPanel panel1;

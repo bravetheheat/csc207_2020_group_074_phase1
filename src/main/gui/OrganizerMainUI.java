@@ -1,10 +1,12 @@
 package main.gui;
 
+import main.gateways.Gateway;
+import main.gui_interface.*;
 import main.guilisteners.*;
 
 import javax.swing.*;
 
-public class OrganizerMainUI extends JFrame {
+public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
     private JPanel panel1;
     private JButton logOutButton;
     private JButton userManagementButton;
@@ -92,5 +94,54 @@ public class OrganizerMainUI extends JFrame {
 
     public void notifyListenerOnDataManagementButtonClicked() {
         this.dataManagementButtonListener.onDataManagementButtonClicked();
+    }
+
+    @Override
+    public ILandingUI goToLandingUI() {
+        LandingUI landingUI = new LandingUI();
+        this.dispose();
+        return landingUI;
+    }
+
+    @Override
+    public IEventSignUpUI goToEventSignUpUI() {
+        EventSignUpUI eventSignUpUI = new EventSignUpUI();
+        this.dispose();
+        return eventSignUpUI;
+    }
+
+    @Override
+    public IEventsManagementUI goToEventsManagementUI() {
+        EventsManagementUI eventsManagementUI = new EventsManagementUI();
+        this.dispose();
+        return eventsManagementUI;
+    }
+
+    @Override
+    public IGatewayUI goToGatewayUI() {
+        GatewayUI gatewayUI = new GatewayUI();
+        this.dispose();
+        return gatewayUI;
+    }
+
+    @Override
+    public IUserManagementUI goToUserManagementUI() {
+        UserManagementUI userManagementUI = new UserManagementUI();
+        this.dispose();
+        return userManagementUI;
+    }
+
+    @Override
+    public IOrganizerMessageUI goToOrganizerMessageMessageUI() {
+        OrganizerMessageUI organizerMessageUI = new OrganizerMessageUI();
+        this.dispose();
+        return organizerMessageUI;
+    }
+
+    @Override
+    public IInboxUI goToInboxUI() {
+        InboxUI inboxUI = new InboxUI();
+        this.dispose();
+        return inboxUI;
     }
 }

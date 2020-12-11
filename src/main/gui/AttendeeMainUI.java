@@ -1,6 +1,6 @@
 package main.gui;
 
-import main.controllers.ProgramController;
+import main.gui_interface.*;
 import main.guilisteners.InboxButtonListener;
 import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.MessageButtonListener;
@@ -8,7 +8,7 @@ import main.guilisteners.RegisterForEventsButtonListener;
 
 import javax.swing.*;
 
-public class AttendeeMainUI extends JFrame {
+public class AttendeeMainUI extends JFrame implements IAttendeeMainUI {
     private JPanel panel1;
     private JButton logOutButton;
     private LogoutButtonListener logoutButtonListener;
@@ -63,5 +63,29 @@ public class AttendeeMainUI extends JFrame {
 
     public void notifyListenerOnInboxButtonClicked() {
         this.inboxButtonListener.onInboxButtonClicked();
+    }
+
+    public ILandingUI goToLandingUI() {
+        LandingUI landingUI = new LandingUI();
+        this.dispose();
+        return landingUI;
+    }
+
+    public IEventSignUpUI goToEventSignUpUI() {
+        EventSignUpUI eventSignUpUI = new EventSignUpUI();
+        this.dispose();
+        return eventSignUpUI;
+    }
+
+    public IAttendeeMessageUI goToAttendeeMessageUI() {
+        AttendeeMessageUI attendeeMessageUI = new AttendeeMessageUI();
+        this.dispose();
+        return attendeeMessageUI;
+    }
+
+    public IInboxUI goToInboxUI() {
+        InboxUI inboxUI = new InboxUI();
+        this.dispose();
+        return inboxUI;
     }
 }

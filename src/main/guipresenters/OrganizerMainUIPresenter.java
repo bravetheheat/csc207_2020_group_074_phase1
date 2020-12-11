@@ -1,75 +1,74 @@
 package main.guipresenters;
 
 import com.sun.org.apache.xpath.internal.operations.Or;
+import main.controllers.AuthController;
 import main.controllers.ProgramController;
 import main.gateways.Gateway;
 import main.gui.*;
+import main.gui_interface.*;
 import main.guilisteners.*;
 
 public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener,
         ManageEventRoomButtonListener, RegisteredEventsButtonListener, MessageButtonListener, InboxButtonListener,
         DataManagementButtonListener {
 
-    private OrganizerMainUI organizerMainUI;
+    private IOrganizerMainUI iOrganizerMainUI;
     private ProgramController programController;
+    private AuthController authController;
 
-    public OrganizerMainUIPresenter(ProgramController programController) {
+    public OrganizerMainUIPresenter(IOrganizerMainUI iOrganizerMainUI, ProgramController programController) {
         this.programController = programController;
-        this.organizerMainUI = new OrganizerMainUI();
-        this.organizerMainUI.addLogoutButtonListener(this);
-        this.organizerMainUI.addUserManagementButtonListener(this);
-        this.organizerMainUI.addManageEventRoomButtonListener(this);
-        this.organizerMainUI.addRegisteredEventsButtonListener(this);
-        this.organizerMainUI.addMessageButtonListener(this);
-        this.organizerMainUI.addInboxButtonListener(this);
-        this.organizerMainUI.addDataManagementButtonListener(this);
-    }
-
-    @Override
-    public void onDataManagementButtonClicked() {
-        GatewayUI gatewayUI = new GatewayUI();
-        new GatewayUIPresenter(gatewayUI, this.programController);
-        this.organizerMainUI.dispose();
-    }
-
-    @Override
-    public void onInboxButtonClicked() {
-        InboxUI inboxUI = new InboxUI();
-        new InboxUIPresenter(inboxUI, this.programController);
-        this.organizerMainUI.dispose();
+        this.authController = programController.getAuthController();
+        this.iOrganizerMainUI = iOrganizerMainUI;
+        this.iOrganizerMainUI.addLogoutButtonListener(this);
+        this.iOrganizerMainUI.addUserManagementButtonListener(this);
+        this.iOrganizerMainUI.addManageEventRoomButtonListener(this);
+        this.iOrganizerMainUI.addRegisteredEventsButtonListener(this);
+        this.iOrganizerMainUI.addMessageButtonListener(this);
+        this.iOrganizerMainUI.addInboxButtonListener(this);
+        this.iOrganizerMainUI.addDataManagementButtonListener(this);
     }
 
     @Override
     public void onLogoutButtonClicked() {
-        LandingUI landingUI = new LandingUI();
-        new LandingUIPresenter(landingUI, this.programController);
-        this.organizerMainUI.dispose();
+        this.authController.logout();
+        ILandingUI ilandingUI = iOrganizerMainUI.goToLandingUI();
+        new LandingUIPresenter(ilandingUI, this.programController);
+    }
+
+    @Override
+    public void onDataManagementButtonClicked() {
+        IGatewayUI iGatewayUI = iOrganizerMainUI.goToGatewayUI();
+        new GatewayUIPresenter(iGatewayUI, this.programController);
+    }
+
+    @Override
+    public void onInboxButtonClicked() {
+        IInboxUI iInboxUI = iOrganizerMainUI.goToInboxUI();
+        new InboxUIPresenter(iInboxUI, this.programController);
     }
 
     @Override
     public void onManageEventRoomButtonClicked() {
-        EventsManagementUI eventsManagementUI = new EventsManagementUI();
-        new EventManagementUIPresenter(eventsManagementUI, this.programController);
-        this.organizerMainUI.dispose();
+        IEventsManagementUI iEventsManagementUI = iOrganizerMainUI.goToEventsManagementUI();
+        new EventsManagementUIPresenter(iEventsManagementUI, this.programController);
     }
 
     @Override
     public void onMessageButtonClicked() {
-        OrganizerMessageUI organizerMessageUI = new OrganizerMessageUI();
-        new OrganizerMessageUIPresenter(organizerMessageUI, this.programController);
-        this.organizerMainUI.dispose();
+        IOrganizerMessageUI iOrganizerMessageUI = iOrganizerMainUI.goToOrganizerMessageMessageUI();
+        new OrganizerMainUIPresenter(iOrganizerMainUI, this.programController);
     }
 
     @Override
     public void onRegisteredEventsButtonClicked() {
-        //TODO
-        this.organizerMainUI.dispose();
+        IEventSignUpUI iEventSignUpUI = iOrganizerMainUI.goToEventSignUpUI();
+        new EventSignUpUIPresenter(iEventSignUpUI, this.programController);
     }
 
     @Override
     public void onUserManagementButtonClicked() {
-        UserManagementUI userManagementUI = new UserManagementUI();
-        new UserManagementUIPresenter(userManagementUI, this.programController);
-        this.organizerMainUI.dispose();
+        IUserManagementUI iUserManagementUI = iOrganizerMainUI.goToUserManagementUI();
+        new UserManagementUIPresenter(iUserManagementUI, this.programController);
     }
 }

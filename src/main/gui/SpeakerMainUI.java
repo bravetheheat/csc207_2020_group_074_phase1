@@ -1,14 +1,13 @@
 package main.gui;
 
-import main.controllers.ProgramController;
-import main.guilisteners.ConfirmButtonListener;
+import main.gui_interface.*;
 import main.guilisteners.InboxButtonListener;
 import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.MessageButtonListener;
 
 import javax.swing.*;
 
-public class SpeakerMainUI extends JFrame {
+public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
     private JPanel panel1;
     private JButton logOutButton;
     private LogoutButtonListener logoutButtonListener;
@@ -16,9 +15,8 @@ public class SpeakerMainUI extends JFrame {
     private MessageButtonListener messageButtonListener;
     private JButton inboxButton;
     private InboxButtonListener inboxButtonListener;
-    private JButton confirmButton;
-    private ConfirmButtonListener confirmButtonListener;
     private JList TalksList;
+    //TODO find out how to make the list work
 
     public SpeakerMainUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,7 +29,6 @@ public class SpeakerMainUI extends JFrame {
         this.logOutButton.addActionListener(e -> notifyListenerOnLogoutButtonClicked());
         this.messageButton.addActionListener(e -> notifyListenerOnMessageButtonClicked());
         this.inboxButton.addActionListener(e -> notifyListenerOnInboxButtonClicked());
-        this.confirmButton.addActionListener(e -> notifyListenerOnConfirmButtonClicked());
     }
 
     public void addLogoutButtonListener(LogoutButtonListener listener) {
@@ -46,8 +43,6 @@ public class SpeakerMainUI extends JFrame {
         this.inboxButtonListener = listener;
     }
 
-    public void addConfirmButtonListener(ConfirmButtonListener listener) {this.confirmButtonListener = listener;}
-
     public void notifyListenerOnLogoutButtonClicked() {
         this.logoutButtonListener.onLogoutButtonClicked();
     }
@@ -60,5 +55,22 @@ public class SpeakerMainUI extends JFrame {
         this.inboxButtonListener.onInboxButtonClicked();
     }
 
-    public void notifyListenerOnConfirmButtonClicked() { this.confirmButtonListener.onConfirmButtonClicked(); }
+    public ILandingUI goToLandingUI() {
+        LandingUI landingUI = new LandingUI();
+        this.dispose();
+        return landingUI;
+    }
+
+    public ISpeakerMessageUI goToSpeakerMessageUI() {
+        SpeakerMessageUI speakerMessageUI = new SpeakerMessageUI();
+        this.dispose();
+        return speakerMessageUI;
+    }
+
+    public IInboxUI goToInboxUI() {
+        InboxUI inboxUI = new InboxUI();
+        this.dispose();
+        return inboxUI;
+    }
+
 }
