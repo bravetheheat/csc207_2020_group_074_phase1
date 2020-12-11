@@ -67,7 +67,7 @@ public class EventsManagementScreen {
      */
     public void promptRequirement(){
         System.out.println("Enter requirements for your event [Tech, Table, Stage]");
-        System.out.println("Enter any alphanumerical input if there is no requirement for your event");
+        System.out.println("Enter 'None' if there is no requirement for your event");
         System.out.println("Enter your input by comma: ");
     }
 
@@ -131,8 +131,8 @@ public class EventsManagementScreen {
     }
 
     public void promptRoomConstraint(){
-        System.out.println("Enter the constraints of this room: [Tech, Table, Stage]");
-        System.out.println("Any other alphanumeric inputs will automatically create no constraint rooms");
+        System.out.println("Enter requirements for your event [Tech, Table, Stage]");
+        System.out.println("Enter 'None' if there is no requirement for your event");
         System.out.println("Enter your input by comma: ");
     }
     /**
