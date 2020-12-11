@@ -59,12 +59,33 @@ public class UsersManager {
 
 
     /**
-     * Remove a user to the list of registered users
+     * Remove a user by id to the list of registered users
      *
      * @param userId that should be deleted from the list of registered users
+     * @return whether user is removed
      */
-    public void removeUser(String userId) {
-        registeredUsers.remove(userId);
+    public boolean removeUserbyID(String userId) {
+        if (registeredUsers.containsKey(userId)){
+            registeredUsers.remove(userId);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Remove a user by username to the list of registered users
+     *
+     * @param username that should be deleted from the list of registered users
+     * @return whether user is removed
+     */
+    public boolean removeUserbyUsername(String username) {
+        for (User user : registeredUsers.values()) {
+            if (user.getUsername().equals(username)){
+                registeredUsers.remove(user.getId());
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

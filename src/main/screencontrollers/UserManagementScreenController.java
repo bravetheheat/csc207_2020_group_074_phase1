@@ -16,16 +16,18 @@ public class UserManagementScreenController extends ScreenController {
     OrganizerController organizerController;
     UserManagementScreen presenter = new UserManagementScreen();
     UsersManager usersManager;
+    String userType;
 
     /**
      * Constructor for UserManagementScreenController
      *
      * @param programController instance of ProgramController
      */
-    public UserManagementScreenController(ProgramController programController) {
+    public UserManagementScreenController(ProgramController programController, String userType) {
         super(programController);
         organizerController = new OrganizerController(programController);
         usersManager = programController.getUsersManager();
+        this.userType = userType;
     }
 
     /**
@@ -34,8 +36,14 @@ public class UserManagementScreenController extends ScreenController {
     @Override
     public void start() {
         this.presenter.printScreenName();
-        this.userManagement();
-        ScreenController nextScreenController = new OrganizerScreenController(this.programController);
+        ScreenController nextScreenController;
+        if(this.userType.equals("Admin")) {
+            this.userManagementAdminUser();
+            nextScreenController = new AdminUserScreenController(this.programController, userType);
+        }
+        else {
+            this.userManagement();
+            nextScreenController = new OrganizerScreenController(this.programController, userType);}
         this.programController.setNewScreenController(nextScreenController);
         this.end();
     }
@@ -49,7 +57,7 @@ public class UserManagementScreenController extends ScreenController {
         String command = scanner.nextLine();
         switch (command) {
             case "1":
-                if (createSpeaker()) {
+                if (createUser()) {
                     this.presenter.printValidAdding();
                 } else {
                     this.presenter.printInvalidAdding();
@@ -68,15 +76,63 @@ public class UserManagementScreenController extends ScreenController {
         }
     }
 
+    public void userManagementAdminUser() {
+        presenter.promptCommandAdminUser();
+        String command = scanner.nextLine();
+        switch (command) {
+            case "1":
+                if (createUser()) {
+                    this.presenter.printValidAdding();
+                } else {
+                    this.presenter.printInvalidAdding();
+                }
+                userManagement();
+                break;
+            case "2":
+                String userList = this.usersManager.toString();
+                this.presenter.listUser(userList);
+                break;
+            case "3":
+                if(removeUserbyID())this.presenter.printValidRemoving();
+                else this.presenter.printInvalidRemoving();
+                break;
+            case "4":
+                if(removeUserbyName())this.presenter.printValidRemoving();
+                else this.presenter.printInvalidRemoving();
+                break;
+            case "5":
+                break;
+            default:
+                presenter.printInvalidInput();
+                userManagement();
+        }
+    }
     /**
      * Creating a user based on input command.
      */
-    public boolean createSpeaker() {
-        this.presenter.promptCreateSpeaker();
+    public boolean createUser() {
+        this.presenter.promptCreateUser();
         String username = scanner.nextLine();
         String password = scanner.nextLine();
-        return this.usersManager.addUser(username, password, "Speaker");
+        String userType = scanner.nextLine();
+        return this.usersManager.addUser(username, password, userType);
     }
 
+    /**
+     * Removing a user based on input command.
+     */
+    public boolean removeUserbyID(){
+        this.presenter.promptRemoveUserByID();
+        String id = scanner.nextLine();
+        return this.usersManager.removeUserbyID(id);
+    }
 
+    /**
+     * Removing a user based on input command.
+     */
+    public boolean removeUserbyName(){
+        this.presenter.promptRemoveUserByName();
+        String username = scanner.nextLine();
+        return this.usersManager.removeUserbyUsername(username);
+    }
 }

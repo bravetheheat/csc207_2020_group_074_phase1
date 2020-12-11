@@ -1,42 +1,78 @@
 package main.gui;
 
-import main.controllers.AuthController;
-import main.controllers.ProgramController;
+import main.gui_interface.ILoginUI;
+import main.guilisteners.BackButtonListener;
+import main.guilisteners.LoginUIListener;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class LoginUI extends JFrame {
+/**
+ * The login screen in which users can enter account info and log in.
+ *
+ * @author Steven Yuan
+ */
+@SuppressWarnings("FieldCanBeLocal")
 
-    private ProgramController programController;
-    private JPanel panel1;
+public class LoginUI extends JFrame implements ILoginUI {
+
+    private JPanel loginPanel;
     private JButton backButton;
     private JTextField emailTextField;
-    private JPasswordField PasswordField;
     private JButton logInButton;
-    private final AuthController authController;
+    private JPasswordField passwordField;
+    private JLabel loginTitleLabel;
+    private LoginUIListener loginUIListener;
+    private BackButtonListener backButtonListener;
+    private LandingUI landingUI;
 
-    public LoginUI(ProgramController programController) {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.programController = programController;
-        this.authController = programController.getAuthController();
+    public LoginUI() {
 
-//        logInButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String username = emailTextField.getText();
-//                String password = String.valueOf(PasswordField.getPassword());
-//
-//            }
-//        });
-//        // need to find out how to display wrong information message
-//
-//        backButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // nextScreen = new LandingScreen(programController);
-//            }
-//        });
+        this.setSize(600, 500);
+        this.setContentPane(loginPanel);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+
+
+        logInButton.addActionListener(e -> notifyListenerOnLoginButtonClicked());
+
+        backButton.addActionListener(e -> notifyListenerOnBackButtonClicked());
+    }
+
+    @Override
+    public void addLoginUIListener(LoginUIListener listener) {
+        loginUIListener = listener;
+    }
+
+    @Override
+    public void addBackButtonListener(BackButtonListener listener) {
+        backButtonListener = listener;
+    }
+
+    @Override
+    public void notifyListenerOnLoginButtonClicked() {
+        loginUIListener.onLoginButtonClicked();
+    }
+
+    @Override
+    public void notifyListenerOnBackButtonClicked() {
+        backButtonListener.onBackButtonClicked();
+    }
+
+    @Override
+    public String getUserName() {
+        return emailTextField.getText();
+    }
+
+    @Override
+    public String getPwd() {
+        return String.valueOf((passwordField.getPassword()));
+    }
+
+    @Override
+    public LandingUI goToLandingUI() {
+        landingUI = new LandingUI();
+        this.dispose();
+        return landingUI;
     }
 }

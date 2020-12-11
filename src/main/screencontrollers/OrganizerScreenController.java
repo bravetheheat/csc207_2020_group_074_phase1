@@ -16,12 +16,14 @@ public class OrganizerScreenController extends ScreenController{
 
     private OrganizerScreen organizerScreen;
     private List<String> prompts;
+    private String userType;
 
-    public OrganizerScreenController(ProgramController programController) {
+    public OrganizerScreenController(ProgramController programController, String userType) {
         super(programController);
         this.organizerScreen = new OrganizerScreen();
         String[] options = {"0", "1", "2", "3", "4", "5", "6"};
         this.prompts = (Arrays.asList(options));
+        this.userType = userType;
     }
 
     public void start() {
@@ -48,7 +50,7 @@ public class OrganizerScreenController extends ScreenController{
                 this.programController.getAuthController().logout();
                 return;
             case "1":
-                nextScreenController = new UserManagementScreenController(this.programController);
+                nextScreenController = new UserManagementScreenController(this.programController, userType);
                 break;
             case "2":
                 nextScreenController = new EventsManagementScreenController(this.programController);

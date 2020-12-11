@@ -16,7 +16,7 @@ public class OrganizerScreen {
     }
 
     public void printScreenName() {
-        System.out.println("Here is the organizer screen");
+        System.out.println("Here is the user screen");
     }
 
     public void prompt() {
