@@ -26,7 +26,6 @@ Getting Started
 * JDK 8 or above
 * [opencsv v5.3](http://opencsv.sourceforge.net/)
 * [sqlite-jdbc v3.32](https://github.com/xerial/sqlite-jdbc)
-* [j2html v1.4.0](https://github.com/tipsy/j2html)
 
 
 **Running the Application**
@@ -45,24 +44,31 @@ After logging in, you will be given a screen with a number of options depending 
 you will be able to register for events, send messages, and check your messages. Organizers will have the additional 
 capability to manage users, manage events and rooms, and save the data in the application.
 
-**HTML Export**
-
-You will be able to export the schedule of events to a HTML file. This will be available in the root directory at 
-`event-list.html`.
-
 **Data Management**
 
 The program will automatically save data to `src/store/app.db`, an SQLite DB file, on exit. The program will 
 also automatically load data from previous sessions from the same file.
 
-
-Features
+Features Added in Phase 2
 ------------
+**Mandatory Features**
 
-* Ability to maintain data across sessions using an SQLite database.
+ * An Admin user can be created.
+ * Events can be canceled by at least one organizer.
+ * There are now no-speaker events, one-speaker events, and multi-speaker events.
+ * Organizers can also create Speaker accounts, Attendee accounts, and Admin accounts.
+ * Each event has a maximum number of people who can attend it. This amount can be set 
+   when the event is created and also changed later, by an Organizer.
+ 
+**Optional Features**
 
-* Ability to export list of events into a HTML file `event-list.html`
-
+ * Ability to maintain data across sessions using an SQLite database.
+ * A Graphic User Interface implemented using java.swing.
+ * Add additional constraints to the scheduling for various types of events (e.g. technology requirements for 
+   presentations, tables vs rows of chairs).
+ * The schedule of the conference can be exported as an HTML file. This optional feature
+   is a replacement of the "Create Your Own Feature" part of the Phase 2 specification.  
+ 
 Design Patterns Used
 ------------
 
@@ -143,7 +149,8 @@ a string, it represents a list of Speaker IDs
 
 UML Diagram
 ------------
-[Main UML (Only Core Classes; Methods Only)](./design.pdf)
+![UML Diagram](./uml-without-connections.png)
 
-[Connections UML (Only Core Classes)](./design-connections-only.pdf)
+![UML Diagram with Connections](./main-with-connections.png)
+ 
 
