@@ -67,7 +67,12 @@
         </constraints>
         <properties/>
         <border type="none"/>
-        <children/>
+        <children>
+          <component id="5c55b" class="javax.swing.JList" binding="TalksList">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
       </scrollpane>
     </children>
   </grid>

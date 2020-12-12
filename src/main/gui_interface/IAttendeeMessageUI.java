@@ -23,8 +23,6 @@ public interface IAttendeeMessageUI extends IView {
 
     void notifyListSelectionListener();
 
-    void goToSentUI();
-
     String getMessage();
 
     AttendeeMainUI goToAttendeeMainUI();

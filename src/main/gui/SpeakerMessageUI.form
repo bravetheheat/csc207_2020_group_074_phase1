@@ -47,7 +47,12 @@
         </constraints>
         <properties/>
         <border type="none"/>
-        <children/>
+        <children>
+          <component id="f379e" class="javax.swing.JList" binding="userList">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
       </scrollpane>
       <scrollpane id="334b5" binding="eventListScroller">
         <constraints>
@@ -55,7 +60,12 @@
         </constraints>
         <properties/>
         <border type="none"/>
-        <children/>
+        <children>
+          <component id="26fbd" class="javax.swing.JList" binding="eventList">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
       </scrollpane>
       <component id="79e86" class="javax.swing.JLabel">
         <constraints>
