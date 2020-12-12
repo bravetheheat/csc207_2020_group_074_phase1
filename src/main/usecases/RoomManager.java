@@ -94,7 +94,7 @@ public class RoomManager {
      *
      * @param roomNum  room number
      * @param category room constraints
-     * @return verification if there is any room constaints are modified
+     * @return verification if there is any room constraints are modified
      */
     public boolean addConstraintToRoom(int roomNum, ArrayList<String> category) {
         Room room = getRoomGivenRoomNum(roomNum);
