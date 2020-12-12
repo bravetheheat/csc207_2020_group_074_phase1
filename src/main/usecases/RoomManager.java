@@ -130,13 +130,13 @@ public class RoomManager {
      * @param roomNum the given roomNum
      * @return the schedule of the room. Return null if the room does not exist.
      */
-    public Map<LocalDateTime, String> roomSchedule(int roomNum) {
-        if (this.getRoomGivenRoomNum(roomNum) == null) {
-            return null;
-        } else {
-            return this.getRoomGivenRoomNum(roomNum).getSchedule();
-        }
-    }
+//    public Map<LocalDateTime, String> roomSchedule(int roomNum) {
+//        if (this.getRoomGivenRoomNum(roomNum) == null) {
+//            return null;
+//        } else {
+//            return this.getRoomGivenRoomNum(roomNum).getSchedule();
+//        }
+//    }
 
     /**
      * get all rooms' number which inside the program

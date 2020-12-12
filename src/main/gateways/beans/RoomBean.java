@@ -12,12 +12,37 @@ import java.time.LocalDateTime;
 public class RoomBean implements Serializable {
     private String id;
     private int roomNum;
-    private String eventId;
-    private String eventTime;
     private int capacity;
+    private boolean hasTech;
+    private boolean isTable;
+    private boolean hasStage;
 
     public RoomBean() {
 
+    }
+
+    public boolean isHasTech() {
+        return hasTech;
+    }
+
+    public void setHasTech(boolean hasTech) {
+        this.hasTech = hasTech;
+    }
+
+    public boolean isTable() {
+        return isTable;
+    }
+
+    public void setTable(boolean table) {
+        isTable = table;
+    }
+
+    public boolean isHasStage() {
+        return hasStage;
+    }
+
+    public void setHasStage(boolean hasStage) {
+        this.hasStage = hasStage;
     }
 
     public String getId() {
@@ -36,21 +61,6 @@ public class RoomBean implements Serializable {
         this.roomNum = roomNum;
     }
 
-    public String getEventId() {
-        return this.eventId;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
-
-    public String getEventTime() {
-        return this.eventTime;
-    }
-
-    public void setEventTime(String eventTime) {
-        this.eventTime = eventTime;
-    }
 
     public int getCapacity() {
         return this.capacity;

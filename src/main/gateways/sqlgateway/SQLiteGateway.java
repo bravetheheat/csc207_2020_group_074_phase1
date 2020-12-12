@@ -74,9 +74,10 @@ public class SQLiteGateway implements Gateway {
         String sql = "CREATE TABLE IF NOT EXISTS rooms(\n"
                 + " id string NOT NULL, \n"
                 + " roomNum int NOT NULL,\n"
-                + " eventId string NOT NULL,\n"
-                + " eventTime string NOT NULL,\n"
-                + " capacity int NOT NULL\n"
+                + " capacity int NOT NULL,\n"
+                + " hasTech boolean NOT NULL,\n"
+                + " isTable boolean NOT NULL,\n"
+                + " hasStage boolean NOT NULL"
                 + ");";
 
         try {
@@ -140,6 +141,7 @@ public class SQLiteGateway implements Gateway {
     }
 
     private void saveUserBeans(List<UserBean> userBeans) {
+        this.deleteAllValuesFromTable("users");
         String sql = "INSERT INTO users(id, username, password, role) VALUES(?,?,?,?)";
         for (UserBean userBean : userBeans) {
             try {
@@ -196,15 +198,17 @@ public class SQLiteGateway implements Gateway {
     }
 
     private void saveRoomBeans(List<RoomBean> roomBeans) {
-        String sql = "INSERT INTO rooms(id, roomNum, eventId, eventTime, capacity) VALUES(?,?,?,?,?)";
+        this.deleteAllValuesFromTable("rooms");
+        String sql = "INSERT INTO rooms(id, roomNum, capacity, hasTech, isTable, hasStage) VALUES(?,?,?,?,?,?)";
         for (RoomBean roomBean : roomBeans) {
             try {
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, roomBean.getId());
                 pstmt.setInt(2, roomBean.getRoomNum());
-                pstmt.setString(3, roomBean.getEventId());
-                pstmt.setString(4, roomBean.getEventTime());
-                pstmt.setInt(5, roomBean.getCapacity());
+                pstmt.setInt(3, roomBean.getCapacity());
+                pstmt.setBoolean(4, roomBean.isHasTech());
+                pstmt.setBoolean(5, roomBean.isTable());
+                pstmt.setBoolean(6, roomBean.isHasStage());
                 pstmt.executeUpdate();
 
             } catch (SQLException e) {
@@ -215,7 +219,7 @@ public class SQLiteGateway implements Gateway {
 
     private List<RoomBean> loadRoomBeans() {
         List<RoomBean> roomBeans = new ArrayList<>();
-        String sql = "SELECT id, roomNum, eventId, eventTime, capacity FROM rooms";
+        String sql = "SELECT id, roomNum, capacity, hasTech, isTable, hasStage FROM rooms";
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -224,9 +228,12 @@ public class SQLiteGateway implements Gateway {
                 RoomBean roomBean = new RoomBean();
                 roomBean.setId(rs.getString("id"));
                 roomBean.setRoomNum(rs.getInt("roomNum"));
-                roomBean.setEventId(rs.getString("eventId"));
-                roomBean.setEventTime(rs.getString("eventTime"));
                 roomBean.setCapacity(rs.getInt("capacity"));
+                roomBean.setHasTech(rs.getBoolean("hasTech"));
+                roomBean.setTable(rs.getBoolean("isTable"));
+                roomBean.setHasStage(rs.getBoolean("hasStage"));
+
+
                 roomBeans.add(roomBean);
 
             }
@@ -252,6 +259,7 @@ public class SQLiteGateway implements Gateway {
     }
 
     private void saveMessageBeans(List<MessageBean> messageBeans) {
+        this.deleteAllValuesFromTable("messages");
         String sql = "INSERT INTO messages(id, text, time, sender) VALUES(?,?,?,?)";
         for (MessageBean messageBean : messageBeans) {
             try {
@@ -305,6 +313,7 @@ public class SQLiteGateway implements Gateway {
     }
 
     private void saveEventBeans(List<EventBean> eventBeans) {
+        this.deleteAllValuesFromTable("events");
         String sql = "INSERT INTO events(id, title, time, roomId, speakersId, attendeesId, type, duration, capacity) VALUES(?,?,?,?,?,?,?,?,?)";
         for (EventBean eventBean : eventBeans) {
             try {
@@ -370,6 +379,7 @@ public class SQLiteGateway implements Gateway {
     }
 
     private void saveInboxBeans(List<InboxBean> inboxBeans) {
+        this.deleteAllValuesFromTable("inboxes");
         String sql = "INSERT INTO inboxes(id, user, messageId) VALUES(?,?,?)";
         for (InboxBean inboxBean : inboxBeans) {
             try {
@@ -408,6 +418,17 @@ public class SQLiteGateway implements Gateway {
             System.out.println(e.getMessage());
         }
         return inboxBeans;
+    }
+
+    private void deleteAllValuesFromTable(String table) {
+        String sql = "DELETE FROM " + table + ";";
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 
