@@ -42,6 +42,7 @@ public class SelectRoomUIPresenter
             iSelectRoomUI.selectRoomError();
         }
         else {
+            iSelectRoomUI.selectRoomSuccessful();
             return rooms.get(iSelectRoomUI.getRoomIndex());
         }
         return -1;

@@ -17,12 +17,14 @@ public interface IModifyEventUI extends IView {
     void addModifySpeakerButtonListener(ModifySpeakerButtonListener listener);
     void addConfirmModifyEventButtonListener(ConfirmModifyEventButtonListener listener);
     DeleteAnEventUI goToDeleteAnEventUI(ArrayList<String> listOfEventsInfo);
-    ModifySpeakerUI goToModifySpeakerUI(ArrayList<String> listOfSpeakerInfo);
     String getEventTime();
     String getEventCapacity();
-    String getRoomNum();
+//    String getRoomNum();
     void addSelectRoomButtonListener(SelectRoomButtonListener listener);
     SelectRoomUI goToSelectRoomUI(ArrayList<Integer> listOfRoomInfo,
                                   ArrayList<String> constraints);
     String getRoomConstraints();
+    int getEventIndex();
+    ModifySpeakerUI goToModifySpeakerUI(ArrayList<String> listOfSpeakerInfo,
+                                        ArrayList<String> listOfEventSpeakers);
 }

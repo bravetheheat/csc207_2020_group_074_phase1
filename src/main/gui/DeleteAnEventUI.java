@@ -20,7 +20,7 @@ public class DeleteAnEventUI extends JFrame implements IDeleteAnEventUI {
     private ModifyEventUI modifyEventUI;
     private JButton selectEventButton;
     private SelectEventButtonListener selectEventButtonListener;
-    private int eventIndex;
+    private int eventIndex = -1;
 
     public DeleteAnEventUI(ArrayList<String> listOfEventsInfo) {
         this.jPanel = new JPanel();

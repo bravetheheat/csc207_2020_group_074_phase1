@@ -11,7 +11,7 @@ public class ModifyEventUI extends JFrame implements IModifyEventUI {
     private JButton getEventButton;
     private JTextField timeField;
     private JTextField capacityField;
-    private JTextField roomNumField;
+//    private JTextField roomNumField;
     private JButton backButton;
     private JButton modifySpeakerButton;
     private JButton confirmButton;
@@ -28,6 +28,7 @@ public class ModifyEventUI extends JFrame implements IModifyEventUI {
     private ModifySpeakerUI modifySpeakerUI;
     private SelectRoomButtonListener selectRoomButtonListener;
     private SelectRoomUI selectRoomUI;
+    private int eventIndex = -1;
 
     public ModifyEventUI() {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -66,12 +67,17 @@ public class ModifyEventUI extends JFrame implements IModifyEventUI {
         return capacityField.getText();
     }
 
-    public String getRoomNum() {
-        return roomNumField.getText();
-    }
+//    public String getRoomNum() {
+//        return roomNumField.getText();
+//    }
 
     public String getRoomConstraints() {
         return constraintsField.getText();
+    }
+
+    public int getEventIndex() {
+        eventIndex = deleteAnEventUI.getEventIndex();
+        return eventIndex;
     }
 
     public void addBackButtonListener(BackButtonListener listener) {
@@ -124,8 +130,9 @@ public class ModifyEventUI extends JFrame implements IModifyEventUI {
         return selectRoomUI;
     }
 
-    public ModifySpeakerUI goToModifySpeakerUI(ArrayList<String> listOfSpeakerInfo) {
-        modifySpeakerUI = new ModifySpeakerUI(listOfSpeakerInfo);
+    public ModifySpeakerUI goToModifySpeakerUI(ArrayList<String> listOfSpeakerInfo,
+                                               ArrayList<String> listOfEventSpeakers) {
+        modifySpeakerUI = new ModifySpeakerUI(listOfSpeakerInfo, listOfEventSpeakers);
         this.dispose();
         return modifySpeakerUI;
     }

@@ -80,8 +80,14 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
         int roomNum;
         try {
             roomNum = iSelectRoomUI.getRoomNum();
+            if (roomNum < 0) {
+                iCreateEventUI.createNewEventError();
+                System.out.println("error1");
+                return;
+            }
         } catch (NullPointerException e) {
             iCreateEventUI.createNewEventError();
+            System.out.println("error2");
             return;
         }
         int duration;
@@ -92,13 +98,17 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
             duration = Integer.parseInt(durationStr);
             capacity = Integer.parseInt(capacityStr);
             date = LocalDateTime.parse(dateStr, formatter);
+            System.out.println("Duration: " + duration + "Capacity: " + capacity +
+                "Date: " + date);
         } catch (IllegalArgumentException | NullPointerException | DateTimeParseException e) {
             iCreateEventUI.createNewEventError();
+            System.out.println("error3");
             return;
         }
         if (title.equals("") || type.equals("") || durationStr.equals("") ||
                 capacityStr.equals("") || dateStr.equals("")) {
             iCreateEventUI.createNewEventError();
+            System.out.println("error4");
             return;
         }
         if (organizerController.checkCapacityInBound(roomNum, capacity)) {
@@ -108,6 +118,7 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
                 return;
             }
         }
+        System.out.println("error5");
         iCreateEventUI.createNewEventError();
     }
 

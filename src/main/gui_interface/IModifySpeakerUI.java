@@ -11,4 +11,8 @@ public interface IModifySpeakerUI extends IView {
             ConfirmSelectSpeakerButtonListener listener);
     ModifyEventUI goToModifyEventUI();
     void addDeleteSpeakerButtonListener(DeleteSpeakerButtonListener listener);
+    int[] getSpeakerIndices();
+    void modifySpeakerSuccessful();
+    void modifySpeakerError();
+    int getEventSpeakerIndex();
 }

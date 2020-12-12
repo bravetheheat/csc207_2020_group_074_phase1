@@ -1,29 +1,36 @@
 package main.guipresenters;
 
 
+import main.controllers.OrganizerController;
 import main.controllers.ProgramController;
 import main.gui_interface.*;
 import main.guilisteners.*;
 
+import java.util.ArrayList;
+
 public class EventsManagementUIPresenter implements BackButtonListener,
-        CreateRoomButtonListener, ModifyRoomButtonListener, CreateEventButtonListener, ModifyEventButtonListener {
+        CreateRoomButtonListener, ModifyRoomButtonListener, CreateEventButtonListener, ModifyEventButtonListener, SeeRoomsButtonListener {
 
     ProgramController programController;
+    OrganizerController organizerController;
     IEventsManagementUI iEventsManagementUI;
     ICreateRoomUI iCreateRoomUI;
     IOrganizerMainUI iOrganizerMainUI;
     IModifyRoomUI iModifyRoomUI;
     ICreateEventUI iCreateEventUI;
     IModifyEventUI iModifyEventUI;
+    ISeeRoomsUI iSeeRoomsUI;
 
     public EventsManagementUIPresenter(IEventsManagementUI eventsManagementUI, ProgramController programController) {
         this.programController = programController;
+        this.organizerController = new OrganizerController(programController);
         this.iEventsManagementUI = eventsManagementUI;
         iEventsManagementUI.addBackButtonListener(this);
         iEventsManagementUI.addCreateRoomButtonListener(this);
         iEventsManagementUI.addModifyRoomButtonListener(this);
         iEventsManagementUI.addCreateEventButtonListener(this);
         iEventsManagementUI.addModifyEventButtonListener(this);
+        iEventsManagementUI.addSeeRoomsButtonListener(this);
     }
 
 
@@ -60,5 +67,13 @@ public class EventsManagementUIPresenter implements BackButtonListener,
         programController.saveForNext();
         iModifyEventUI = iEventsManagementUI.goToModifyEventUI();
         new ModifyEventUIPresenter(iModifyEventUI, programController);
+    }
+
+    @Override
+    public void onSeeRoomsButtonClicked() {
+        programController.saveForNext();
+        ArrayList<Integer> roomNums = (ArrayList<Integer>) organizerController.getAllRooms();
+        iSeeRoomsUI = iEventsManagementUI.goToSeeRoomsUI(roomNums);
+        new SeeRoomsUIPresenter(iSeeRoomsUI, programController);
     }
 }

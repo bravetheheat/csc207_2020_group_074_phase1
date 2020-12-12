@@ -12,7 +12,7 @@ public class ModifySpeakerUI extends JFrame implements IModifySpeakerUI {
 
     private JPanel jPanel;
     private JList<Object> speakerList;
-    private JScrollPane jScrollPane;
+    private JScrollPane jScrollPane1;
     private JButton backButton;
     private JButton selectButton;
     private JButton deleteButton;
@@ -20,8 +20,11 @@ public class ModifySpeakerUI extends JFrame implements IModifySpeakerUI {
     private ModifyEventUI modifyEventUI;
     private ConfirmSelectSpeakerButtonListener confirmSelectSpeakerButtonListener;
     private DeleteSpeakerButtonListener deleteSpeakerButtonListener;
+    private JList eventSpeakerList;
+    private JScrollPane jScrollPane2;
 
-    public ModifySpeakerUI(ArrayList<String> listOfSpeakerInfo) {
+    public ModifySpeakerUI(ArrayList<String> listOfSpeakerInfo,
+                           ArrayList<String> listOfEventSpeakers) {
         jPanel = new JPanel();
 
         setSize(600, 500);
@@ -29,20 +32,29 @@ public class ModifySpeakerUI extends JFrame implements IModifySpeakerUI {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        // list of users
+        // list of all speakers
         speakerList = new JList<>(listOfSpeakerInfo.toArray());
 
-        speakerList.setVisibleRowCount(20);
-        jScrollPane = new JScrollPane(speakerList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        speakerList.setVisibleRowCount(10);
+        jScrollPane1 = new JScrollPane(speakerList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        jPanel.add(jScrollPane);
+        jPanel.add(jScrollPane1);
 
         // select button
-        selectButton = new JButton("Select");
+        selectButton = new JButton("Add speaker");
         jPanel.add(selectButton);
 
+        // list of all speakers
+        eventSpeakerList = new JList<>(listOfEventSpeakers.toArray());
+
+        eventSpeakerList.setVisibleRowCount(10);
+        jScrollPane2 = new JScrollPane(eventSpeakerList,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jPanel.add(jScrollPane2);
+
         // delete button
-        deleteButton = new JButton("Delete");
+        deleteButton = new JButton("Delete speaker");
         jPanel.add(deleteButton);
 
         // back button
@@ -61,6 +73,14 @@ public class ModifySpeakerUI extends JFrame implements IModifySpeakerUI {
         setVisible(true);
     }
 
+    public int[] getSpeakerIndices() {
+        return speakerList.getSelectedIndices();
+    }
+
+    public int getEventSpeakerIndex() {
+        return eventSpeakerList.getSelectedIndex();
+    }
+
     @Override
     public void addBackButtonListener(BackButtonListener listener) {
         backButtonListener = listener;
@@ -75,6 +95,18 @@ public class ModifySpeakerUI extends JFrame implements IModifySpeakerUI {
     @Override
     public void addDeleteSpeakerButtonListener(DeleteSpeakerButtonListener listener) {
         deleteSpeakerButtonListener = listener;
+    }
+
+    public void modifySpeakerSuccessful() {
+        JOptionPane.showMessageDialog(this,
+                "Operation succeeded!",
+                "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void modifySpeakerError() {
+        JOptionPane.showMessageDialog(this,
+                "Please try again!",
+                "Error", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public ModifyEventUI goToModifyEventUI() {
