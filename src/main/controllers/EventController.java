@@ -309,7 +309,7 @@ public class EventController {
             category.set(i,category.get(i).toLowerCase());
         }
         ArrayList<Integer> suggestedRooms = new ArrayList<>();
-        if (category.contains("none")) {
+        if (category.contains("none")|| category.size() == 0) {
             for (Room room : roomManager.getAllRoomsObject()){
                 suggestedRooms.add(room.getRoomNum());
             }

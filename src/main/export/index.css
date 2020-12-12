@@ -1,0 +1,37 @@
+body {
+font-family: "Open Sans", sans-serif;
+}
+
+
+h2 {
+font-size: 28px;
+color: #232f3e;
+padding-bottom: 6px;
+border-bottom: 2px solid blue;
+}
+
+h3 {
+margin-top: 0;
+color: #232f3e;
+
+}
+
+.container {
+
+width: 900px;
+margin: 90px auto;
+
+}
+
+.event-row {
+font-size: 16px;
+line-height: 1.5;
+}
+
+.event-entry {
+margin: 32px 0;
+border-left: 4px solid #60A5FA;
+padding-left: 8px;
+width: 300px;
+}
+
