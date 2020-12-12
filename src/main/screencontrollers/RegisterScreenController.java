@@ -34,13 +34,32 @@ public class RegisterScreenController extends ScreenController {
         String username;
         String password;
         String userType;
+        boolean properUsername;
+        boolean properPassword;
+
 
         this.presenter.promptUsername();
         username = this.scanner.nextLine();
+        properUsername = checkValidUsername(username);
+        while (!properUsername) {
+            this.presenter.invalidUsername();
+            this.presenter.promptUsername();
+            username = this.scanner.nextLine();
+            properUsername = checkValidUsername(username);
+        }
+
+
         this.presenter.promptPassword();
         password = this.scanner.nextLine();
-        userType = this.promptUserType();
+        properPassword = checkValidPassword(password);
+        while (!properPassword){
+            this.presenter.invalidPassword();
+            this.presenter.promptPassword();
+            password = this.scanner.nextLine();
+            properPassword = checkValidPassword(password);
+        }
 
+        userType = this.promptUserType();
         boolean success = this.authController.registerUser(username, password, userType);
         if (!success) {
             this.presenter.error();
@@ -65,10 +84,10 @@ public class RegisterScreenController extends ScreenController {
                 userType = "Organizer";
                 break;
             case "3":
-                userType = "AdminUser";
+                userType = "Admin";
                 break;
             case "4":
-                userType = "VipUser";
+                userType = "Speaker";
                 break;
             default:
                 this.presenter.invalidInput();
@@ -79,4 +98,11 @@ public class RegisterScreenController extends ScreenController {
 
     }
 
+    private boolean checkValidUsername (String username){
+        return username.matches("^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\\\.[A-Z]{2,6}$");
+    }
+
+    private boolean checkValidPassword (String password){
+        return password.matches("^\\S{5,}$");
+    }
 }

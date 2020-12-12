@@ -29,7 +29,7 @@ public class UserFactory {
             return new User(username, password, "Organizer");
 
         } else if (userType.equalsIgnoreCase("Speaker")) {
-            return new User(username, password, "Organizer");
+            return new User(username, password, "Speaker");
 
         } else if (userType.equalsIgnoreCase("Admin")) {
             return new User(username, password, "Admin"); }
