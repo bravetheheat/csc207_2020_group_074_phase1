@@ -7,6 +7,10 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 @SuppressWarnings("FieldCanBeLocal")
+
+/**
+ * the file contains the screen which display the list of users
+ */
 public class ListOfUsersUI extends JFrame implements IListOfUsersUI {
 
     private JPanel jPanel;

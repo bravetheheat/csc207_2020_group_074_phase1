@@ -7,6 +7,9 @@ import main.guilisteners.BackButtonListener;
 
 @SuppressWarnings("FieldCanBeLocal")
 
+/**
+ * the file contains the presenter to show the list of users
+ */
 public class ListOfUserUIPresenter implements BackButtonListener {
 
     private ProgramController programController;
