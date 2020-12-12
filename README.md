@@ -49,11 +49,26 @@ capability to manage users, manage events and rooms, and save the data in the ap
 The program will automatically save data to `src/store/app.db`, an SQLite DB file, on exit. The program will 
 also automatically load data from previous sessions from the same file.
 
-Features
+Features Added in Phase 2
 ------------
+**Mandatory Features**
 
-* Ability to maintain data across sessions using an SQLite database.
+ * An Admin user can be created.
+ * Events can be canceled by at least one organizer.
+ * There are now no-speaker events, one-speaker events, and multi-speaker events.
+ * Organizers can also create Speaker accounts, Attendee accounts, and Admin accounts.
+ * Each event has a maximum number of people who can attend it. This amount can be set 
+   when the event is created and also changed later, by an Organizer.
+ 
+**Optional Features**
 
+ * Ability to maintain data across sessions using an SQLite database.
+ * A Graphic User Interface implemented using java.swing.
+ * Add additional constraints to the scheduling for various types of events (e.g. technology requirements for 
+   presentations, tables vs rows of chairs).
+ * The schedule of the conference can be exported as an HTML file. This optional feature
+   is a replacement of the "Create Your Own Feature" part of the Phase 2 specification.  
+ 
 Design Patterns Used
 ------------
 
