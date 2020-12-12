@@ -3,6 +3,8 @@ package main.gui_interface;
 import main.gui.EventSignUpUI;
 import main.guilisteners.*;
 
+import java.util.ArrayList;
+
 public interface IOrganizerMainUI extends IView {
 
     void addLogoutButtonListener(LogoutButtonListener listener);
@@ -43,7 +45,7 @@ public interface IOrganizerMainUI extends IView {
 
     IUserManagementUI goToUserManagementUI();
 
-    IOrganizerMessageUI goToOrganizerMessageMessageUI();
+    IOrganizerMessageUI goToOrganizerMessageUI(ArrayList<String> userInfo);
 
     IInboxUI goToInboxUI();
 

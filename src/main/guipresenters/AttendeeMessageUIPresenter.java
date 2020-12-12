@@ -36,8 +36,8 @@ public class AttendeeMessageUIPresenter implements BackButtonListener, SendButto
     @Override
     public void onSendButtonClicked() {
         String user = (String) this.iAttendeeMessageUI.getUsersList().getSelectedValue();
-        if (user != null) {
-            String message = iAttendeeMessageUI.getMessage();
+        String message = iAttendeeMessageUI.getMessage();
+        if (user != null && message.length() > 0) {
             UsersManager usersManager = this.programController.getUsersManager();
             String username;
             int i = user.indexOf(",");

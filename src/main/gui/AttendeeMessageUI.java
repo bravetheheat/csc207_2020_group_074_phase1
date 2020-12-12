@@ -75,9 +75,6 @@ public class AttendeeMessageUI extends JFrame implements IAttendeeMessageUI {
     }
 
     @Override
-    public void goToSentUI() {}
-
-    @Override
     public String getMessage() {
         return messageText.getText();
     }

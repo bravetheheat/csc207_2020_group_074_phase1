@@ -7,6 +7,9 @@ import main.gateways.Gateway;
 import main.gui.*;
 import main.gui_interface.*;
 import main.guilisteners.*;
+import main.usecases.UsersManager;
+
+import java.util.ArrayList;
 
 public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener,
         ManageEventRoomButtonListener, RegisteredEventsButtonListener, MessageButtonListener, InboxButtonListener,
@@ -56,8 +59,10 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
 
     @Override
     public void onMessageButtonClicked() {
-        IOrganizerMessageUI iOrganizerMessageUI = iOrganizerMainUI.goToOrganizerMessageMessageUI();
-        new OrganizerMainUIPresenter(iOrganizerMainUI, this.programController);
+        UsersManager usersManager = this.programController.getUsersManager();
+        ArrayList<String> userInfo = usersManager.allUsersToString();
+        IOrganizerMessageUI iOrganizerMessageUI = iOrganizerMainUI.goToOrganizerMessageUI(userInfo);
+        new OrganizerMessageUIPresenter(iOrganizerMessageUI, this.programController);
     }
 
     @Override
