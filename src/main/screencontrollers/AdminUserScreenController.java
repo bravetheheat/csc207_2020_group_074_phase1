@@ -7,7 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
-*
+ * The AdminUserScreenController is a controller class that tells AdminUserScreen what to display, receives
+ * input from ControllerScreen, and tells the ProgramController what screen to go next.
+ *
+ * @author Leyi Wang
+ * @version 2.0
  */
 public class AdminUserScreenController extends ScreenController{
 
