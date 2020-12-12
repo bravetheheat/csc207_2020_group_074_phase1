@@ -45,10 +45,16 @@ After logging in, you will be given a screen with a number of options depending 
 you will be able to register for events, send messages, and check your messages. Organizers will have the additional 
 capability to manage users, manage events and rooms, and save the data in the application.
 
+**HTML Export**
+
+You will be able to export the schedule of events to a HTML file. This will be available in the root directory at 
+`event-list.html`.
+
 **Data Management**
 
 The program will automatically save data to `src/store/app.db`, an SQLite DB file, on exit. The program will 
 also automatically load data from previous sessions from the same file.
+
 
 Features
 ------------
@@ -137,8 +143,7 @@ a string, it represents a list of Speaker IDs
 
 UML Diagram
 ------------
-![UML Diagram](./uml-without-connections.png)
+[Main UML (Only Core Classes; Methods Only)](./design.pdf)
 
-![UML Diagram with Connections](./main-with-connections.png)
- 
+[Connections UML (Only Core Classes)](./design-connections-only.pdf)
 
