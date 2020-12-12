@@ -76,6 +76,10 @@ public class UserManagementScreenController extends ScreenController {
         }
     }
 
+    /**
+     * Managing user and displaying user list base on input command,
+     * print the success or failure this command.
+     */
     public void userManagementAdminUser() {
         presenter.promptCommandAdminUser();
         String command = scanner.nextLine();
