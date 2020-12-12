@@ -26,6 +26,7 @@ Getting Started
 * JDK 8 or above
 * [opencsv v5.3](http://opencsv.sourceforge.net/)
 * [sqlite-jdbc v3.32](https://github.com/xerial/sqlite-jdbc)
+* [j2html v1.4.0](https://github.com/tipsy/j2html)
 
 
 **Running the Application**
@@ -53,6 +54,8 @@ Features
 ------------
 
 * Ability to maintain data across sessions using an SQLite database.
+
+* Ability to export list of events into a HTML file `event-list.html`
 
 Design Patterns Used
 ------------

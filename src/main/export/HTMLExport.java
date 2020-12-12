@@ -9,12 +9,20 @@ import java.util.List;
 
 import static j2html.TagCreator.*;
 
+/**
+ * Class to export events to a HTML file
+ */
 public class HTMLExport {
 
     public HTMLExport() {
 
     }
 
+    /**
+     * Exports list of events to a HTML file
+     *
+     * @param events list of Event entities
+     */
     public void exportEvents(List<Event> events) {
 
         FileWriter fileWriter = this.getFileWriter();
@@ -39,10 +47,13 @@ public class HTMLExport {
         }
 
 
-
-
     }
 
+    /**
+     * Obtains a file writer
+     *
+     * @return a FileWriter
+     */
     private FileWriter getFileWriter() {
         FileWriter fileWriter;
         try {
@@ -54,6 +65,12 @@ public class HTMLExport {
 
     }
 
+    /**
+     * Create an event entry
+     *
+     * @param event Event entity
+     * @return event component
+     */
     private Tag eventTag(Event event) {
         return
                 div(
