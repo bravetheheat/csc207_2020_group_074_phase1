@@ -5,6 +5,7 @@ import main.guilisteners.BackButtonListener;
 import main.guilisteners.ConfirmSelectRoomButtonListener;
 
 import javax.swing.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class SelectRoomUI extends JFrame implements ISelectRoomUI {
@@ -18,6 +19,11 @@ public class SelectRoomUI extends JFrame implements ISelectRoomUI {
     private CreateEventUI createEventUI;
     private ConfirmSelectRoomButtonListener confirmSelectRoomButtonListener;
     int roomNum;
+    private String title;
+    private String type;
+    private int duration;
+    private int capacity;
+    private LocalDateTime date;
 
     public SelectRoomUI(ArrayList<Integer> listOfRoomInfo, ArrayList<String> constraints) {
         jPanel = new JPanel();
@@ -49,6 +55,35 @@ public class SelectRoomUI extends JFrame implements ISelectRoomUI {
 
         add(jPanel);
         setVisible(true);
+    }
+
+    public void storeValuesFromCreateEventUI(String title, String type, int duration,
+                                             int capacity, LocalDateTime date) {
+        this.title = title;
+        this.type = type;
+        this.duration = duration;
+        this.capacity = capacity;
+        this.date = date;
+    }
+
+    public String getEventTitle() {
+        return title;
+    }
+
+    public String getEventType() {
+        return type;
+    }
+
+    public int getEventDuration() {
+        return duration;
+    }
+
+    public int getEventCapacity() {
+        return capacity;
+    }
+
+    public LocalDateTime getEventDate() {
+        return date;
     }
 
     public int getRoomIndex() {

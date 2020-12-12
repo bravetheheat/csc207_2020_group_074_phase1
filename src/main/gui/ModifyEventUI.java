@@ -11,7 +11,6 @@ public class ModifyEventUI extends JFrame implements IModifyEventUI {
     private JButton getEventButton;
     private JTextField timeField;
     private JTextField capacityField;
-//    private JTextField roomNumField;
     private JButton backButton;
     private JButton modifySpeakerButton;
     private JButton confirmButton;
@@ -38,25 +37,19 @@ public class ModifyEventUI extends JFrame implements IModifyEventUI {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
-        backButton.addActionListener(e -> {
-            backButtonListener.onBackButtonClicked();
-        });
+        backButton.addActionListener(e -> backButtonListener.onBackButtonClicked());
 
-        getEventButton.addActionListener(e -> {
-            getEventsButtonListener.onGetEventsButtonClicked();
-        });
+        getEventButton.addActionListener(e ->
+                getEventsButtonListener.onGetEventsButtonClicked());
 
-        modifySpeakerButton.addActionListener(e -> {
-            modifySpeakerButtonListener.onModifySpeakerButtonClicked();
-        });
+        modifySpeakerButton.addActionListener(e ->
+                modifySpeakerButtonListener.onModifySpeakerButtonClicked());
 
-        confirmButton.addActionListener(e -> {
-            confirmModifyEventButtonListener.onConfirmModifyEventButtonClicked();
-        });
+        confirmButton.addActionListener(e ->
+                confirmModifyEventButtonListener.onConfirmModifyEventButtonClicked());
 
-        getRoomNumButton.addActionListener(e -> {
-            selectRoomButtonListener.onSelectRoomButtonClicked();
-        });
+        getRoomNumButton.addActionListener(e ->
+                selectRoomButtonListener.onSelectRoomButtonClicked());
     }
 
     public String getEventTime() {

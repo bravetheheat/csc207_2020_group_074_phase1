@@ -24,9 +24,10 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
     IEventsManagementUI iEventsManagementUI;
     private String title;
     private String type;
-    private String durationStr;
-    private String capacityStr;
-    private String dateStr;
+    private int duration;
+    private int capacity;
+    private LocalDateTime date;
+    private int roomNum = -1;
 
     public CreateEventUIPresenter(ICreateEventUI createEventUI,
                                   ProgramController programController) {
@@ -49,13 +50,30 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
     public void onSelectRoomButtonClicked() {
         programController.saveForNext();
 
-        title = iCreateEventUI.getEventTitle();
-        type = iCreateEventUI.getEventType();
-        durationStr = iCreateEventUI.getEventDuration();
-        capacityStr = iCreateEventUI.getEventCapacity();
-        dateStr = iCreateEventUI.getEventDate();
+        this.title = iCreateEventUI.getEventTitle();
+        this.type = iCreateEventUI.getEventType();
+        String durationStr = iCreateEventUI.getEventDuration();
+        String capacityStr = iCreateEventUI.getEventCapacity();
+        String dateStr = iCreateEventUI.getEventDate();
         if (title.equals("") || type.equals("") || durationStr.equals("") ||
                 capacityStr.equals("") || dateStr.equals("")) {
+            iCreateEventUI.createNewEventError();
+            return;
+        }
+        if (!this.type.equals("OneSpeakerEvent") && !this.type.equals("MultiSpeakerEvent")
+                && !this.type.equals("NoSpeakerEvent")) {
+            iCreateEventUI.createNewEventError();
+            return;
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        try {
+            this.duration = Integer.parseInt(durationStr);
+            this.capacity = Integer.parseInt(capacityStr);
+            this.date = LocalDateTime.parse(dateStr, formatter);
+            System.out.println("Duration: " + this.duration + " Capacity: " +
+                    this.capacity + " Date: " + date);
+        } catch (IllegalArgumentException | NullPointerException | DateTimeParseException e) {
             iCreateEventUI.createNewEventError();
             return;
         }
@@ -68,19 +86,25 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
                 return;
             }
         }
+
         List<Integer> rooms = organizerController.getEventController().
                 getSuggestedRooms(category);
         ArrayList<Integer> listOfRoomNum = organizerController.roomToList(rooms);
         iSelectRoomUI = iCreateEventUI.goToSelectRoomUI(listOfRoomNum);
+        iSelectRoomUI.storeValuesFromCreateEventUI(this.title, this.type, this.duration, this.capacity, this.date);
         new SelectRoomUIPresenter(iSelectRoomUI, programController);
     }
 
     @Override
     public void onConfirmCreateEventButtonClicked() {
-        int roomNum;
+        this.roomNum = iCreateEventUI.getRoomNum();
+        this.title = iCreateEventUI.getEventTitleFromSelectRoomUI();
+        this.type = iCreateEventUI.getEventTypeFromSelectRoomUI();
+        this.duration = iCreateEventUI.getEventDurationFromSelectRoomUI();
+        this.capacity = iCreateEventUI.getEventCapacityFromSelectRoomUI();
+        this.date = iCreateEventUI.getEventDateFromSelectRoomUI();
         try {
-            roomNum = iSelectRoomUI.getRoomNum();
-            if (roomNum < 0) {
+            if (this.roomNum < 0) {
                 iCreateEventUI.createNewEventError();
                 System.out.println("error1");
                 return;
@@ -90,35 +114,26 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
             System.out.println("error2");
             return;
         }
-        int duration;
-        int capacity;
-        LocalDateTime date;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         try {
-            duration = Integer.parseInt(durationStr);
-            capacity = Integer.parseInt(capacityStr);
-            date = LocalDateTime.parse(dateStr, formatter);
-            System.out.println("Duration: " + duration + "Capacity: " + capacity +
-                "Date: " + date);
-        } catch (IllegalArgumentException | NullPointerException | DateTimeParseException e) {
+            if (this.title.equals("") || this.type.equals("") || this.duration == 0 ||
+                    this.capacity == 0 || this.date.toString().equals("")) {
+                iCreateEventUI.createNewEventError();
+                return;
+            }
+        } catch (NullPointerException e) {
             iCreateEventUI.createNewEventError();
-            System.out.println("error3");
             return;
         }
-        if (title.equals("") || type.equals("") || durationStr.equals("") ||
-                capacityStr.equals("") || dateStr.equals("")) {
-            iCreateEventUI.createNewEventError();
-            System.out.println("error4");
-            return;
-        }
+
         if (organizerController.checkCapacityInBound(roomNum, capacity)) {
             if (organizerController.createEvent(title, date,
                     roomNum, duration, capacity, type)) {
+                programController.saveForNext();
                 iCreateEventUI.createNewEventSuccessful();
                 return;
             }
         }
-        System.out.println("error5");
         iCreateEventUI.createNewEventError();
     }
 

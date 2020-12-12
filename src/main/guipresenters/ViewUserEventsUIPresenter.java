@@ -42,12 +42,18 @@ public class ViewUserEventsUIPresenter
         try {
             if (eventController.getSignupEvents(userId).size() > 0) {
                 int eventIndex = iViewUserEventsUI.getEventIndexFromList();
+                if (eventIndex < 0) {
+                    iViewUserEventsUI.cancelNewEventError();
+                }
                 String eventId = eventController.getEventId(eventIndex);
                 if (eventController.signupEvent(eventId, userId)) {
                     iViewUserEventsUI.cancelNewEventSuccessful();
                 } else {
                     iViewUserEventsUI.cancelNewEventError();
                 }
+            }
+            else {
+                iViewUserEventsUI.cancelNewEventError();
             }
         } catch (NullPointerException | IllegalArgumentException |
                 IndexOutOfBoundsException e) {

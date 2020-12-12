@@ -6,6 +6,8 @@ import main.guilisteners.BackButtonListener;
 import javax.swing.*;
 import java.util.ArrayList;
 
+@SuppressWarnings("FieldCanBeLocal")
+
 public class SeeRoomsUI extends JFrame implements ISeeRoomsUI {
     private JPanel jPanel;
     private JList<Object> listOfEvents;
