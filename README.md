@@ -73,6 +73,32 @@ We used the Singleton design pattern to ensure a consistent and single state wit
 our ProgramController, UsersManager, EventsManager, InboxManager, etc. (see ProgramController's constructor for more) 
 where only a single instance is instantiated and *injected* into other classes.
 
+**Builder**
+
+We used builder for event in the use case (EventBuilder class) since there are multiple parameter for the event constructor 
+and builder pattern can help with construction of this kind of object from its representation so that the 
+same construction process can create a simpler representation of initializing an event.
+
+**Simple Factory**
+
+We used the Factory design pattern for the creation of new users and events as they both have multiple subtypes.
+
+For events, we used the Factory design pattern in the EventFactory class since there are different types of events that may be constructed. 
+Instead of using different classes to construct different types of events, a factory for event can 
+decide which type of object it is creating.
+
+For users, we implemented UserFactory which is a Factory method for adding new user by UsersManager. 
+Since we are having four different type of users, organizer, attendee, speaker and admin under user entity class, 
+if we want to add a new user type in the future that may extend user class. We just need to make some change 
+in UserFactory instead of UsersManager so that it improves the extensibility for future types of users.  
+
+Improvements in Design Since Phase 1
+------------
+
+We combined the subclass of users (Attendee, Organizer, Speaker, and later Admin) into a User class. The four subtypes of user do not differ
+in functionality at the Entity level. Therefore, we recognized that there was no need to use inheritance for users. This decision has helped us to
+remove redundant code and avoid unnecessary complexity in our program.
+
 Contributors
 ------------
 
