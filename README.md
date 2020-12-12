@@ -1,4 +1,4 @@
-# CSC207 Project Phase 1 by group_074
+# CSC207 Project Phase 2 by group_074
 
 INTRODUCTION
 ------------
