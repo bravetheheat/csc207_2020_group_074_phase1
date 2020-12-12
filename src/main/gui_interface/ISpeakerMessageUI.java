@@ -28,4 +28,6 @@ public interface ISpeakerMessageUI extends IView {
 
     JList getUsersList();
 
+    JList getEventsList();
+
 }

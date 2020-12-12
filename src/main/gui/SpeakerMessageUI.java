@@ -102,4 +102,9 @@ public class SpeakerMessageUI extends JFrame implements ISpeakerMessageUI {
     public JList getUsersList() {
         return this.userList;
     }
+
+    @Override
+    public JList getEventsList() {
+        return this.eventList;
+    }
 }
