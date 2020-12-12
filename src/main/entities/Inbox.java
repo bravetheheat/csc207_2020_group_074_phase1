@@ -32,21 +32,6 @@ public class Inbox {
 
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setMessages(List<String> messages) {
-        this.messages = messages;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-
-
-
     /**
      * Gets the unique identifier of the chatroom
      *
@@ -56,8 +41,16 @@ public class Inbox {
         return this.id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getUser() {
         return this.user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     /**
@@ -76,6 +69,10 @@ public class Inbox {
      */
     public List<String> getMessages() {
         return this.messages;
+    }
+
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 
 
