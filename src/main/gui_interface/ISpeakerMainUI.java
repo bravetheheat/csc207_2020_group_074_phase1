@@ -18,8 +18,6 @@ public interface ISpeakerMainUI extends  IView {
 
     void notifyListenerOnInboxButtonClicked();
 
-    void createEventList();
-
     ILandingUI goToLandingUI();
 
     ISpeakerMessageUI goToSpeakerMessageUI();

@@ -63,10 +63,6 @@ public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
         this.inboxButtonListener.onInboxButtonClicked();
     }
 
-    public void createEventList() {
-
-    }
-
     public ILandingUI goToLandingUI() {
         LandingUI landingUI = new LandingUI();
         this.dispose();

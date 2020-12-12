@@ -194,6 +194,16 @@ public class UsersManager {
         return allUsers;
     }
 
+    public ArrayList<String> allUsersToString() {
+        List<String> userIDs = this.getAllUsers();
+        ArrayList<String> users = new ArrayList<>();
+        for (String id:userIDs) {
+            User user = fetchUser(id);
+            users.add(user.getType() + ", " + user.getUsername());
+        }
+        return users;
+    }
+
     /**
      * Loads user data from a specified gateway
      *

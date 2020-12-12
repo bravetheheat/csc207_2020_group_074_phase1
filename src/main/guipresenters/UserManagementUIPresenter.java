@@ -67,9 +67,9 @@ public class UserManagementUIPresenter implements UserManagementButtonListener,
 
     @Override
     public void onGetUserListButtonClicked() {
-        ArrayList<String> listOfUserInfo = this.programController.
-                getUsersManager().getUserInfoFormatted();
-        iListOfUsersUI = iUserManagementUI.goToListOfUsersUI(listOfUserInfo);
-        new ListOfUserUIPresenter(iListOfUsersUI, programController);
+//        ArrayList<String> listOfUserInfo = this.programController.
+//                getUsersManager().getUserInfoFormatted();
+//        iListOfUsersUI = iUserManagementUI.goToListOfUsersUI(listOfUserInfo);
+//        new ListOfUserUIPresenter(iListOfUsersUI, programController);
     }
 }

@@ -1,5 +1,6 @@
 package main.guipresenters;
 
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import main.controllers.AuthController;
 import main.controllers.EventController;
 import main.controllers.ProgramController;
@@ -61,9 +62,13 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
                     case "Speaker":
                         programController.saveForNext();
                         EventController eventController = this.programController.getEventController();
-                        ArrayList<String> events = eventController.getSpeakerEvents(
+                        ArrayList<String> eventIDs = eventController.getSpeakerEvents(
                                 this.authController.fetchLoggedInUser());
-                        iSpeakerMainUI = iLoginUI.goToSpeakerMainUI(events);
+                        ArrayList<String> eventInfo = new ArrayList<>();
+                        for (String id:eventIDs) {
+                            eventInfo.add(eventController.getSingleEventInfo(id));
+                        }
+                        iSpeakerMainUI = iLoginUI.goToSpeakerMainUI(eventInfo);
                         new SpeakerMainUIPresenter(iSpeakerMainUI, programController);
                         break;
                     default:

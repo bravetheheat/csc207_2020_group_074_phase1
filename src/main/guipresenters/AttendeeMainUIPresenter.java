@@ -7,6 +7,9 @@ import main.guilisteners.InboxButtonListener;
 import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.MessageButtonListener;
 import main.guilisteners.RegisterForEventsButtonListener;
+import main.usecases.UsersManager;
+
+import java.util.ArrayList;
 
 public class AttendeeMainUIPresenter implements LogoutButtonListener, RegisterForEventsButtonListener, MessageButtonListener, InboxButtonListener {
 
@@ -39,7 +42,9 @@ public class AttendeeMainUIPresenter implements LogoutButtonListener, RegisterFo
 
     @Override
     public void onMessageButtonClicked() {
-        IAttendeeMessageUI iAttendeeMessageUI = iAttendeeMainUI.goToAttendeeMessageUI();
+        UsersManager usersManager = this.programController.getUsersManager();
+        ArrayList<String> users = usersManager.allUsersToString();
+        IAttendeeMessageUI iAttendeeMessageUI = iAttendeeMainUI.goToAttendeeMessageUI(users);
         new AttendeeMessageUIPresenter(iAttendeeMessageUI, this.programController);
     }
 

@@ -1,7 +1,6 @@
 package main.guipresenters;
 
 import main.controllers.AuthController;
-import main.controllers.EventController;
 import main.controllers.ProgramController;
 import main.gui_interface.*;
 import main.guilisteners.InboxButtonListener;
