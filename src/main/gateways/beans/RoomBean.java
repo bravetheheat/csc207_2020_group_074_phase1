@@ -1,7 +1,6 @@
 package main.gateways.beans;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * RoomBean is used to serialize and deserialize Rooms

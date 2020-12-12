@@ -1,5 +1,4 @@
 package main.gateways.beans;
-import com.opencsv.bean.CsvBindByPosition;
 
 import java.io.Serializable;
 
@@ -14,18 +13,31 @@ public class UserBean implements Serializable {
     private String password;
     private String role;
 
-    public UserBean(){};
+    public UserBean() {
+    }
 
     public String getUsername() {
         return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
         return this.password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getRole() {
         return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getId() {
@@ -34,17 +46,5 @@ public class UserBean implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

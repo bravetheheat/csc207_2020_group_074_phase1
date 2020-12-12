@@ -1,6 +1,5 @@
 package main.controllers;
 
-import main.gateways.CSVGateway;
 import main.gateways.Gateway;
 import main.gateways.sqlgateway.SQLiteGateway;
 import main.screencontrollers.AnonymousScreenController;
@@ -50,7 +49,9 @@ public class ProgramController {
         this.loadData();
     }
 
-    public void saveForNext() {this.saveData();}
+    public void saveForNext() {
+        this.saveData();
+    }
 
     private void loadData() {
         this.usersManager.loadUsersFromGateway(this.gateway);

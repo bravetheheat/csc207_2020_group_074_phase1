@@ -25,6 +25,7 @@ Getting Started
 
 * JDK 8 or above
 * [opencsv v5.3](http://opencsv.sourceforge.net/)
+* [sqlite-jdbc v3.32](https://github.com/xerial/sqlite-jdbc)
 
 
 **Running the Application**

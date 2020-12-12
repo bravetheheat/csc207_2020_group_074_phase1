@@ -1,7 +1,6 @@
 package main.gateways.beans;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 
 /**
@@ -22,6 +21,10 @@ public class EventBean implements Serializable {
     private int capacity;
 
 
+    public EventBean() {
+
+    }
+
     public int getDuration() {
         return duration;
     }
@@ -38,20 +41,12 @@ public class EventBean implements Serializable {
         this.capacity = capacity;
     }
 
-
-
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
-    }
-
-
-
-    public EventBean() {
-
     }
 
     public String getTitle() {

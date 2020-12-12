@@ -1,4 +1,5 @@
 package main.entities;
+
 import java.util.UUID;
 
 /**
@@ -15,11 +16,11 @@ public class User {
     /**
      * Constructor for a User.
      *
-     * @param email Email of the user which will be used as the user's display name and log in username.
+     * @param email    Email of the user which will be used as the user's display name and log in username.
      * @param password Password of the user's account.
-     * @param type The type of account (Attendee, Organizer, Speaker, etc.)
+     * @param type     The type of account (Attendee, Organizer, Speaker, etc.)
      */
-    public User (String email, String password, String type) {
+    public User(String email, String password, String type) {
         this.username = email;
         this.password = password;
         this.type = type;
@@ -31,33 +32,8 @@ public class User {
      *
      * @return email of the user
      */
-    public String getUsername() { return username; }
-
-    /**
-     * Returns the password of the user.
-     *
-     * @return password of the user
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Returns the ID of the user.
-     *
-     * @return unique UUID of the user
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Returns the type of account of user
-     *
-     * @return type of account
-     */
-    public String getType() {
-        return this.type;
+    public String getUsername() {
+        return username;
     }
 
     /**
@@ -70,6 +46,15 @@ public class User {
     }
 
     /**
+     * Returns the password of the user.
+     *
+     * @return password of the user
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
      * Sets the password of the user.
      *
      * @param password password for user
@@ -79,12 +64,12 @@ public class User {
     }
 
     /**
-     * Sets the type of the account.
+     * Returns the ID of the user.
      *
-     * @param type account type
+     * @return unique UUID of the user
      */
-    public void setRole(String type) {
-        this.type = type;
+    public String getId() {
+        return id;
     }
 
     /**
@@ -94,5 +79,23 @@ public class User {
      */
     public void setId(String id) {
         this.id = id;
+    }
+
+    /**
+     * Returns the type of account of user
+     *
+     * @return type of account
+     */
+    public String getType() {
+        return this.type;
+    }
+
+    /**
+     * Sets the type of the account.
+     *
+     * @param type account type
+     */
+    public void setRole(String type) {
+        this.type = type;
     }
 }
