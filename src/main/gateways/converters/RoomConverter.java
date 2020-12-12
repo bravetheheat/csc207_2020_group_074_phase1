@@ -6,10 +6,7 @@ import main.gateways.beans.RoomBean;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Implementation of Converter that serializes and deserializes Room
@@ -18,60 +15,47 @@ import java.util.Map;
  */
 public class RoomConverter implements Converter<RoomBean, Room> {
 
-    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
     public List<Room> convertFromBeans(List<RoomBean> roomBeans) {
-        Map<String, Room> rooms = new HashMap<>();
+        List<Room> rooms = new ArrayList<>();
 
         for (RoomBean roomBean : roomBeans) {
-            Room currentRoom = rooms.get(roomBean.getId());
-            if (currentRoom == null) {
-                currentRoom = new Room();
-                currentRoom.setId(roomBean.getId());
-                currentRoom.setCapacity(roomBean.getCapacity());
-                currentRoom.setRoomNum(roomBean.getRoomNum());
-                rooms.put(currentRoom.getId(), currentRoom);
-            }
-            LocalDateTime eventTime;
-            try {
-                eventTime = LocalDateTime.parse(roomBean.getEventTime(), this.dateTimeFormatter);
-            } catch (DateTimeParseException e) {
-                eventTime = null;
+            Room room = new Room();
 
+            room.setId(roomBean.getId());
+            room.setCapacity(roomBean.getCapacity());
+            room.setRoomNum(roomBean.getRoomNum());
+            if (roomBean.isHasTech()) {
+                room.setTech();
+            }
+            if (roomBean.isHasStage()) {
+                room.setStage();
             }
 
+            if (roomBean.isTable()) {
+                room.setToTable();
+            }
 
-            currentRoom.addToSchedule(eventTime, roomBean.getEventId());
-
+            rooms.add(room);
         }
-        List<Room> roomList = new ArrayList<>();
-        roomList.addAll(rooms.values());
-        return roomList;
+
+        return rooms;
     }
 
     public List<RoomBean> convertToBeans(List<Room> rooms) {
         List<RoomBean> roomBeanList = new ArrayList<>();
 
-        for (Room room : rooms) {
-            if (room.getSchedule().size() > 0) {
-                for (Map.Entry<LocalDateTime, String> entry : room.getSchedule().entrySet()) {
-                    RoomBean roomBean = new RoomBean();
-                    roomBean.setCapacity(room.getCapacity());
-                    roomBean.setId(room.getId());
-                    roomBean.setRoomNum(room.getRoomNum());
-                    roomBean.setEventTime(entry.getKey().format(dateTimeFormatter));
-                    roomBean.setEventId(entry.getValue());
-                    roomBeanList.add(roomBean);
-                }
+        for (Room room: rooms) {
+            RoomBean roomBean = new RoomBean();
 
-            } else {
-                RoomBean roomBean = new RoomBean();
-                roomBean.setCapacity(room.getCapacity());
-                roomBean.setId(room.getId());
-                roomBean.setRoomNum(room.getRoomNum());
-                roomBeanList.add(roomBean);
-            }
+            roomBean.setId(room.getId());
+            roomBean.setCapacity(room.getCapacity());
+            roomBean.setRoomNum(room.getRoomNum());
+            roomBean.setHasStage(room.getHasStage());
+            roomBean.setHasTech(room.getHasTech());
+            roomBean.setTable(roomBean.isTable());
+            roomBeanList.add(roomBean);
         }
+
 
         return roomBeanList;
     }

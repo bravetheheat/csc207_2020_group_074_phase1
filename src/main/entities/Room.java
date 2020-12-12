@@ -15,7 +15,6 @@ public class Room {
     private String id; // for referencing purposes
     private int roomNum; // the organizer can enter a room with its room number, and the schedule will display
     // the room number instead of the String
-    private Map<LocalDateTime, String> schedule;
     private int capacity;
     private boolean isTable; // the room's layout is for a round table conference or it has rows of chairs.
     private boolean hasTech; // the room has projector or microphone to present
@@ -25,7 +24,7 @@ public class Room {
      * No-arg constructor for deserialization
      */
     public Room() {
-    this.schedule = new HashMap<>();
+
     }
 
 
@@ -35,7 +34,6 @@ public class Room {
     public Room(int roomNum, int capacity) {
         this.id = UUID.randomUUID().toString();
         this.roomNum = roomNum;
-        this.schedule = new HashMap<>();
         this.capacity = capacity;
         this.isTable = false;
         this.hasStage = false;
@@ -86,34 +84,34 @@ public class Room {
         this.capacity = capacity;
     }
 
-    /**
-     * Get the booking schedule of this room.
-     *
-     * @return schedule
-     */
-    public Map<LocalDateTime, String> getSchedule() {
-        return schedule;
-    }
-
-    /**
-     * Add a pair of time and event to the schedule.
-     *
-     * @param time  that this room will be booked
-     * @param event corresponding to the time slot
-     */
-    public void addToSchedule(LocalDateTime time, String event) {
-        schedule.put(time, event);
-    }
-
-    /**
-     * Remove a pair of time and event from the schedule.
-     *
-     * @param time  that this room was booked
-     * @param event corresponding to the time slot
-     */
-    public void removeFromSchedule(LocalDateTime time, String event) {
-        schedule.remove(time);
-    }
+//    /**
+//     * Get the booking schedule of this room.
+//     *
+//     * @return schedule
+//     */
+//    public Map<LocalDateTime, String> getSchedule() {
+//        return schedule;
+//    }
+//
+//    /**
+//     * Add a pair of time and event to the schedule.
+//     *
+//     * @param time  that this room will be booked
+//     * @param event corresponding to the time slot
+//     */
+//    public void addToSchedule(LocalDateTime time, String event) {
+//        schedule.put(time, event);
+//    }
+//
+//    /**
+//     * Remove a pair of time and event from the schedule.
+//     *
+//     * @param time  that this room was booked
+//     * @param event corresponding to the time slot
+//     */
+//    public void removeFromSchedule(LocalDateTime time, String event) {
+//        schedule.remove(time);
+//    }
 
     public void setStage(){
         this.hasStage = true;
