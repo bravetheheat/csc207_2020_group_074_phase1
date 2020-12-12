@@ -25,7 +25,5 @@ public interface IAttendeeMessageUI extends IView {
 
     AttendeeMainUI goToAttendeeMainUI();
 
-    public JButton getSendButton();
-
-    public JList getUsersList();
+    JList getUsersList();
 }

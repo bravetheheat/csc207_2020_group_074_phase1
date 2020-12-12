@@ -204,6 +204,15 @@ public class UsersManager {
         return users;
     }
 
+    public ArrayList<String> selectUsersToString(ArrayList<String> userIDs) {
+        ArrayList<String> users = new ArrayList<>();
+        for (String id:userIDs) {
+            User user = fetchUser(id);
+            users.add(user.getType() + ", " + user.getUsername());
+        }
+        return users;
+    }
+
     /**
      * Loads user data from a specified gateway
      *

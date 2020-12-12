@@ -2,7 +2,6 @@ package main.guipresenters;
 
 import main.controllers.MessageController;
 import main.controllers.ProgramController;
-import main.entities.User;
 import main.gui_interface.IAttendeeMainUI;
 import main.gui_interface.IAttendeeMessageUI;
 import main.guilisteners.BackButtonListener;
@@ -40,7 +39,8 @@ public class AttendeeMessageUIPresenter implements BackButtonListener, SendButto
             UsersManager usersManager = this.programController.getUsersManager();
             String username;
             int i = user.indexOf(",");
-            String userID = usersManager.get;
+            username = user.substring(i + 2);
+            String userID = usersManager.getIDFromUsername(username);
             this.messageController.sendMessage(this.programController.getAuthController().fetchLoggedInUser(), userID, message);
         }
     }

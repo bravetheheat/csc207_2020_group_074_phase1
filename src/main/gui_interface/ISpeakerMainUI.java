@@ -4,6 +4,9 @@ import main.guilisteners.InboxButtonListener;
 import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.MessageButtonListener;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public interface ISpeakerMainUI extends  IView {
 
     void addLogoutButtonListener(LogoutButtonListener listener);
@@ -20,7 +23,7 @@ public interface ISpeakerMainUI extends  IView {
 
     ILandingUI goToLandingUI();
 
-    ISpeakerMessageUI goToSpeakerMessageUI();
+    ISpeakerMessageUI goToSpeakerMessageUI(ArrayList<String> users);
 
     IInboxUI goToInboxUI();
 }

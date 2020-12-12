@@ -87,11 +87,6 @@ public class AttendeeMessageUI extends JFrame implements IAttendeeMessageUI {
     }
 
     @Override
-    public JButton getSendButton() {
-        return this.sendButton;
-    }
-
-    @Override
     public JList getUsersList() {
         return this.userList;
     }

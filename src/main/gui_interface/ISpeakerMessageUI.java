@@ -1,16 +1,31 @@
 package main.gui_interface;
 
+import main.gui.SpeakerMainUI;
+import main.guilisteners.BackButtonListener;
+import main.guilisteners.BroadcastButtonListener;
 import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.SendButtonListener;
 
+import javax.swing.*;
+
 public interface ISpeakerMessageUI extends IView {
 
-    void addLogoutButtonListener(LogoutButtonListener logoutButtonListener);
+    void addBackButtonListener(BackButtonListener backButtonListener);
 
     void addSendButtonListener(SendButtonListener sendButtonListener);
 
-    void notifyListenerOnLogoutButtonClicked();
+    void addBroadcastButtonListener(BroadcastButtonListener broadcastButtonListener);
 
-    void notifyListenerOnSendButtonClicked();
+    void notifyBroadcastButtonListener();
+
+    void notifyBackButtonListener();
+
+    void notifySendButtonListener();
+
+    String getMessage();
+
+    SpeakerMainUI goToSpeakerMainUI();
+
+    JList getUsersList();
 
 }
