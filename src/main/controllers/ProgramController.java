@@ -1,7 +1,7 @@
 package main.controllers;
 
-import main.gateways.CSVGateway;
 import main.gateways.Gateway;
+import main.gateways.sqlgateway.SQLiteGateway;
 import main.screencontrollers.AnonymousScreenController;
 import main.screencontrollers.ScreenController;
 import main.usecases.*;
@@ -25,7 +25,7 @@ public class ProgramController {
     InboxManager inboxManager;
     RoomManager roomManager;
     MessageController messageController;
-    Gateway gateway = new CSVGateway();
+    Gateway gateway = new SQLiteGateway();
 
     public ProgramController() {
         this.usersManager = new UsersManager();
@@ -49,7 +49,9 @@ public class ProgramController {
         this.loadData();
     }
 
-    public void saveForNext() {this.saveData();}
+    public void saveForNext() {
+        this.saveData();
+    }
 
     private void loadData() {
         this.usersManager.loadUsersFromGateway(this.gateway);

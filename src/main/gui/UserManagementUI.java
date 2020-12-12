@@ -10,6 +10,12 @@ import java.util.ArrayList;
 
 @SuppressWarnings("FieldCanBeLocal")
 
+/**
+ * this file contains the UI of the screen for organizer to do the user management
+ *
+ * @author: Ruoming Ren
+ */
+
 public class UserManagementUI extends JFrame implements IUserManagementUI {
 
     private JButton backButton;
@@ -29,6 +35,7 @@ public class UserManagementUI extends JFrame implements IUserManagementUI {
     private OrganizerMainUI organizerMainUI;
     private ListOfUsersUI listOfUsersUI;
 
+
     public UserManagementUI() {
         this.setTitle("User Management");
         this.setSize(600, 500);
@@ -44,6 +51,7 @@ public class UserManagementUI extends JFrame implements IUserManagementUI {
 
         getUserListButton.addActionListener(e -> notifyListenerOnGetUserListButtonClicked());
     }
+
 
     public void addBackButtonListener(BackButtonListener listener) {
         this.backButtonListener = listener;

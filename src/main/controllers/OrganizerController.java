@@ -54,12 +54,12 @@ public class OrganizerController extends AttendeeController {
     /**
      * Build an event by giving the title, time, room ID, and speaker ID. The room must already exist.
      *
-     * @param title   the title of the event
-     * @param time    the time of the event
-     * @param roomNum the roomNum of the event
+     * @param title    the title of the event
+     * @param time     the time of the event
+     * @param roomNum  the roomNum of the event
      * @param duration the duration of the event
      * @param capacity the capacity of the event
-     * @param type the type of the event
+     * @param type     the type of the event
      * @return true if the event be created successfully.
      */
     public boolean createEvent(String title, LocalDateTime time, int roomNum, int duration, int capacity, String type) {
@@ -89,7 +89,7 @@ public class OrganizerController extends AttendeeController {
      * Update the time of the event
      *
      * @param eventId the uuid of the event
-     * @param time  the new time of the event
+     * @param time    the new time of the event
      * @return true if the event's time have been successfully update or the new time has no difference with the
      * old time. Return false if the new time is conflict with other event and the time haven't been successfully
      * updated.
@@ -106,13 +106,13 @@ public class OrganizerController extends AttendeeController {
     /**
      * Update the capacity of the event
      *
-     * @param eventId the uuid of the event
-     * @param newCapacity  the new capacity of the event
+     * @param eventId     the uuid of the event
+     * @param newCapacity the new capacity of the event
      * @return true if the event's time have been successfully update or the new time has no difference with the
      * old time. Return false if the new time is conflict with other event and the time haven't been successfully
      * updated.
      */
-    public boolean updateCapacity(String eventId, int newCapacity){
+    public boolean updateCapacity(String eventId, int newCapacity) {
         Map<String, Event> schedule = eventsManager.getSchedule();
         EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
         String roomId = eventInfoManager.getRoomId(eventId);
@@ -121,21 +121,21 @@ public class OrganizerController extends AttendeeController {
         return eventController.updateEventInfo(eventId, time, roomId, duration, newCapacity);
     }
 
-    public boolean checkCapacityInBound(int roomNum, int eventCap){
+    public boolean checkCapacityInBound(int roomNum, int eventCap) {
         return roomManager.getRoomCapacityGivenRoomNum(roomNum) >= eventCap;
     }
 
 
-
     /**
      * Return true iff the speaker is successfully updated
-     * @param eventId of the single speaker event
+     *
+     * @param eventId   of the single speaker event
      * @param speakerId of the speaker
      * @return true if the update has successfully execute
      */
-    public boolean updateSingleEventSpeaker(String eventId, String speakerId){
+    public boolean updateSingleEventSpeaker(String eventId, String speakerId) {
         ArrayList<String> currentSpeaker = eventController.getEventSpeakers(eventId);
-        if (currentSpeaker != null){
+        if (currentSpeaker != null) {
             String previousSpeaker = currentSpeaker.get(0);
             eventController.removeSpeaker(eventId, previousSpeaker);
             return eventController.addSpeaker(eventId, speakerId);
@@ -145,13 +145,14 @@ public class OrganizerController extends AttendeeController {
 
     /**
      * Return true iff the speaker is successfully removed from the speaker list
-     * @param eventId of the multi speaker event
+     *
+     * @param eventId   of the multi speaker event
      * @param speakerId of the speaker
      * @return true iff the speaker is in the speaker list of the event and is removed successfully
      */
-    public boolean removeSpeakerMultiEvent(String eventId, String speakerId){
+    public boolean removeSpeakerMultiEvent(String eventId, String speakerId) {
         ArrayList<String> currentSpeaker = eventController.getEventSpeakers(eventId);
-        if (currentSpeaker != null){
+        if (currentSpeaker != null) {
             return eventController.removeSpeaker(eventId, speakerId);
         }
         return false;
@@ -159,18 +160,19 @@ public class OrganizerController extends AttendeeController {
 
     /**
      * Return true iff the speaker is successfully added
-     * @param eventId of the multi speaker event
+     *
+     * @param eventId   of the multi speaker event
      * @param speakerId of the speaker
      * @return true iff the speaker is not in the speaker list previously and is added successfully
      */
-    public boolean addSpeakerMultiEvent(String eventId, String speakerId){
+    public boolean addSpeakerMultiEvent(String eventId, String speakerId) {
         return eventController.addSpeaker(eventId, speakerId);
     }
 
     /**
      * update the room of the event
      *
-     * @param eventId   the uuid of the event
+     * @param eventId the uuid of the event
      * @param roomNum the new room of the event
      * @return true if room of the event have been successfully update of the new room has no difference with the
      * old room. Return false if the room has been occupied at that time
@@ -198,6 +200,7 @@ public class OrganizerController extends AttendeeController {
 
     /**
      * get all speakers of the program
+     *
      * @return a list of speakers which inside the program
      */
     public List<String> getAllSpeakers() {
@@ -213,6 +216,7 @@ public class OrganizerController extends AttendeeController {
 
     /**
      * get all speakers in string format
+     *
      * @return a string represent all speakers inside the program
      */
     public String speakerToString() {
@@ -228,6 +232,7 @@ public class OrganizerController extends AttendeeController {
 
     /**
      * get all rooms' numbers
+     *
      * @return a list of rooms' numbers
      */
     public List<Integer> getAllRooms() {
@@ -237,15 +242,17 @@ public class OrganizerController extends AttendeeController {
     /**
      * add constraints to room base on list of constraints
      *
-     * @param roomNum room number
+     * @param roomNum  room number
      * @param category room constraints
      * @return verification if there is any room constaints are modified
      */
-    public boolean addConstraintToRoom(int roomNum, ArrayList<String> category){
+    public boolean addConstraintToRoom(int roomNum, ArrayList<String> category) {
         return roomManager.addConstraintToRoom(roomNum, category);
     }
+
     /**
      * get all rooms in string format
+     *
      * @return a string represent all rooms inside the program
      */
     public String roomToString(List<Integer> suggestedRooms) {
@@ -270,6 +277,7 @@ public class OrganizerController extends AttendeeController {
 
     /**
      * get the event controller of the program
+     *
      * @return the event controller
      */
     public EventController getEventController() {

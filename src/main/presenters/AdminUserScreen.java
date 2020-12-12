@@ -1,15 +1,14 @@
 package main.presenters;
 
 /**
- * The OrganizerScreen is a presenter class that displays attendee options.
+ * The AdminUserScreen is a presenter class that displays Admin user options.
  *
- * @author Ruoming Ren
+ * @author Leyi Wang
  * @version 1.0
- * @since 2020-11-11
  */
 public class AdminUserScreen {
     /**
-     * Constructor of an OrganizerScreen.
+     * Constructor of an Admin User Screen.
      */
     public AdminUserScreen() {
 

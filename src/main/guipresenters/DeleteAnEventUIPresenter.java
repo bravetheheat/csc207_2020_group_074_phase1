@@ -53,8 +53,14 @@ public class DeleteAnEventUIPresenter
     @Override
     public int onSelectEventButtonClicked() {
         programController.saveForNext();
-        iModifyEventUI = iDeleteAnEventUI.goToModifyEventUI();
-        new ModifyEventUIPresenter(iModifyEventUI, programController);
-        return iDeleteAnEventUI.getEventIndexFromList();
+        if (eventController.getAllEvents().size() > 0) {
+            iModifyEventUI = iDeleteAnEventUI.goToModifyEventUI();
+            new ModifyEventUIPresenter(iModifyEventUI, programController);
+            return iDeleteAnEventUI.getEventIndexFromList();
+        }
+        else {
+            iDeleteAnEventUI.deleteEventError();
+            return -1;
+        }
     }
 }

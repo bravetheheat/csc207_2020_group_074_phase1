@@ -12,7 +12,8 @@ public class InboxBean {
     private String user;
     private String messageID;
 
-    public InboxBean() {};
+    public InboxBean() {
+    }
 
     public String getId() {
         return id;

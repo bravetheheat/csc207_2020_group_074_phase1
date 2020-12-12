@@ -14,12 +14,12 @@ import java.util.UUID;
 
 public class Event {
 
+    private final ArrayList<String> attendeesID;
+    private final ArrayList<String> speakersID;
     private String id;
     private String title;
     private LocalDateTime time;
     private String roomID;
-    private final ArrayList<String> attendeesID;
-    private final ArrayList<String> speakersID;
     private String type;
     private int duration;
     private int capacity;

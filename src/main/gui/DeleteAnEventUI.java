@@ -51,7 +51,7 @@ public class DeleteAnEventUI extends JFrame implements IDeleteAnEventUI {
         backButton.addActionListener(e -> notifyListenerBackButtonClicked());
 
         selectEventButton.addActionListener(
-                e -> selectEventButtonListener.onSelectEventButtonClicked());
+                e -> notifyOnSelectEventButtonClicked());
 
         deleteEventButton.addActionListener(
                 e -> notifyListenerDeleteEventButtonClicked());
@@ -89,7 +89,7 @@ public class DeleteAnEventUI extends JFrame implements IDeleteAnEventUI {
         backButtonListener.onBackButtonClicked();
     }
 
-    public void notifySelectEventButtonClicked() {
+    public void notifyOnSelectEventButtonClicked() {
         eventIndex = selectEventButtonListener.onSelectEventButtonClicked();
     }
 

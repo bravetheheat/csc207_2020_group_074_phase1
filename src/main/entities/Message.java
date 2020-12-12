@@ -18,48 +18,8 @@ public class Message {
     /**
      * Empty constructor for deserialization.
      */
-    public Message(){
+    public Message() {
 
-    }
-
-    /**
-     * Sets the ID of the message
-     * @param id Message ID
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Sets the text of the message
-     * @param text message text
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    /**
-     * Gets the time of the message
-     * @return LocalDateTime time of the message
-     */
-    public LocalDateTime getTime() {
-        return time;
-    }
-
-    /**
-     * Sets the time of the message
-     * @param time LocalDateTime time
-     */
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
-
-    /**
-     * Sets the sender of the message
-     * @param sender ID of the sender
-     */
-    public void setSender(String sender) {
-        this.sender = sender;
     }
 
     /**
@@ -76,6 +36,24 @@ public class Message {
     }
 
     /**
+     * Gets the time of the message
+     *
+     * @return LocalDateTime time of the message
+     */
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    /**
+     * Sets the time of the message
+     *
+     * @param time LocalDateTime time
+     */
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    /**
      * Gets the text stored in the message
      *
      * @return text of the message
@@ -85,12 +63,30 @@ public class Message {
     }
 
     /**
+     * Sets the text of the message
+     *
+     * @param text message text
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /**
      * Gets the sender of the message
      *
      * @return String of the sender of the message
      */
     public String getSender() {
         return this.sender;
+    }
+
+    /**
+     * Sets the sender of the message
+     *
+     * @param sender ID of the sender
+     */
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
     /**
@@ -109,6 +105,15 @@ public class Message {
      */
     public String getId() {
         return this.id;
+    }
+
+    /**
+     * Sets the ID of the message
+     *
+     * @param id Message ID
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**

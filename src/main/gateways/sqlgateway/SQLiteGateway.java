@@ -34,7 +34,7 @@ public class SQLiteGateway implements Gateway {
      */
     private void connect() {
         try {
-            String url = "jdbc:sqlite:src/main/store.db";
+            String url = "jdbc:sqlite:src/store/app.db";
             this.conn = DriverManager.getConnection(url);
 
         } catch (SQLException e) {
@@ -95,7 +95,7 @@ public class SQLiteGateway implements Gateway {
      */
     private void createRoomTable() {
         String sql = "CREATE TABLE IF NOT EXISTS rooms(\n"
-                + " id string NOT NULL, \n"
+                + " id string PRIMARY KEY, \n"
                 + " roomNum int NOT NULL,\n"
                 + " capacity int NOT NULL,\n"
                 + " hasTech boolean NOT NULL,\n"
@@ -117,12 +117,12 @@ public class SQLiteGateway implements Gateway {
      */
     private void createEventTable() {
         String sql = "CREATE TABLE IF NOT EXISTS events(\n"
-                + " id string NOT NULL, \n"
+                + " id string PRIMARY KEY, \n"
                 + " title string NOT NULL,\n"
                 + " time string NOT NULL,\n"
                 + " roomId string NOT NULL,\n"
-                + " speakersId int NOT NULL,\n"
-                + " attendeesId int NOT NULL,\n"
+                + " speakersId string,\n"
+                + " attendeesId string,\n"
                 + " type string NOT NULL,\n"
                 + " duration int NOT NULL,\n"
                 + " capacity int NOT NULL\n"
