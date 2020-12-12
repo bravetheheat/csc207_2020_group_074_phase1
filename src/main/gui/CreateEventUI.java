@@ -57,8 +57,7 @@ public class CreateEventUI extends JFrame implements ICreateEventUI {
 
     public ArrayList<String> getEventConstraints() {
         String constraintString = constraintField.getText();
-        ArrayList<String> category = new ArrayList<>(Arrays.asList(
-                constraintString.split(",")));
+        ArrayList<String> category = new ArrayList<>(Arrays.asList(constraintString.split("[\\s]*[,][\\s]*")));
         return category;
     }
 

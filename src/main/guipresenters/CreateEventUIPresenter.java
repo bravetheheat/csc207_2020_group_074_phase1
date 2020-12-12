@@ -61,6 +61,13 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
         }
 
         ArrayList<String> category = iCreateEventUI.getEventConstraints();
+        for (String item : category) {
+            if (!item.equalsIgnoreCase("Tech") && (!item.equalsIgnoreCase("Table")) &&
+                    (!item.equalsIgnoreCase("Stage")) && (!item.equalsIgnoreCase("None"))) {
+                iCreateEventUI.createNewEventError();
+                return;
+            }
+        }
         List<Integer> rooms = organizerController.getEventController().
                 getSuggestedRooms(category);
         ArrayList<Integer> listOfRoomNum = organizerController.roomToList(rooms);
@@ -70,7 +77,13 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
 
     @Override
     public void onConfirmCreateEventButtonClicked() {
-        int roomNum = iSelectRoomUI.getRoomNum();
+        int roomNum;
+        try {
+            roomNum = iSelectRoomUI.getRoomNum();
+        } catch (NullPointerException e) {
+            iCreateEventUI.createNewEventError();
+            return;
+        }
         int duration;
         int capacity;
         LocalDateTime date;

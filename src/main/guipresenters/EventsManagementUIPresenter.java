@@ -23,6 +23,7 @@ public class EventsManagementUIPresenter implements BackButtonListener,
         iEventsManagementUI.addCreateRoomButtonListener(this);
         iEventsManagementUI.addModifyRoomButtonListener(this);
         iEventsManagementUI.addCreateEventButtonListener(this);
+        iEventsManagementUI.addModifyEventButtonListener(this);
     }
 
 
@@ -55,9 +56,9 @@ public class EventsManagementUIPresenter implements BackButtonListener,
     }
 
     @Override
-    public void onDeleteEventButtonClicked() {
+    public void onModifyEventButtonClicked() {
         programController.saveForNext();
         iModifyEventUI = iEventsManagementUI.goToModifyEventUI();
-        new DeleteEventUIPresenter(iModifyEventUI, programController);
+        new ModifyEventUIPresenter(iModifyEventUI, programController);
     }
 }

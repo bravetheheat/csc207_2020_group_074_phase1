@@ -40,12 +40,12 @@ public class ModifyRoomUIPresenter
             String roomInput = iModifyRoomUI.getRoomNum();
             String constraints = iModifyRoomUI.getConstraint();
             int roomNum = Integer.parseInt(roomInput);
-            ArrayList<String> constraintList = new ArrayList<>(Arrays.asList(
-                    constraints.split(",")));
+            ArrayList<String> constraintList = new ArrayList<>(Arrays.asList(constraints.split("[\\s]*[,][\\s]*")));
             for (String item : constraintList) {
-                if (!item.equals("Tech") && (!item.equals("Table")) &&
-                        (!item.equals("Stage")) && (!item.equals("None"))) {
+                if (!item.equalsIgnoreCase("Tech") && (!item.equalsIgnoreCase("Table")) &&
+                        (!item.equalsIgnoreCase("Stage")) && (!item.equalsIgnoreCase("None"))) {
                     iModifyRoomUI.modifyRoomError();
+                    return;
                 }
             }
             if (organizerController.addConstraintToRoom(roomNum, constraintList)) {

@@ -83,7 +83,7 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
     }
 
     public void notifyListenerOnModifyEventButtonClicked() {
-        modifyEventButtonListener.onDeleteEventButtonClicked();
+        modifyEventButtonListener.onModifyEventButtonClicked();
     }
 
     public OrganizerMainUI goToOrganizerMainUI() {
