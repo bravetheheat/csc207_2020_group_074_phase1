@@ -8,7 +8,7 @@ package main.presenters;
  */
 public class AdminUserScreen {
     /**
-     * Constructor of an OrganizerScreen.
+     * Constructor of an Admin User Screen.
      */
     public AdminUserScreen() {
 
