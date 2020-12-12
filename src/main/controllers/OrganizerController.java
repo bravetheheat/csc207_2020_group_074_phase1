@@ -259,6 +259,15 @@ public class OrganizerController extends AttendeeController {
         return ret;
     }
 
+    public ArrayList<Integer> roomToList(List<Integer> suggestedRooms) {
+        ArrayList<Integer> listOfRooms = new ArrayList<>();
+        for (int roomNum : suggestedRooms) {
+            Room room = roomManager.getRoomGivenRoomNum(roomNum);
+            listOfRooms.add(room.getRoomNum());
+        }
+        return listOfRooms;
+    }
+
     /**
      * get the event controller of the program
      * @return the event controller

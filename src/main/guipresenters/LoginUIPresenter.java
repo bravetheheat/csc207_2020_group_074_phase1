@@ -40,7 +40,12 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
     public void onLoginButtonClicked() {
             String username = iLoginUI.getUserName();
             String password = iLoginUI.getPwd();
-            if (authController.login(username, password)) {
+            if (username.equals("") || password.equals("")) {
+                iLoginMessageErrorUI = iLoginUI.goToLoginMessageErrorUI();
+                new LoginMessageErrorPresenter(iLoginMessageErrorUI,
+                        programController);
+            }
+            else if (authController.login(username, password)) {
                 String userType = authController.getUserType();
                 switch(userType){
                     case "Attendee":
@@ -62,7 +67,6 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
                         new SpeakerMainUIPresenter(iSpeakerMainUI, programController);
                         break;
                     default:
-                        programController.saveForNext();
                         iLoginMessageErrorUI = iLoginUI.goToLoginMessageErrorUI();
                         new LoginMessageErrorPresenter(iLoginMessageErrorUI,
                                 programController);
@@ -70,7 +74,6 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
                 }
             }
             else {
-                programController.saveForNext();
                 iLoginMessageErrorUI = iLoginUI.goToLoginMessageErrorUI();
                 new LoginMessageErrorPresenter(iLoginMessageErrorUI,
                         programController);

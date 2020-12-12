@@ -70,6 +70,18 @@ public class EventController {
         return s;
     }
 
+    public ArrayList getUserEventsList(String userId) {
+        ArrayList<String> listOfUserEvents = new ArrayList<>();
+        ArrayList<String> ids = this.eventsManager.getUserEvents(userId);
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        for (String eventId: ids) {
+            EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+            String eventInfo = eventInfoManager.toString();
+            listOfUserEvents.add(eventInfo);
+        }
+        return listOfUserEvents;
+    }
+
     public int getRoomNum(String eventId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
@@ -168,6 +180,14 @@ public class EventController {
         return s;
     }
 
+    public ArrayList<String> getEventsInfoList() {
+        ArrayList<String> listOfEvents = new ArrayList<>();
+        for (String i: this.eventsManager.getSchedule().keySet()) {
+            listOfEvents.add(getSingleEventInfo(i));
+        }
+        return listOfEvents;
+    }
+
     /**
      * Get a string representation of an event.
      * @param eventId of an Event.
@@ -180,7 +200,7 @@ public class EventController {
     }
 
     /**
-     * Get event basic infomation as a string
+     * Get event basic information as a string
      *
      * @return string representation of the event about its info
      */
@@ -191,7 +211,7 @@ public class EventController {
     }
 
     /**
-     * Get events basic infomation as a string
+     * Get events basic information as a string
      *
      * @return string representation of the events about its info
      */

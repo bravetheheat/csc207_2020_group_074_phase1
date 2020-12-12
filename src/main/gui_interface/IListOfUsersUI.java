@@ -8,3 +8,4 @@ public interface IListOfUsersUI {
     UserManagementUI goToUserManagementUI();
     void addBackButtonListener(BackButtonListener listener);
 }
+

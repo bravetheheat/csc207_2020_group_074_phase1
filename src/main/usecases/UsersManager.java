@@ -40,6 +40,15 @@ public class UsersManager {
         return user.getUsername();
     }
 
+    public String getIDFromUsername(String username) {
+        for (User user : registeredUsers.values()) {
+            if (user.getUsername().equals(username)) {
+                return user.getId();
+            }
+        }
+        return "";
+    }
+
 
     /**
      * Verify the authentication of new user with username, password and type of users.
