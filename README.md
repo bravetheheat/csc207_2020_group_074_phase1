@@ -21,18 +21,15 @@ The following link contains our design of CRC cards, zoom meeting link, and inst
 Getting Started
 ------------
 
-<<<<<<< HEAD
-=======
 **Pre-requisites**
 
 * JDK 8 or above
 * [opencsv v5.3](http://opencsv.sourceforge.net/)
->>>>>>> 02b2b115b113b8ab7919675d49d1fe905894d1ed
+
 
 **Running the Application**
 
 Run the main() method of main.controllers.main
-
 
 **After Startup**
 
@@ -43,18 +40,37 @@ After starting the program, you will be faced with two options:
 **Usage**
 
 After logging in, you will be given a screen with a number of options depending on your user type. These are where
-you will be able to register for events, send messsages, and check your messages. Organizers will have the additional 
+you will be able to register for events, send messages, and check your messages. Organizers will have the additional 
 capability to manage users, manage events and rooms, and save the data in the application.
 
 **Data Management**
 
-Organizers can manually save the data from their current session in the Data Management screen.
+The program will automatically save data to `src/store/app.db`, an SQLite DB file, on exit. The program will 
+also automatically load data from previous sessions from the same file.
 
-The program will automatically load saved data from previous sessions.
+Features
+------------
 
+* Ability to maintain data across sessions using an SQLite database.
 
+Design Patterns Used
+------------
 
+**Bridge**
 
+The Bridge design pattern was used in our Gateway design to make it simple to extend to different data formats.
+
+The interface: Gateway
+
+The implementations: CSVGateway, SQLiteGateway
+
+Implementing an alternate gateway destination would not affect other classes.
+
+**Singleton**
+
+We used the Singleton design pattern to ensure a consistent and single state within the application. Examples include 
+our ProgramController, UsersManager, EventsManager, InboxManager, etc. (see ProgramController's constructor for more) 
+where only a single instance is instantiated and *injected* into other classes.
 
 Contributors
 ------------
@@ -80,6 +96,14 @@ branch and commit changes to our own branch. By submitting a pull request, we me
 
 TA can check out the pull requests, addition and the java doc of each class that demonstrates the author 
 who writes this class. 
+
+SQL Table Schema
+------------
+
+![SQL Table Schema](./docs/sql-table-schema.png)
+
+Some parts of the schema represent serialized versions of arrays. E.g. events.speakersId. While the data format is 
+a string, it represents a list of Speaker IDs
 
 UML Diagram
 ------------
