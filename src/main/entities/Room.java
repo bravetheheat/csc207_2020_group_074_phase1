@@ -1,8 +1,5 @@
 package main.entities;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -84,56 +81,27 @@ public class Room {
         this.capacity = capacity;
     }
 
-//    /**
-//     * Get the booking schedule of this room.
-//     *
-//     * @return schedule
-//     */
-//    public Map<LocalDateTime, String> getSchedule() {
-//        return schedule;
-//    }
-//
-//    /**
-//     * Add a pair of time and event to the schedule.
-//     *
-//     * @param time  that this room will be booked
-//     * @param event corresponding to the time slot
-//     */
-//    public void addToSchedule(LocalDateTime time, String event) {
-//        schedule.put(time, event);
-//    }
-//
-//    /**
-//     * Remove a pair of time and event from the schedule.
-//     *
-//     * @param time  that this room was booked
-//     * @param event corresponding to the time slot
-//     */
-//    public void removeFromSchedule(LocalDateTime time, String event) {
-//        schedule.remove(time);
-//    }
-
-    public void setStage(){
+    public void setStage() {
         this.hasStage = true;
     }
 
-    public void setTech(){
+    public void setTech() {
         this.hasTech = true;
     }
 
-    public void setToTable(){
+    public void setToTable() {
         this.isTable = true;
     }
 
-    public boolean getIsTable(){
+    public boolean getIsTable() {
         return this.isTable;
     }
 
-    public boolean getHasTech(){
+    public boolean getHasTech() {
         return this.hasTech;
     }
 
-    public boolean getHasStage(){
+    public boolean getHasStage() {
         return this.hasStage;
     }
 }

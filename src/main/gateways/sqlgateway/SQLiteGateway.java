@@ -9,10 +9,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class implements the storage and loading of entities from an SQLite database.
+ * It can be easily modified for any JDBC-compatible DB driver
+ */
 public class SQLiteGateway implements Gateway {
 
     private Connection conn;
 
+    /**
+     * Initial constructor that establishes a connection to the database
+     * and creates the appropriate tables
+     */
     public SQLiteGateway() {
         this.connect();
         if (conn != null) {
@@ -21,6 +29,9 @@ public class SQLiteGateway implements Gateway {
 
     }
 
+    /**
+     * Connects to the database
+     */
     private void connect() {
         try {
             String url = "jdbc:sqlite:src/main/store.db";
@@ -32,6 +43,9 @@ public class SQLiteGateway implements Gateway {
         }
     }
 
+    /**
+     * Initializes the database by creating a schema
+     */
     private void initialize() {
         this.createUserTable();
         this.createMessageTable();
@@ -40,6 +54,9 @@ public class SQLiteGateway implements Gateway {
         this.createEventTable();
     }
 
+    /**
+     * Creates the schema for the User entity
+     */
     private void createUserTable() {
         String sql = "CREATE TABLE IF NOT EXISTS users(\n"
                 + " id string PRIMARY KEY, \n"
@@ -55,6 +72,9 @@ public class SQLiteGateway implements Gateway {
         }
     }
 
+    /**
+     * Creates the schema for the Message entity
+     */
     private void createMessageTable() {
         String sql = "CREATE TABLE IF NOT EXISTS messages(\n"
                 + " id string PRIMARY KEY, \n"
@@ -70,6 +90,9 @@ public class SQLiteGateway implements Gateway {
         }
     }
 
+    /**
+     * Creates the schema for the Room entity
+     */
     private void createRoomTable() {
         String sql = "CREATE TABLE IF NOT EXISTS rooms(\n"
                 + " id string NOT NULL, \n"
@@ -89,6 +112,9 @@ public class SQLiteGateway implements Gateway {
         }
     }
 
+    /**
+     * Creates the schema for the Event entity
+     */
     private void createEventTable() {
         String sql = "CREATE TABLE IF NOT EXISTS events(\n"
                 + " id string NOT NULL, \n"
@@ -110,6 +136,9 @@ public class SQLiteGateway implements Gateway {
         }
     }
 
+    /**
+     * Creates the schema for the Inbox entity
+     */
     private void createInboxTable() {
         String sql = "CREATE TABLE IF NOT EXISTS inboxes(\n"
                 + " id string NOT NULL, \n"
@@ -126,6 +155,11 @@ public class SQLiteGateway implements Gateway {
     }
 
 
+    /**
+     * See interface definition
+     *
+     * @param users User objects to save
+     */
     public void saveUsers(List<User> users) {
         Converter converter = new UserConverter();
         List<UserBean> userBeans = converter.convertToBeans(users);
@@ -133,6 +167,11 @@ public class SQLiteGateway implements Gateway {
 
     }
 
+    /**
+     * See interface definition
+     *
+     * @return a list of User objects
+     */
     public List<User> loadUsers() {
         Converter converter = new UserConverter();
         List<UserBean> userBeans = this.loadUserBeans();
@@ -140,6 +179,11 @@ public class SQLiteGateway implements Gateway {
         return users;
     }
 
+    /**
+     * Saves serialized User to table
+     *
+     * @param userBeans serialized User
+     */
     private void saveUserBeans(List<UserBean> userBeans) {
         this.deleteAllValuesFromTable("users");
         String sql = "INSERT INTO users(id, username, password, role) VALUES(?,?,?,?)";
@@ -158,6 +202,11 @@ public class SQLiteGateway implements Gateway {
         }
     }
 
+    /**
+     * Load serialized User from table
+     *
+     * @return list of serialized User
+     */
     private List<UserBean> loadUserBeans() {
 
         List<UserBean> userBeans = new ArrayList<>();
@@ -184,12 +233,22 @@ public class SQLiteGateway implements Gateway {
 
     }
 
+    /**
+     * Saves list of Room in the DB
+     *
+     * @param rooms List of Rooms to save
+     */
     public void saveRooms(List<Room> rooms) {
         Converter converter = new RoomConverter();
         List<RoomBean> roomBeans = converter.convertToBeans(rooms);
         saveRoomBeans(roomBeans);
     }
 
+    /**
+     * Loads the Rooms in the DB
+     *
+     * @return a list of Room entities
+     */
     public List<Room> loadRooms() {
         Converter converter = new RoomConverter();
         List<RoomBean> roomBeans = loadRoomBeans();
@@ -197,6 +256,11 @@ public class SQLiteGateway implements Gateway {
         return rooms;
     }
 
+    /**
+     * Saves serialized Rooms to the DB
+     *
+     * @param roomBeans serialized Rooms
+     */
     private void saveRoomBeans(List<RoomBean> roomBeans) {
         this.deleteAllValuesFromTable("rooms");
         String sql = "INSERT INTO rooms(id, roomNum, capacity, hasTech, isTable, hasStage) VALUES(?,?,?,?,?,?)";
@@ -217,6 +281,11 @@ public class SQLiteGateway implements Gateway {
         }
     }
 
+    /**
+     * Load serialized Rooms from the DB
+     *
+     * @return list of serialized Rooms
+     */
     private List<RoomBean> loadRoomBeans() {
         List<RoomBean> roomBeans = new ArrayList<>();
         String sql = "SELECT id, roomNum, capacity, hasTech, isTable, hasStage FROM rooms";
@@ -245,12 +314,22 @@ public class SQLiteGateway implements Gateway {
         return roomBeans;
     }
 
+    /**
+     * Saves Message entities to the DB
+     *
+     * @param messages List of Message to save
+     */
     public void saveMessages(List<Message> messages) {
         Converter converter = new MessageConverter();
         List<MessageBean> messageBeans = converter.convertToBeans(messages);
         saveMessageBeans(messageBeans);
     }
 
+    /**
+     * Load Message entities from the DB
+     *
+     * @return list of Message entities
+     */
     public List<Message> loadMessages() {
         Converter converter = new MessageConverter();
         List<MessageBean> messageBeans = this.loadMessageBeans();
@@ -258,6 +337,11 @@ public class SQLiteGateway implements Gateway {
         return messages;
     }
 
+    /**
+     * Saves serialized Message entities to the DB
+     *
+     * @param messageBeans list of serialized Message entities
+     */
     private void saveMessageBeans(List<MessageBean> messageBeans) {
         this.deleteAllValuesFromTable("messages");
         String sql = "INSERT INTO messages(id, text, time, sender) VALUES(?,?,?,?)";
@@ -276,6 +360,11 @@ public class SQLiteGateway implements Gateway {
         }
     }
 
+    /**
+     * Loads serialized Message entities from the DB
+     *
+     * @return list of serialized Message entities
+     */
     private List<MessageBean> loadMessageBeans() {
         List<MessageBean> messageBeans = new ArrayList<>();
         String sql = "SELECT id, text, time, sender FROM messages";
@@ -299,12 +388,22 @@ public class SQLiteGateway implements Gateway {
         return messageBeans;
     }
 
+    /**
+     * Saves Event entities to the DB
+     *
+     * @param events List of Events to save
+     */
     public void saveEvents(List<Event> events) {
         Converter converter = new EventConverter();
         List<EventBean> eventBeans = converter.convertToBeans(events);
         saveEventBeans(eventBeans);
     }
 
+    /**
+     * Loads Event entities from the DB
+     *
+     * @return a list of Event entities
+     */
     public List<Event> loadEvents() {
         Converter converter = new EventConverter();
         List<EventBean> eventBeans = loadEventBeans();
@@ -312,6 +411,11 @@ public class SQLiteGateway implements Gateway {
         return events;
     }
 
+    /**
+     * Saves serialized Event entities to the DB
+     *
+     * @param eventBeans list of serialized Event entities
+     */
     private void saveEventBeans(List<EventBean> eventBeans) {
         this.deleteAllValuesFromTable("events");
         String sql = "INSERT INTO events(id, title, time, roomId, speakersId, attendeesId, type, duration, capacity) VALUES(?,?,?,?,?,?,?,?,?)";
@@ -336,6 +440,11 @@ public class SQLiteGateway implements Gateway {
         }
     }
 
+    /**
+     * Loads serialized Event entities from the DB
+     *
+     * @return list of serialized Event entities
+     */
     private List<EventBean> loadEventBeans() {
         List<EventBean> eventBeans = new ArrayList<>();
         String sql = "SELECT id, title, time, roomId, speakersId, attendeesId, type, duration, capacity FROM events";
@@ -364,6 +473,11 @@ public class SQLiteGateway implements Gateway {
         return eventBeans;
     }
 
+    /**
+     * Saves list of Inbox entities to the DB
+     *
+     * @param inboxes List of Inbox to save
+     */
     public void saveInboxes(List<Inbox> inboxes) {
         Converter converter = new InboxConverter();
         List<InboxBean> inboxBeans = converter.convertToBeans(inboxes);
@@ -371,6 +485,11 @@ public class SQLiteGateway implements Gateway {
 
     }
 
+    /**
+     * Loads list of Inbox entities from the DB
+     *
+     * @return list of Inbox entities
+     */
     public List<Inbox> loadInboxes() {
         Converter converter = new InboxConverter();
         List<InboxBean> inboxBeans = this.loadInboxBeans();
@@ -378,6 +497,11 @@ public class SQLiteGateway implements Gateway {
         return inboxes;
     }
 
+    /**
+     * Saves list of serialized Inbox entities to the DB
+     *
+     * @param inboxBeans list of serialized Inbox entities
+     */
     private void saveInboxBeans(List<InboxBean> inboxBeans) {
         this.deleteAllValuesFromTable("inboxes");
         String sql = "INSERT INTO inboxes(id, user, messageId) VALUES(?,?,?)";
@@ -399,6 +523,11 @@ public class SQLiteGateway implements Gateway {
         }
     }
 
+    /**
+     * Load list of serialized Inbox entities from the DB
+     *
+     * @return list of serialized Inbox entities
+     */
     private List<InboxBean> loadInboxBeans() {
         List<InboxBean> inboxBeans = new ArrayList<>();
         String sql = "SELECT id, user, messageId FROM inboxes";
@@ -420,6 +549,11 @@ public class SQLiteGateway implements Gateway {
         return inboxBeans;
     }
 
+    /**
+     * Clears all values in a specific table
+     *
+     * @param table name of table to be cleared
+     */
     private void deleteAllValuesFromTable(String table) {
         String sql = "DELETE FROM " + table + ";";
         try {

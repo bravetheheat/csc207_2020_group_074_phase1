@@ -58,35 +58,43 @@ public class EventsManagementScreenController extends ScreenController {
                 end();
                 return;
             case "1":
-                if (createRoom()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (createRoom()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "2":
-                if (editRoom()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (editRoom()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "3":
-                if (createEvent()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (createEvent()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "4":
-                if (removeEvent()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (removeEvent()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "5":
-                if (modifyRoom()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (modifyRoom()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "6":
-                if (modifyTime()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (modifyTime()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "7":
-                if (modifySpeaker()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (modifySpeaker()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "8":
-                if (modifyEventCapacity()) presenter.printVerification(); else presenter.printInvalidInput();
+                if (modifyEventCapacity()) presenter.printVerification();
+                else presenter.printInvalidInput();
                 manageEvent();
                 break;
             case "9":
@@ -107,36 +115,36 @@ public class EventsManagementScreenController extends ScreenController {
      * @return verify if the room is successfully created
      */
     public boolean createRoom() {
-        try{
+        try {
             presenter.promptCreateRoom();
             String roomNum = scanner.nextLine();
             presenter.promptRoomCapacity();
             String capacity = scanner.nextLine();
             return organizerController.createRoom(Integer.parseInt(roomNum), Integer.parseInt(capacity));
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             presenter.printInvalidInput();
             return createRoom();
         }
 
     }
 
-    public boolean editRoom(){
-        try{
+    public boolean editRoom() {
+        try {
             presenter.promptRoomNum();
             String roomInput = scanner.nextLine();
             int roomNum = Integer.parseInt(roomInput);
             presenter.promptRoomConstraint();
             String cateString = scanner.nextLine();
             ArrayList<String> constraints = new ArrayList<>(Arrays.asList(cateString.split("[\\s]*[,][\\s]*")));
-            for (String item : constraints){
-                if(!item.equalsIgnoreCase("Tech") && (!item.equalsIgnoreCase("Table")) &&
-                        (!item.equalsIgnoreCase("Stage"))&& (!item.equalsIgnoreCase("None"))){
+            for (String item : constraints) {
+                if (!item.equalsIgnoreCase("Tech") && (!item.equalsIgnoreCase("Table")) &&
+                        (!item.equalsIgnoreCase("Stage")) && (!item.equalsIgnoreCase("None"))) {
                     presenter.printInvalidInput();
                     return editRoom();
                 }
             }
             return organizerController.addConstraintToRoom(roomNum, constraints);
-        }catch (IllegalArgumentException | NullPointerException e){
+        } catch (IllegalArgumentException | NullPointerException e) {
             presenter.printInvalidInput();
             return editRoom();
         }
@@ -217,7 +225,7 @@ public class EventsManagementScreenController extends ScreenController {
         try {
             String eventIndex = scanner.nextLine();
             int i = Integer.parseInt(eventIndex);
-            return organizerController.getEventController().getEventId(i-1);
+            return organizerController.getEventController().getEventId(i - 1);
         } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
             presenter.printInvalidInput();
             return getEventID();
@@ -230,28 +238,28 @@ public class EventsManagementScreenController extends ScreenController {
      *
      * @return verification if the speaker is modified
      */
-    public boolean modifySpeaker(){
+    public boolean modifySpeaker() {
         String eventID = getEventID();
         String type = this.organizerController.getEventController().getEventType(eventID);
-        if(type.equals("OneSpeakerEvent")){
+        if (type.equals("OneSpeakerEvent")) {
             String speakerID = getOneSpeakerID();
             return organizerController.updateSingleEventSpeaker(eventID, speakerID);
-        }else if(type.equals("MultiSpeakerEvent")){
-            try{
+        } else if (type.equals("MultiSpeakerEvent")) {
+            try {
                 presenter.promptModifyMultiSpeaker();
                 String option = scanner.nextLine();
-                if (Integer.parseInt(option) == 1){
+                if (Integer.parseInt(option) == 1) {
                     return addMultipleSpeaker(eventID);
-                }else if (Integer.parseInt(option) == 2){
+                } else if (Integer.parseInt(option) == 2) {
                     return removeSpeaker(eventID);
-                }else{
+                } else {
                     return false;
                 }
-            }catch(IllegalArgumentException | NullPointerException e){
+            } catch (IllegalArgumentException | NullPointerException e) {
                 presenter.printInvalidInput();
                 return modifySpeaker();
             }
-        }else{
+        } else {
             presenter.printNoSpeakerEventMessage();
             return true;
         }
@@ -259,10 +267,11 @@ public class EventsManagementScreenController extends ScreenController {
 
     /**
      * remove a speaker for multiple speaker event
+     *
      * @param eventID event id
      * @return verification of a removal
      */
-    public boolean removeSpeaker(String eventID){
+    public boolean removeSpeaker(String eventID) {
         try {
             String speakerList = organizerController.getEventController().getEventSpeakersToString(eventID);
             ArrayList<String> speakers = organizerController.getEventController().getEventSpeakers(eventID);
@@ -270,7 +279,7 @@ public class EventsManagementScreenController extends ScreenController {
             String speakerIndex = scanner.nextLine();
             String speakerId = speakers.get(Integer.parseInt(speakerIndex) - 1);
             return organizerController.removeSpeakerMultiEvent(eventID, speakerId);
-        }catch (IllegalArgumentException | NullPointerException | IndexOutOfBoundsException e){
+        } catch (IllegalArgumentException | NullPointerException | IndexOutOfBoundsException e) {
             presenter.printInvalidInput();
             return removeSpeaker(eventID);
         }
@@ -278,12 +287,13 @@ public class EventsManagementScreenController extends ScreenController {
 
     /**
      * add list of speakers to the event
+     *
      * @param eventID event id
      * @return verification of a addition of list of speaker
      */
-    public boolean addMultipleSpeaker(String eventID){
-        for(String speakerID: getMultiSpeakerID()){
-            if(!organizerController.addSpeakerMultiEvent(eventID, speakerID)){
+    public boolean addMultipleSpeaker(String eventID) {
+        for (String speakerID : getMultiSpeakerID()) {
+            if (!organizerController.addSpeakerMultiEvent(eventID, speakerID)) {
                 return false;
             }
         }
@@ -295,14 +305,14 @@ public class EventsManagementScreenController extends ScreenController {
      *
      * @return collection of speaker Id of a multiple speaker event
      */
-    public ArrayList<String> getMultiSpeakerID(){
+    public ArrayList<String> getMultiSpeakerID() {
         List<String> speakers = organizerController.getAllSpeakers();
         handleEmptyList(speakers);
         try {
             presenter.promptNumberOfSpeaker(speakers);
             ArrayList<String> newSpeakerList = new ArrayList<>();
             String numSpeaker = scanner.nextLine();
-            for(int i=0; i <=Integer.parseInt(numSpeaker); i++){
+            for (int i = 0; i <= Integer.parseInt(numSpeaker); i++) {
                 presenter.promptSpeaker(organizerController.speakerToString());
                 String speakerIndex = scanner.nextLine();
                 newSpeakerList.add(speakers.get(Integer.parseInt(speakerIndex) - 1));
@@ -345,9 +355,9 @@ public class EventsManagementScreenController extends ScreenController {
             presenter.promptRequirement();
             String cateString = scanner.nextLine();
             ArrayList<String> category = new ArrayList<>(Arrays.asList(cateString.split("[\\s]*[,][\\s]*")));
-            for (String item : category){
-                if(!item.equalsIgnoreCase("Tech") && (!item.equalsIgnoreCase("Table")) &&
-                        (!item.equalsIgnoreCase("Stage"))&& (!item.equalsIgnoreCase("None"))){
+            for (String item : category) {
+                if (!item.equalsIgnoreCase("Tech") && (!item.equalsIgnoreCase("Table")) &&
+                        (!item.equalsIgnoreCase("Stage")) && (!item.equalsIgnoreCase("None"))) {
                     presenter.printInvalidInput();
                     return getRoomNum();
                 }
@@ -391,9 +401,9 @@ public class EventsManagementScreenController extends ScreenController {
         try {
             presenter.promptCapacity();
             String capacity = scanner.nextLine();
-            if (organizerController.checkCapacityInBound(roomNum, Integer.parseInt(capacity))){
+            if (organizerController.checkCapacityInBound(roomNum, Integer.parseInt(capacity))) {
                 return Integer.parseInt(capacity);
-            }else{
+            } else {
                 presenter.printInvalidInput();
                 return getEventCapacity(roomNum);
             }
@@ -432,9 +442,9 @@ public class EventsManagementScreenController extends ScreenController {
             String type = scanner.nextLine();
             if (type.equals("OneSpeakerEvent")) {
                 return "OneSpeakerEvent";
-            }else if (type.equals("MultiSpeakerEvent")){
+            } else if (type.equals("MultiSpeakerEvent")) {
                 return "MultiSpeakerEvent";
-            }else{
+            } else {
                 return "NoSpeakerEvent";
             }
         } catch (IllegalArgumentException e) {
