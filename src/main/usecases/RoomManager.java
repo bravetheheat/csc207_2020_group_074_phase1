@@ -3,7 +3,6 @@ package main.usecases;
 import main.entities.Room;
 import main.gateways.Gateway;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -33,29 +32,29 @@ public class RoomManager {
                 return false;
             }
         }
-        Room newRoom = new Room(roomNum,capacity);
+        Room newRoom = new Room(roomNum, capacity);
         rooms.put(newRoom.getId(), newRoom);
         return true;
     }
 
     /**
      * Return a room that corresponds to the given roomId iff the roomId exists in rooms
+     *
      * @param roomId of the target room
      * @return the room corresponding to the given roomId
      */
-    public Room getRoomGivenId(String roomId){
-        if (!rooms.containsKey(roomId)){
+    public Room getRoomGivenId(String roomId) {
+        if (!rooms.containsKey(roomId)) {
             return null;
-        }
-        else{
+        } else {
             return rooms.get(roomId);
         }
     }
 
-    public int getRoomNumGivenId(String roomId){
-        if (getRoomGivenId(roomId) != null){
+    public int getRoomNumGivenId(String roomId) {
+        if (getRoomGivenId(roomId) != null) {
             return getRoomGivenId(roomId).getRoomNum();
-        }else{
+        } else {
             return -1;
         }
     }
@@ -93,23 +92,25 @@ public class RoomManager {
     /**
      * add constraints to room base on list of constraints
      *
-     * @param roomNum room number
+     * @param roomNum  room number
      * @param category room constraints
      * @return verification if there is any room constaints are modified
      */
-    public boolean addConstraintToRoom(int roomNum, ArrayList<String> category){
+    public boolean addConstraintToRoom(int roomNum, ArrayList<String> category) {
         Room room = getRoomGivenRoomNum(roomNum);
-        if (room == null){
+        if (room == null) {
             return false;
         }
-        if (!category.contains("Tech") && !category.contains("Table") && !category.contains("Stage")){
+        if (!category.contains("Tech") && !category.contains("Table") && !category.contains("Stage")) {
             return true;
         }
         if (category.contains("Tech")) {
             room.setTech();
-        }if (category.contains("Table")){
+        }
+        if (category.contains("Table")) {
             room.setToTable();
-        }if (category.contains("Stage")){
+        }
+        if (category.contains("Stage")) {
             room.setStage();
         }
         return true;
@@ -117,29 +118,17 @@ public class RoomManager {
 
     /**
      * Return the capacity of the target room provided its room number
+     *
      * @param roomNum of the room
      * @return the capacity of the room with given room number
      */
-    public int getRoomCapacityGivenRoomNum(int roomNum){
+    public int getRoomCapacityGivenRoomNum(int roomNum) {
         return this.getRoomGivenRoomNum(roomNum).getCapacity();
     }
 
     /**
-     * give the schedule of a room given its roomNum
-     *
-     * @param roomNum the given roomNum
-     * @return the schedule of the room. Return null if the room does not exist.
-     */
-//    public Map<LocalDateTime, String> roomSchedule(int roomNum) {
-//        if (this.getRoomGivenRoomNum(roomNum) == null) {
-//            return null;
-//        } else {
-//            return this.getRoomGivenRoomNum(roomNum).getSchedule();
-//        }
-//    }
-
-    /**
      * get all rooms' number which inside the program
+     *
      * @return a list of rooms' number
      */
     public List<Integer> getAllRooms() {
@@ -152,6 +141,7 @@ public class RoomManager {
 
     /**
      * get all rooms which inside the program
+     *
      * @return a list of rooms' objects
      */
     public Collection<Room> getAllRoomsObject() {
@@ -160,6 +150,7 @@ public class RoomManager {
 
     /**
      * save all rooms which inside the program to the gateway.
+     *
      * @param gateway the gateway of the program
      */
     public void saveRoomsToGateway(Gateway gateway) {
@@ -171,6 +162,7 @@ public class RoomManager {
 
     /**
      * load all rooms which inside the gateway
+     *
      * @param gateway the gateway of the program
      */
     public void loadRoomsFromGateway(Gateway gateway) {
