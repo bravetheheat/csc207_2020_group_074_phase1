@@ -167,16 +167,6 @@ public class UsersManager {
         return usersInfo.toString();
     }
 
-    public ArrayList<String> getUserInfoFormatted() {
-        ArrayList<String> listOfUserInfo = new ArrayList<>();
-        for (User user : registeredUsers.values()) {
-            String userInfo = "User #:" + user.getId() + "\n" + "Username: " + user.getUsername()
-                    + "\n" + "Password: " + user.getPassword() + "\n" + "User Type: " + user.getType() +"\n";
-            listOfUserInfo.add(userInfo);
-        }
-        return listOfUserInfo;
-    }
-
     /**
      * Returns the type of the user.
      *
