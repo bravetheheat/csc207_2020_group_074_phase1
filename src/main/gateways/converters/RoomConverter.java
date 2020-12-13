@@ -52,7 +52,7 @@ public class RoomConverter implements Converter<RoomBean, Room> {
             roomBean.setRoomNum(room.getRoomNum());
             roomBean.setHasStage(room.getHasStage());
             roomBean.setHasTech(room.getHasTech());
-            roomBean.setTable(roomBean.isTable());
+            roomBean.setTable(room.getIsTable());
             roomBeanList.add(roomBean);
         }
 
