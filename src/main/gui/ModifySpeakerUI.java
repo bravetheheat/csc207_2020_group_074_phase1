@@ -22,12 +22,13 @@ public class ModifySpeakerUI extends JFrame implements IModifySpeakerUI {
     private DeleteSpeakerButtonListener deleteSpeakerButtonListener;
     private JList eventSpeakerList;
     private JScrollPane jScrollPane2;
+    private int eventIndex = -1;
 
     public ModifySpeakerUI(ArrayList<String> listOfSpeakerInfo,
                            ArrayList<String> listOfEventSpeakers) {
         jPanel = new JPanel();
 
-        setSize(600, 500);
+        setSize(1000, 500);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -71,6 +72,14 @@ public class ModifySpeakerUI extends JFrame implements IModifySpeakerUI {
 
         add(jPanel);
         setVisible(true);
+    }
+
+    public void storeEventIndexFromModifyEvent(int eventIndex) {
+        this.eventIndex = eventIndex;
+    }
+
+    public int getEventIndex() {
+        return this.eventIndex;
     }
 
     public int[] getSpeakerIndices() {

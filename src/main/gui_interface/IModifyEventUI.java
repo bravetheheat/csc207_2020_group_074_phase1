@@ -27,4 +27,7 @@ public interface IModifyEventUI extends IView {
     int getEventIndex();
     ModifySpeakerUI goToModifySpeakerUI(ArrayList<String> listOfSpeakerInfo,
                                         ArrayList<String> listOfEventSpeakers);
+    void storeEventIndex(int eventIndex);
+    void storeRoomNum(int roomNum);
+    int getRoomNum();
 }

@@ -24,7 +24,7 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
     private IModifySpeakerUI iModifySpeakerUI;
     private IDeleteAnEventUI iDeleteAnEventUI;
     private ISelectRoomUI iSelectRoomUI;
-    private int eventIndex;
+    private int eventIndex = -1;
 
     public ModifyEventUIPresenter(IModifyEventUI modifyEventUI,
                                   ProgramController programController) {
@@ -48,44 +48,60 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
 
     @Override
     public void onConfirmModifyEventButtonClicked() {
-        if (iModifyEventUI.getEventIndex() >= 0) {
+        this.eventIndex = iModifyEventUI.getEventIndex();
+        if (eventIndex < 0) {
+            iModifyEventUI.modifyEventError();
+            return;
+        }
+        String eventId = eventController.getEventId(eventIndex);
+        if (eventId == null) {
+            System.out.println("event id is null");
+            eventId = "";
+        }
+        String dateStr = iModifyEventUI.getEventTime();
+        if (dateStr == null) {
+            System.out.println("date is null");
+            dateStr = "";
+        }
+        String capacityStr = iModifyEventUI.getEventCapacity();
+        if (capacityStr == null) {
+            System.out.println("capacity is null");
+            capacityStr = "";
+        }
+        int roomNum = iModifyEventUI.getRoomNum();
+        if (!eventId.equals("")) {
             try {
-                int eventIndex = iDeleteAnEventUI.getEventIndex();
-                if (eventIndex < 0) {
-                    iModifyEventUI.modifyEventError();
-                    return;
-                }
-                String eventId = eventController.getEventId(eventIndex);
-                String dateStr = iModifyEventUI.getEventTime();
-                DateTimeFormatter formatter = DateTimeFormatter.
-                        ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime dateTime = LocalDateTime.parse(dateStr, formatter);
-                String capacityStr = iModifyEventUI.getEventCapacity();
-                int capacity = Integer.parseInt(capacityStr);
-                int roomNum = iSelectRoomUI.getRoomNum();
-                if (eventId.equals("") && dateStr.equals("") && capacityStr.equals("") &&
-                        roomNum != -1) {
+                if (dateStr.equals("") && capacityStr.equals("") && roomNum == -1) {
+                    System.out.println("no inputs:\n" + "Event id: " + eventId
+                        + "\nDate: " + dateStr
+                        + "\nCapacity: " + capacityStr
+                        + "Room number: " + roomNum);
                     iModifyEventUI.modifyEventError();
                 }
                 else {
-                    if (!eventId.equals("") && !dateStr.equals("")) {
+                    if (!dateStr.equals("")) {
+                        DateTimeFormatter formatter = DateTimeFormatter.
+                                ofPattern("yyyy-MM-dd HH:mm");
+                        LocalDateTime dateTime = LocalDateTime.parse(dateStr, formatter);
                         organizerController.updateTime(eventId, dateTime);
                     }
-                    if (!eventId.equals("") && !capacityStr.equals("")) {
+                    if (!capacityStr.equals("")) {
+                        int capacity = Integer.parseInt(capacityStr);
                         organizerController.updateCapacity(eventId, capacity);
                     }
-                    if (!eventId.equals("") && roomNum != -1) {
+                    if (roomNum != -1) {
                         organizerController.updateRoom(eventId, roomNum);
                     }
                     iModifyEventUI.modifyEventSuccessful();
                 }
-            } catch (IllegalArgumentException | DateTimeParseException
-                    | NullPointerException e) {
+            } catch (IllegalArgumentException | DateTimeParseException e) {
+                System.out.println("exceptions");
                 iModifyEventUI.modifyEventError();
             }
 
         }
         else {
+            System.out.println("event index is -1");
             iModifyEventUI.modifyEventError();
         }
     }
@@ -101,7 +117,8 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
     @Override
     public void onModifySpeakerButtonClicked() {
         programController.saveForNext();
-        if (iModifyEventUI.getEventIndex() < 0) {
+        eventIndex = iModifyEventUI.getEventIndex();
+        if (eventIndex < 0) {
             iModifyEventUI.modifyEventError();
         }
         else {
@@ -110,6 +127,7 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
             ArrayList<String> listOfEventSpeakers = eventController.getEventSpeakers(eventController.getEventId(iModifyEventUI.getEventIndex()));
             iModifySpeakerUI = iModifyEventUI.goToModifySpeakerUI(
                     listOfAllSpeakers, listOfEventSpeakers);
+            iModifySpeakerUI.storeEventIndexFromModifyEvent(this.eventIndex);
             new ModifySpeakerUIPresenter(iModifySpeakerUI, programController);
         }
     }
@@ -117,6 +135,12 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
     @Override
     public void onSelectRoomButtonClicked() {
         programController.saveForNext();
+        this.eventIndex = iModifyEventUI.getEventIndex();
+        if (this.eventIndex == -1) {
+            System.out.println("event index is -1");
+            iModifyEventUI.modifyEventError();
+            return;
+        }
         String constraints = iModifyEventUI.getRoomConstraints();
         ArrayList<String> category = new ArrayList<>(Arrays.asList(constraints.split("[\\s]*[,][\\s]*")));
         for (String item : category) {
@@ -129,6 +153,7 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
         List<Integer> rooms = organizerController.getEventController().
                 getSuggestedRooms(category);
         iSelectRoomUI = iModifyEventUI.goToSelectRoomUI((ArrayList<Integer>) rooms, category);
+        iSelectRoomUI.storeEventIndexFromModifyEvent(this.eventIndex);
         new SelectRoomUIPresenter(iSelectRoomUI, programController);
     }
 }

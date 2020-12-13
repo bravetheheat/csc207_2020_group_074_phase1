@@ -17,6 +17,7 @@ public class DeleteAnEventUIPresenter
     private EventController eventController;
     private IDeleteAnEventUI iDeleteAnEventUI;
     private IModifyEventUI iModifyEventUI;
+    private int eventIndex = -1;
 
     public DeleteAnEventUIPresenter(IDeleteAnEventUI deleteAnEventUI,
                                     ProgramController programController) {
@@ -42,7 +43,9 @@ public class DeleteAnEventUIPresenter
             int eventIndex = iDeleteAnEventUI.getEventIndexFromList();
             String eventId = eventController.getEventId(eventIndex);
             if (organizerController.removeEvent(eventId)) {
-                iDeleteAnEventUI.deleteEventSuccessful();
+                programController.saveForNext();
+                iModifyEventUI = iDeleteAnEventUI.goToModifyEventUI();
+                new ModifyEventUIPresenter(iModifyEventUI, programController);
             }
         }
         else {
@@ -53,8 +56,10 @@ public class DeleteAnEventUIPresenter
     @Override
     public int onSelectEventButtonClicked() {
         programController.saveForNext();
+        eventIndex = iDeleteAnEventUI.getEventIndexFromList();
         if (eventController.getAllEvents().size() > 0) {
             iModifyEventUI = iDeleteAnEventUI.goToModifyEventUI();
+            iModifyEventUI.storeEventIndex(eventIndex);
             new ModifyEventUIPresenter(iModifyEventUI, programController);
             return iDeleteAnEventUI.getEventIndexFromList();
         }

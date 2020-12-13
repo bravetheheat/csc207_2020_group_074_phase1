@@ -26,7 +26,8 @@ public class DeleteAnEventUI extends JFrame implements IDeleteAnEventUI {
         this.jPanel = new JPanel();
 
         this.setTitle("Available Events");
-        this.setSize(600, 500);
+        this.setSize(900, 500);
+        this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 

@@ -15,4 +15,6 @@ public interface IModifySpeakerUI extends IView {
     void modifySpeakerSuccessful();
     void modifySpeakerError();
     int getEventSpeakerIndex();
+    void storeEventIndexFromModifyEvent(int eventIndex);
+    int getEventIndex();
 }
