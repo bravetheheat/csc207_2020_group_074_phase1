@@ -55,7 +55,7 @@ public class OrganizerController extends AttendeeController {
     }
 
     public boolean hasTable(int roomNum) {
-        return roomManager.getRoomGivenRoomNum(roomNum).getHasTech();
+        return roomManager.getRoomGivenRoomNum(roomNum).getIsTable();
     }
 
     public boolean hasStage(int roomNum) {

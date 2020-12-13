@@ -25,14 +25,14 @@ public class RoomConverter implements Converter<RoomBean, Room> {
             room.setCapacity(roomBean.getCapacity());
             room.setRoomNum(roomBean.getRoomNum());
             if (roomBean.isHasTech()) {
-                room.setTech();
+                room.setTech(true);
             }
             if (roomBean.isHasStage()) {
-                room.setStage();
+                room.setStage(true);
             }
 
             if (roomBean.isTable()) {
-                room.setToTable();
+                room.setToTable(true);
             }
 
             rooms.add(room);
