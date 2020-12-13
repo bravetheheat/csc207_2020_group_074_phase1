@@ -14,7 +14,7 @@ import java.util.Map;
  * The EventInfoManager modifies info for a particular Event given event id.
  *
  * @author Haoze Huang， Zewen Ma, Yile Xie
- * @version 3.0
+ * @version 3.1
  * @since 2020-10-31
  */
 
@@ -156,15 +156,17 @@ public class EventInfoManager {
         }
         for (String id : schedule.keySet()) {
             Event e = schedule.get(id);
-            //time conflict at same room
-            if ((this.checkConflictTime(e, newTime, duration)) && (e.getRoomID().equals(newRoomId))) {
-                return false;
-            }//speaker conflict at same time
-            else if ((this.checkConflictTime(e, newTime, duration))  && (this.checkConflictSpeaker(e, event))) {
-                return false;
-            }//check capacity of the new room
-            else if (newCapacity > roomManager.getRoomGivenId(newRoomId).getCapacity()){
-                return false;
+            if (this.checkConflictDate(e, newTime)){
+                //time conflict at same room
+                if ((this.checkConflictTime(e, newTime, duration)) && (e.getRoomID().equals(newRoomId))) {
+                    return false;
+                }//speaker conflict at same time
+                else if ((this.checkConflictTime(e, newTime, duration))  && (this.checkConflictSpeaker(e, event))) {
+                    return false;
+                }//check capacity of the new room
+                else if (newCapacity > roomManager.getRoomGivenId(newRoomId).getCapacity()){
+                    return false;
+                }
             }
         }
         event.setTime(newTime);
@@ -172,6 +174,22 @@ public class EventInfoManager {
         event.setDuration(duration);
         event.setCapacity(newCapacity);
         return true;
+    }
+
+    /**
+     * Return true iff the input newTime has the same date as the pre-scheduled event's time.
+     * @param scheduledEvent a scheduled Event
+     * @param newTime of the new-added Event
+     * @return ture iff the newTime has the same date as the scheduledEvent's time.
+     */
+    public boolean checkConflictDate(Event scheduledEvent, LocalDateTime newTime){
+        int scheduledEventYear = scheduledEvent.getTime().getYear();
+        int scheduledEventMonth = scheduledEvent.getTime().getMonthValue();
+        int scheduledEventDate = scheduledEvent.getTime().getDayOfMonth();
+        int newEventYear = newTime.getYear();
+        int newEventMonth = newTime.getMonthValue();
+        int newEventDate = newTime.getDayOfMonth();
+        return (scheduledEventYear == newEventYear) && (scheduledEventMonth == newEventMonth) && (scheduledEventDate == newEventDate);
     }
 
     /**
