@@ -13,7 +13,7 @@ import java.util.Map;
  * The EventsManager holds a list of Events, and modify Event with its corresponding Users.
  *
  * @author Haoze Huang, Zewen Ma
- * @version 2.5
+ * @version 3.0
  * @since 2020-10-31
  */
 
@@ -48,15 +48,17 @@ public class EventsManager {
         }
         for (String id : schedule.keySet()) {
             Event e = schedule.get(id);
-            //time conflict at same room
-            if ((this.checkConflictTime(e, time, duration)) && (e.getRoomID().equals(newRoomId))) {
-                return false;
-            }//speaker conflict at same time
-            else if ((this.checkConflictTime(e, time, duration))  && (this.checkConflictSpeaker(e, newEvent))) {
-                return false;
-            }//check capacity of the new room
-            else if (newCapacity > roomManager.getRoomGivenId(newRoomId).getCapacity()){
-                return false;
+            if (this.checkConflictDate(e, time)){
+                //time conflict at same room
+                if ((this.checkConflictTime(e, time, duration)) && (e.getRoomID().equals(newRoomId))) {
+                    return false;
+                }//speaker conflict at same time
+                else if ((this.checkConflictTime(e, time, duration))  && (this.checkConflictSpeaker(e, newEvent))) {
+                    return false;
+                }//check capacity of the new room
+                else if (newCapacity > roomManager.getRoomGivenId(newRoomId).getCapacity()){
+                    return false;
+                }
             }
         }
         newEvent.setTime(time);
@@ -67,6 +69,24 @@ public class EventsManager {
         return true;
 
     }
+
+    /**
+     * Return true iff the input newTime has the same date as the pre-scheduled event's time.
+     * @param scheduledEvent a scheduled Event
+     * @param newTime of the new-added Event
+     * @return ture iff the newTime has the same date as the scheduledEvent's time.
+     */
+    public boolean checkConflictDate(Event scheduledEvent, LocalDateTime newTime){
+        int scheduledEventYear = scheduledEvent.getTime().getYear();
+        int scheduledEventMonth = scheduledEvent.getTime().getMonthValue();
+        int scheduledEventDate = scheduledEvent.getTime().getDayOfMonth();
+        int newEventYear = newTime.getYear();
+        int newEventMonth = newTime.getMonthValue();
+        int newEventDate = newTime.getDayOfMonth();
+        return (scheduledEventYear == newEventYear) && (scheduledEventMonth == newEventMonth) && (scheduledEventDate == newEventDate);
+    }
+
+
     /**
      * Return true iff there exists a speaker in Event e1 also is in Event e2.
      * Zewen Ma
