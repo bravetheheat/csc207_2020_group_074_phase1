@@ -1,14 +1,13 @@
 package main.gui;
 
-import main.gui_interface.ISeeRoomsUI;
+import main.gui_interface.ISeeScheduleUI;
 import main.guilisteners.BackButtonListener;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
-@SuppressWarnings("FieldCanBeLocal")
+public class SeeScheduleUI extends JFrame implements ISeeScheduleUI {
 
-public class SeeRoomsUI extends JFrame implements ISeeRoomsUI {
     private JPanel jPanel;
     private JList<Object> listOfEvents;
     private JScrollPane jScrollPane;
@@ -16,15 +15,16 @@ public class SeeRoomsUI extends JFrame implements ISeeRoomsUI {
     private BackButtonListener backButtonListener;
     private EventsManagementUI eventsManagementUI;
 
-    public SeeRoomsUI(ArrayList<String> listOfRoomsInfo) {
+    public SeeScheduleUI(ArrayList<String> listOfEventsInfo) {
         this.jPanel = new JPanel();
 
-        this.setTitle("Available Rooms");
-        this.setSize(600, 500);
+        this.setTitle("Available Events");
+        this.setSize(900, 500);
+        this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
-        listOfEvents = new JList<>(listOfRoomsInfo.toArray());
+        listOfEvents = new JList<>(listOfEventsInfo.toArray());
         listOfEvents.setVisibleRowCount(20);
         jScrollPane = new JScrollPane(listOfEvents, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -37,7 +37,12 @@ public class SeeRoomsUI extends JFrame implements ISeeRoomsUI {
         this.add(jPanel);
         this.setVisible(true);
 
-        backButton.addActionListener(e -> backButtonListener.onBackButtonClicked());
+        backButton.addActionListener(e -> notifyListenerBackButtonClicked());
+
+    }
+
+    public void notifyListenerBackButtonClicked() {
+        backButtonListener.onBackButtonClicked();
     }
 
     public void addBackButtonListener(BackButtonListener listener) {

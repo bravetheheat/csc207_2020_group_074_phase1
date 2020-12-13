@@ -64,6 +64,10 @@ public class ModifyEventUI extends JFrame implements IModifyEventUI {
 //        return roomNumField.getText();
 //    }
 
+    public void getIndexFromDeleteEventUI(int eventIndex) {
+        this.eventIndex = eventIndex;
+    }
+
     public String getRoomConstraints() {
         return constraintsField.getText();
     }

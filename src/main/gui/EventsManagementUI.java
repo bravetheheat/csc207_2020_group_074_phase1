@@ -35,6 +35,8 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
     private ModifyEventUI modifyEventUI;
     private SeeRoomsButtonListener seeRoomsButtonListener;
     private SeeRoomsUI seeRoomsUI;
+    private SeeScheduleUI seeScheduleUI;
+    private SeeScheduleButtonListener seeScheduleButtonListener;
 
     public EventsManagementUI() {
         this.setTitle("Manage Events");
@@ -55,6 +57,8 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
         modifyEventButton.addActionListener(e -> notifyListenerOnModifyEventButtonClicked());
 
         seeRoomsButton.addActionListener(e -> notifyListenerOnSeeRoomsButtonClicked());
+
+        seeScheduleButton.addActionListener(e -> notifyListenerOnSeeScheduleButtonClicked());
     }
 
     public void addBackButtonListener(BackButtonListener listener) {
@@ -81,6 +85,10 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
         seeRoomsButtonListener = listener;
     }
 
+    public void addSeeScheduleButtonListener(SeeScheduleButtonListener listener) {
+        seeScheduleButtonListener = listener;
+    }
+
     public void notifyListenerOnBackButtonClicked() {
         backButtonListener.onBackButtonClicked();
     }
@@ -103,6 +111,10 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
 
     public void notifyListenerOnSeeRoomsButtonClicked() {
         seeRoomsButtonListener.onSeeRoomsButtonClicked();
+    }
+
+    public void notifyListenerOnSeeScheduleButtonClicked() {
+        seeScheduleButtonListener.onSeeScheduleButtonClicked();
     }
 
     public OrganizerMainUI goToOrganizerMainUI() {
@@ -135,10 +147,16 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
         return modifyEventUI;
     }
 
-    public SeeRoomsUI goToSeeRoomsUI(ArrayList<Integer> listOfRoomsInfo) {
+    public SeeRoomsUI goToSeeRoomsUI(ArrayList<String> listOfRoomsInfo) {
         seeRoomsUI = new SeeRoomsUI(listOfRoomsInfo);
         this.dispose();
         return seeRoomsUI;
+    }
+
+    public SeeScheduleUI goToSeeScheduleUI(ArrayList<String> listOfEventInfo) {
+        seeScheduleUI = new SeeScheduleUI(listOfEventInfo);
+        this.dispose();
+        return seeScheduleUI;
     }
 
 }

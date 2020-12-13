@@ -9,7 +9,7 @@ import main.guilisteners.*;
 import java.util.ArrayList;
 
 public class EventsManagementUIPresenter implements BackButtonListener,
-        CreateRoomButtonListener, ModifyRoomButtonListener, CreateEventButtonListener, ModifyEventButtonListener, SeeRoomsButtonListener {
+        CreateRoomButtonListener, ModifyRoomButtonListener, CreateEventButtonListener, ModifyEventButtonListener, SeeRoomsButtonListener, SeeScheduleButtonListener {
 
     ProgramController programController;
     OrganizerController organizerController;
@@ -20,6 +20,7 @@ public class EventsManagementUIPresenter implements BackButtonListener,
     ICreateEventUI iCreateEventUI;
     IModifyEventUI iModifyEventUI;
     ISeeRoomsUI iSeeRoomsUI;
+    ISeeScheduleUI iSeeScheduleUI;
 
     public EventsManagementUIPresenter(IEventsManagementUI eventsManagementUI, ProgramController programController) {
         this.programController = programController;
@@ -31,6 +32,7 @@ public class EventsManagementUIPresenter implements BackButtonListener,
         iEventsManagementUI.addCreateEventButtonListener(this);
         iEventsManagementUI.addModifyEventButtonListener(this);
         iEventsManagementUI.addSeeRoomsButtonListener(this);
+        iEventsManagementUI.addSeeScheduleButtonListener(this);
     }
 
 
@@ -73,7 +75,25 @@ public class EventsManagementUIPresenter implements BackButtonListener,
     public void onSeeRoomsButtonClicked() {
         programController.saveForNext();
         ArrayList<Integer> roomNums = (ArrayList<Integer>) organizerController.getAllRooms();
-        iSeeRoomsUI = iEventsManagementUI.goToSeeRoomsUI(roomNums);
+        ArrayList<String> roomInfoList = new ArrayList<>();
+        for (int num : roomNums) {
+            String roomInfo = "Room #" + num + " Capacity: "
+                    + organizerController.getRoomCapacity(num)
+                    + " Tech: " + organizerController.hasTech(num)
+                    + " Table: " + organizerController.hasTable(num)
+                    + " Stage: " + organizerController.hasStage(num);
+            roomInfoList.add(roomInfo);
+        }
+        iSeeRoomsUI = iEventsManagementUI.goToSeeRoomsUI(roomInfoList);
         new SeeRoomsUIPresenter(iSeeRoomsUI, programController);
+    }
+
+    @Override
+    public void onSeeScheduleButtonClicked() {
+        programController.saveForNext();
+        ArrayList<String> events = organizerController.
+                getEventController().getEventsInfoList();
+        iSeeScheduleUI = iEventsManagementUI.goToSeeScheduleUI(events);
+        new SeeScheduleUIPresenter(iSeeScheduleUI, programController);
     }
 }
