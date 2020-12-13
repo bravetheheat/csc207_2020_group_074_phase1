@@ -6,11 +6,11 @@ import main.guilisteners.BackButtonListener;
 import javax.swing.*;
 import java.util.ArrayList;
 
-@SuppressWarnings("FieldCanBeLocal")
-
 /**
  * the file contains the screen which display the list of users
  */
+@SuppressWarnings("FieldCanBeLocal")
+
 public class ListOfUsersUI extends JFrame implements IListOfUsersUI {
 
     private JPanel jPanel;

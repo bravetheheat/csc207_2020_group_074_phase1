@@ -1,6 +1,5 @@
 package main.gui;
 
-import main.controllers.ProgramController;
 import main.gui_interface.IOrganizerMessageUI;
 import main.guilisteners.*;
 
@@ -113,5 +112,17 @@ public class OrganizerMessageUI extends JFrame implements IOrganizerMessageUI  {
     @Override
     public JList getUsersList() {
         return this.userList;
+    }
+
+    public void sendMessageSuccessful() {
+        JOptionPane.showMessageDialog(this,
+                "Message sent!",
+                "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void sendMessageError() {
+        JOptionPane.showMessageDialog(this,
+                "Please try again!",
+                "Error", JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -5,7 +5,13 @@ import main.gui_interface.IEventsManagementUI;
 import main.guilisteners.*;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
+/**
+ * The user interface for managing events (organizer only)
+ *
+ * @author Steven Yuan
+ */
 public class EventsManagementUI extends JFrame implements IEventsManagementUI {
 
     private JButton backButton;
@@ -15,6 +21,7 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
     private JButton modifyEventButton;
     private JButton modifyRoomButton;
     private JButton seeScheduleButton;
+    private JButton seeRoomsButton;
     private ProgramController programController;
     private BackButtonListener backButtonListener;
     private CreateRoomButtonListener createRoomButtonListener;
@@ -26,6 +33,8 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
     private CreateEventUI createEventUI;
     private ModifyEventButtonListener modifyEventButtonListener;
     private ModifyEventUI modifyEventUI;
+    private SeeRoomsButtonListener seeRoomsButtonListener;
+    private SeeRoomsUI seeRoomsUI;
 
     public EventsManagementUI() {
         this.setTitle("Manage Events");
@@ -44,6 +53,8 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
         createEventButton.addActionListener(e -> notifyListenerOnCreateEventButtonClicked());
 
         modifyEventButton.addActionListener(e -> notifyListenerOnModifyEventButtonClicked());
+
+        seeRoomsButton.addActionListener(e -> notifyListenerOnSeeRoomsButtonClicked());
     }
 
     public void addBackButtonListener(BackButtonListener listener) {
@@ -66,6 +77,10 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
         modifyEventButtonListener = listener;
     }
 
+    public void addSeeRoomsButtonListener(SeeRoomsButtonListener listener) {
+        seeRoomsButtonListener = listener;
+    }
+
     public void notifyListenerOnBackButtonClicked() {
         backButtonListener.onBackButtonClicked();
     }
@@ -83,7 +98,11 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
     }
 
     public void notifyListenerOnModifyEventButtonClicked() {
-        modifyEventButtonListener.onDeleteEventButtonClicked();
+        modifyEventButtonListener.onModifyEventButtonClicked();
+    }
+
+    public void notifyListenerOnSeeRoomsButtonClicked() {
+        seeRoomsButtonListener.onSeeRoomsButtonClicked();
     }
 
     public OrganizerMainUI goToOrganizerMainUI() {
@@ -114,6 +133,12 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
         modifyEventUI = new ModifyEventUI();
         this.dispose();
         return modifyEventUI;
+    }
+
+    public SeeRoomsUI goToSeeRoomsUI(ArrayList<Integer> listOfRoomsInfo) {
+        seeRoomsUI = new SeeRoomsUI(listOfRoomsInfo);
+        this.dispose();
+        return seeRoomsUI;
     }
 
 }

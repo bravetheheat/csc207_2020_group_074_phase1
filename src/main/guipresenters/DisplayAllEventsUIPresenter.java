@@ -49,6 +49,9 @@ public class DisplayAllEventsUIPresenter
                     iDisplayAllEventsUI.registerNewEventError();
                 }
             }
+            else {
+                iDisplayAllEventsUI.registerNewEventError();
+            }
         } catch (NullPointerException | IllegalArgumentException |
                 IndexOutOfBoundsException e) {
             iDisplayAllEventsUI.registerNewEventError();

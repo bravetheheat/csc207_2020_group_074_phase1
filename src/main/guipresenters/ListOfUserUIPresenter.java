@@ -5,11 +5,11 @@ import main.gui_interface.IListOfUsersUI;
 import main.gui_interface.IUserManagementUI;
 import main.guilisteners.BackButtonListener;
 
-@SuppressWarnings("FieldCanBeLocal")
-
 /**
  * the file contains the presenter to show the list of users
  */
+@SuppressWarnings("FieldCanBeLocal")
+
 public class ListOfUserUIPresenter implements BackButtonListener {
 
     private ProgramController programController;

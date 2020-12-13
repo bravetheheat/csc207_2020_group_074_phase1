@@ -41,6 +41,9 @@ public class CreateRoomUIPresenter
             if (success) {
                 iCreateRoomUI.createNewRoomSuccessful();
             }
+            else {
+                iCreateRoomUI.createNewRoomError();
+            }
         } catch (IllegalArgumentException e) {
             iCreateRoomUI.createNewRoomError();
         }

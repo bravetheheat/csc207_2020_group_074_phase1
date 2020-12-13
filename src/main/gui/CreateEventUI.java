@@ -6,6 +6,7 @@ import main.guilisteners.ConfirmCreateEventButtonListener;
 import main.guilisteners.SelectRoomButtonListener;
 
 import javax.swing.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -30,6 +31,12 @@ public class CreateEventUI extends JFrame implements ICreateEventUI {
     private ConfirmCreateEventButtonListener confirmCreateEventButtonListener;
     private EventsManagementUI eventsManagementUI;
     private SelectRoomUI selectRoomUI;
+    private String title;
+    private String type;
+    private int duration;
+    private int capacity;
+    private LocalDateTime date;
+    private int roomNum;
 
     public CreateEventUI() {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -47,6 +54,43 @@ public class CreateEventUI extends JFrame implements ICreateEventUI {
         confirmButton.addActionListener(e -> notifyListenerOnConfirmButtonClicked());
     }
 
+    public void getValuesFromSelectRoomUI(String title, String type, int duration,
+                                          int capacity, LocalDateTime date) {
+        this.title = title;
+        this.type = type;
+        this.duration = duration;
+        this.capacity = capacity;
+        this.date = date;
+    }
+
+    public String getEventTitleFromSelectRoomUI() {
+        return title;
+    }
+
+    public String getEventTypeFromSelectRoomUI() {
+        return type;
+    }
+
+    public int getEventDurationFromSelectRoomUI() {
+        return duration;
+    }
+
+    public int getEventCapacityFromSelectRoomUI() {
+        return capacity;
+    }
+
+    public LocalDateTime getEventDateFromSelectRoomUI() {
+        return date;
+    }
+
+    public void getRoomNumFromSelectRoomUI(int roomNum) {
+        this.roomNum = roomNum;
+    }
+
+    public int getRoomNum() {
+        return this.roomNum;
+    }
+
     public String getEventTitle() {
         return titleField.getText();
     }
@@ -57,8 +101,7 @@ public class CreateEventUI extends JFrame implements ICreateEventUI {
 
     public ArrayList<String> getEventConstraints() {
         String constraintString = constraintField.getText();
-        ArrayList<String> category = new ArrayList<>(Arrays.asList(
-                constraintString.split(",")));
+        ArrayList<String> category = new ArrayList<>(Arrays.asList(constraintString.split("[\\s]*[,][\\s]*")));
         return category;
     }
 

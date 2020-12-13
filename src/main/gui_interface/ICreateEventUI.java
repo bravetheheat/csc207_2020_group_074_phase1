@@ -6,6 +6,7 @@ import main.guilisteners.BackButtonListener;
 import main.guilisteners.ConfirmCreateEventButtonListener;
 import main.guilisteners.SelectRoomButtonListener;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public interface ICreateEventUI extends IView {
@@ -22,4 +23,17 @@ public interface ICreateEventUI extends IView {
     String getEventDuration();
     String getEventCapacity();
     String getEventDate();
+    void getValuesFromSelectRoomUI(String title, String type, int duration,
+                                   int capacity, LocalDateTime date);
+    void getRoomNumFromSelectRoomUI(int roomNum);
+    int getRoomNum();
+    String getEventTitleFromSelectRoomUI();
+
+    String getEventTypeFromSelectRoomUI();
+
+    int getEventDurationFromSelectRoomUI();
+
+    int getEventCapacityFromSelectRoomUI();
+
+    LocalDateTime getEventDateFromSelectRoomUI();
 }

@@ -1,8 +1,6 @@
 package main.gui_interface;
 
-import main.controllers.ProgramController;
 import main.gui.AttendeeMainUI;
-import main.gui.MessageSentUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.ListSelectionListener;
 import main.guilisteners.SendButtonListener;
@@ -28,4 +26,8 @@ public interface IAttendeeMessageUI extends IView {
     AttendeeMainUI goToAttendeeMainUI();
 
     JList getUsersList();
+
+    void sendMessageSuccessful();
+
+    void sendMessageError();
 }

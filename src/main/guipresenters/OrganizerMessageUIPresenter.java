@@ -8,7 +8,6 @@ import main.gui_interface.IOrganizerMessageUI;
 import main.guilisteners.*;
 import main.usecases.UsersManager;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class OrganizerMessageUIPresenter implements BackButtonListener, SendButtonListener, EveryoneButtonListener,
@@ -36,14 +35,14 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
     public void onAllAttendeesButtonClicked() {
         String message = this.iOrganizerMessageUI.getMessage();
         this.messageController.broadCastToAttendees(this.authController.fetchLoggedInUser(), message);
-        //TODO add message sent
+        iOrganizerMessageUI.sendMessageSuccessful();
     }
 
     @Override
     public void onAllSpeakersButtonClicked() {
         String message = this.iOrganizerMessageUI.getMessage();
         this.messageController.broadCastToSpeakers(this.authController.fetchLoggedInUser(), message);
-        //TODO add message sent
+        iOrganizerMessageUI.sendMessageSuccessful();
     }
 
     @Override
@@ -56,7 +55,7 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
     public void onEveryoneButtonClicked() {
         String message = this.iOrganizerMessageUI.getMessage();
         this.messageController.broadCastToAll(this.authController.fetchLoggedInUser(), message);
-        //TODO add message sent
+        iOrganizerMessageUI.sendMessageSuccessful();
     }
 
     @Override
@@ -73,7 +72,10 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
                 userIDs.add(usersManager.getIDFromUsername(username));
             }
             this.messageController.broadCast(this.programController.getAuthController().fetchLoggedInUser(), userIDs, message);
+            iOrganizerMessageUI.sendMessageSuccessful();
         }
-        //TODO add message sent
+        else {
+            iOrganizerMessageUI.sendMessageError();
+        }
     }
 }

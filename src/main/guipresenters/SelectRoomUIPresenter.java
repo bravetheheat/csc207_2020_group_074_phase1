@@ -31,6 +31,10 @@ public class SelectRoomUIPresenter
     public void onBackButtonClicked() {
         programController.saveForNext();
         iCreateEventUI = iSelectRoomUI.goToCreateEventUI();
+        iCreateEventUI.getValuesFromSelectRoomUI(iSelectRoomUI.getEventTitle(),
+                iSelectRoomUI.getEventType(), iSelectRoomUI.getEventDuration(),
+                iSelectRoomUI.getEventCapacity(), iSelectRoomUI.getEventDate());
+        iCreateEventUI.getRoomNumFromSelectRoomUI(iSelectRoomUI.getRoomNum());
         new CreateEventUIPresenter(iCreateEventUI, programController);
     }
 
@@ -42,6 +46,7 @@ public class SelectRoomUIPresenter
             iSelectRoomUI.selectRoomError();
         }
         else {
+            iSelectRoomUI.selectRoomSuccessful();
             return rooms.get(iSelectRoomUI.getRoomIndex());
         }
         return -1;

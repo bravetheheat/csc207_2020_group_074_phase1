@@ -9,9 +9,6 @@ import main.gui_interface.ISpeakerMessageUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.BroadcastButtonListener;
 import main.guilisteners.SendButtonListener;
-import main.usecases.UsersManager;
-
-import java.util.ArrayList;
 
 public class SpeakerMessageUIPresenter implements BackButtonListener, BroadcastButtonListener, SendButtonListener {
     private ProgramController programController;
@@ -44,7 +41,10 @@ public class SpeakerMessageUIPresenter implements BackButtonListener, BroadcastB
         if (i != -1 && message.length() > 1) {
             String eventID = this.eventController.getSpeakerEvents(this.authController.fetchLoggedInUser()).get(i);
             this.messageController.broadCastForSpeaker(eventID, this.authController.fetchLoggedInUser(), message);
-            //TODO add message sent frame
+            iSpeakerMessageUI.sendMessageSuccessful();
+        }
+        else {
+            iSpeakerMessageUI.sendMessageError();
         }
     }
 
@@ -55,7 +55,11 @@ public class SpeakerMessageUIPresenter implements BackButtonListener, BroadcastB
         if (i != -1 && message.length() > 0) {
             String userID = this.messageController.replyOptionsForSpeaker(this.authController.fetchLoggedInUser()).get(i);
             this.messageController.sendMessage(message, this.authController.fetchLoggedInUser(), userID);
-            //TODO add message sent frame
+
+            iSpeakerMessageUI.sendMessageSuccessful();
+        }
+        else {
+            iSpeakerMessageUI.sendMessageError();
         }
     }
 }
