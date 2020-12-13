@@ -50,6 +50,21 @@ public class OrganizerController extends AttendeeController {
         return roomManager.addRoom(roomNum, capacity);
     }
 
+    public boolean hasTech(int roomNum) {
+        return roomManager.getRoomGivenRoomNum(roomNum).getHasTech();
+    }
+
+    public boolean hasTable(int roomNum) {
+        return roomManager.getRoomGivenRoomNum(roomNum).getHasTech();
+    }
+
+    public boolean hasStage(int roomNum) {
+        return roomManager.getRoomGivenRoomNum(roomNum).getHasStage();
+    }
+
+    public int getRoomCapacity(int roomNum) {
+        return roomManager.getRoomCapacityGivenRoomNum(roomNum);
+    }
 
     /**
      * Build an event by giving the title, time, room ID, and speaker ID. The room must already exist.

@@ -123,6 +123,7 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
             }
         } catch (NullPointerException e) {
             iCreateEventUI.createNewEventError();
+            System.out.println("error3");
             return;
         }
 
@@ -133,7 +134,18 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
                 iCreateEventUI.createNewEventSuccessful();
                 return;
             }
+            else {
+                System.out.println("error4, title is " + this.title + "\ndate is "
+                        + this.date + "\nroom number is " + this.roomNum
+                        + "\nduration is " + this.duration + "\ncapacity is "
+                        + this.capacity + "\ntype is " + this.type
+                        + "\nhas tech: " + organizerController.hasTech(this.roomNum));
+                iCreateEventUI.createNewEventError();
+                return;
+            }
         }
+        System.out.println("error5, room number is " + this.roomNum + ", capacity is "
+                + this.capacity);
         iCreateEventUI.createNewEventError();
     }
 

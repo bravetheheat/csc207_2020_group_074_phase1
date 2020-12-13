@@ -16,7 +16,7 @@ public class SeeRoomsUI extends JFrame implements ISeeRoomsUI {
     private BackButtonListener backButtonListener;
     private EventsManagementUI eventsManagementUI;
 
-    public SeeRoomsUI(ArrayList<Integer> listOfRoomsInfo) {
+    public SeeRoomsUI(ArrayList<String> listOfRoomsInfo) {
         this.jPanel = new JPanel();
 
         this.setTitle("Available Rooms");

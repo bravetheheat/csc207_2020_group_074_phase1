@@ -49,6 +49,7 @@ public class ModifyRoomUIPresenter
                 }
             }
             if (organizerController.addConstraintToRoom(roomNum, constraintList)) {
+                programController.saveForNext();
                 iModifyRoomUI.modifyRoomSuccessful();
             } else {
                 iModifyRoomUI.modifyRoomError();

@@ -24,6 +24,7 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
     private IModifySpeakerUI iModifySpeakerUI;
     private IDeleteAnEventUI iDeleteAnEventUI;
     private ISelectRoomUI iSelectRoomUI;
+    private int eventIndex;
 
     public ModifyEventUIPresenter(IModifyEventUI modifyEventUI,
                                   ProgramController programController) {

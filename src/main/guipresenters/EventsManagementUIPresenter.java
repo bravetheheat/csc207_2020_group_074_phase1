@@ -75,7 +75,16 @@ public class EventsManagementUIPresenter implements BackButtonListener,
     public void onSeeRoomsButtonClicked() {
         programController.saveForNext();
         ArrayList<Integer> roomNums = (ArrayList<Integer>) organizerController.getAllRooms();
-        iSeeRoomsUI = iEventsManagementUI.goToSeeRoomsUI(roomNums);
+        ArrayList<String> roomInfoList = new ArrayList<>();
+        for (int num : roomNums) {
+            String roomInfo = "Room #" + num + " Capacity: "
+                    + organizerController.getRoomCapacity(num)
+                    + " Tech: " + organizerController.hasTech(num)
+                    + " Table: " + organizerController.hasTable(num)
+                    + " Stage: " + organizerController.hasStage(num);
+            roomInfoList.add(roomInfo);
+        }
+        iSeeRoomsUI = iEventsManagementUI.goToSeeRoomsUI(roomInfoList);
         new SeeRoomsUIPresenter(iSeeRoomsUI, programController);
     }
 

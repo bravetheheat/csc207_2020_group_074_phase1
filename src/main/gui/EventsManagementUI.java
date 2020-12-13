@@ -147,7 +147,7 @@ public class EventsManagementUI extends JFrame implements IEventsManagementUI {
         return modifyEventUI;
     }
 
-    public SeeRoomsUI goToSeeRoomsUI(ArrayList<Integer> listOfRoomsInfo) {
+    public SeeRoomsUI goToSeeRoomsUI(ArrayList<String> listOfRoomsInfo) {
         seeRoomsUI = new SeeRoomsUI(listOfRoomsInfo);
         this.dispose();
         return seeRoomsUI;

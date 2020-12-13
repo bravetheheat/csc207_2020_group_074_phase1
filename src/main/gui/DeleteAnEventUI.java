@@ -66,6 +66,10 @@ public class DeleteAnEventUI extends JFrame implements IDeleteAnEventUI {
         return this.eventIndex;
     }
 
+    public void storeEventIndexInModifyEventUI() {
+
+    }
+
     @Override
     public void addDeleteEventButtonListener(DeleteEventButtonListener listener) {
         deleteEventButtonListener = listener;
