@@ -5,8 +5,10 @@ import main.guilisteners.InboxButtonListener;
 import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.MessageButtonListener;
 import main.guilisteners.RegisterForEventsButtonListener;
+import main.usecases.UsersManager;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class AttendeeMainUI extends JFrame implements IAttendeeMainUI {
     private JPanel panel1;
@@ -77,8 +79,8 @@ public class AttendeeMainUI extends JFrame implements IAttendeeMainUI {
         return eventSignUpUI;
     }
 
-    public IAttendeeMessageUI goToAttendeeMessageUI() {
-        AttendeeMessageUI attendeeMessageUI = new AttendeeMessageUI();
+    public IAttendeeMessageUI goToAttendeeMessageUI(ArrayList<String> users) {
+        AttendeeMessageUI attendeeMessageUI = new AttendeeMessageUI(users);
         this.dispose();
         return attendeeMessageUI;
     }

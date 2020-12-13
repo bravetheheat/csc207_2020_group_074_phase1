@@ -4,6 +4,8 @@ import main.gui_interface.*;
 import main.guilisteners.*;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
     private JPanel panel1;
@@ -131,8 +133,8 @@ public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
     }
 
     @Override
-    public IOrganizerMessageUI goToOrganizerMessageMessageUI() {
-        OrganizerMessageUI organizerMessageUI = new OrganizerMessageUI();
+    public IOrganizerMessageUI goToOrganizerMessageUI(ArrayList<String> userInfo) {
+        OrganizerMessageUI organizerMessageUI = new OrganizerMessageUI(userInfo);
         this.dispose();
         return organizerMessageUI;
     }
