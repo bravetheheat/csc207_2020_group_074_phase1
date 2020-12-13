@@ -5,7 +5,6 @@ import main.guilisteners.InboxButtonListener;
 import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.MessageButtonListener;
 import main.guilisteners.RegisterForEventsButtonListener;
-import main.usecases.UsersManager;
 
 import javax.swing.*;
 import java.util.ArrayList;

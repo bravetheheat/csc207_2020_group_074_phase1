@@ -3,7 +3,6 @@ package main.gui_interface;
 import main.gui.SpeakerMainUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.BroadcastButtonListener;
-import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.SendButtonListener;
 
 import javax.swing.*;
@@ -21,7 +20,7 @@ public interface ISpeakerMessageUI extends IView {
     void notifyBackButtonListener();
 
     void notifySendButtonListener();
-
+;
     String getMessage();
 
     SpeakerMainUI goToSpeakerMainUI();
@@ -29,5 +28,9 @@ public interface ISpeakerMessageUI extends IView {
     JList getUsersList();
 
     JList getEventsList();
+
+    void sendMessageSuccessful();
+
+    void sendMessageError();
 
 }

@@ -90,4 +90,16 @@ public class AttendeeMessageUI extends JFrame implements IAttendeeMessageUI {
     public JList getUsersList() {
         return this.userList;
     }
+
+    public void sendMessageSuccessful() {
+        JOptionPane.showMessageDialog(this,
+                "Message sent!",
+                "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void sendMessageError() {
+        JOptionPane.showMessageDialog(this,
+                "Please try again!",
+                "Error", JOptionPane.INFORMATION_MESSAGE);
+    }
 }

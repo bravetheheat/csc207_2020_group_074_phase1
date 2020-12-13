@@ -33,4 +33,8 @@ public interface IOrganizerMessageUI extends IView {
     OrganizerMainUI goToOrganizerMainUI();
 
     JList getUsersList();
+
+    void sendMessageSuccessful();
+
+    void sendMessageError();
 }

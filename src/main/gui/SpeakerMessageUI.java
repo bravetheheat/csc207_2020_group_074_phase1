@@ -107,4 +107,16 @@ public class SpeakerMessageUI extends JFrame implements ISpeakerMessageUI {
     public JList getEventsList() {
         return this.eventList;
     }
+
+    public void sendMessageSuccessful() {
+        JOptionPane.showMessageDialog(this,
+                "Message sent!",
+                "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void sendMessageError() {
+        JOptionPane.showMessageDialog(this,
+                "Please try again!",
+                "Error", JOptionPane.INFORMATION_MESSAGE);
+    }
 }
