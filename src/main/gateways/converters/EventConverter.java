@@ -50,6 +50,8 @@ public class EventConverter implements Converter<EventBean, Event>{
             EventBean eventBean = new EventBean();
             eventBean.setRoomID(event.getRoomID());
             eventBean.setId(event.getId());
+            eventBean.setTitle(event.getTitle());
+            eventBean.setType(event.getType());
             eventBean.setCapacity(event.getCapacity());
             eventBean.setDuration(event.getDuration());
             eventBean.setTime(event.getTime().format(this.dateTimeFormatter));
