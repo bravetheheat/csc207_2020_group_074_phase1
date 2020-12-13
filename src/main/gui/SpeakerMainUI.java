@@ -10,6 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
+    ArrayList<String> events;
     private JPanel panel1;
     private JButton logOutButton;
     private LogoutButtonListener logoutButtonListener;
@@ -17,10 +18,11 @@ public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
     private MessageButtonListener messageButtonListener;
     private JButton inboxButton;
     private InboxButtonListener inboxButtonListener;
-    private JList TalksList;
+    private JList<String> TalksList;
     private JScrollPane listScroller;
 
     public SpeakerMainUI(ArrayList<String> events) {
+        this.events = events;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 500);
         this.setTitle("Program X");
@@ -31,11 +33,15 @@ public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
         this.logOutButton.addActionListener(e -> notifyListenerOnLogoutButtonClicked());
         this.messageButton.addActionListener(e -> notifyListenerOnMessageButtonClicked());
         this.inboxButton.addActionListener(e -> notifyListenerOnInboxButtonClicked());
-        this.TalksList = new JList(events.toArray());
+        DefaultListModel<String> talksList = new DefaultListModel<>();
+        for (String talk:events) {
+            talksList.addElement(talk);
+        }
+        this.TalksList = new JList<>(talksList);
         this.TalksList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.TalksList.setLayoutOrientation(JList.VERTICAL);
         this.TalksList.setVisibleRowCount(-1);
-        this.listScroller = new JScrollPane(this.TalksList);
+        this.listScroller.setViewportView(this.TalksList);
         listScroller.setPreferredSize(new Dimension(250, 80));
     }
 
@@ -63,18 +69,14 @@ public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
         this.inboxButtonListener.onInboxButtonClicked();
     }
 
-    public void createEventList() {
-
-    }
-
     public ILandingUI goToLandingUI() {
         LandingUI landingUI = new LandingUI();
         this.dispose();
         return landingUI;
     }
 
-    public ISpeakerMessageUI goToSpeakerMessageUI() {
-        SpeakerMessageUI speakerMessageUI = new SpeakerMessageUI();
+    public ISpeakerMessageUI goToSpeakerMessageUI(ArrayList<String> users) {
+        SpeakerMessageUI speakerMessageUI = new SpeakerMessageUI(users, this.events);
         this.dispose();
         return speakerMessageUI;
     }

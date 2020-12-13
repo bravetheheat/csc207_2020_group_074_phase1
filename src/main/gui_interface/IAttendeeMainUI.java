@@ -5,6 +5,9 @@ import main.guilisteners.LogoutButtonListener;
 import main.guilisteners.MessageButtonListener;
 import main.guilisteners.RegisterForEventsButtonListener;
 
+import javax.swing.*;
+import java.util.ArrayList;
+
 public interface IAttendeeMainUI extends IView {
 
     void addLogoutButtonListener(LogoutButtonListener listener);
@@ -27,7 +30,7 @@ public interface IAttendeeMainUI extends IView {
 
     IEventSignUpUI goToEventSignUpUI();
 
-    IAttendeeMessageUI goToAttendeeMessageUI();
+    IAttendeeMessageUI goToAttendeeMessageUI(ArrayList<String> users);
 
     IInboxUI goToInboxUI();
 }
