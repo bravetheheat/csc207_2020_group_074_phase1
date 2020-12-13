@@ -97,21 +97,28 @@ public class RoomManager {
      * @return verification if there is any room constraints are modified
      */
     public boolean addConstraintToRoom(int roomNum, ArrayList<String> category) {
+        for (int i = 0; i < category.size(); i++){
+            category.set(i,category.get(i).toLowerCase());
+        }
+        System.out.println(category);
         Room room = getRoomGivenRoomNum(roomNum);
         if (room == null) {
             return false;
         }
-        if (!category.contains("Tech") && !category.contains("Table") && !category.contains("Stage")) {
+        if (category.contains("none") || category.size() == 0) {
+            room.setTech(false);
+            room.setToTable(false);
+            room.setStage(false);
             return true;
         }
-        if (category.contains("Tech")) {
-            room.setTech();
+        if (category.contains("tech")) {
+            room.setTech(true);
         }
-        if (category.contains("Table")) {
-            room.setToTable();
+        if (category.contains("table")) {
+            room.setToTable(true);
         }
-        if (category.contains("Stage")) {
-            room.setStage();
+        if (category.contains("stage")) {
+            room.setStage(true);
         }
         return true;
     }
