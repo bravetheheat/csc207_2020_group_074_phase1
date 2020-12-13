@@ -1,6 +1,7 @@
 package main.gui_interface;
 
 import main.gui.CreateEventUI;
+import main.gui.ModifyEventUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.ConfirmSelectRoomButtonListener;
 
@@ -33,5 +34,11 @@ public interface ISelectRoomUI {
     int getEventCapacity();
 
     LocalDateTime getEventDate();
+
+    void storeEventIndexFromModifyEvent(int eventIndex);
+
+    int getEventIndex();
+
+    ModifyEventUI goToModifyEventUI();
 
 }

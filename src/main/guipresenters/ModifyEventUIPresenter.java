@@ -24,7 +24,7 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
     private IModifySpeakerUI iModifySpeakerUI;
     private IDeleteAnEventUI iDeleteAnEventUI;
     private ISelectRoomUI iSelectRoomUI;
-    private int eventIndex;
+    private int eventIndex = -1;
 
     public ModifyEventUIPresenter(IModifyEventUI modifyEventUI,
                                   ProgramController programController) {
@@ -62,7 +62,7 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
                 LocalDateTime dateTime = LocalDateTime.parse(dateStr, formatter);
                 String capacityStr = iModifyEventUI.getEventCapacity();
                 int capacity = Integer.parseInt(capacityStr);
-                int roomNum = iSelectRoomUI.getRoomNum();
+                int roomNum = iModifyEventUI.getRoomNum();
                 if (eventId.equals("") && dateStr.equals("") && capacityStr.equals("") &&
                         roomNum != -1) {
                     iModifyEventUI.modifyEventError();
@@ -101,7 +101,8 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
     @Override
     public void onModifySpeakerButtonClicked() {
         programController.saveForNext();
-        if (iModifyEventUI.getEventIndex() < 0) {
+        eventIndex = iModifyEventUI.getEventIndex();
+        if (eventIndex < 0) {
             iModifyEventUI.modifyEventError();
         }
         else {
@@ -110,6 +111,7 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
             ArrayList<String> listOfEventSpeakers = eventController.getEventSpeakers(eventController.getEventId(iModifyEventUI.getEventIndex()));
             iModifySpeakerUI = iModifyEventUI.goToModifySpeakerUI(
                     listOfAllSpeakers, listOfEventSpeakers);
+            iModifySpeakerUI.storeEventIndexFromModifyEvent(this.eventIndex);
             new ModifySpeakerUIPresenter(iModifySpeakerUI, programController);
         }
     }
@@ -129,6 +131,7 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
         List<Integer> rooms = organizerController.getEventController().
                 getSuggestedRooms(category);
         iSelectRoomUI = iModifyEventUI.goToSelectRoomUI((ArrayList<Integer>) rooms, category);
+        iSelectRoomUI.storeEventIndexFromModifyEvent(this.eventIndex);
         new SelectRoomUIPresenter(iSelectRoomUI, programController);
     }
 }

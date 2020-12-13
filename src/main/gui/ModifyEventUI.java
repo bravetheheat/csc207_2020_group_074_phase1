@@ -28,6 +28,7 @@ public class ModifyEventUI extends JFrame implements IModifyEventUI {
     private SelectRoomButtonListener selectRoomButtonListener;
     private SelectRoomUI selectRoomUI;
     private int eventIndex = -1;
+    private int roomNum = -1;
 
     public ModifyEventUI() {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -52,6 +53,10 @@ public class ModifyEventUI extends JFrame implements IModifyEventUI {
                 selectRoomButtonListener.onSelectRoomButtonClicked());
     }
 
+    public void storeEventIndex(int eventIndex) {
+        this.eventIndex = eventIndex;
+    }
+
     public String getEventTime() {
         return timeField.getText();
     }
@@ -60,21 +65,20 @@ public class ModifyEventUI extends JFrame implements IModifyEventUI {
         return capacityField.getText();
     }
 
-//    public String getRoomNum() {
-//        return roomNumField.getText();
-//    }
-
-    public void getIndexFromDeleteEventUI(int eventIndex) {
-        this.eventIndex = eventIndex;
-    }
-
     public String getRoomConstraints() {
         return constraintsField.getText();
     }
 
     public int getEventIndex() {
-        eventIndex = deleteAnEventUI.getEventIndex();
-        return eventIndex;
+        return this.eventIndex;
+    }
+
+    public void storeRoomNum(int roomNum) {
+        this.roomNum = roomNum;
+    }
+
+    public int getRoomNum() {
+        return this.roomNum;
     }
 
     public void addBackButtonListener(BackButtonListener listener) {

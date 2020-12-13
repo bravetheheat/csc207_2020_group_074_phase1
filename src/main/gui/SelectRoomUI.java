@@ -24,6 +24,8 @@ public class SelectRoomUI extends JFrame implements ISelectRoomUI {
     private int duration;
     private int capacity;
     private LocalDateTime date;
+    private int eventIndex = -1;
+    private ModifyEventUI modifyEventUI;
 
     public SelectRoomUI(ArrayList<Integer> listOfRoomInfo, ArrayList<String> constraints) {
         jPanel = new JPanel();
@@ -94,6 +96,14 @@ public class SelectRoomUI extends JFrame implements ISelectRoomUI {
         return this.roomNum;
     }
 
+    public void storeEventIndexFromModifyEvent(int eventIndex) {
+        this.eventIndex = eventIndex;
+    }
+
+    public int getEventIndex() {
+        return this.eventIndex;
+    }
+
     public void notifyListenerOnBackButtonClicked() {
         backButtonListener.onBackButtonClicked();
     }
@@ -128,5 +138,11 @@ public class SelectRoomUI extends JFrame implements ISelectRoomUI {
         createEventUI = new CreateEventUI();
         this.dispose();
         return createEventUI;
+    }
+
+    public ModifyEventUI goToModifyEventUI() {
+        modifyEventUI = new ModifyEventUI();
+        this.dispose();
+        return modifyEventUI;
     }
 }

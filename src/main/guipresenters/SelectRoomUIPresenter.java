@@ -3,6 +3,7 @@ package main.guipresenters;
 import main.controllers.OrganizerController;
 import main.controllers.ProgramController;
 import main.gui_interface.ICreateEventUI;
+import main.gui_interface.IModifyEventUI;
 import main.gui_interface.ISelectRoomUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.ConfirmSelectRoomButtonListener;
@@ -17,6 +18,7 @@ public class SelectRoomUIPresenter
     OrganizerController organizerController;
     ISelectRoomUI iSelectRoomUI;
     ICreateEventUI iCreateEventUI;
+    IModifyEventUI iModifyEventUI;
 
     public SelectRoomUIPresenter(ISelectRoomUI selectRoomUI,
                                  ProgramController programController) {
@@ -30,12 +32,20 @@ public class SelectRoomUIPresenter
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
-        iCreateEventUI = iSelectRoomUI.goToCreateEventUI();
-        iCreateEventUI.getValuesFromSelectRoomUI(iSelectRoomUI.getEventTitle(),
-                iSelectRoomUI.getEventType(), iSelectRoomUI.getEventDuration(),
-                iSelectRoomUI.getEventCapacity(), iSelectRoomUI.getEventDate());
-        iCreateEventUI.getRoomNumFromSelectRoomUI(iSelectRoomUI.getRoomNum());
-        new CreateEventUIPresenter(iCreateEventUI, programController);
+        if (iSelectRoomUI.getEventIndex() == -1) {
+            iCreateEventUI = iSelectRoomUI.goToCreateEventUI();
+            iCreateEventUI.getValuesFromSelectRoomUI(iSelectRoomUI.getEventTitle(),
+                    iSelectRoomUI.getEventType(), iSelectRoomUI.getEventDuration(),
+                    iSelectRoomUI.getEventCapacity(), iSelectRoomUI.getEventDate());
+            iCreateEventUI.getRoomNumFromSelectRoomUI(iSelectRoomUI.getRoomNum());
+            new CreateEventUIPresenter(iCreateEventUI, programController);
+        }
+        else {
+            iModifyEventUI = iSelectRoomUI.goToModifyEventUI();
+            iModifyEventUI.storeEventIndex(iSelectRoomUI.getEventIndex());
+            iModifyEventUI.storeRoomNum(iSelectRoomUI.getRoomNum());
+            new ModifyEventUIPresenter(iModifyEventUI, programController);
+        }
     }
 
     @Override

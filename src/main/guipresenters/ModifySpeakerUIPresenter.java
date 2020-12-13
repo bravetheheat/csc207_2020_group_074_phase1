@@ -20,6 +20,7 @@ public class ModifySpeakerUIPresenter
     EventController eventController;
     private IModifySpeakerUI iModifySpeakerUI;
     private IModifyEventUI iModifyEventUI;
+    private int eventIndex = -1;
 
     public ModifySpeakerUIPresenter(IModifySpeakerUI modifySpeakerUI,
                                     ProgramController programController) {
@@ -36,14 +37,16 @@ public class ModifySpeakerUIPresenter
     public void onBackButtonClicked() {
         programController.saveForNext();
         iModifyEventUI = iModifySpeakerUI.goToModifyEventUI();
+        iModifyEventUI.storeEventIndex(this.eventIndex);
         new ModifyEventUIPresenter(iModifyEventUI, programController);
     }
 
     @Override
     public void onConfirmSelectSpeakerButtonClicked() {
-        int eventIndex = iModifyEventUI.getEventIndex();
+        this.eventIndex = iModifySpeakerUI.getEventIndex();
         String eventId;
-        if (eventController.getAllEvents().size() == 0 || eventIndex <= 0) {
+        if (eventController.getAllEvents().size() == 0 || eventIndex < 0) {
+            System.out.println("error1, event index: " + eventIndex);
             iModifySpeakerUI.modifySpeakerError();
             return;
         }
@@ -52,16 +55,18 @@ public class ModifySpeakerUIPresenter
         }
         List<String> speakers = organizerController.getAllSpeakers();
         int[] speakerIndices = iModifySpeakerUI.getSpeakerIndices();
-        if (speakerIndices.length <= 0) {
+        if (speakerIndices.length == 0) {
             iModifySpeakerUI.modifySpeakerError();
         }
         else if (speakerIndices.length == 1 &&
                 eventController.getEventType(eventId).equals("OneSpeakerEvent")) {
             String speakerId = speakers.get(speakerIndices[0]);
+            System.out.println("One speaker event, speaker id: " + speakerId);
             if (organizerController.updateSingleEventSpeaker(eventId, speakerId)) {
                 iModifySpeakerUI.modifySpeakerSuccessful();
             }
             else {
+                System.out.println("error 2, One speaker event, speaker id: " + speakerId);
                 iModifySpeakerUI.modifySpeakerError();
             }
         }
@@ -83,7 +88,7 @@ public class ModifySpeakerUIPresenter
 
     @Override
     public void onDeleteSpeakerButtonClicked() {
-        int eventIndex = iModifyEventUI.getEventIndex();
+        eventIndex = iModifySpeakerUI.getEventIndex();
         int eventSpeakerIndex = iModifySpeakerUI.getEventSpeakerIndex();
         String eventId;
         if (eventController.getAllEvents().size() == 0 || eventIndex <= 0 ||
@@ -101,7 +106,10 @@ public class ModifySpeakerUIPresenter
             List<String> eventSpeakers = eventController.getEventSpeakers(eventId);
             String speakerId = eventSpeakers.get(eventSpeakerIndex);
             if (organizerController.removeSpeakerMultiEvent(eventId, speakerId)) {
-                iModifySpeakerUI.modifySpeakerSuccessful();
+                programController.saveForNext();
+                iModifyEventUI = iModifySpeakerUI.goToModifyEventUI();
+                iModifyEventUI.storeEventIndex(eventIndex);
+                new ModifyEventUIPresenter(iModifyEventUI, programController);
             }
             else {
                 iModifySpeakerUI.modifySpeakerError();
