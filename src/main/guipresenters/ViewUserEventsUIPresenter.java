@@ -44,9 +44,10 @@ public class ViewUserEventsUIPresenter
                 int eventIndex = iViewUserEventsUI.getEventIndexFromList();
                 if (eventIndex < 0) {
                     iViewUserEventsUI.cancelNewEventError();
+                    return;
                 }
                 String eventId = eventController.getEventId(eventIndex);
-                if (eventController.signupEvent(eventId, userId)) {
+                if (eventController.cancelEvent(eventId, userId)) {
                     iViewUserEventsUI.cancelNewEventSuccessful();
                 } else {
                     iViewUserEventsUI.cancelNewEventError();
