@@ -19,4 +19,6 @@ public interface IEventsManagementUI extends IView {
     CreateEventUI goToCreateEventUI();
     ModifyEventUI goToModifyEventUI();
     SeeRoomsUI goToSeeRoomsUI(ArrayList<Integer> listOfRoomsInfo);
+    void addSeeScheduleButtonListener(SeeScheduleButtonListener listener);
+    SeeScheduleUI goToSeeScheduleUI(ArrayList<String> listOfEventInfo);
 }
