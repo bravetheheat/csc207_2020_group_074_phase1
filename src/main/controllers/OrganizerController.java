@@ -229,6 +229,14 @@ public class OrganizerController extends AttendeeController {
         return speakers;
     }
 
+    public List<String> getAllSpeakerUsernames(List<String> speakerIds){
+        List<String> usernames = new ArrayList<>();
+        for (String speakerId: speakerIds){
+            usernames.add(usersManager.getSpeakerUsername(speakerId));
+        }
+        return usernames;
+    }
+
     /**
      * get all speakers in string format
      *

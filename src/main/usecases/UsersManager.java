@@ -250,4 +250,8 @@ public class UsersManager {
         }
         return listOfUserInfo;
     }
+
+    public String getSpeakerUsername(String speakerId){
+        return registeredUsers.get(speakerId).getUsername();
+    }
 }
