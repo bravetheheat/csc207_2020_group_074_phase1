@@ -251,7 +251,7 @@ public class EventInfoManager {
     public Map<String, Integer> getEndTime(LocalDateTime time, int duration){
         Map<String, Integer> result = new LinkedHashMap<>();
         int min = time.getMinute() + duration % 60;
-        int hour = time.getHour();
+        int hour = time.getHour() + duration / 60;
         if (min >= 60){
             hour = hour + 1;
             min = min - 60;
