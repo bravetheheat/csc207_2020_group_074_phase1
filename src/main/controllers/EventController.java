@@ -70,7 +70,7 @@ public class EventController {
         return s;
     }
 
-    public ArrayList getUserEventsList(String userId) {
+    public ArrayList<String> getUserEventsList(String userId) {
         ArrayList<String> listOfUserEvents = new ArrayList<>();
         ArrayList<String> ids = this.eventsManager.getUserEvents(userId);
         Map<String, Event> schedule = this.eventsManager.getSchedule();
