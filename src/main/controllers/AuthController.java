@@ -91,7 +91,14 @@ public class AuthController {
      * @return whether or not the user was successfully registered
      */
     public boolean registerUser(String username, String password, String userType) {
-        return this.usersManager.addUser(username, password, userType);
+        boolean properUsername = username.matches("^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\\\.[A-Za-z]{2,6}$");
+        boolean properPassword = password.matches("^\\S{5,}$");
+        if (properUsername && properPassword) {
+            return this.usersManager.addUser(username, password, userType);
+        }
+        else{
+            return false;
+        }
     }
 
     public ScreenController getScreenController() {
