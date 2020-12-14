@@ -50,16 +50,10 @@ public class EventsManager {
             Event e = schedule.get(id);
             if (this.checkConflictDate(e, time)){
                 //time conflict at same room
-                if ((this.checkConflictTime(e, time, duration))){
-                    System.out.println("Time conflict");
-                }
                 if ((this.checkConflictTime(e, time, duration)) && (e.getRoomID().equals(newRoomId))) {
                     return false;
                 }//speaker conflict at same time
                 else if ((this.checkConflictTime(e, time, duration))  && (this.checkConflictSpeaker(e, newEvent))) {
-                    return false;
-                }//check capacity of the new room
-                else if (newCapacity > roomManager.getRoomGivenId(newRoomId).getCapacity()){
                     return false;
                 }
             }
