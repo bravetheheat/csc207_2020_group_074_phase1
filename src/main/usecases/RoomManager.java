@@ -100,7 +100,6 @@ public class RoomManager {
         for (int i = 0; i < category.size(); i++){
             category.set(i,category.get(i).toLowerCase());
         }
-        System.out.println(category);
         Room room = getRoomGivenRoomNum(roomNum);
         if (room == null) {
             return false;
