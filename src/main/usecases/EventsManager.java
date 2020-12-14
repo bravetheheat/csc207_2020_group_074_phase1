@@ -20,7 +20,6 @@ import java.util.Map;
 public class EventsManager {
 
     private Map<String, Event> schedule;
-    private RoomManager roomManager;
 
     public EventsManager() {
         this.schedule = new LinkedHashMap<>();
