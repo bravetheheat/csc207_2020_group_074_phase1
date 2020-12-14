@@ -26,7 +26,7 @@ public class UserManagementUIPresenter implements UserManagementButtonListener,
     public UserManagementUIPresenter(IUserManagementUI userManagementUI,
                                      ProgramController programController) {
         this.programController = programController;
-        this.authController = programController.getAuthController();
+        this.authController = this.programController.getAuthController();
         this.iUserManagementUI = userManagementUI;
         iUserManagementUI.addBackButtonListener(this);
         iUserManagementUI.addUserManagementButtonListener(this);
