@@ -251,7 +251,7 @@ public class EventInfoManager {
     public Map<String, Integer> getEndTime(LocalDateTime time, int duration){
         Map<String, Integer> result = new LinkedHashMap<>();
         int min = time.getMinute() + duration % 60;
-        int hour = time.getHour();
+        int hour = time.getHour() + duration / 60;
         if (min >= 60){
             hour = hour + 1;
             min = min - 60;
@@ -325,10 +325,14 @@ public class EventInfoManager {
     }
 
     public String speakersOfEvent(){
+        if (event.getType().equals("NoSpeakerEvent")){
+            return "No speaker";
+        }
+        if (event.getSpeakers().size() == 0){
+            return "No speaker is added yet";
+        }
         String speakerName = " ";
         switch (event.getType()){
-            case "NoSpeakerEvent":
-                speakerName = "It is no speaker event";
             case "OneSpeakerEvent":
                 for (String user : usersManager.getAllUsers()) {
                     if (this.usersManager.fetchType(user).equals("Speaker") && user.equals(event.getSpeakers().get(0))) {
@@ -344,6 +348,7 @@ public class EventInfoManager {
                         i ++;
                     }
                 }
+                break;
         }
         return speakerName;
     }

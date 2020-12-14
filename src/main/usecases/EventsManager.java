@@ -55,9 +55,6 @@ public class EventsManager {
                 }//speaker conflict at same time
                 else if ((this.checkConflictTime(e, time, duration))  && (this.checkConflictSpeaker(e, newEvent))) {
                     return false;
-                }//check capacity of the new room
-                else if (newCapacity > roomManager.getRoomGivenId(newRoomId).getCapacity()){
-                    return false;
                 }
             }
         }
@@ -106,6 +103,10 @@ public class EventsManager {
         Map<String, Integer> result = new LinkedHashMap<>();
         int min = time.getMinute() + duration % 60;
         int hour = time.getHour() + duration / 60;
+        if (min >= 60){
+            hour = hour + 1;
+            min = min - 60;
+        }
         result.put("hour", hour);
         result.put("minute", min);
         return result;
