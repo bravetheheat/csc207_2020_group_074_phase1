@@ -109,6 +109,10 @@ public class EventsManager {
         Map<String, Integer> result = new LinkedHashMap<>();
         int min = time.getMinute() + duration % 60;
         int hour = time.getHour() + duration / 60;
+        if (min >= 60){
+            hour = hour + 1;
+            min = min - 60;
+        }
         result.put("hour", hour);
         result.put("minute", min);
         return result;
