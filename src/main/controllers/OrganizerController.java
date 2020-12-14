@@ -151,9 +151,11 @@ public class OrganizerController extends AttendeeController {
     public boolean updateSingleEventSpeaker(String eventId, String speakerId) {
         ArrayList<String> currentSpeaker = eventController.getEventSpeakers(eventId);
         if (currentSpeaker != null) {
-            String previousSpeaker = currentSpeaker.get(0);
-            eventController.removeSpeaker(eventId, previousSpeaker);
-            return eventController.addSpeaker(eventId, speakerId);
+            if (currentSpeaker.size() == 1){
+                String previousSpeaker = currentSpeaker.get(0);
+                eventController.removeSpeaker(eventId, previousSpeaker);
+                return eventController.addSpeaker(eventId, speakerId);
+            }
         }
         return eventController.addSpeaker(eventId, speakerId);
     }
