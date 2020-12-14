@@ -58,7 +58,7 @@ public class EventInfoManager {
     public boolean addSpeaker(String newSpeakerId) {
         String eventType = event.getType();
         // For Single Speaker Event
-        if (eventType.equals("SingleSpeakerEvent")){
+        if (eventType.equals("OneSpeakerEvent")){
             if (event.getSpeakers().size() == 0) {
                 event.addSpeaker(newSpeakerId);
                 return true;
@@ -86,7 +86,7 @@ public class EventInfoManager {
     public boolean removeSpeaker(String removeSpeakerId) {
         String eventType = event.getType();
         // For Single Speaker Event and Multi Speaker Event
-        if (eventType.equals("SingleSpeakerEvent") || eventType.equals("MultiSpeakerEvent")){
+        if (eventType.equals("OneSpeakerEvent") || eventType.equals("MultiSpeakerEvent")){
             if (event.getSpeakers() != null && event.getSpeakers().contains(removeSpeakerId)) {
                 event.removeSpeaker(removeSpeakerId);
                 return true;
