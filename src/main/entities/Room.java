@@ -81,16 +81,16 @@ public class Room {
         this.capacity = capacity;
     }
 
-    public void setStage() {
-        this.hasStage = true;
+    public void setStage(boolean change) {
+        this.hasStage = change;
     }
 
-    public void setTech() {
-        this.hasTech = true;
+    public void setTech(boolean change) {
+        this.hasTech = change;
     }
 
-    public void setToTable() {
-        this.isTable = true;
+    public void setToTable(boolean change) {
+        this.isTable = change;
     }
 
     public boolean getIsTable() {
