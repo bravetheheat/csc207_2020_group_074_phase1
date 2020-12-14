@@ -47,7 +47,7 @@ public class EventSignUpUIPresenter implements SignUpButtonListener,
     public void onViewEventsButtonClicked() {
         programController.saveForNext();
         String userId = this.authController.fetchLoggedInUser();
-        ArrayList<String> listOfUserEvents = eventController.getSignupEvents(userId);
+        ArrayList<String> listOfUserEvents = eventController.getUserEventsList(userId);
         iViewUserEventsUI = iEventSignUpUI.goToViewUserEventsUI(listOfUserEvents);
         new ViewUserEventsUIPresenter(iViewUserEventsUI, programController);
     }
