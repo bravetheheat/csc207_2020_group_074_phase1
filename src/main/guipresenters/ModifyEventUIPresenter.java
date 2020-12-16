@@ -122,9 +122,8 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
             iModifyEventUI.modifyEventError();
         }
         else {
-            ArrayList<String> listOfAllSpeakers = (ArrayList<String>) organizerController.
-                    getAllSpeakers();
-            ArrayList<String> listOfEventSpeakers = eventController.getEventSpeakers(eventController.getEventId(iModifyEventUI.getEventIndex()));
+            ArrayList<String> listOfAllSpeakers = (ArrayList<String>) organizerController.getAllSpeakerUsernames();
+            ArrayList<String> listOfEventSpeakers = eventController.getEventSpeakers(eventController.getEventId(eventIndex));
             iModifySpeakerUI = iModifyEventUI.goToModifySpeakerUI(
                     listOfAllSpeakers, listOfEventSpeakers);
             iModifySpeakerUI.storeEventIndexFromModifyEvent(this.eventIndex);
