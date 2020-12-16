@@ -12,7 +12,7 @@ import java.util.*;
  *
  * @author David Zhao
  */
-public class EventConverter implements Converter<EventBean, Event>{
+public class EventConverter implements Converter<EventBean, Event> {
 
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
@@ -70,9 +70,8 @@ public class EventConverter implements Converter<EventBean, Event>{
     }
 
     private List<String> convertListFromString(String string) {
-        List<String> list = new ArrayList<>(Arrays.asList(string.split("|")));
+        List<String> list = new ArrayList<>(Arrays.asList(string.split("|", -1)));
         return list;
     }
-
 
 }
