@@ -156,15 +156,15 @@ public class EventInfoManager {
         }
         for (String id : schedule.keySet()) {
             Event e = schedule.get(id);
+            if (e.getId().equals(event.getId())){
+                continue;
+            }
             if (this.checkConflictDate(e, newTime)){
                 //time conflict at same room
                 if ((this.checkConflictTime(e, newTime, duration)) && (e.getRoomID().equals(newRoomId))) {
                     return false;
                 }//speaker conflict at same time
                 else if ((this.checkConflictTime(e, newTime, duration))  && (this.checkConflictSpeaker(e, event))) {
-                    return false;
-                }//check capacity of the new room
-                else if (newCapacity > roomManager.getRoomGivenId(newRoomId).getCapacity()){
                     return false;
                 }
             }

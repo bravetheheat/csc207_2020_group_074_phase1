@@ -21,7 +21,9 @@ public class Room {
      * No-arg constructor for deserialization
      */
     public Room() {
-
+        this.isTable = false;
+        this.hasStage = false;
+        this.hasTech = false;
     }
 
 

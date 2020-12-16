@@ -194,9 +194,21 @@ public class EventsManagementScreenController extends ScreenController {
      * @return verify if the event capacity is successfully modified
      */
     private boolean modifyEventCapacity() {
-        String eventId = this.getEventID();
-        int roomNum = organizerController.getEventController().getRoomNum(eventId);
-        return organizerController.updateCapacity(eventId, this.getEventCapacity(roomNum));
+        try {
+            String eventId = this.getEventID();
+            int roomNum = organizerController.getEventController().getRoomNum(eventId);
+            presenter.promptCapacity();
+            String capacity = scanner.nextLine();
+            if (organizerController.checkCapacityInBound(roomNum, Integer.parseInt(capacity))) {
+                return organizerController.updateCapacity(eventId, Integer.parseInt(capacity));
+            } else {
+                presenter.printInvalidInput();
+                return modifyEventCapacity();
+            }
+        } catch (IllegalArgumentException e) {
+            presenter.printInvalidInput();
+            return modifyEventCapacity();
+        }
     }
 
 

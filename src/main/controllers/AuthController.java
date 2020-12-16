@@ -102,6 +102,7 @@ public class AuthController {
         //return this.usersManager.addUser(username, password, userType);
     }
 
+
     public ScreenController getScreenController() {
         User currentUser = this.usersManager.fetchUser(this.loggedInUser);
         UserInformationManager userInfo = new UserInformationManager(currentUser);
