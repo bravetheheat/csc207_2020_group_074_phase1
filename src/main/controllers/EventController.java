@@ -123,7 +123,7 @@ public class EventController {
      */
     public boolean addUser(String eventId, String userId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
-        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
+        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
         return eventInfoManager.addUser(userId);
     }
 
@@ -135,7 +135,7 @@ public class EventController {
      */
     public boolean removeUser(String eventId, String userId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
-        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
+        EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
         return eventInfoManager.removeUser(userId);
     }
 
