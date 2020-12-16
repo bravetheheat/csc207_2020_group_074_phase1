@@ -138,7 +138,8 @@ public class OrganizerController extends AttendeeController {
             return eventController.updateEventInfo(eventId, time, roomId, duration, newCapacity);
         }else{
             int oldCapacity = eventInfoManager.getCapacity();
-            return eventController.updateEventInfo(eventId, time, roomId, duration, oldCapacity);
+            eventController.updateEventInfo(eventId, time, roomId, duration, oldCapacity);
+            return false;
         }
 
     }
