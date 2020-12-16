@@ -119,10 +119,10 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
     }
 
     @Override
-    public IUserManagementUI goToUserManagementUI() {
-        UserManagementUI userManagementUI = new UserManagementUI();
+    public IAdminUserManagementUI goToAdminUserManagementUI() {
+        AdminUserManagementUI adminUserManagementUI = new AdminUserManagementUI();
         this.dispose();
-        return userManagementUI;
+        return adminUserManagementUI;
     }
 
     @Override

@@ -63,7 +63,7 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
 
     @Override
     public void onUserManagementButtonClicked() {
-        IUserManagementUI iUserManagementUI = iAdminMainUI.goToUserManagementUI();
-        new UserManagementUIPresenter(iUserManagementUI, this.programController);
+        IAdminUserManagementUI iAdminMainUIUserManagementUI = iAdminMainUI.goToAdminUserManagementUI();
+        new AdminUserManagementUIPresenter(iAdminMainUIUserManagementUI, this.programController);
     }
 }

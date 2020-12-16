@@ -36,7 +36,7 @@ public interface IAdminMainUI extends IView {
 
     IGatewayUI goToGatewayUI();
 
-    IUserManagementUI goToUserManagementUI();
+    IAdminUserManagementUI goToAdminUserManagementUI();
 
     IOrganizerMessageUI goToOrganizerMessageUI(ArrayList<String> userInfo);
 
