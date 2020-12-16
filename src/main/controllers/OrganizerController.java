@@ -133,7 +133,14 @@ public class OrganizerController extends AttendeeController {
         String roomId = eventInfoManager.getRoomId(eventId);
         LocalDateTime time = eventInfoManager.getTime(eventId);
         int duration = eventInfoManager.getDuration(eventId);
-        return eventController.updateEventInfo(eventId, time, roomId, duration, newCapacity);
+        int roomNum = roomManager.getRoomNumGivenId(roomId);
+        if (checkCapacityInBound(roomNum, newCapacity)){
+            return eventController.updateEventInfo(eventId, time, roomId, duration, newCapacity);
+        }else{
+            int oldCapacity = eventInfoManager.getCapacity();
+            return eventController.updateEventInfo(eventId, time, roomId, duration, oldCapacity);
+        }
+
     }
 
     public boolean checkCapacityInBound(int roomNum, int eventCap) {
