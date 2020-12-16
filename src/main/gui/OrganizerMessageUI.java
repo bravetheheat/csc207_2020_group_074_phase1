@@ -110,6 +110,13 @@ public class OrganizerMessageUI extends JFrame implements IOrganizerMessageUI  {
     }
 
     @Override
+    public AdminMainUI goToAdminMainUI() {
+        AdminMainUI adminMainUI = new AdminMainUI();
+        this.dispose();
+        return adminMainUI;
+    }
+
+    @Override
     public JList getUsersList() {
         return this.userList;
     }

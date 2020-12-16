@@ -26,6 +26,7 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
     private IAttendeeMainUI iAttendeeMainUI;
     private IOrganizerMainUI iOrganizerMainUI;
     private ISpeakerMainUI iSpeakerMainUI;
+    private IAdminMainUI iAdminMainUI;
 
 
     public LoginUIPresenter(ILoginUI loginUI, ProgramController programController) {
@@ -70,6 +71,10 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
                         iSpeakerMainUI = iLoginUI.goToSpeakerMainUI(eventInfo);
                         new SpeakerMainUIPresenter(iSpeakerMainUI, programController);
                         break;
+                    case "Admin":
+                        programController.saveForNext();
+                        iAdminMainUI = iLoginUI.goToAdminMainUI();
+                        new AdminMainUIPresenter(iAdminMainUI, programController);
                     default:
                         iLoginMessageErrorUI = iLoginUI.goToLoginMessageErrorUI();
                         new LoginMessageErrorPresenter(iLoginMessageErrorUI,
