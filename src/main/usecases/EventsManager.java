@@ -13,7 +13,7 @@ import java.util.Map;
  * The EventsManager holds a list of Events, and modify Event with its corresponding Users.
  *
  * @author Haoze Huang, Zewen Ma
- * @version 3.0
+ * @version 4.0
  * @since 2020-10-31
  */
 

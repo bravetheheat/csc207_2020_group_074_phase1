@@ -14,7 +14,7 @@ import java.util.Map;
  * The EventInfoManager modifies info for a particular Event given event id.
  *
  * @author Haoze Huang， Zewen Ma, Yile Xie
- * @version 3.1
+ * @version 4.0
  * @since 2020-10-31
  */
 
