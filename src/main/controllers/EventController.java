@@ -14,7 +14,7 @@ import java.util.Map;
  * the attendee list; organize the speaker; as well as a getter for the current schedule of a User.
  *
  * @author Zewen Ma
- * @version 5.0
+ * @version 5.1
  * @since 2020-11-08
  */
 public class EventController {
@@ -70,6 +70,11 @@ public class EventController {
         return s;
     }
 
+    /**
+     * Return a list of eventIds of events that the user signed up
+     * @param userId of the user
+     * @return a list of signed up eventIds
+     */
     public ArrayList<String> getUserEventIds(String userId){
         ArrayList<String> listOfUserEvents = new ArrayList<>();
         Map<String, Event> schedule = this.eventsManager.getSchedule();
