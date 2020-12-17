@@ -5,7 +5,9 @@ import main.gateways.beans.EventBean;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Implementation of Converter that serializes and deserializes Event
@@ -14,7 +16,7 @@ import java.util.*;
  */
 public class EventConverter implements Converter<EventBean, Event> {
 
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     public List<Event> convertFromBeans(List<EventBean> eventBeans) {
         List<Event> events = new ArrayList<>();
@@ -70,7 +72,9 @@ public class EventConverter implements Converter<EventBean, Event> {
     }
 
     private List<String> convertListFromString(String string) {
-        List<String> list = new ArrayList<>(Arrays.asList(string.split("|", -1)));
+
+        List<String> list = new ArrayList<>(Arrays.asList(string.split("[\\|]", -1)));
+
         return list;
     }
 
