@@ -29,21 +29,14 @@ public class LandingUIPresenter implements LoginButtonListener, RegisterButtonLi
         iLandingUI.addRegisterButtonLister(this);
     }
 
-//    public void addLoginUI(ILoginUI iLoginUI) {
-//        iLoginUI = iLoginUI;
-//    }
-
-
     @Override
     public void onLoginButtonClicked() {
-        programController.saveForNext();
         iLoginUI = iLandingUI.goToLoginUI();
         new LoginUIPresenter(iLoginUI, programController);
     }
 
     @Override
     public void onRegisterButtonClicked() {
-        programController.saveForNext();
         iRegisterUI = iLandingUI.goToRegisterUI();
         new RegisterUIPresenter(iRegisterUI, programController);
     }
