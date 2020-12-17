@@ -70,7 +70,7 @@ public class EventController {
         return s;
     }
 
-    /**
+   /**
      * Return a list of eventIds of events that the user signed up
      * @param userId of the user
      * @return a list of signed up eventIds
