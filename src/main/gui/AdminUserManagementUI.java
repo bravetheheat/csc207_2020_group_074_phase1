@@ -81,9 +81,10 @@ public class AdminUserManagementUI extends UserManagementUI implements IAdminUse
                 "Error", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // TODO: complete the method when AdminMainUI is added
-//    public AdminMainUI goToAdminMainUI() {
-//
-//    }
+    public AdminMainUI goToAdminMainUI() {
+        AdminMainUI adminMainUI = new AdminMainUI();
+        this.dispose();
+        return adminMainUI;
+    }
 
 }

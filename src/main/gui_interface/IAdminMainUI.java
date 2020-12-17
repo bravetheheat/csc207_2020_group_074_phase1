@@ -1,17 +1,14 @@
 package main.gui_interface;
 
-import main.gui.EventSignUpUI;
 import main.guilisteners.*;
 
 import java.util.ArrayList;
 
-public interface IOrganizerMainUI extends IView {
+public interface IAdminMainUI extends IView {
 
     void addLogoutButtonListener(LogoutButtonListener listener);
 
     void addUserManagementButtonListener(UserManagementButtonListener listener);
-
-    void addManageEventRoomButtonListener(ManageEventRoomButtonListener listener);
 
     void addRegisteredEventsButtonListener(RegisteredEventsButtonListener listener);
 
@@ -25,8 +22,6 @@ public interface IOrganizerMainUI extends IView {
 
     void notifyListenerOnUserManagementButtonClicked();
 
-    void notifyListenerOnManageEventRoomButtonClicked();
-
     void notifyListenerOnRegisteredEventsButtonClicked();
 
     void notifyListenerOnMessageButtonClicked();
@@ -39,14 +34,11 @@ public interface IOrganizerMainUI extends IView {
 
     IEventSignUpUI goToEventSignUpUI();
 
-    IEventsManagementUI goToEventsManagementUI();
-
     IGatewayUI goToGatewayUI();
 
-    IUserManagementUI goToUserManagementUI();
+    IAdminUserManagementUI goToAdminUserManagementUI();
 
     IOrganizerMessageUI goToOrganizerMessageUI(ArrayList<String> userInfo);
 
     IInboxUI goToInboxUI(ArrayList<String> messages);
-
 }

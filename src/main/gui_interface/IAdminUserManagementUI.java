@@ -1,5 +1,6 @@
 package main.gui_interface;
 
+import main.gui.AdminMainUI;
 import main.guilisteners.DeleteUserButtonListener;
 
 public interface IAdminUserManagementUI extends IUserManagementUI {
@@ -7,4 +8,6 @@ public interface IAdminUserManagementUI extends IUserManagementUI {
     String getDeletedUser();
     void deleteUserSuccessful();
     void deleteUserError();
+
+    AdminMainUI goToAdminMainUI();
 }

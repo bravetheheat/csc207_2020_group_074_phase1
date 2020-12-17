@@ -25,5 +25,7 @@ public interface ISpeakerMainUI extends  IView {
 
     ISpeakerMessageUI goToSpeakerMessageUI(ArrayList<String> users);
 
-    IInboxUI goToInboxUI();
+    IInboxUI goToInboxUI(ArrayList<String> messages, ArrayList<String> events);
+
+    ArrayList<String> getEvents();
 }

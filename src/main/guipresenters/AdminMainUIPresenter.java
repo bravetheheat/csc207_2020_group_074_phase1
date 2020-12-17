@@ -1,11 +1,9 @@
 package main.guipresenters;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
+import com.sun.xml.internal.ws.wsdl.writer.document.Message;
 import main.controllers.AuthController;
 import main.controllers.InboxController;
 import main.controllers.ProgramController;
-import main.gateways.Gateway;
-import main.gui.*;
 import main.gui_interface.*;
 import main.guilisteners.*;
 import main.usecases.UsersManager;
@@ -13,37 +11,35 @@ import main.usecases.UsersManager;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener,
-        ManageEventRoomButtonListener, RegisteredEventsButtonListener, MessageButtonListener, InboxButtonListener,
-        DataManagementButtonListener {
+public class AdminMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener, MessageButtonListener,
+        InboxButtonListener, DataManagementButtonListener, RegisteredEventsButtonListener {
 
-    private IOrganizerMainUI iOrganizerMainUI;
+    private IAdminMainUI iAdminMainUI;
     private ProgramController programController;
     private AuthController authController;
 
-    public OrganizerMainUIPresenter(IOrganizerMainUI iOrganizerMainUI, ProgramController programController) {
+    public AdminMainUIPresenter(IAdminMainUI iAdminMainUI, ProgramController programController) {
         this.programController = programController;
         this.authController = programController.getAuthController();
-        this.iOrganizerMainUI = iOrganizerMainUI;
-        this.iOrganizerMainUI.addLogoutButtonListener(this);
-        this.iOrganizerMainUI.addUserManagementButtonListener(this);
-        this.iOrganizerMainUI.addManageEventRoomButtonListener(this);
-        this.iOrganizerMainUI.addRegisteredEventsButtonListener(this);
-        this.iOrganizerMainUI.addMessageButtonListener(this);
-        this.iOrganizerMainUI.addInboxButtonListener(this);
-        this.iOrganizerMainUI.addDataManagementButtonListener(this);
+        this.iAdminMainUI = iAdminMainUI;
+        this.iAdminMainUI.addLogoutButtonListener(this);
+        this.iAdminMainUI.addUserManagementButtonListener(this);
+        this.iAdminMainUI.addRegisteredEventsButtonListener(this);
+        this.iAdminMainUI.addMessageButtonListener(this);
+        this.iAdminMainUI.addInboxButtonListener(this);
+        this.iAdminMainUI.addDataManagementButtonListener(this);
     }
 
     @Override
     public void onLogoutButtonClicked() {
         this.authController.logout();
-        ILandingUI ilandingUI = iOrganizerMainUI.goToLandingUI();
+        ILandingUI ilandingUI = iAdminMainUI.goToLandingUI();
         new LandingUIPresenter(ilandingUI, this.programController);
     }
 
     @Override
     public void onDataManagementButtonClicked() {
-        IGatewayUI iGatewayUI = iOrganizerMainUI.goToGatewayUI();
+        IGatewayUI iGatewayUI = iAdminMainUI.goToGatewayUI();
         new GatewayUIPresenter(iGatewayUI, this.programController);
     }
 
@@ -55,33 +51,27 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
         for (String key:messageMap.keySet()) {
             messages.add(inboxController.getMessageString(key));
         }
-        IInboxUI iInboxUI = iOrganizerMainUI.goToInboxUI(messages);
+        IInboxUI iInboxUI = iAdminMainUI.goToInboxUI(messages);
         new InboxUIPresenter(iInboxUI, this.programController);
-    }
-
-    @Override
-    public void onManageEventRoomButtonClicked() {
-        IEventsManagementUI iEventsManagementUI = iOrganizerMainUI.goToEventsManagementUI();
-        new EventsManagementUIPresenter(iEventsManagementUI, this.programController);
     }
 
     @Override
     public void onMessageButtonClicked() {
         UsersManager usersManager = this.programController.getUsersManager();
         ArrayList<String> userInfo = usersManager.allUsersToString();
-        IOrganizerMessageUI iOrganizerMessageUI = iOrganizerMainUI.goToOrganizerMessageUI(userInfo);
+        IOrganizerMessageUI iOrganizerMessageUI = iAdminMainUI.goToOrganizerMessageUI(userInfo);
         new OrganizerMessageUIPresenter(iOrganizerMessageUI, this.programController);
     }
 
     @Override
     public void onRegisteredEventsButtonClicked() {
-        IEventSignUpUI iEventSignUpUI = iOrganizerMainUI.goToEventSignUpUI();
+        IEventSignUpUI iEventSignUpUI = iAdminMainUI.goToEventSignUpUI();
         new EventSignUpUIPresenter(iEventSignUpUI, this.programController);
     }
 
     @Override
     public void onUserManagementButtonClicked() {
-        IUserManagementUI iUserManagementUI = iOrganizerMainUI.goToUserManagementUI();
-        new UserManagementUIPresenter(iUserManagementUI, this.programController);
+        IAdminUserManagementUI iAdminMainUIUserManagementUI = iAdminMainUI.goToAdminUserManagementUI();
+        new AdminUserManagementUIPresenter(iAdminMainUIUserManagementUI, this.programController);
     }
 }

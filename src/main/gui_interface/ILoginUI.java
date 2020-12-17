@@ -61,5 +61,7 @@ public interface ILoginUI extends IView {
 
     SpeakerMainUI goToSpeakerMainUI(ArrayList<String> events);
 
+    AdminMainUI goToAdminMainUI();
+
     LoginMessageErrorUI goToLoginMessageErrorUI();
 }

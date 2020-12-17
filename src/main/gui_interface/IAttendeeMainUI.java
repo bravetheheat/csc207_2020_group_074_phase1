@@ -32,5 +32,5 @@ public interface IAttendeeMainUI extends IView {
 
     IAttendeeMessageUI goToAttendeeMessageUI(ArrayList<String> users);
 
-    IInboxUI goToInboxUI();
+    IInboxUI goToInboxUI(ArrayList<String> messages);
 }
