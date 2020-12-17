@@ -188,6 +188,22 @@ public class EventsManager {
     }
 
     /**
+     * Get the list of event for a User given id
+     *
+     * @param userId to be get events from
+     * @return userEvents
+     */
+    public List<Event> getUserEventsObj(String userId) {
+
+        List<Event> userEvents = new ArrayList<>();
+        for (String eventId : schedule.keySet()) {
+            userEvents.add(this.schedule.get(eventId));
+        }
+        return userEvents;
+    }
+
+
+    /**
      * Get the list of events for a Speaker given id
      * Modified by Zewen Ma on 2020.11.30
      * @param speakerId to be get events from
