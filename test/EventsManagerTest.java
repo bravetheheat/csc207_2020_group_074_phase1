@@ -24,15 +24,15 @@ public class EventsManagerTest {
     @Before
     public void setUp() {
         this.eventsManager = new EventsManager();
-        time1 = LocalDateTime.of(2020, 1, 1, 16, 30);
-        time2 = LocalDateTime.of(2020, 1, 1, 16, 0);
+        time1 = LocalDateTime.of(2020, 10, 10, 10, 00);
+        time2 = LocalDateTime.of(2020, 10, 10, 9, 00);
         time3 = LocalDateTime.of(2020, 1, 1, 15,0);
         time4 = LocalDateTime.of(2020,1,1,17,10);
         duration1 = 120;
         duration2 = 135;
-        duration3 = 10;
+        duration3 = 50;
         duration4 = 80;
-        event1 = new Event("hello", time1, "0", duration1, 40);
+        event1 = new Event("hello", time1, "0", 45, 2);
         event2 = new Event("hi", time2, "0", 40, 40);
         event3 = new Event("bye", time3, "0", 60, 40);
     }
@@ -40,17 +40,17 @@ public class EventsManagerTest {
     @Test
     public void testGetEndTime(){
         Map<String, Integer> map = new LinkedHashMap<>();
-        map.put("hour", 18);
-        map.put("minute", 30);
-        Assert.assertTrue(eventsManager.getEndTime(time1, duration1).equals(map));
+        map.put("hour", 10);
+        map.put("minute", 45);
+        Assert.assertTrue(eventsManager.getEndTime(time1, 45).equals(map));
     }
 
     @Test
     public void testGetEndTime2(){
         Map<String, Integer> map = new LinkedHashMap<>();
-        map.put("hour", 18);
-        map.put("minute", 15);
-        Assert.assertTrue(eventsManager.getEndTime(time2, duration2).equals(map));
+        map.put("hour", 9);
+        map.put("minute", 50);
+        Assert.assertTrue(eventsManager.getEndTime(time2, 50).equals(map));
     }
 
     @Test
@@ -63,12 +63,12 @@ public class EventsManagerTest {
 
     @Test
     public void testCheckConflictTime(){
-        Assert.assertFalse(eventsManager.checkConflictTime(event1, time2, duration3));
+        Assert.assertFalse(eventsManager.checkConflictTime(event1, time2, 50));
     }
 
     @Test
     public void testCheckConflictTime1(){
-        Assert.assertTrue(eventsManager.checkConflictTime(event2, time3, 100));
+        Assert.assertTrue(eventsManager.checkConflictTime(event2, time3, 50));
     }
 }
 
