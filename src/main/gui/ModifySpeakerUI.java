@@ -29,7 +29,6 @@ public class ModifySpeakerUI extends JFrame implements IModifySpeakerUI {
         jPanel = new JPanel();
 
         setSize(800, 500);
-        setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

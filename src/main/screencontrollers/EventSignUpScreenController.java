@@ -160,7 +160,8 @@ public class EventSignUpScreenController extends ScreenController {
             this.presenter.promptCancelEvents(info);
             String eventIndex = this.scanner.nextLine();
             int index = Integer.parseInt(eventIndex);
-            String eventId = eventController.getEventId(index-1);
+            ArrayList<String> attendeeEvents = eventController.getUserEventIds(userId);
+            String eventId = attendeeEvents.get(index-1);
             if (eventController.cancelEvent(eventId, userId)) {
                 this.presenter.printSuccessMessage();
             } else {

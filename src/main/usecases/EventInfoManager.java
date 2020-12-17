@@ -14,7 +14,7 @@ import java.util.Map;
  * The EventInfoManager modifies info for a particular Event given event id.
  *
  * @author Haoze Huang， Zewen Ma, Yile Xie
- * @version 3.1
+ * @version 4.0
  * @since 2020-10-31
  */
 
@@ -194,39 +194,38 @@ public class EventInfoManager {
      */
     public boolean checkConflictTime(Event event, LocalDateTime time, int duration){
         LocalDateTime eventTime = event.getTime();
-        int eventDuration = event.getDuration();
-        int eventStartHour = event.getTime().getHour();
-        int eventStartMin = event.getTime().getMinute();
-        int newTimeHour = time.getHour();
-        int newTimeMin = time.getMinute();
-        Map<String, Integer> eventEndTime = this.getEndTime(eventTime, eventDuration);
+        int eventDuration = event.getDuration(); // duration of the event
+        int eventStartHour = event.getTime().getHour(); // StartHour of the event
+        int eventStartMin = event.getTime().getMinute(); // StartMin of the event
+        int newTimeHour = time.getHour(); // StartHour of the new time
+        int newTimeMin = time.getMinute(); // StartMin of the new time
+        Map<String, Integer> eventEndTime = this.getEndTime(eventTime, eventDuration); // get the end time of the event
         int eventHour = eventEndTime.get("hour"); // end hour of the event
         int eventMin = eventEndTime.get("minute"); // end min of the event
         Map<String, Integer> inputEndTime = this.getEndTime(time, duration);
         int inputHour = inputEndTime.get("hour"); // end hour of the input time
         int inputMin = inputEndTime.get("minute"); // end min of the input time
-        if (eventStartHour == newTimeHour){
-            if (inputHour < eventHour){
-                if (inputHour > eventStartHour){
-                    return true;
-                }
-                else{
-                    return inputMin > eventStartMin;
-                }
+        if (eventStartHour == newTimeHour){ // if both start time are the same hour, compare end time
+            if (eventHour <= newTimeHour){ // if event end hour <= new time start hour (cannot < but just in case)
+                return !(eventMin <= newTimeMin); // No conflict if eventMin <= newTimeMin
             }
-            else {
-                return true;
-            }
+            return true;
         }
-        else if (eventStartHour > newTimeHour){
-            if (eventStartHour == inputHour){
-                return inputMin > eventStartMin;
-            }else{
-                return true;
-            }
-        }else{
+        else if (eventStartHour < newTimeHour){
             if (eventHour == newTimeHour){
-                return newTimeMin < eventMin;
+                return !(eventMin <= newTimeMin); // No conflict if eventMin <= newTimeMin
+            }
+            else if (eventHour < newTimeHour){
+                return false;
+            }
+            return true;
+        }
+        else{
+            if (inputHour == eventStartHour){
+                return !(inputMin <= eventStartMin);
+            }
+            else if (inputHour < eventStartHour) {
+                return false;
             }
             return true;
         }
@@ -343,6 +342,35 @@ public class EventInfoManager {
                 break;
         }
         return speakerName;
+    }
+
+    public ArrayList<String> listOfSpeakersOfEvent(){
+//        if (event.getType().equals("NoSpeakerEvent")){
+//            return "No speaker";
+//        }
+//        if (event.getSpeakers().size() == 0){
+//            return "No speaker is added yet";
+//        }
+        ArrayList<String> speakerNames = new ArrayList<>();
+        switch (event.getType()){
+            case "OneSpeakerEvent":
+                for (String user : usersManager.getAllUsers()) {
+                    if (this.usersManager.fetchType(user).equals("Speaker") && user.equals(event.getSpeakers().get(0))) {
+                        speakerNames.add(usersManager.fetchUser(user).getUsername());
+                    }
+                }
+                break;
+            case "MultiSpeakerEvent":
+//                int i = 0;
+                for (String user : usersManager.getAllUsers()){
+                    if(this.usersManager.fetchType(user).equals("Speaker") && event.getSpeakers().contains(user)){
+                        speakerNames.add(usersManager.fetchUser(user).getUsername());
+//                        i ++;
+                    }
+                }
+                break;
+        }
+        return speakerNames;
     }
 
     /**

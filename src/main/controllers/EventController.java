@@ -14,7 +14,7 @@ import java.util.Map;
  * the attendee list; organize the speaker; as well as a getter for the current schedule of a User.
  *
  * @author Zewen Ma
- * @version 5.0
+ * @version 5.1
  * @since 2020-11-08
  */
 public class EventController {
@@ -70,6 +70,24 @@ public class EventController {
         return s;
     }
 
+   /**
+     * Return a list of eventIds of events that the user signed up
+     * @param userId of the user
+     * @return a list of signed up eventIds
+     */
+    public ArrayList<String> getUserEventIds(String userId){
+        ArrayList<String> listOfUserEvents = new ArrayList<>();
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        for (String eventId: schedule.keySet()){
+            EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+            List<String> attendees = eventInfoManager.getUsers();
+            if (attendees.contains(userId)){
+                listOfUserEvents.add(eventId);
+            }
+        }
+        return listOfUserEvents;
+    }
+
     public ArrayList<String> getUserEventsList(String userId) {
         ArrayList<String> listOfUserEvents = new ArrayList<>();
         ArrayList<String> ids = this.eventsManager.getUserEvents(userId);
@@ -82,6 +100,11 @@ public class EventController {
         return listOfUserEvents;
     }
 
+    /**
+     * Return the roomId of the event given its id
+     * @param eventId of the event
+     * @return the room number of the event
+     */
     public int getRoomNum(String eventId){
         Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule);
@@ -381,6 +404,12 @@ public class EventController {
         Map<String, Event> schedule = this.eventsManager.getSchedule();
         EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
         return eventinfomanager.speakersOfEvent();
+    }
+
+    public ArrayList<String> getEventSpeakersToList(String eventId){
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        EventInfoManager eventinfomanager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+        return eventinfomanager.listOfSpeakersOfEvent();
     }
 
     public String getEventType(String eventId){
