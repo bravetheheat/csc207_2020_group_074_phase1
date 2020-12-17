@@ -99,10 +99,10 @@ public class RegisterScreenController extends ScreenController {
     }
 
     private boolean checkValidUsername (String username){
-        return username.matches("^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[A-Za-z]{2,6}$");
+        return username.matches("^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-zA-Z]{2,6}$");
     }
 
     private boolean checkValidPassword (String password){
-        return password.matches("^\\S{5,}$");
+        return password.length() >= 5;
     }
 }
