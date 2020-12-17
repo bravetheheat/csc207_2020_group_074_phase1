@@ -325,6 +325,7 @@ public class EventInfoManager {
         String speakerName = " ";
         switch (event.getType()){
             case "OneSpeakerEvent":
+                System.out.println(event.getSpeakers());
                 for (String user : usersManager.getAllUsers()) {
                     if (this.usersManager.fetchType(user).equals("Speaker") && user.equals(event.getSpeakers().get(0))) {
                         speakerName = usersManager.fetchUser(user).getUsername();
