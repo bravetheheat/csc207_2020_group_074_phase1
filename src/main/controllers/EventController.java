@@ -70,6 +70,19 @@ public class EventController {
         return s;
     }
 
+    public ArrayList<String> getUserEventIds(String userId){
+        ArrayList<String> listOfUserEvents = new ArrayList<>();
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        for (String eventId: schedule.keySet()){
+            EventInfoManager eventInfoManager = new EventInfoManager(eventId, schedule, roomManager, usersManager);
+            List<String> attendees = eventInfoManager.getUsers();
+            if (attendees.contains(userId)){
+                listOfUserEvents.add(eventId);
+            }
+        }
+        return listOfUserEvents;
+    }
+
     public ArrayList<String> getUserEventsList(String userId) {
         ArrayList<String> listOfUserEvents = new ArrayList<>();
         ArrayList<String> ids = this.eventsManager.getUserEvents(userId);
