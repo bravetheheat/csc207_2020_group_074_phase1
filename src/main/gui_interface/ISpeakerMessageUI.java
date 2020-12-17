@@ -6,6 +6,7 @@ import main.guilisteners.BroadcastButtonListener;
 import main.guilisteners.SendButtonListener;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public interface ISpeakerMessageUI extends IView {
 

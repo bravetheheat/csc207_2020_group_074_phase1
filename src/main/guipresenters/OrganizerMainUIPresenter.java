@@ -2,6 +2,7 @@ package main.guipresenters;
 
 import com.sun.org.apache.xpath.internal.operations.Or;
 import main.controllers.AuthController;
+import main.controllers.InboxController;
 import main.controllers.ProgramController;
 import main.gateways.Gateway;
 import main.gui.*;
@@ -10,6 +11,7 @@ import main.guilisteners.*;
 import main.usecases.UsersManager;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener,
         ManageEventRoomButtonListener, RegisteredEventsButtonListener, MessageButtonListener, InboxButtonListener,
@@ -47,7 +49,13 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
 
     @Override
     public void onInboxButtonClicked() {
-        IInboxUI iInboxUI = iOrganizerMainUI.goToInboxUI();
+        InboxController inboxController = new InboxController(this.programController);
+        Map<String, String> messageMap = inboxController.getMessagesOfUser(this.authController.fetchLoggedInUser());
+        ArrayList<String> messages = new ArrayList<>();
+        for (String key:messageMap.keySet()) {
+            messages.add(inboxController.getMessageString(key));
+        }
+        IInboxUI iInboxUI = iOrganizerMainUI.goToInboxUI(messages);
         new InboxUIPresenter(iInboxUI, this.programController);
     }
 

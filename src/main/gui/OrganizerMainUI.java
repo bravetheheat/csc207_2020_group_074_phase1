@@ -140,8 +140,8 @@ public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
     }
 
     @Override
-    public IInboxUI goToInboxUI() {
-        InboxUI inboxUI = new InboxUI();
+    public IInboxUI goToInboxUI(ArrayList<String> messages) {
+        InboxUI inboxUI = new InboxUI(messages);
         this.dispose();
         return inboxUI;
     }

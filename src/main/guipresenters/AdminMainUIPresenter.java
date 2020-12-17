@@ -2,12 +2,14 @@ package main.guipresenters;
 
 import com.sun.xml.internal.ws.wsdl.writer.document.Message;
 import main.controllers.AuthController;
+import main.controllers.InboxController;
 import main.controllers.ProgramController;
 import main.gui_interface.*;
 import main.guilisteners.*;
 import main.usecases.UsersManager;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class AdminMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener, MessageButtonListener,
         InboxButtonListener, DataManagementButtonListener, RegisteredEventsButtonListener {
@@ -43,7 +45,13 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
 
     @Override
     public void onInboxButtonClicked() {
-        IInboxUI iInboxUI = iAdminMainUI.goToInboxUI();
+        InboxController inboxController = new InboxController(this.programController);
+        Map<String, String> messageMap = inboxController.getMessagesOfUser(this.authController.fetchLoggedInUser());
+        ArrayList<String> messages = new ArrayList<>();
+        for (String key:messageMap.keySet()) {
+            messages.add(inboxController.getMessageString(key));
+        }
+        IInboxUI iInboxUI = iAdminMainUI.goToInboxUI(messages);
         new InboxUIPresenter(iInboxUI, this.programController);
     }
 

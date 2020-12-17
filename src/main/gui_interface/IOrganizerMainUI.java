@@ -47,6 +47,6 @@ public interface IOrganizerMainUI extends IView {
 
     IOrganizerMessageUI goToOrganizerMessageUI(ArrayList<String> userInfo);
 
-    IInboxUI goToInboxUI();
+    IInboxUI goToInboxUI(ArrayList<String> messages);
 
 }

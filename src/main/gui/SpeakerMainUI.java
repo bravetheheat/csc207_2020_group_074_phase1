@@ -7,6 +7,7 @@ import main.guilisteners.MessageButtonListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
@@ -45,44 +46,58 @@ public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
         listScroller.setPreferredSize(new Dimension(250, 80));
     }
 
+    @Override
     public void addLogoutButtonListener(LogoutButtonListener listener) {
         this.logoutButtonListener = listener;
     }
 
+    @Override
     public void addMessageButtonListener(MessageButtonListener listener) {
         this.messageButtonListener = listener;
     }
 
+    @Override
     public void addInboxButtonListener(InboxButtonListener listener) {
         this.inboxButtonListener = listener;
     }
 
+    @Override
     public void notifyListenerOnLogoutButtonClicked() {
         this.logoutButtonListener.onLogoutButtonClicked();
     }
 
+    @Override
     public void notifyListenerOnMessageButtonClicked() {
         this.messageButtonListener.onMessageButtonClicked();
     }
 
+    @Override
     public void notifyListenerOnInboxButtonClicked() {
         this.inboxButtonListener.onInboxButtonClicked();
     }
 
+    @Override
     public ILandingUI goToLandingUI() {
         LandingUI landingUI = new LandingUI();
         this.dispose();
         return landingUI;
     }
 
+    @Override
     public ISpeakerMessageUI goToSpeakerMessageUI(ArrayList<String> users) {
         SpeakerMessageUI speakerMessageUI = new SpeakerMessageUI(users, this.events);
         this.dispose();
         return speakerMessageUI;
     }
 
-    public IInboxUI goToInboxUI() {
-        InboxUI inboxUI = new InboxUI();
+    @Override
+    public ArrayList<String> getEvents() {
+        return this.events;
+    }
+
+    @Override
+    public IInboxUI goToInboxUI(ArrayList<String> messages, ArrayList<String> events) {
+        InboxUI inboxUI = new InboxUI(messages, events);
         this.dispose();
         return inboxUI;
     }

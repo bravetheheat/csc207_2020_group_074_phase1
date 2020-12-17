@@ -4,6 +4,7 @@ import main.gui_interface.*;
 import main.guilisteners.*;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class AdminMainUI extends JFrame implements IAdminMainUI {
@@ -133,8 +134,8 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
     }
 
     @Override
-    public IInboxUI goToInboxUI() {
-        InboxUI inboxUI = new InboxUI();
+    public IInboxUI goToInboxUI(ArrayList<String> messages) {
+        InboxUI inboxUI = new InboxUI(messages);
         this.dispose();
         return inboxUI;
     }
