@@ -344,6 +344,35 @@ public class EventInfoManager {
         return speakerName;
     }
 
+    public ArrayList<String> listOfSpeakersOfEvent(){
+//        if (event.getType().equals("NoSpeakerEvent")){
+//            return "No speaker";
+//        }
+//        if (event.getSpeakers().size() == 0){
+//            return "No speaker is added yet";
+//        }
+        ArrayList<String> speakerNames = new ArrayList<>();
+        switch (event.getType()){
+            case "OneSpeakerEvent":
+                for (String user : usersManager.getAllUsers()) {
+                    if (this.usersManager.fetchType(user).equals("Speaker") && user.equals(event.getSpeakers().get(0))) {
+                        speakerNames.add(usersManager.fetchUser(user).getUsername());
+                    }
+                }
+                break;
+            case "MultiSpeakerEvent":
+//                int i = 0;
+                for (String user : usersManager.getAllUsers()){
+                    if(this.usersManager.fetchType(user).equals("Speaker") && event.getSpeakers().contains(user)){
+                        speakerNames.add(usersManager.fetchUser(user).getUsername());
+//                        i ++;
+                    }
+                }
+                break;
+        }
+        return speakerNames;
+    }
+
     /**
      * Get Users for a particular Event
      *
