@@ -56,8 +56,6 @@ public class InboxUI extends JFrame implements IInboxUI {
         this.messageList.setLayoutOrientation(JList.VERTICAL);
         this.messageList.setVisibleRowCount(-1);
         this.listScroller.setViewportView(this.messageList);
-        System.out.println(messages);
-        System.out.println(messageList);
     }
 
     @Override

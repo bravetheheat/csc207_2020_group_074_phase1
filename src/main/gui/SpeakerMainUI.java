@@ -11,7 +11,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
-    ArrayList<String> events;
+    private ArrayList<String> events;
     private JPanel panel1;
     private JButton logOutButton;
     private LogoutButtonListener logoutButtonListener;
