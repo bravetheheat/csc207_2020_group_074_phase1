@@ -58,6 +58,9 @@ public class ModifySpeakerUIPresenter
         if (speakerIndices.length == 0) {
             iModifySpeakerUI.modifySpeakerError();
         }
+        else if (eventController.getEventType(eventId).equals("NoSpeakerEvent")) {
+            iModifySpeakerUI.modifySpeakerError();
+        }
         else if (speakerIndices.length == 1 &&
                 eventController.getEventType(eventId).equals("OneSpeakerEvent")) {
             String speakerId = speakers.get(speakerIndices[0]);
@@ -76,13 +79,12 @@ public class ModifySpeakerUIPresenter
                 newSpeakerList.add(speakers.get(index));
             }
             for (String id : newSpeakerList) {
-                if (organizerController.addSpeakerMultiEvent(eventId, id)) {
-                    iModifySpeakerUI.modifySpeakerSuccessful();
-                }
-                else {
+                if (!organizerController.addSpeakerMultiEvent(eventId, id)) {
                     iModifySpeakerUI.modifySpeakerError();
+                    return;
                 }
             }
+            iModifySpeakerUI.modifySpeakerSuccessful();
         }
     }
 
