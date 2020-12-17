@@ -83,16 +83,28 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
                         DateTimeFormatter formatter = DateTimeFormatter.
                                 ofPattern("yyyy-MM-dd HH:mm");
                         LocalDateTime dateTime = LocalDateTime.parse(dateStr, formatter);
-                        organizerController.updateTime(eventId, dateTime);
+                        if (organizerController.updateTime(eventId, dateTime)){
+                            iModifyEventUI.modifyEventSuccessful();
+                        }else{
+                            iModifyEventUI.modifyEventError();
+                        }
                     }
                     if (!capacityStr.equals("")) {
                         int capacity = Integer.parseInt(capacityStr);
-                        organizerController.updateCapacity(eventId, capacity);
+                        if (organizerController.updateCapacity(eventId, capacity)){
+                            iModifyEventUI.modifyEventSuccessful();
+                        }else{
+                            iModifyEventUI.modifyEventError();
+                        }
                     }
                     if (roomNum != -1) {
-                        organizerController.updateRoom(eventId, roomNum);
+                        if (organizerController.updateRoom(eventId, roomNum)){
+                            iModifyEventUI.modifyEventSuccessful();
+                        }else{
+                            iModifyEventUI.modifyEventError();
+                        }
                     }
-                    iModifyEventUI.modifyEventSuccessful();
+
                 }
             } catch (IllegalArgumentException | DateTimeParseException e) {
                 System.out.println("exceptions");

@@ -14,7 +14,7 @@ import java.util.Map;
  * The EventInfoManager modifies info for a particular Event given event id.
  *
  * @author Haoze Huang， Zewen Ma, Yile Xie
- * @version 3.1
+ * @version 4.0
  * @since 2020-10-31
  */
 
@@ -105,16 +105,8 @@ public class EventInfoManager {
      * @return check if user is added
      */
     public boolean addUser(String newUserId) {
-        boolean notFull = false;
-        String roomId = event.getRoomID();
         int eventSize = event.getAttendeesID().size();
-        for (Room r : roomManager.getAllRoomsObject()){
-            //get the room object base on event's room id
-            if (r.getId().equals(roomId)){
-                //check if the room is full
-                notFull = r.getCapacity() >= eventSize;
-            }
-        }
+        boolean notFull = event.getCapacity() > eventSize;
         if ((!event.getAttendeesID().contains(newUserId)) && notFull) {
             event.addAttendees(newUserId);
             return true;
@@ -156,15 +148,15 @@ public class EventInfoManager {
         }
         for (String id : schedule.keySet()) {
             Event e = schedule.get(id);
+            if (e.getId().equals(event.getId())){
+                continue;
+            }
             if (this.checkConflictDate(e, newTime)){
                 //time conflict at same room
                 if ((this.checkConflictTime(e, newTime, duration)) && (e.getRoomID().equals(newRoomId))) {
                     return false;
                 }//speaker conflict at same time
                 else if ((this.checkConflictTime(e, newTime, duration))  && (this.checkConflictSpeaker(e, event))) {
-                    return false;
-                }//check capacity of the new room
-                else if (newCapacity > roomManager.getRoomGivenId(newRoomId).getCapacity()){
                     return false;
                 }
             }
@@ -202,39 +194,38 @@ public class EventInfoManager {
      */
     public boolean checkConflictTime(Event event, LocalDateTime time, int duration){
         LocalDateTime eventTime = event.getTime();
-        int eventDuration = event.getDuration();
-        int eventStartHour = event.getTime().getHour();
-        int eventStartMin = event.getTime().getMinute();
-        int newTimeHour = time.getHour();
-        int newTimeMin = time.getMinute();
-        Map<String, Integer> eventEndTime = this.getEndTime(eventTime, eventDuration);
+        int eventDuration = event.getDuration(); // duration of the event
+        int eventStartHour = event.getTime().getHour(); // StartHour of the event
+        int eventStartMin = event.getTime().getMinute(); // StartMin of the event
+        int newTimeHour = time.getHour(); // StartHour of the new time
+        int newTimeMin = time.getMinute(); // StartMin of the new time
+        Map<String, Integer> eventEndTime = this.getEndTime(eventTime, eventDuration); // get the end time of the event
         int eventHour = eventEndTime.get("hour"); // end hour of the event
         int eventMin = eventEndTime.get("minute"); // end min of the event
         Map<String, Integer> inputEndTime = this.getEndTime(time, duration);
         int inputHour = inputEndTime.get("hour"); // end hour of the input time
         int inputMin = inputEndTime.get("minute"); // end min of the input time
-        if (eventStartHour == newTimeHour){
-            if (inputHour < eventHour){
-                if (inputHour > eventStartHour){
-                    return true;
-                }
-                else{
-                    return inputMin > eventStartMin;
-                }
+        if (eventStartHour == newTimeHour){ // if both start time are the same hour, compare end time
+            if (eventHour <= newTimeHour){ // if event end hour <= new time start hour (cannot < but just in case)
+                return !(eventMin <= newTimeMin); // No conflict if eventMin <= newTimeMin
             }
-            else {
-                return true;
-            }
+            return true;
         }
-        else if (eventStartHour > newTimeHour){
-            if (eventStartHour == inputHour){
-                return inputMin > eventStartMin;
-            }else{
-                return true;
-            }
-        }else{
+        else if (eventStartHour < newTimeHour){
             if (eventHour == newTimeHour){
-                return newTimeMin < eventMin;
+                return !(eventMin <= newTimeMin); // No conflict if eventMin <= newTimeMin
+            }
+            else if (eventHour < newTimeHour){
+                return false;
+            }
+            return true;
+        }
+        else{
+            if (inputHour == eventStartHour){
+                return !(inputMin <= eventStartMin);
+            }
+            else if (inputHour < eventStartHour) {
+                return false;
             }
             return true;
         }
