@@ -1,5 +1,6 @@
 package main.gui_interface;
 
+import main.gui.AdminMainUI;
 import main.gui.OrganizerMainUI;
 import main.guilisteners.*;
 
@@ -31,6 +32,8 @@ public interface IOrganizerMessageUI extends IView {
     String getMessage();
 
     OrganizerMainUI goToOrganizerMainUI();
+
+    AdminMainUI goToAdminMainUI();
 
     JList getUsersList();
 

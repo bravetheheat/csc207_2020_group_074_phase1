@@ -26,6 +26,7 @@ public class AdminUserScreen {
         System.out.println("3. Message");
         System.out.println("4. Inbox");
         System.out.println("5. Data Management");
+        System.out.println("6. Export Event to HTML");
     }
 
     public void prompt2(String input) {

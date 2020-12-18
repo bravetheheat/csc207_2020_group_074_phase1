@@ -3,6 +3,7 @@ package main.guipresenters;
 import main.controllers.AuthController;
 import main.controllers.MessageController;
 import main.controllers.ProgramController;
+import main.gui_interface.IAdminMainUI;
 import main.gui_interface.IOrganizerMainUI;
 import main.gui_interface.IOrganizerMessageUI;
 import main.guilisteners.*;
@@ -47,8 +48,15 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
 
     @Override
     public void onBackButtonClicked() {
-        IOrganizerMainUI iOrganizerMainUI = this.iOrganizerMessageUI.goToOrganizerMainUI();
-        new OrganizerMainUIPresenter(iOrganizerMainUI, this.programController);
+        String type = this.usersManager.fetchType(this.authController.fetchLoggedInUser());
+        if (type == "Organizer") {
+            IOrganizerMainUI iOrganizerMainUI = this.iOrganizerMessageUI.goToOrganizerMainUI();
+            new OrganizerMainUIPresenter(iOrganizerMainUI, this.programController);
+        }
+        else {
+            IAdminMainUI iAdminMainUI = this.iOrganizerMessageUI.goToAdminMainUI();
+            new AdminMainUIPresenter(iAdminMainUI, this.programController);
+        }
     }
 
     @Override
@@ -64,12 +72,11 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
         String message = iOrganizerMessageUI.getMessage();
         if (!users.isEmpty() && message.length() > 0) {
             ArrayList<String> userIDs = new ArrayList<>();
-            UsersManager usersManager = this.programController.getUsersManager();
             for (String user:users) {
                 String username;
                 int i = user.indexOf(",");
                 username = user.substring(i + 2);
-                userIDs.add(usersManager.getIDFromUsername(username));
+                userIDs.add(this.usersManager.getIDFromUsername(username));
             }
             this.messageController.broadCast(this.programController.getAuthController().fetchLoggedInUser(), userIDs, message);
             iOrganizerMessageUI.sendMessageSuccessful();

@@ -2,6 +2,7 @@ package main.guipresenters;
 
 import main.controllers.AuthController;
 import main.controllers.ProgramController;
+import main.gui_interface.IAdminMainUI;
 import main.gui_interface.IAdminUserManagementUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.DeleteUserButtonListener;
@@ -23,7 +24,8 @@ public class AdminUserManagementUIPresenter extends UserManagementUIPresenter
 
     @Override
     public void onBackButtonClicked() {
-        //TODO: complete the method after AdminMainUI is created
+        IAdminMainUI iAdminMainUI = this.iAdminUserManagementUI.goToAdminMainUI();
+        new AdminMainUIPresenter(iAdminMainUI, this.programController);
     }
 
     @Override

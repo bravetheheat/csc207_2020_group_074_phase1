@@ -28,6 +28,7 @@ public class LoginUI extends JFrame implements ILoginUI {
     private AttendeeMainUI attendeeMainUI;
     private OrganizerMainUI organizerMainUI;
     private SpeakerMainUI speakerMainUI;
+    private AdminMainUI adminMainUI;
     private LoginMessageErrorUI loginMessageErrorUI;
 
     public LoginUI() {
@@ -100,6 +101,13 @@ public class LoginUI extends JFrame implements ILoginUI {
         speakerMainUI = new SpeakerMainUI(events);
         this.dispose();
         return speakerMainUI;
+    }
+
+    @Override
+    public AdminMainUI goToAdminMainUI() {
+        adminMainUI = new AdminMainUI();
+        this.dispose();
+        return adminMainUI;
     }
 
     @Override

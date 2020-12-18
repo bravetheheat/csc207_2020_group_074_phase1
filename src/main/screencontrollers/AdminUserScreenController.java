@@ -65,6 +65,9 @@ public class AdminUserScreenController extends ScreenController{
             case "5":
                 nextScreenController  = new GatewayScreenController(this.programController);
                 break;
+            case "6":
+                nextScreenController = new ExportEventScreenController(this.programController);
+                break;
             default:
                 nextScreenController = new AnonymousScreenController(this.programController);
 
