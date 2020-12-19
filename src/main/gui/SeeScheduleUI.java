@@ -4,6 +4,7 @@ import main.gui_interface.ISeeScheduleUI;
 import main.guilisteners.BackButtonListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class SeeScheduleUI extends JFrame implements ISeeScheduleUI {
@@ -19,7 +20,7 @@ public class SeeScheduleUI extends JFrame implements ISeeScheduleUI {
         this.jPanel = new JPanel();
 
         this.setTitle("Available Events");
-        this.setSize(1000, 500);
+        this.setSize(600, 500);
         this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -28,6 +29,8 @@ public class SeeScheduleUI extends JFrame implements ISeeScheduleUI {
         listOfEvents.setVisibleRowCount(20);
         jScrollPane = new JScrollPane(listOfEvents, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane.setPreferredSize(new Dimension(550, 400));
+        jScrollPane.setViewportView(listOfEvents);
         jPanel.add(jScrollPane);
 
 
