@@ -1,9 +1,6 @@
 package main.gui_interface;
 
-import main.gui.AttendeeMainUI;
-import main.gui.DisplayAllEventsUI;
-import main.gui.OrganizerMainUI;
-import main.gui.ViewUserEventsUI;
+import main.gui.*;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.SignUpButtonListener;
 import main.guilisteners.ViewEventsButtonListener;
@@ -18,4 +15,5 @@ public interface IEventSignUpUI extends IView {
     OrganizerMainUI goToOrganizerMainUI();
     DisplayAllEventsUI goToDisplayAllEventsUI(ArrayList<String> listOfEvents);
     ViewUserEventsUI goToViewUserEventsUI(ArrayList<String> listOfUserEvents);
+    AdminMainUI goToAdminMainUI();
 }

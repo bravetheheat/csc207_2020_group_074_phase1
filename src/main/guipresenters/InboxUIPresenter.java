@@ -21,6 +21,7 @@ public class InboxUIPresenter implements BackButtonListener {
 
     @Override
     public void onBackButtonClicked() {
+        programController.saveForNext();
         switch (this.usersManager.fetchType(this.authController.fetchLoggedInUser())) {
             case "Attendee":
                 IAttendeeMainUI iAttendeeMainUI = this.iInboxUI.goToAttendeeMainUI();

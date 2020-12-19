@@ -4,13 +4,14 @@ import main.gui_interface.ISeeRoomsUI;
 import main.guilisteners.BackButtonListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 @SuppressWarnings("FieldCanBeLocal")
 
 public class SeeRoomsUI extends JFrame implements ISeeRoomsUI {
     private JPanel jPanel;
-    private JList<Object> listOfEvents;
+    private JList<Object> listOfRooms;
     private JScrollPane jScrollPane;
     private JButton backButton;
     private BackButtonListener backButtonListener;
@@ -21,13 +22,16 @@ public class SeeRoomsUI extends JFrame implements ISeeRoomsUI {
 
         this.setTitle("Available Rooms");
         this.setSize(600, 500);
+        this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
-        listOfEvents = new JList<>(listOfRoomsInfo.toArray());
-        listOfEvents.setVisibleRowCount(20);
-        jScrollPane = new JScrollPane(listOfEvents, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        listOfRooms = new JList<>(listOfRoomsInfo.toArray());
+        listOfRooms.setVisibleRowCount(20);
+        jScrollPane = new JScrollPane(listOfRooms, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane.setPreferredSize(new Dimension(550, 400));
+        jScrollPane.setViewportView(listOfRooms);
         jPanel.add(jScrollPane);
 
 

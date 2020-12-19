@@ -1,6 +1,5 @@
 package main.guipresenters;
 
-import com.sun.xml.internal.ws.wsdl.writer.document.Message;
 import main.controllers.AuthController;
 import main.controllers.InboxController;
 import main.controllers.ProgramController;
@@ -32,6 +31,7 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
 
     @Override
     public void onLogoutButtonClicked() {
+        programController.saveForNext();
         this.authController.logout();
         ILandingUI ilandingUI = iAdminMainUI.goToLandingUI();
         new LandingUIPresenter(ilandingUI, this.programController);

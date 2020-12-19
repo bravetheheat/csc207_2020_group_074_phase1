@@ -25,14 +25,13 @@ public class AdminUserManagementUI extends UserManagementUI implements IAdminUse
     private GetUserListButtonListener getUserListButtonListener;
 
     public AdminUserManagementUI() {
-        super();
         this.setTitle("Admin User Management");
-//        this.setSize(600, 500);
-//        this.setContentPane(panel1);
-//
-//        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        this.setLocationRelativeTo(null);
-//        this.setVisible(true);
+        this.setSize(600, 500);
+        this.setContentPane(panel1);
+
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
 
         confirmButton.addActionListener(e -> notifyListenerOnConfirmButtonClicked());
 

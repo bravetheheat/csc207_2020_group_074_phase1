@@ -38,15 +38,16 @@ public class RegisterUIPresenter implements RegisterUIListener, BackButtonListen
                 iRegisterMessageErrorUI = iRegisterUI.goToErrorUI();
                 new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
             }
-            else if (!userType.equals("Attendee") && !userType.equals("Organizer")) {
+            else if (!userType.equalsIgnoreCase("Attendee") && !userType.equalsIgnoreCase("Organizer") &&
+                    !userType.equalsIgnoreCase("Admin")) {
                 iRegisterMessageErrorUI = iRegisterUI.goToErrorUI();
-                new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
+                new RegisterMessageErrorPresenter(iRegisterMessageErrorUI,
+                        programController);
             }
             else {
                 boolean success = this.authController.registerUser(
                         username, password, userType);
                 if (!success) {
-                    programController.saveForNext();
                     iRegisterMessageErrorUI = iRegisterUI.goToErrorUI();
                     new RegisterMessageErrorPresenter(iRegisterMessageErrorUI, programController);
                 } else {

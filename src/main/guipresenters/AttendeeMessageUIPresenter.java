@@ -27,6 +27,7 @@ public class AttendeeMessageUIPresenter implements BackButtonListener, SendButto
 
     @Override
     public void onBackButtonClicked() {
+        programController.saveForNext();
         IAttendeeMainUI iAttendeeMainUI = iAttendeeMessageUI.goToAttendeeMainUI();
         new AttendeeMainUIPresenter(iAttendeeMainUI, this.programController);
     }
@@ -42,6 +43,7 @@ public class AttendeeMessageUIPresenter implements BackButtonListener, SendButto
             username = user.substring(i + 2);
             String userID = usersManager.getIDFromUsername(username);
             this.messageController.sendMessage(this.programController.getAuthController().fetchLoggedInUser(), userID, message);
+            programController.saveForNext();
             iAttendeeMessageUI.sendMessageSuccessful();
         }
         else {

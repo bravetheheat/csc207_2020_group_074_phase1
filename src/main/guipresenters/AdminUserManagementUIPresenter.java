@@ -19,6 +19,9 @@ public class AdminUserManagementUIPresenter extends UserManagementUIPresenter
         this.programController = programController;
         this.authController = this.programController.getAuthController();
         this.iAdminUserManagementUI = adminUserManagementUI;
+        iAdminUserManagementUI.addBackButtonListener(this);
+        iAdminUserManagementUI.addGetUserListButtonListener(this);
+        iAdminUserManagementUI.addUserManagementButtonListener(this);
         iAdminUserManagementUI.addDeleteUserButtonListener(this);
     }
 
