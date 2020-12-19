@@ -20,6 +20,7 @@ public class ListOfUsersUI extends JFrame implements IListOfUsersUI {
     private JButton backButton;
     private BackButtonListener backButtonListener;
     private UserManagementUI userManagementUI;
+    private AdminUserManagementUI adminUserManagementUI;
 
     public ListOfUsersUI(ArrayList<String> listOfUserInfo) {
         jPanel = new JPanel();
@@ -66,5 +67,11 @@ public class ListOfUsersUI extends JFrame implements IListOfUsersUI {
         userManagementUI = new UserManagementUI();
         this.dispose();
         return userManagementUI;
+    }
+
+    public AdminUserManagementUI goToAdminUserManagementUI() {
+        adminUserManagementUI = new AdminUserManagementUI();
+        this.dispose();
+        return adminUserManagementUI;
     }
 }

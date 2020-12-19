@@ -23,6 +23,7 @@ public class EventSignUpUIPresenter implements SignUpButtonListener,
     private IViewUserEventsUI iViewUserEventsUI;
     private IAttendeeMainUI iAttendeeMainUI;
     private IOrganizerMainUI iOrganizerMainUI;
+    private IAdminMainUI iAdminMainUI;
 
 
     public EventSignUpUIPresenter(IEventSignUpUI iEventSignUpUI, ProgramController programController) {
@@ -55,15 +56,24 @@ public class EventSignUpUIPresenter implements SignUpButtonListener,
     @Override
     public void onBackButtonClicked() {
         String userType = this.authController.getUserType();
-        if (userType.equals("Attendee")) {
-            programController.saveForNext();
-            iAttendeeMainUI = iEventSignUpUI.goToAttendeeMainUI();
-            new AttendeeMainUIPresenter(iAttendeeMainUI, programController);
-        }
-        else {
-            programController.saveForNext();
-            iOrganizerMainUI = iEventSignUpUI.goToOrganizerMainUI();
-            new OrganizerMainUIPresenter(iOrganizerMainUI, programController);
+        switch (userType) {
+            case "Attendee":
+                programController.saveForNext();
+                iAttendeeMainUI = iEventSignUpUI.goToAttendeeMainUI();
+                new AttendeeMainUIPresenter(iAttendeeMainUI, programController);
+                break;
+            case "Organizer":
+                programController.saveForNext();
+                iOrganizerMainUI = iEventSignUpUI.goToOrganizerMainUI();
+                new OrganizerMainUIPresenter(iOrganizerMainUI, programController);
+                break;
+            case "Admin":
+                programController.saveForNext();
+                iAdminMainUI = iEventSignUpUI.goToAdminMainUI();
+                new AdminMainUIPresenter(iAdminMainUI, programController);
+                break;
+            default:
+                break;
         }
     }
 }

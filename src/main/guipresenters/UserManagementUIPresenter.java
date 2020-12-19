@@ -23,6 +23,10 @@ public class UserManagementUIPresenter implements UserManagementButtonListener,
     IOrganizerMainUI iOrganizerMainUI;
     IListOfUsersUI iListOfUsersUI;
 
+    public UserManagementUIPresenter() {
+
+    }
+
     public UserManagementUIPresenter(IUserManagementUI userManagementUI,
                                      ProgramController programController) {
         this.programController = programController;

@@ -36,6 +36,7 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
     public void onAllAttendeesButtonClicked() {
         String message = this.iOrganizerMessageUI.getMessage();
         this.messageController.broadCastToAttendees(this.authController.fetchLoggedInUser(), message);
+        programController.saveForNext();
         iOrganizerMessageUI.sendMessageSuccessful();
     }
 
@@ -43,18 +44,21 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
     public void onAllSpeakersButtonClicked() {
         String message = this.iOrganizerMessageUI.getMessage();
         this.messageController.broadCastToSpeakers(this.authController.fetchLoggedInUser(), message);
+        programController.saveForNext();
         iOrganizerMessageUI.sendMessageSuccessful();
     }
 
     @Override
     public void onBackButtonClicked() {
         String type = this.usersManager.fetchType(this.authController.fetchLoggedInUser());
-        if (type == "Organizer") {
+        if (type.equals("Organizer")) {
             IOrganizerMainUI iOrganizerMainUI = this.iOrganizerMessageUI.goToOrganizerMainUI();
+            programController.saveForNext();
             new OrganizerMainUIPresenter(iOrganizerMainUI, this.programController);
         }
         else {
             IAdminMainUI iAdminMainUI = this.iOrganizerMessageUI.goToAdminMainUI();
+            programController.saveForNext();
             new AdminMainUIPresenter(iAdminMainUI, this.programController);
         }
     }
@@ -63,6 +67,7 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
     public void onEveryoneButtonClicked() {
         String message = this.iOrganizerMessageUI.getMessage();
         this.messageController.broadCastToAll(this.authController.fetchLoggedInUser(), message);
+        programController.saveForNext();
         iOrganizerMessageUI.sendMessageSuccessful();
     }
 
@@ -79,6 +84,7 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
                 userIDs.add(this.usersManager.getIDFromUsername(username));
             }
             this.messageController.broadCast(this.programController.getAuthController().fetchLoggedInUser(), userIDs, message);
+            programController.saveForNext();
             iOrganizerMessageUI.sendMessageSuccessful();
         }
         else {

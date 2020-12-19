@@ -22,6 +22,7 @@ public class EventSignUpUI extends JFrame implements IEventSignUpUI {
     private BackButtonListener backButtonListener;
     private DisplayAllEventsUI displayAllEventsUI;
     private ViewUserEventsUI viewUserEventsUI;
+    private AdminMainUI adminMainUI;
 
     public EventSignUpUI() {
         this.setTitle("Sign Up or Cancel Events");
@@ -91,5 +92,11 @@ public class EventSignUpUI extends JFrame implements IEventSignUpUI {
         viewUserEventsUI = new ViewUserEventsUI(listOfUserEvents);
         this.dispose();
         return viewUserEventsUI;
+    }
+
+    public AdminMainUI goToAdminMainUI() {
+        adminMainUI = new AdminMainUI();
+        this.dispose();
+        return adminMainUI;
     }
 }

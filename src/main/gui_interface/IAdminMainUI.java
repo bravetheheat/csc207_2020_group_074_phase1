@@ -16,7 +16,7 @@ public interface IAdminMainUI extends IView {
 
     void addInboxButtonListener(InboxButtonListener listener);
 
-    void addDataManagementButtonListener(DataManagementButtonListener listener);
+//    void addDataManagementButtonListener(DataManagementButtonListener listener);
 
     void notifyListenerOnLogoutButtonClicked();
 
@@ -28,7 +28,7 @@ public interface IAdminMainUI extends IView {
 
     void notifyListenerOnInboxButtonClicked();
 
-    void notifyListenerOnDataManagementButtonClicked();
+//    void notifyListenerOnDataManagementButtonClicked();
 
     ILandingUI goToLandingUI();
 

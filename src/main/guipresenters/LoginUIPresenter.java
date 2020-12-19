@@ -75,6 +75,7 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
                         programController.saveForNext();
                         iAdminMainUI = iLoginUI.goToAdminMainUI();
                         new AdminMainUIPresenter(iAdminMainUI, programController);
+                        break;
                     default:
                         iLoginMessageErrorUI = iLoginUI.goToLoginMessageErrorUI();
                         new LoginMessageErrorPresenter(iLoginMessageErrorUI,
