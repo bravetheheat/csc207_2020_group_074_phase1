@@ -41,6 +41,18 @@ public class AdminUserManagementUI extends UserManagementUI implements IAdminUse
         deleteButton.addActionListener(e -> notifyListenerOnDeleteUserButtonClicked());
     }
 
+    public String getUserType() {
+        return userTypeField.getText();
+    }
+
+    public String getUserName() {
+        return usernameField.getText();
+    }
+
+    public String getPwd() {
+        return String.valueOf(passwordField.getPassword());
+    }
+
     public String getDeletedUser() {
         return userNameRemovedField.getText();
     }
@@ -64,6 +76,18 @@ public class AdminUserManagementUI extends UserManagementUI implements IAdminUse
         deleteUserButtonListener = listener;
     }
 
+    public void notifyListenerOnBackButtonClicked() {
+        backButtonListener.onBackButtonClicked();
+    }
+
+    public void notifyListenerOnConfirmButtonClicked() {
+        userManagementButtonListener.onUserManagementButtonClicked();
+    }
+
+    public void notifyListenerOnGetUserListButtonClicked() {
+        getUserListButtonListener.onGetUserListButtonClicked();
+    }
+
     public void notifyListenerOnDeleteUserButtonClicked() {
         deleteUserButtonListener.onDeleteUserButtonClicked();
     }
@@ -85,5 +109,6 @@ public class AdminUserManagementUI extends UserManagementUI implements IAdminUse
         this.dispose();
         return adminMainUI;
     }
+
 
 }
