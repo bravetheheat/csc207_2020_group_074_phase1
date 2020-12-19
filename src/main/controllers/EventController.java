@@ -71,7 +71,8 @@ public class EventController {
     }
 
    /**
-     * Return a list of eventIds of events that the user signed up
+     * Return a list of eventIds of events that the user signed up.
+     * Author: Zewen Ma
      * @param userId of the user
      * @return a list of signed up eventIds
      */
