@@ -4,7 +4,6 @@ import main.gui_interface.*;
 import main.guilisteners.*;
 
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class AdminMainUI extends JFrame implements IAdminMainUI {
@@ -19,7 +18,7 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
     private MessageButtonListener messageButtonListener;
     private JButton inboxButton;
     private InboxButtonListener inboxButtonListener;
-    private JButton dataManagementButton;
+//    private JButton dataManagementButton;
     private DataManagementButtonListener dataManagementButtonListener;
 
     public AdminMainUI() {
@@ -35,7 +34,7 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
         this.registeredEventsButton.addActionListener(e -> notifyListenerOnRegisteredEventsButtonClicked());
         this.messageButton.addActionListener(e -> notifyListenerOnMessageButtonClicked());
         this.inboxButton.addActionListener(e -> notifyListenerOnInboxButtonClicked());
-        this.dataManagementButton.addActionListener(e -> notifyListenerOnDataManagementButtonClicked());
+//        this.dataManagementButton.addActionListener(e -> notifyListenerOnDataManagementButtonClicked());
     }
 
     @Override
@@ -63,10 +62,10 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
         this.inboxButtonListener = listener;
     }
 
-    @Override
-    public void addDataManagementButtonListener(DataManagementButtonListener listener) {
-        this.dataManagementButtonListener = listener;
-    }
+//    @Override
+//    public void addDataManagementButtonListener(DataManagementButtonListener listener) {
+//        this.dataManagementButtonListener = listener;
+//    }
 
     @Override
     public void notifyListenerOnLogoutButtonClicked() {
@@ -93,10 +92,10 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
         this.inboxButtonListener.onInboxButtonClicked();
     }
 
-    @Override
-    public void notifyListenerOnDataManagementButtonClicked() {
-        this.dataManagementButtonListener.onDataManagementButtonClicked();
-    }
+//    @Override
+//    public void notifyListenerOnDataManagementButtonClicked() {
+//        this.dataManagementButtonListener.onDataManagementButtonClicked();
+//    }
 
     @Override
     public ILandingUI goToLandingUI() {

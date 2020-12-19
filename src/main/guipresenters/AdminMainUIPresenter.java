@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class AdminMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener, MessageButtonListener,
-        InboxButtonListener, DataManagementButtonListener, RegisteredEventsButtonListener {
+        InboxButtonListener, RegisteredEventsButtonListener {
 
     private IAdminMainUI iAdminMainUI;
     private ProgramController programController;
@@ -26,7 +26,7 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
         this.iAdminMainUI.addRegisteredEventsButtonListener(this);
         this.iAdminMainUI.addMessageButtonListener(this);
         this.iAdminMainUI.addInboxButtonListener(this);
-        this.iAdminMainUI.addDataManagementButtonListener(this);
+//        this.iAdminMainUI.addDataManagementButtonListener(this);
     }
 
     @Override
@@ -37,11 +37,11 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
         new LandingUIPresenter(ilandingUI, this.programController);
     }
 
-    @Override
-    public void onDataManagementButtonClicked() {
-        IGatewayUI iGatewayUI = iAdminMainUI.goToGatewayUI();
-        new GatewayUIPresenter(iGatewayUI, this.programController);
-    }
+//    @Override
+//    public void onDataManagementButtonClicked() {
+//        IGatewayUI iGatewayUI = iAdminMainUI.goToGatewayUI();
+//        new GatewayUIPresenter(iGatewayUI, this.programController);
+//    }
 
     @Override
     public void onInboxButtonClicked() {
