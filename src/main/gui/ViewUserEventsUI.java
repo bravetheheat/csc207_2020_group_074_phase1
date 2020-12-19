@@ -5,6 +5,7 @@ import main.guilisteners.BackButtonListener;
 import main.guilisteners.CancelEventButtonListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 @SuppressWarnings("FieldCanBeLocal")
@@ -24,7 +25,7 @@ public class ViewUserEventsUI extends JFrame implements IViewUserEventsUI {
         this.jPanel = new JPanel();
 
         this.setTitle("Your Events");
-        this.setSize(900, 500);
+        this.setSize(600, 500);
         this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -33,6 +34,8 @@ public class ViewUserEventsUI extends JFrame implements IViewUserEventsUI {
         listOfEvents.setVisibleRowCount(20);
         jScrollPane = new JScrollPane(listOfEvents, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane.setPreferredSize(new Dimension(550, 400));
+        jScrollPane.setViewportView(listOfEvents);
         jPanel.add(jScrollPane);
 
         cancelEventButton = new JButton("Cancel Event");

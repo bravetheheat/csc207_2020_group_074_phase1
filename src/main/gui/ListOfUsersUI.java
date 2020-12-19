@@ -4,6 +4,7 @@ import main.gui_interface.IListOfUsersUI;
 import main.guilisteners.BackButtonListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +24,7 @@ public class ListOfUsersUI extends JFrame implements IListOfUsersUI {
     public ListOfUsersUI(ArrayList<String> listOfUserInfo) {
         jPanel = new JPanel();
 
-        setSize(800, 500);
+        setSize(600, 500);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -35,6 +36,8 @@ public class ListOfUsersUI extends JFrame implements IListOfUsersUI {
         userList.setVisibleRowCount(20);
         jScrollPane = new JScrollPane(userList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane.setPreferredSize(new Dimension(550, 400));
+        jScrollPane.setViewportView(userList);
         jPanel.add(jScrollPane);
 
 
@@ -65,5 +68,3 @@ public class ListOfUsersUI extends JFrame implements IListOfUsersUI {
         return userManagementUI;
     }
 }
-
-
