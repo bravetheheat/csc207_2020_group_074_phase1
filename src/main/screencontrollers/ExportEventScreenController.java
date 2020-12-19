@@ -1,7 +1,6 @@
 package main.screencontrollers;
 
-import main.controllers.OrganizerController;
-import main.controllers.ProgramController;
+import main.controllers.*;
 import main.usecases.EventsManager;
 import main.entities.Event;
 import main.presenters.ExportEventScreen;
@@ -9,11 +8,19 @@ import main.usecases.UsersManager;
 import main.export.HTMLExport;
 import java.util.*;
 
+/**
+ * The ExportEventScreenController is a controller class that tell ExportEventScreen what to display
+ *
+ * @author Leyi Wang
+ * @version 1.0
+ */
+
 public class ExportEventScreenController extends ScreenController{
     ExportEventScreen presenter;
     OrganizerController organizerController;
     UsersManager usersManager;
     EventsManager eventsManager;
+    EventController eventController;
 
     /**
      * Constructor for EventsManagementScreenController
@@ -26,6 +33,7 @@ public class ExportEventScreenController extends ScreenController{
         presenter = new ExportEventScreen();
         usersManager = programController.getUsersManager();
         eventsManager = programController.getEventsManager();
+        eventController = programController.getEventController();
     }
 
     /**
@@ -55,6 +63,9 @@ public class ExportEventScreenController extends ScreenController{
         }
     }
 
+    /**
+     * Export event schedule based off the inputs of username
+     */
     public boolean exportEvent(){
         presenter.exportEventOption();
         String username = scanner.nextLine();
@@ -62,7 +73,16 @@ public class ExportEventScreenController extends ScreenController{
         if (userId.equals("")){
             return false;
         }
-        List<Event> eventList = this.eventsManager.getUserEventsObj(userId);
+
+        ArrayList<String> ids = this.eventsManager.getUserEvents(userId);
+        Map<String, Event> schedule = this.eventsManager.getSchedule();
+        List<Event> eventList = new ArrayList<Event>();
+        for(String id : ids){
+            eventList.add(schedule.get(id));
+        }
+        if (eventList.isEmpty()){
+            return false;
+        }
         HTMLExport export = new HTMLExport();
         export.exportEvents(eventList);
         return true;
