@@ -1,6 +1,7 @@
 package main.guipresenters;
 
 import main.controllers.AuthController;
+import main.controllers.InboxController;
 import main.controllers.ProgramController;
 import main.gui_interface.*;
 import main.guilisteners.InboxButtonListener;
@@ -10,6 +11,7 @@ import main.guilisteners.RegisterForEventsButtonListener;
 import main.usecases.UsersManager;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class AttendeeMainUIPresenter implements LogoutButtonListener, RegisterForEventsButtonListener, MessageButtonListener, InboxButtonListener {
 
@@ -29,7 +31,13 @@ public class AttendeeMainUIPresenter implements LogoutButtonListener, RegisterFo
 
     @Override
     public void onInboxButtonClicked() {
-        IInboxUI iInboxUI = iAttendeeMainUI.goToInboxUI();
+        InboxController inboxController = new InboxController(this.programController);
+        Map<String, String> messageMap = inboxController.getMessagesOfUser(this.authController.fetchLoggedInUser());
+        ArrayList<String> messages = new ArrayList<>();
+        for (String key:messageMap.keySet()) {
+            messages.add(inboxController.getMessageString(key));
+        }
+        IInboxUI iInboxUI = iAttendeeMainUI.goToInboxUI(messages);
         new InboxUIPresenter(iInboxUI, this.programController);
     }
 

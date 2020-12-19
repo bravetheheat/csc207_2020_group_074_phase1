@@ -7,24 +7,22 @@ import javax.swing.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
+public class AdminMainUI extends JFrame implements IAdminMainUI {
     private JPanel panel1;
     private JButton logOutButton;
-    private JButton userManagementButton;
-    private JButton manageEventRoomButton;
-    private JButton registeredEventsButton;
-    private JButton messageButton;
-    private JButton inboxButton;
-    private JButton dataManagementButton;
     private LogoutButtonListener logoutButtonListener;
+    private JButton userManagementButton;
     private UserManagementButtonListener userManagementButtonListener;
-    private ManageEventRoomButtonListener manageEventRoomButtonListener;
+    private JButton registeredEventsButton;
     private RegisteredEventsButtonListener registeredEventsButtonListener;
+    private JButton messageButton;
     private MessageButtonListener messageButtonListener;
+    private JButton inboxButton;
     private InboxButtonListener inboxButtonListener;
+    private JButton dataManagementButton;
     private DataManagementButtonListener dataManagementButtonListener;
 
-    public OrganizerMainUI() {
+    public AdminMainUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 500);
         this.setTitle("Program X");
@@ -34,65 +32,68 @@ public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
 
         this.logOutButton.addActionListener(e -> notifyListenerOnLogoutButtonClicked());
         this.userManagementButton.addActionListener(e -> notifyListenerOnUserManagementButtonClicked());
-        this.manageEventRoomButton.addActionListener(e -> notifyListenerOnManageEventRoomButtonClicked());
         this.registeredEventsButton.addActionListener(e -> notifyListenerOnRegisteredEventsButtonClicked());
         this.messageButton.addActionListener(e -> notifyListenerOnMessageButtonClicked());
         this.inboxButton.addActionListener(e -> notifyListenerOnInboxButtonClicked());
         this.dataManagementButton.addActionListener(e -> notifyListenerOnDataManagementButtonClicked());
     }
 
+    @Override
     public void addLogoutButtonListener(LogoutButtonListener listener) {
         this.logoutButtonListener = listener;
     }
 
+    @Override
     public void addUserManagementButtonListener(UserManagementButtonListener listener) {
         this.userManagementButtonListener = listener;
     }
 
-    public void addManageEventRoomButtonListener(ManageEventRoomButtonListener listener) {
-        this.manageEventRoomButtonListener = listener;
-    }
-
+    @Override
     public void addRegisteredEventsButtonListener(RegisteredEventsButtonListener listener) {
         this.registeredEventsButtonListener = listener;
     }
 
+    @Override
     public void addMessageButtonListener(MessageButtonListener listener) {
         this.messageButtonListener = listener;
     }
 
+    @Override
     public void addInboxButtonListener(InboxButtonListener listener) {
         this.inboxButtonListener = listener;
     }
 
+    @Override
     public void addDataManagementButtonListener(DataManagementButtonListener listener) {
         this.dataManagementButtonListener = listener;
     }
 
+    @Override
     public void notifyListenerOnLogoutButtonClicked() {
         this.logoutButtonListener.onLogoutButtonClicked();
     }
 
+    @Override
     public void notifyListenerOnUserManagementButtonClicked() {
         this.userManagementButtonListener.onUserManagementButtonClicked();
     }
 
-    public void notifyListenerOnManageEventRoomButtonClicked() {
-        this.manageEventRoomButtonListener.onManageEventRoomButtonClicked();
-    }
-
+    @Override
     public void notifyListenerOnRegisteredEventsButtonClicked() {
         this.registeredEventsButtonListener.onRegisteredEventsButtonClicked();
     }
 
+    @Override
     public void notifyListenerOnMessageButtonClicked() {
         this.messageButtonListener.onMessageButtonClicked();
     }
 
+    @Override
     public void notifyListenerOnInboxButtonClicked() {
         this.inboxButtonListener.onInboxButtonClicked();
     }
 
+    @Override
     public void notifyListenerOnDataManagementButtonClicked() {
         this.dataManagementButtonListener.onDataManagementButtonClicked();
     }
@@ -112,13 +113,6 @@ public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
     }
 
     @Override
-    public IEventsManagementUI goToEventsManagementUI() {
-        EventsManagementUI eventsManagementUI = new EventsManagementUI();
-        this.dispose();
-        return eventsManagementUI;
-    }
-
-    @Override
     public IGatewayUI goToGatewayUI() {
         GatewayUI gatewayUI = new GatewayUI();
         this.dispose();
@@ -126,10 +120,10 @@ public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
     }
 
     @Override
-    public IUserManagementUI goToUserManagementUI() {
-        UserManagementUI userManagementUI = new UserManagementUI();
+    public IAdminUserManagementUI goToAdminUserManagementUI() {
+        AdminUserManagementUI adminUserManagementUI = new AdminUserManagementUI();
         this.dispose();
-        return userManagementUI;
+        return adminUserManagementUI;
     }
 
     @Override

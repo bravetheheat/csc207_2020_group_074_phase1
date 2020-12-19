@@ -8,6 +8,8 @@ import main.gui_interface.IViewUserEventsUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.CancelEventButtonListener;
 
+import java.util.ArrayList;
+
 @SuppressWarnings("FieldCanBeLocal")
 
 public class ViewUserEventsUIPresenter
@@ -40,13 +42,15 @@ public class ViewUserEventsUIPresenter
     public void onCancelEventButtonClicked() {
         String userId = authController.fetchLoggedInUser();
         try {
-            if (eventController.getSignupEvents(userId).size() > 0) {
+            if (eventController.getUserEventIds(userId).size() > 0) {
                 int eventIndex = iViewUserEventsUI.getEventIndexFromList();
                 if (eventIndex < 0) {
                     iViewUserEventsUI.cancelNewEventError();
                     return;
                 }
-                String eventId = eventController.getEventId(eventIndex);
+                ArrayList<String> attendeesEvents = eventController.getUserEventIds(userId);
+                String eventId = attendeesEvents.get(eventIndex);
+//                String eventId = eventController.getEventId(eventIndex);
                 if (eventController.cancelEvent(eventId, userId)) {
                     iViewUserEventsUI.cancelNewEventSuccessful();
                 } else {
