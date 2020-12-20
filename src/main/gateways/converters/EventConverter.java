@@ -10,7 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Implementation of Converter that serializes and deserializes Event
+ * Serializes and de-serializes Event entities to and from EventBean objects
+ * An implementation of Converter
  *
  * @author David Zhao
  */

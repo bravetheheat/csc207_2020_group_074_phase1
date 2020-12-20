@@ -4,56 +4,57 @@ import main.entities.Inbox;
 import main.gateways.beans.InboxBean;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Serializes and de-serializes Inbox entities to and from InboxBean objects
+ * An implementation of Converter
+ */
 public class InboxConverter implements Converter<InboxBean, Inbox> {
 
 
     public List<Inbox> convertFromBeans(List<InboxBean> inboxBeans) {
-        Map<String, Inbox> inboxes = new HashMap<>();
-
+        List<Inbox> inboxes = new ArrayList<>();
         for (InboxBean inboxBean : inboxBeans) {
 
-            Inbox currentInbox = inboxes.get(inboxBean.getId());
-            if (currentInbox == null) {
-                currentInbox = new Inbox();
-                currentInbox.setId(inboxBean.getId());
-                currentInbox.setUser(inboxBean.getUser());
-                inboxes.put(currentInbox.getId(), currentInbox);
+            Inbox inbox = new Inbox();
+            inbox.setId(inboxBean.getId());
+            inbox.setUser(inboxBean.getUser());
+            inbox.setMessages(this.convertListFromString(inboxBean.getMessageID()));
+            inboxes.add(inbox);
 
-            }
-            currentInbox.addMessage(inboxBean.getMessageID());
         }
-        List<Inbox> inboxList = new ArrayList<>();
-        inboxList.addAll(inboxes.values());
-        return inboxList;
+        return inboxes;
 
     }
 
     public List<InboxBean> convertToBeans(List<Inbox> inboxes) {
-        List<InboxBean> inboxBeanList = new ArrayList<>();
-        for (Inbox inbox : inboxes) {
-            if (inbox.getMessages().size() > 0) {
-                for (String messageID : inbox.getMessages()) {
-                    InboxBean inboxBean = new InboxBean();
-                    inboxBean.setId(inbox.getId());
-                    inboxBean.setUser(inbox.getUser());
-                    inboxBean.setMessageID(messageID);
-                    inboxBeanList.add(inboxBean);
-                }
-            } else {
+       List<InboxBean> inboxBeans = new ArrayList();
 
-                InboxBean inboxBean = new InboxBean();
-                inboxBean.setId(inbox.getId());
-                inboxBean.setUser(inbox.getUser());
-                inboxBeanList.add(inboxBean);
-            }
-        }
+       for (Inbox inbox : inboxes) {
+           InboxBean inboxBean = new InboxBean();
+           inboxBean.setId(inbox.getId());
+           inboxBean.setUser(inbox.getUser());
+           inboxBean.setMessageID(this.convertListToString(inbox.getMessages()));
+           inboxBeans.add(inboxBean);
+       }
 
-        return inboxBeanList;
+        return inboxBeans;
 
+    }
+
+    private String convertListToString(List<String> list) {
+
+        String string = String.join("|", list);
+        return string;
+    }
+
+    private List<String> convertListFromString(String string) {
+
+        List<String> list = new ArrayList<>(Arrays.asList(string.split("[\\|]", -1)));
+
+        return list;
     }
 
 

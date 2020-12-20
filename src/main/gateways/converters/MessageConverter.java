@@ -8,6 +8,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Serializes and de-serializes Message entities to and from MessageBean objects
+ * An implementation of Converter
+ */
 public class MessageConverter implements Converter<MessageBean, Message> {
 
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
