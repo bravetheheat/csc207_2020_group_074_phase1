@@ -90,7 +90,7 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
     public void onSendButtonClicked() {
         ArrayList<String> users = new ArrayList<>(this.iOrganizerMessageUI.getUsersList().getSelectedValuesList());
         String message = iOrganizerMessageUI.getMessage();
-        if (!users.isEmpty() && message.length() > 0) {
+        if (!users.isEmpty() && !(message.equals(""))) {
             ArrayList<String> userIDs = new ArrayList<>();
             for (String user:users) {
                 String username;
@@ -98,7 +98,8 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
                 username = user.substring(i + 2);
                 userIDs.add(this.usersManager.getIDFromUsername(username));
             }
-            this.messageController.broadCast(this.programController.getAuthController().fetchLoggedInUser(), userIDs, message);
+            this.messageController.broadCast(this.programController.getAuthController().fetchLoggedInUser(),
+                    userIDs, message);
             programController.saveForNext();
             iOrganizerMessageUI.sendMessageSuccessful();
         }

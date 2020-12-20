@@ -2,6 +2,7 @@ package main.guipresenters;
 
 import main.controllers.AuthController;
 import main.controllers.InboxController;
+import main.controllers.MessageController;
 import main.controllers.ProgramController;
 import main.gui_interface.*;
 import main.guilisteners.*;
@@ -11,8 +12,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener,
-        ManageEventRoomButtonListener, RegisteredEventsButtonListener, MessageButtonListener, InboxButtonListener,
-        DataManagementButtonListener {
+        ManageEventRoomButtonListener, RegisteredEventsButtonListener, MessageButtonListener, InboxButtonListener {
 
     private IOrganizerMainUI iOrganizerMainUI;
     private ProgramController programController;
@@ -28,7 +28,6 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
         this.iOrganizerMainUI.addRegisteredEventsButtonListener(this);
         this.iOrganizerMainUI.addMessageButtonListener(this);
         this.iOrganizerMainUI.addInboxButtonListener(this);
-        this.iOrganizerMainUI.addDataManagementButtonListener(this);
     }
 
     @Override
@@ -39,18 +38,12 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
     }
 
     @Override
-    public void onDataManagementButtonClicked() {
-        IGatewayUI iGatewayUI = iOrganizerMainUI.goToGatewayUI();
-        new GatewayUIPresenter(iGatewayUI, this.programController);
-    }
-
-    @Override
     public void onInboxButtonClicked() {
         InboxController inboxController = new InboxController(this.programController);
         Map<String, String> messageMap = inboxController.getMessagesOfUser(this.authController.fetchLoggedInUser());
         ArrayList<String> messages = new ArrayList<>();
-        for (String key:messageMap.keySet()) {
-            messages.add(inboxController.getMessageString(key));
+        for (Map.Entry<String, String> entry : messageMap.entrySet()) {
+            messages.add(entry.getValue());
         }
         IInboxUI iInboxUI = iOrganizerMainUI.goToInboxUI(messages);
         new InboxUIPresenter(iInboxUI, this.programController);
@@ -64,9 +57,15 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
 
     @Override
     public void onMessageButtonClicked() {
-        UsersManager usersManager = this.programController.getUsersManager();
-        ArrayList<String> userInfo = usersManager.allUsersToString();
-        IOrganizerMessageUI iOrganizerMessageUI = iOrganizerMainUI.goToOrganizerMessageUI(userInfo);
+        MessageController messageController = this.programController.getMessageController();
+        ArrayList<String> userIds = (ArrayList<String>) messageController.
+                receiversForAttendeeAndOrganizer(this.programController.
+                        getAuthController().fetchLoggedInUser());
+        ArrayList<String> users = new ArrayList<>();
+        for (String id : userIds) {
+            users.add(this.programController.getUsersManager().userToString(id));
+        }
+        IOrganizerMessageUI iOrganizerMessageUI = iOrganizerMainUI.goToOrganizerMessageUI(users);
         new OrganizerMessageUIPresenter(iOrganizerMessageUI, this.programController);
     }
 

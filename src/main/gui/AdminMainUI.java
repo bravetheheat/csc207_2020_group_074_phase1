@@ -20,8 +20,6 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
     private JButton exportEvents;
     private ExportEventsButtonListener exportEventsButtonListener;
     private InboxButtonListener inboxButtonListener;
-//    private JButton dataManagementButton;
-    private DataManagementButtonListener dataManagementButtonListener;
 
     public AdminMainUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,7 +35,6 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
         this.messageButton.addActionListener(e -> notifyListenerOnMessageButtonClicked());
         this.inboxButton.addActionListener(e -> notifyListenerOnInboxButtonClicked());
         this.exportEvents.addActionListener(e -> notifyListenerOnExportEventsButtonClicked());
-//        this.dataManagementButton.addActionListener(e -> notifyListenerOnDataManagementButtonClicked());
     }
 
     @Override
@@ -70,11 +67,6 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
         this.exportEventsButtonListener = listener;
     }
 
-//    @Override
-//    public void addDataManagementButtonListener(DataManagementButtonListener listener) {
-//        this.dataManagementButtonListener = listener;
-//    }
-
     @Override
     public void notifyListenerOnLogoutButtonClicked() {
         this.logoutButtonListener.onLogoutButtonClicked();
@@ -105,11 +97,6 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
         this.exportEventsButtonListener.onExportEventsButtonClicked();
     }
 
-//    @Override
-//    public void notifyListenerOnDataManagementButtonClicked() {
-//        this.dataManagementButtonListener.onDataManagementButtonClicked();
-//    }
-
     @Override
     public ILandingUI goToLandingUI() {
         LandingUI landingUI = new LandingUI();
@@ -122,13 +109,6 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
         EventSignUpUI eventSignUpUI = new EventSignUpUI();
         this.dispose();
         return eventSignUpUI;
-    }
-
-    @Override
-    public IGatewayUI goToGatewayUI() {
-        GatewayUI gatewayUI = new GatewayUI();
-        this.dispose();
-        return gatewayUI;
     }
 
     @Override

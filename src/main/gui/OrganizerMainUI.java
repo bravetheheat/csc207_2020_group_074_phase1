@@ -15,14 +15,12 @@ public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
     private JButton registeredEventsButton;
     private JButton messageButton;
     private JButton inboxButton;
-    private JButton dataManagementButton;
     private LogoutButtonListener logoutButtonListener;
     private UserManagementButtonListener userManagementButtonListener;
     private ManageEventRoomButtonListener manageEventRoomButtonListener;
     private RegisteredEventsButtonListener registeredEventsButtonListener;
     private MessageButtonListener messageButtonListener;
     private InboxButtonListener inboxButtonListener;
-    private DataManagementButtonListener dataManagementButtonListener;
 
     public OrganizerMainUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,7 +36,6 @@ public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
         this.registeredEventsButton.addActionListener(e -> notifyListenerOnRegisteredEventsButtonClicked());
         this.messageButton.addActionListener(e -> notifyListenerOnMessageButtonClicked());
         this.inboxButton.addActionListener(e -> notifyListenerOnInboxButtonClicked());
-        this.dataManagementButton.addActionListener(e -> notifyListenerOnDataManagementButtonClicked());
     }
 
     public void addLogoutButtonListener(LogoutButtonListener listener) {
@@ -65,10 +62,6 @@ public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
         this.inboxButtonListener = listener;
     }
 
-    public void addDataManagementButtonListener(DataManagementButtonListener listener) {
-        this.dataManagementButtonListener = listener;
-    }
-
     public void notifyListenerOnLogoutButtonClicked() {
         this.logoutButtonListener.onLogoutButtonClicked();
     }
@@ -93,10 +86,6 @@ public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
         this.inboxButtonListener.onInboxButtonClicked();
     }
 
-    public void notifyListenerOnDataManagementButtonClicked() {
-        this.dataManagementButtonListener.onDataManagementButtonClicked();
-    }
-
     @Override
     public ILandingUI goToLandingUI() {
         LandingUI landingUI = new LandingUI();
@@ -116,13 +105,6 @@ public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
         EventsManagementUI eventsManagementUI = new EventsManagementUI();
         this.dispose();
         return eventsManagementUI;
-    }
-
-    @Override
-    public IGatewayUI goToGatewayUI() {
-        GatewayUI gatewayUI = new GatewayUI();
-        this.dispose();
-        return gatewayUI;
     }
 
     @Override

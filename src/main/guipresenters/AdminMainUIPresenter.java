@@ -2,6 +2,7 @@ package main.guipresenters;
 
 import main.controllers.AuthController;
 import main.controllers.InboxController;
+import main.controllers.MessageController;
 import main.controllers.ProgramController;
 import main.gui_interface.*;
 import main.guilisteners.*;
@@ -27,7 +28,6 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
         this.iAdminMainUI.addMessageButtonListener(this);
         this.iAdminMainUI.addInboxButtonListener(this);
         this.iAdminMainUI.addExportEventsButtonListener(this);
-//        this.iAdminMainUI.addDataManagementButtonListener(this);
     }
 
     @Override
@@ -38,19 +38,13 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
         new LandingUIPresenter(ilandingUI, this.programController);
     }
 
-//    @Override
-//    public void onDataManagementButtonClicked() {
-//        IGatewayUI iGatewayUI = iAdminMainUI.goToGatewayUI();
-//        new GatewayUIPresenter(iGatewayUI, this.programController);
-//    }
-
     @Override
     public void onInboxButtonClicked() {
         InboxController inboxController = new InboxController(this.programController);
         Map<String, String> messageMap = inboxController.getMessagesOfUser(this.authController.fetchLoggedInUser());
         ArrayList<String> messages = new ArrayList<>();
-        for (String key:messageMap.keySet()) {
-            messages.add(inboxController.getMessageString(key));
+        for (Map.Entry<String, String> entry : messageMap.entrySet()) {
+            messages.add(entry.getValue());
         }
         IInboxUI iInboxUI = iAdminMainUI.goToInboxUI(messages);
         new InboxUIPresenter(iInboxUI, this.programController);
@@ -58,9 +52,15 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
 
     @Override
     public void onMessageButtonClicked() {
-        UsersManager usersManager = this.programController.getUsersManager();
-        ArrayList<String> userInfo = usersManager.allUsersToString();
-        IOrganizerMessageUI iOrganizerMessageUI = iAdminMainUI.goToOrganizerMessageUI(userInfo);
+        MessageController messageController = this.programController.getMessageController();
+        ArrayList<String> userIds = (ArrayList<String>) messageController.
+                receiversForAttendeeAndOrganizer(this.programController.
+                        getAuthController().fetchLoggedInUser());
+        ArrayList<String> users = new ArrayList<>();
+        for (String id : userIds) {
+            users.add(this.programController.getUsersManager().userToString(id));
+        }
+        IOrganizerMessageUI iOrganizerMessageUI = iAdminMainUI.goToOrganizerMessageUI(users);
         new OrganizerMessageUIPresenter(iOrganizerMessageUI, this.programController);
     }
 
