@@ -8,6 +8,7 @@ import main.gui_interface.IAdminMainUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.ExportButtonListener;
 import main.usecases.EventsManager;
+import main.usecases.RoomManager;
 import main.usecases.UsersManager;
 
 import java.util.ArrayList;
@@ -50,7 +51,8 @@ public class AdminExportToHTMLUIPresenter implements BackButtonListener, ExportB
             }
             if (!eventList.isEmpty()){
                 HTMLExport export = new HTMLExport();
-                export.exportEvents(eventList);
+                RoomManager roomManager = this.programController.getRoomManager();
+                export.exportEvents(roomManager, eventList);
                 this.iAdminExportToHTMLUI.successfullyExported();
             }
             else {
