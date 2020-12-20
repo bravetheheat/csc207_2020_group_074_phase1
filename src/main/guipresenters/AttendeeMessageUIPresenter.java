@@ -7,9 +7,9 @@ import main.gui_interface.IAttendeeMessageUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.ListSelectionListener;
 import main.guilisteners.SendButtonListener;
-import main.usecases.UsersManager;
 
 import javax.swing.event.ListSelectionEvent;
+import java.util.List;
 
 public class AttendeeMessageUIPresenter implements BackButtonListener, SendButtonListener, ListSelectionListener {
     IAttendeeMessageUI iAttendeeMessageUI;
@@ -34,15 +34,32 @@ public class AttendeeMessageUIPresenter implements BackButtonListener, SendButto
 
     @Override
     public void onSendButtonClicked() {
-        String user = (String) this.iAttendeeMessageUI.getUsersList().getSelectedValue();
+//        String user = (String) this.iAttendeeMessageUI.getUsersList().getSelectedValue();
+//        String message = iAttendeeMessageUI.getMessage();
+//        if (user != null && message.length() > 0) {
+//            UsersManager usersManager = this.programController.getUsersManager();
+//            String username;
+//            int i = user.indexOf(",");
+//            username = user.substring(i + 2);
+//            String userID = usersManager.getIDFromUsername(username);
+//            this.messageController.sendMessage(this.programController.getAuthController().fetchLoggedInUser(), userID, message);
+//            programController.saveForNext();
+//            iAttendeeMessageUI.sendMessageSuccessful();
+//        }
+//        else {
+//            iAttendeeMessageUI.sendMessageError();
+//        }
+        int userIndex = this.iAttendeeMessageUI.getUsersList().getSelectedIndex();
         String message = iAttendeeMessageUI.getMessage();
-        if (user != null && message.length() > 0) {
-            UsersManager usersManager = this.programController.getUsersManager();
-            String username;
-            int i = user.indexOf(",");
-            username = user.substring(i + 2);
-            String userID = usersManager.getIDFromUsername(username);
-            this.messageController.sendMessage(this.programController.getAuthController().fetchLoggedInUser(), userID, message);
+        if (userIndex != -1 && !message.equals("")) {
+            List<String> userIds = this.messageController.
+                    receiversForAttendeeAndOrganizer(this.programController.
+                            getAuthController().fetchLoggedInUser());
+            System.out.println(this.programController.getUsersManager().
+                    userToString(userIds.get(userIndex)));
+            this.messageController.sendMessage(this.programController.
+                    getAuthController().fetchLoggedInUser(),
+                    userIds.get(userIndex), message);
             programController.saveForNext();
             iAttendeeMessageUI.sendMessageSuccessful();
         }

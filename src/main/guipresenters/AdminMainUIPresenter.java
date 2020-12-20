@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class AdminMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener, MessageButtonListener,
-        InboxButtonListener, RegisteredEventsButtonListener {
+        InboxButtonListener, RegisteredEventsButtonListener, ExportEventsButtonListener {
 
     private IAdminMainUI iAdminMainUI;
     private ProgramController programController;
@@ -26,6 +26,7 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
         this.iAdminMainUI.addRegisteredEventsButtonListener(this);
         this.iAdminMainUI.addMessageButtonListener(this);
         this.iAdminMainUI.addInboxButtonListener(this);
+        this.iAdminMainUI.addExportEventsButtonListener(this);
 //        this.iAdminMainUI.addDataManagementButtonListener(this);
     }
 
@@ -73,5 +74,13 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
     public void onUserManagementButtonClicked() {
         IAdminUserManagementUI iAdminMainUIUserManagementUI = iAdminMainUI.goToAdminUserManagementUI();
         new AdminUserManagementUIPresenter(iAdminMainUIUserManagementUI, this.programController);
+    }
+
+    @Override
+    public void onExportEventsButtonClicked() {
+        UsersManager usersManager = this.programController.getUsersManager();
+        ArrayList<String> userInfo = usersManager.allUsersToString();
+        IAdminExportToHTMLUI iAdminExportToHTMLUI = iAdminMainUI.goToAdminExportToHTMLUI(userInfo);
+        new AdminExportToHTMLUIPresenter(iAdminExportToHTMLUI, this.programController);
     }
 }

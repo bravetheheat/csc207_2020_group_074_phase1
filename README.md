@@ -53,12 +53,13 @@ Features Added in Phase 2
 ------------
 **Mandatory Features**
 
- * An Admin user can be created.
- * Events can be canceled by at least one organizer.
+ * An `Admin` user can be created.
+ * `Events` can be canceled by at least one `Organizer`.
  * There are now no-speaker events, one-speaker events, and multi-speaker events.
- * Organizers can also create Speaker accounts, Attendee accounts, and Admin accounts.
- * Each event has a maximum number of people who can attend it. This amount can be set 
-   when the event is created and also changed later, by an Organizer.
+ * `Organizers` can also create `Speaker` accounts, `Attendee` accounts(but not `Admin` accounts).
+ * `Admins` can create accounts of all types.
+ * Each `Event` has a maximum number of people who can attend it. This amount can be set 
+   when the `Event` is created and also changed later, by an `Organizer`.
  
 **Optional Features**
 
@@ -67,7 +68,8 @@ Features Added in Phase 2
  * Add additional constraints to the scheduling for various types of events (e.g. technology requirements for 
    presentations, tables vs rows of chairs).
  * The schedule of the conference can be exported as an HTML file. This optional feature
-   is a replacement of the "Create Your Own Feature" part of the Phase 2 specification.  
+   is a replacement of the "Create Your Own Feature" part of the Phase 2 specification.
+ * User names can only be e-mails. This is achieved by matching with a regex in the registration/login process.
  
 Design Patterns Used
 ------------
@@ -105,7 +107,14 @@ decide which type of object it is creating.
 For users, we implemented UserFactory which is a Factory method for adding new user by UsersManager. 
 Since we are having four different type of users, organizer, attendee, speaker and admin under user entity class, 
 if we want to add a new user type in the future that may extend user class. We just need to make some change 
-in UserFactory instead of UsersManager so that it improves the extensibility for future types of users.  
+in UserFactory instead of UsersManager so that it improves the extensibility for future types of users.
+
+**Observer**  
+We used the observer pattern in GUI related classes.  
+The user interfaces are `observable` classes: they store button listeners(interfaces) to "listen" to any actions done to the buttons and notify the corresponding observer.
+
+The presenters(in the MVP model) are `observers`: they implement the button listeners, decide what to do when a user clicks on a particular button and respond when it is notified by the observable class(a button is clicked).
+
 
 Improvements in Design Since Phase 1
 ------------
@@ -113,6 +122,13 @@ Improvements in Design Since Phase 1
 We combined the subclass of users (Attendee, Organizer, Speaker, and later Admin) into a User class. The four subtypes of user do not differ
 in functionality at the Entity level. Therefore, we recognized that there was no need to use inheritance for users. This decision has helped us to
 remove redundant code and avoid unnecessary complexity in our program.
+
+## MVP Model
+- (Model)The model is the program controller which determines the state of the program(contents in the database).
+- (View)The view contains all the UI classes which are seen by clients.
+- (Presenter)The UI presenter classes determine what to do based on user inputs and update the view accordingly. It serves as a bridge between view and model.
+- Observer pattern is used in the view and the presenter(see [Design Patterns Used](#design-patterns-used))
+- Adhering the dependency inversion principle, the presenter classes do not depend on the UI classes. So, each UI implements a UI interface which is stored in the corresponding presenter; when the presenter needs to update the UI, it will call the methods in the UI interface.
 
 Contributors
 ------------
@@ -125,7 +141,7 @@ Hiraethwly    |  wangley6    | 1006318682
 Luke9248      |  renruomi    | 1005889013 
 kaka0905      |  mazewen1    | 1005968375
 bravetheheat  |  zhaodav3    | 1003323423
-AveritasR0679 |  stevenY     | 1005712873
+AveritasR0679 |  yuanson3     | 1005712873
 Jimmy         |   liyi69     | 1002660499
 
 Contribution Guideline

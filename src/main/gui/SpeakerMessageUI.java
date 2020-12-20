@@ -34,6 +34,7 @@ public class SpeakerMessageUI extends JFrame implements ISpeakerMessageUI {
 
         this.backButton.addActionListener(e -> notifyBackButtonListener());
         this.sendButton.addActionListener(e -> notifySendButtonListener());
+        this.broadcastButton.addActionListener(e -> notifyBroadcastButtonListener());
 
         DefaultListModel<String> usersList = new DefaultListModel<>();
         for (String user:users) {
