@@ -19,8 +19,6 @@ public interface IOrganizerMainUI extends IView {
 
     void addInboxButtonListener(InboxButtonListener listener);
 
-    void addDataManagementButtonListener(DataManagementButtonListener listener);
-
     void notifyListenerOnLogoutButtonClicked();
 
     void notifyListenerOnUserManagementButtonClicked();
@@ -33,15 +31,11 @@ public interface IOrganizerMainUI extends IView {
 
     void notifyListenerOnInboxButtonClicked();
 
-    void notifyListenerOnDataManagementButtonClicked();
-
     ILandingUI goToLandingUI();
 
     IEventSignUpUI goToEventSignUpUI();
 
     IEventsManagementUI goToEventsManagementUI();
-
-    IGatewayUI goToGatewayUI();
 
     IUserManagementUI goToUserManagementUI();
 

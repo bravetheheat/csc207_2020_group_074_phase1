@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener,
-        ManageEventRoomButtonListener, RegisteredEventsButtonListener, MessageButtonListener, InboxButtonListener,
-        DataManagementButtonListener {
+        ManageEventRoomButtonListener, RegisteredEventsButtonListener, MessageButtonListener, InboxButtonListener {
 
     private IOrganizerMainUI iOrganizerMainUI;
     private ProgramController programController;
@@ -29,7 +28,6 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
         this.iOrganizerMainUI.addRegisteredEventsButtonListener(this);
         this.iOrganizerMainUI.addMessageButtonListener(this);
         this.iOrganizerMainUI.addInboxButtonListener(this);
-        this.iOrganizerMainUI.addDataManagementButtonListener(this);
     }
 
     @Override
@@ -37,12 +35,6 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
         this.authController.logout();
         ILandingUI ilandingUI = iOrganizerMainUI.goToLandingUI();
         new LandingUIPresenter(ilandingUI, this.programController);
-    }
-
-    @Override
-    public void onDataManagementButtonClicked() {
-        IGatewayUI iGatewayUI = iOrganizerMainUI.goToGatewayUI();
-        new GatewayUIPresenter(iGatewayUI, this.programController);
     }
 
     @Override
