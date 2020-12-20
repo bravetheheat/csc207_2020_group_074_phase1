@@ -2,6 +2,8 @@ package main.export;
 
 import j2html.tags.Tag;
 import main.entities.Event;
+//import main.gateways.beans.RoomBean;
+import main.usecases.RoomManager;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,7 +25,7 @@ public class HTMLExport {
      *
      * @param events list of Event entities
      */
-    public void exportEvents(List<Event> events) {
+    public void exportEvents(RoomManager roomManager, List<Event> events) {
 
         FileWriter fileWriter = this.getFileWriter();
 
@@ -33,7 +35,7 @@ public class HTMLExport {
                 ),
                 body(
                         div(h2("Event List"),
-                                each(events, event -> eventTag(event))).withClass("container")
+                                each(events, event -> eventTag(roomManager, event))).withClass("container")
 
                 )
         ));
@@ -71,13 +73,13 @@ public class HTMLExport {
      * @param event Event entity
      * @return event component
      */
-    private Tag eventTag(Event event) {
+    private Tag eventTag(RoomManager roomManager, Event event) {
         return
                 div(
                         h3(event.getTitle()),
                         div("Type: " + event.getType()).withClass("event-row"),
                         div("Time: " + event.getTime().toString()).withClass("event-row"),
-                        div("Room: " + event.getRoomID()).withClass("event-row"),
+                        div("Room: " + roomManager.getRoomNumGivenId(event.getRoomID())).withClass("event-row"),
                         div("Duration: " + event.getDuration() + " minutes").withClass("event-row")
 
                 ).withClass("event-entry");

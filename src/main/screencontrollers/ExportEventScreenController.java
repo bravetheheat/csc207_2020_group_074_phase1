@@ -4,6 +4,7 @@ import main.controllers.*;
 import main.usecases.EventsManager;
 import main.entities.Event;
 import main.presenters.ExportEventScreen;
+import main.usecases.RoomManager;
 import main.usecases.UsersManager;
 import main.export.HTMLExport;
 import java.util.*;
@@ -84,7 +85,8 @@ public class ExportEventScreenController extends ScreenController{
             return false;
         }
         HTMLExport export = new HTMLExport();
-        export.exportEvents(eventList);
+        RoomManager roomManager = this.programController.getRoomManager();
+        export.exportEvents(roomManager, eventList);
         return true;
     }
 
