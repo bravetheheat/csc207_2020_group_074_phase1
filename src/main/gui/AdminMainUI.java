@@ -17,6 +17,8 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
     private JButton messageButton;
     private MessageButtonListener messageButtonListener;
     private JButton inboxButton;
+    private JButton exportEvents;
+    private ExportEventsButtonListener exportEventsButtonListener;
     private InboxButtonListener inboxButtonListener;
 //    private JButton dataManagementButton;
     private DataManagementButtonListener dataManagementButtonListener;
@@ -34,6 +36,7 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
         this.registeredEventsButton.addActionListener(e -> notifyListenerOnRegisteredEventsButtonClicked());
         this.messageButton.addActionListener(e -> notifyListenerOnMessageButtonClicked());
         this.inboxButton.addActionListener(e -> notifyListenerOnInboxButtonClicked());
+        this.exportEvents.addActionListener(e -> notifyListenerOnExportEventsButtonClicked());
 //        this.dataManagementButton.addActionListener(e -> notifyListenerOnDataManagementButtonClicked());
     }
 
@@ -60,6 +63,11 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
     @Override
     public void addInboxButtonListener(InboxButtonListener listener) {
         this.inboxButtonListener = listener;
+    }
+
+    @Override
+    public void addExportEventsButtonListener(ExportEventsButtonListener listener) {
+        this.exportEventsButtonListener = listener;
     }
 
 //    @Override
@@ -90,6 +98,11 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
     @Override
     public void notifyListenerOnInboxButtonClicked() {
         this.inboxButtonListener.onInboxButtonClicked();
+    }
+
+    @Override
+    public void notifyListenerOnExportEventsButtonClicked() {
+        this.exportEventsButtonListener.onExportEventsButtonClicked();
     }
 
 //    @Override
@@ -137,5 +150,12 @@ public class AdminMainUI extends JFrame implements IAdminMainUI {
         InboxUI inboxUI = new InboxUI(messages);
         this.dispose();
         return inboxUI;
+    }
+
+    @Override
+    public IAdminExportToHTMLUI goToAdminExportToHTMLUI(ArrayList<String> userInfo) {
+        AdminExportToHTMLUI adminExportToHTMLUI = new AdminExportToHTMLUI(userInfo);
+        this.dispose();
+        return adminExportToHTMLUI;
     }
 }
