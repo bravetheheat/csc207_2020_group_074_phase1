@@ -56,7 +56,7 @@ public class SpeakerMessageUIPresenter implements BackButtonListener, BroadcastB
         String message = iSpeakerMessageUI.getMessage();
         if (i != -1 && message.length() > 0) {
             String userID = this.messageController.replyOptionsForSpeaker(this.authController.fetchLoggedInUser()).get(i);
-            this.messageController.sendMessage(userID, this.authController.fetchLoggedInUser(), message);
+            this.messageController.sendMessage(this.authController.fetchLoggedInUser(),userID, message);
             programController.saveForNext();
             iSpeakerMessageUI.sendMessageSuccessful();
         }
