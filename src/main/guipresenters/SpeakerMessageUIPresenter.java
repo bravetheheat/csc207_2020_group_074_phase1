@@ -39,7 +39,7 @@ public class SpeakerMessageUIPresenter implements BackButtonListener, BroadcastB
     public void onBroadcastButtonClicked() {
         int i = iSpeakerMessageUI.getEventsList().getSelectedIndex();
         String message = iSpeakerMessageUI.getMessage();
-        if (i != -1 && message.length() > 1) {
+        if (i != -1 && message.length() > 0) {
             String eventID = this.eventController.getSpeakerEvents(this.authController.fetchLoggedInUser()).get(i);
             this.messageController.broadCastForSpeaker(eventID, this.authController.fetchLoggedInUser(), message);
             programController.saveForNext();
@@ -56,7 +56,7 @@ public class SpeakerMessageUIPresenter implements BackButtonListener, BroadcastB
         String message = iSpeakerMessageUI.getMessage();
         if (i != -1 && message.length() > 0) {
             String userID = this.messageController.replyOptionsForSpeaker(this.authController.fetchLoggedInUser()).get(i);
-            this.messageController.sendMessage(message, this.authController.fetchLoggedInUser(), userID);
+            this.messageController.sendMessage(userID, this.authController.fetchLoggedInUser(), message);
             programController.saveForNext();
             iSpeakerMessageUI.sendMessageSuccessful();
         }
