@@ -54,8 +54,6 @@ public class AttendeeMainUIPresenter implements LogoutButtonListener, RegisterFo
 
     @Override
     public void onMessageButtonClicked() {
-//        UsersManager usersManager = this.programController.getUsersManager();
-//        ArrayList<String> users = usersManager.allUsersToString();
         MessageController messageController =
                 this.programController.getMessageController();
         ArrayList<String> userIds = (ArrayList<String>) messageController.

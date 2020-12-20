@@ -2,6 +2,7 @@ package main.guipresenters;
 
 import main.controllers.AuthController;
 import main.controllers.InboxController;
+import main.controllers.MessageController;
 import main.controllers.ProgramController;
 import main.gui_interface.*;
 import main.guilisteners.*;
@@ -64,9 +65,15 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
 
     @Override
     public void onMessageButtonClicked() {
-        UsersManager usersManager = this.programController.getUsersManager();
-        ArrayList<String> userInfo = usersManager.allUsersToString();
-        IOrganizerMessageUI iOrganizerMessageUI = iOrganizerMainUI.goToOrganizerMessageUI(userInfo);
+        MessageController messageController = this.programController.getMessageController();
+        ArrayList<String> userIds = (ArrayList<String>) messageController.
+                receiversForAttendeeAndOrganizer(this.programController.
+                        getAuthController().fetchLoggedInUser());
+        ArrayList<String> users = new ArrayList<>();
+        for (String id : userIds) {
+            users.add(this.programController.getUsersManager().userToString(id));
+        }
+        IOrganizerMessageUI iOrganizerMessageUI = iOrganizerMainUI.goToOrganizerMessageUI(users);
         new OrganizerMessageUIPresenter(iOrganizerMessageUI, this.programController);
     }
 
