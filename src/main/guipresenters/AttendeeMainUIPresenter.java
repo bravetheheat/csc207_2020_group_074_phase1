@@ -35,9 +35,6 @@ public class AttendeeMainUIPresenter implements LogoutButtonListener, RegisterFo
         Map<String, String> messageMap = inboxController.getMessagesOfUser(this.authController.fetchLoggedInUser());
         System.out.println(this.authController.fetchLoggedInUser() + " " + messageMap.values().size());
         ArrayList<String> messages = new ArrayList<>();
-//        for (String key:messageMap.keySet()) {
-//            messages.add(inboxController.getMessageString(key));
-//        }
         for (Map.Entry<String, String> entry : messageMap.entrySet()) {
             messages.add(entry.getValue());
         }

@@ -42,8 +42,8 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
         InboxController inboxController = new InboxController(this.programController);
         Map<String, String> messageMap = inboxController.getMessagesOfUser(this.authController.fetchLoggedInUser());
         ArrayList<String> messages = new ArrayList<>();
-        for (String key:messageMap.keySet()) {
-            messages.add(inboxController.getMessageString(key));
+        for (Map.Entry<String, String> entry : messageMap.entrySet()) {
+            messages.add(entry.getValue());
         }
         IInboxUI iInboxUI = iOrganizerMainUI.goToInboxUI(messages);
         new InboxUIPresenter(iInboxUI, this.programController);

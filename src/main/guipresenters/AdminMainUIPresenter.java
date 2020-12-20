@@ -43,8 +43,8 @@ public class AdminMainUIPresenter implements LogoutButtonListener, UserManagemen
         InboxController inboxController = new InboxController(this.programController);
         Map<String, String> messageMap = inboxController.getMessagesOfUser(this.authController.fetchLoggedInUser());
         ArrayList<String> messages = new ArrayList<>();
-        for (String key:messageMap.keySet()) {
-            messages.add(inboxController.getMessageString(key));
+        for (Map.Entry<String, String> entry : messageMap.entrySet()) {
+            messages.add(entry.getValue());
         }
         IInboxUI iInboxUI = iAdminMainUI.goToInboxUI(messages);
         new InboxUIPresenter(iInboxUI, this.programController);
