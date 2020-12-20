@@ -35,17 +35,27 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
     @Override
     public void onAllAttendeesButtonClicked() {
         String message = this.iOrganizerMessageUI.getMessage();
-        this.messageController.broadCastToAttendees(this.authController.fetchLoggedInUser(), message);
-        programController.saveForNext();
-        iOrganizerMessageUI.sendMessageSuccessful();
+        if (message.equals("")) {
+            iOrganizerMessageUI.sendMessageError();
+        }
+        else {
+            this.messageController.broadCastToAttendees(this.authController.fetchLoggedInUser(), message);
+            programController.saveForNext();
+            iOrganizerMessageUI.sendMessageSuccessful();
+        }
     }
 
     @Override
     public void onAllSpeakersButtonClicked() {
         String message = this.iOrganizerMessageUI.getMessage();
-        this.messageController.broadCastToSpeakers(this.authController.fetchLoggedInUser(), message);
-        programController.saveForNext();
-        iOrganizerMessageUI.sendMessageSuccessful();
+        if (message.equals("")) {
+            iOrganizerMessageUI.sendMessageError();
+        }
+        else {
+            this.messageController.broadCastToSpeakers(this.authController.fetchLoggedInUser(), message);
+            programController.saveForNext();
+            iOrganizerMessageUI.sendMessageSuccessful();
+        }
     }
 
     @Override
@@ -66,9 +76,14 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
     @Override
     public void onEveryoneButtonClicked() {
         String message = this.iOrganizerMessageUI.getMessage();
-        this.messageController.broadCastToAll(this.authController.fetchLoggedInUser(), message);
-        programController.saveForNext();
-        iOrganizerMessageUI.sendMessageSuccessful();
+        if (message.equals("")) {
+            iOrganizerMessageUI.sendMessageError();
+        }
+        else {
+            this.messageController.broadCastToAll(this.authController.fetchLoggedInUser(), message);
+            programController.saveForNext();
+            iOrganizerMessageUI.sendMessageSuccessful();
+        }
     }
 
     @Override
