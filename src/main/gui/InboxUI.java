@@ -1,12 +1,9 @@
 package main.gui;
 
-import main.controllers.ProgramController;
-import main.entities.Inbox;
 import main.gui_interface.IInboxUI;
 import main.guilisteners.BackButtonListener;
 
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class InboxUI extends JFrame implements IInboxUI {
@@ -20,7 +17,7 @@ public class InboxUI extends JFrame implements IInboxUI {
     public InboxUI(ArrayList<String> messages) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 500);
-        this.setTitle("Program X");
+        this.setTitle("Inbox");
         this.setContentPane(panel1);
         this.setLocationRelativeTo(null);
         this.setVisible(true);

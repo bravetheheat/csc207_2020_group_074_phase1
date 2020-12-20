@@ -40,12 +40,15 @@ public class InboxManager {
      * @return List of Message IDs
      */
     public List<String> getMessagesOfUser(String userId) {
+        List<String> allMessages = new ArrayList<>();
         for (Inbox x : inboxes.values()) {
             if (userId.equals(x.getUser())) {
-                return x.getMessages();
+//                return x.getMessages();
+                allMessages.addAll(x.getMessages());
+                }
             }
-        }
-        return new LinkedList<>();
+//        return new LinkedList<>();
+        return allMessages;
     }
 
     /**

@@ -1,11 +1,8 @@
 package main.guipresenters;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import main.controllers.AuthController;
 import main.controllers.InboxController;
 import main.controllers.ProgramController;
-import main.gateways.Gateway;
-import main.gui.*;
 import main.gui_interface.*;
 import main.guilisteners.*;
 import main.usecases.UsersManager;
@@ -23,7 +20,7 @@ public class OrganizerMainUIPresenter implements LogoutButtonListener, UserManag
 
     public OrganizerMainUIPresenter(IOrganizerMainUI iOrganizerMainUI, ProgramController programController) {
         this.programController = programController;
-        this.authController = programController.getAuthController();
+        this.authController = this.programController.getAuthController();
         this.iOrganizerMainUI = iOrganizerMainUI;
         this.iOrganizerMainUI.addLogoutButtonListener(this);
         this.iOrganizerMainUI.addUserManagementButtonListener(this);
