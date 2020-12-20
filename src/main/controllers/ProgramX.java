@@ -5,9 +5,9 @@ import main.guipresenters.LandingUIPresenter;
 
 import javax.swing.*;
 
-public class Main {
+public class ProgramX {
 
-    public Main() {
+    public ProgramX() {
         // model-view-presenter
         LandingUI landingUI = new LandingUI(); // view
         ProgramController program = new ProgramController(); // model
@@ -17,6 +17,6 @@ public class Main {
     public static void main(String[] args) {
 //        ProgramController program = new ProgramController();
 //        program.start();
-        SwingUtilities.invokeLater(Main::new);
+        SwingUtilities.invokeLater(ProgramX::new);
     }
 }
