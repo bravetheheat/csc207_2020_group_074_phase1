@@ -10,7 +10,7 @@ public class InboxBean {
 
     private String id;
     private String user;
-    private String messageID;
+    private String messageID; // String-delimited set of IDs
 
     public InboxBean() {
     }
