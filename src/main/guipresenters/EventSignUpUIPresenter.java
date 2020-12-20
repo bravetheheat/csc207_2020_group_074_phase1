@@ -38,7 +38,6 @@ public class EventSignUpUIPresenter implements SignUpButtonListener,
 
     @Override
     public void onSignUpButtonClicked() {
-        programController.saveForNext();
         ArrayList<String> listOfEvents = eventController.getEventsInfoList();
         iDisplayAllEventsUI = iEventSignUpUI.goToDisplayAllEventsUI(listOfEvents);
         new DisplayAllEventsUIPresenter(iDisplayAllEventsUI, programController);
@@ -46,7 +45,6 @@ public class EventSignUpUIPresenter implements SignUpButtonListener,
 
     @Override
     public void onViewEventsButtonClicked() {
-        programController.saveForNext();
         String userId = this.authController.fetchLoggedInUser();
         ArrayList<String> listOfUserEvents = eventController.getUserEventsList(userId);
         iViewUserEventsUI = iEventSignUpUI.goToViewUserEventsUI(listOfUserEvents);
