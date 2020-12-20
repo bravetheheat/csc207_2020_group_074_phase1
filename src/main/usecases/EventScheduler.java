@@ -6,6 +6,13 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * The EventScheduler helps to check conflicts between two events.
+ *
+ * @author Haoze Huang
+ * @version 1.0
+ * @since 2020-12-20
+ */
 public class EventScheduler {
 
     /**
@@ -26,7 +33,7 @@ public class EventScheduler {
 
     /**
      * Return true iff the input time and duration of an Event is conflict with the scheduled event.
-     * Zewen Ma
+     * @author Zewen Ma
      * @param event that already scheduled
      * @param time of the newly input event
      * @param duration of the newly input event
@@ -74,7 +81,7 @@ public class EventScheduler {
 
     /**
      * Return A map whose key are "hour" and "min", representing the hour and min of the end time of the event.
-     * Zewen Ma
+     * @author Zewen Ma
      * @param time of the event
      * @param duration of the event
      * @return a map representation of the end time of the event
@@ -95,7 +102,7 @@ public class EventScheduler {
 
     /**
      * Return true iff there exists a speaker in Event e1 also is in Event e2.
-     * Zewen Ma
+     * @author Zewen Ma
      * @param e1 Event #1
      * @param e2 Event #2
      * @return true if they contains the same speaker(s).
@@ -109,6 +116,16 @@ public class EventScheduler {
         return false;
     }
 
+    /**
+     * Return true iff there exists a conflict.
+     * @param schedule that contains all scheduled events.
+     * @param event that already scheduled.
+     * @param t time of the want-to-add event.
+     * @param r roomId of the want-to-add event.
+     * @param d duration of the want-to-add event.
+     * @return true iff the t,r,d of the want-to-add event has time and room/speaker conflicts with the pre-scheduled
+     * event.
+     */
     public boolean isConflict(Map<String, Event> schedule, Event event, LocalDateTime t, String r, int d){
         Map<String, Integer> inputTime = this.getEndTime(t, d);
         int inputTimeHour = inputTime.get("hour");
