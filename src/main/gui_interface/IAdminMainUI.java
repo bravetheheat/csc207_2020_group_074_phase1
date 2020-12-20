@@ -16,6 +16,8 @@ public interface IAdminMainUI extends IView {
 
     void addInboxButtonListener(InboxButtonListener listener);
 
+    void addExportEventsButtonListener(ExportEventsButtonListener listener);
+
 //    void addDataManagementButtonListener(DataManagementButtonListener listener);
 
     void notifyListenerOnLogoutButtonClicked();
@@ -27,6 +29,8 @@ public interface IAdminMainUI extends IView {
     void notifyListenerOnMessageButtonClicked();
 
     void notifyListenerOnInboxButtonClicked();
+
+    void notifyListenerOnExportEventsButtonClicked();
 
 //    void notifyListenerOnDataManagementButtonClicked();
 
@@ -41,4 +45,6 @@ public interface IAdminMainUI extends IView {
     IOrganizerMessageUI goToOrganizerMessageUI(ArrayList<String> userInfo);
 
     IInboxUI goToInboxUI(ArrayList<String> messages);
+
+    IAdminExportToHTMLUI goToAdminExportToHTMLUI(ArrayList<String> userInfo);
 }
