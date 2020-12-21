@@ -9,6 +9,8 @@ import main.guilisteners.BackButtonListener;
 
 /**
  * the file contains the presenter to show the list of users
+ *
+ * @author Ruoming Ren
  */
 @SuppressWarnings("FieldCanBeLocal")
 
@@ -28,6 +30,9 @@ public class ListOfUserUIPresenter implements BackButtonListener {
         iListOfUsersUI.addBackButtonListener(this);
     }
 
+    /**
+     * Go to the previous screen according to user type
+     */
     @Override
     public void onBackButtonClicked() {
         if (authController.getUserType().equals("Organizer")) {

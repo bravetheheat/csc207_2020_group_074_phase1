@@ -5,6 +5,11 @@ import main.gui_interface.IEventsManagementUI;
 import main.gui_interface.ISeeScheduleUI;
 import main.guilisteners.BackButtonListener;
 
+/**
+ * Presenter class for view a list of events
+ *
+ * @author Steven Yuan
+ */
 public class SeeScheduleUIPresenter implements BackButtonListener {
 
     ProgramController programController;
@@ -18,6 +23,9 @@ public class SeeScheduleUIPresenter implements BackButtonListener {
         iSeeScheduleUI.addBackButtonListener(this);
     }
 
+    /**
+     * Go to the previous screen
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();

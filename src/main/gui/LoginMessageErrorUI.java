@@ -7,6 +7,7 @@ import javax.swing.*;
 /**
  * Display message when login is unsuccessful
  *
+ * @see LoginUI
  * @author Steven Yuan
  */
 @SuppressWarnings("FieldCanBeLocal")

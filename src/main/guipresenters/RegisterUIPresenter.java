@@ -29,6 +29,10 @@ public class RegisterUIPresenter implements RegisterUIListener, BackButtonListen
         registerUI.addRegisterUIListener(this);
         registerUI.addBackButtonListener(this);
     }
+
+    /**
+     * Confirm registering a user
+     */
     @Override
     public void onConfirmButtonClicked() {
             String userType = iRegisterUI.getUserType();
@@ -59,6 +63,9 @@ public class RegisterUIPresenter implements RegisterUIListener, BackButtonListen
             }
     }
 
+    /**
+     * Go to previous screen
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();

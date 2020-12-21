@@ -8,6 +8,17 @@ import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * UI class for selecting rooms when creating/modifying an event
+ *
+ * @see CreateEventUI
+ * @see ModifyEventUI
+ * @see main.guipresenters.CreateEventUIPresenter
+ * @see main.guipresenters.ModifyEventUIPresenter
+ * @author Steven Yuan
+ */
+@SuppressWarnings("FieldCanBeLocal")
+
 public class SelectRoomUI extends JFrame implements ISelectRoomUI {
 
     private JPanel jPanel;

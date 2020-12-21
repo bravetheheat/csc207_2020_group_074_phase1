@@ -8,6 +8,11 @@ import main.gui_interface.IEventSignUpUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.RegisterEventButtonListener;
 
+/**
+ * The presenter for display all the events
+ *
+ * @author Steven Yuan
+ */
 @SuppressWarnings("FieldCanBeLocal")
 
 public class DisplayAllEventsUIPresenter
@@ -29,6 +34,9 @@ public class DisplayAllEventsUIPresenter
         this.iDisplayAllEventsUI.addRegisterEventButtonListener(this);
     }
 
+    /**
+     * Go to the previous frame
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -36,6 +44,9 @@ public class DisplayAllEventsUIPresenter
         new EventSignUpUIPresenter(iEventSignUpUI, programController);
     }
 
+    /**
+     * Sign up for an event
+     */
     @Override
     public void onRegisterEventButtonClicked() {
         String userId = authController.fetchLoggedInUser();

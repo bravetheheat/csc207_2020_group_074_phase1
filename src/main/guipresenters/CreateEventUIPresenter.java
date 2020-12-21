@@ -15,6 +15,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Presenter for creating an event UI
+ *
+ * @author Steven Yuan
+ */
 public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreateEventButtonListener, SelectRoomButtonListener {
 
     ProgramController programController;
@@ -39,6 +44,9 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
         iCreateEventUI.addSelectRoomButtonListener(this);
     }
 
+    /**
+     * Go to the previous frame
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -46,6 +54,9 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
         new EventsManagementUIPresenter(iEventsManagementUI, programController);
     }
 
+    /**
+     * Save previous inputs and go to the screen to select a room
+     */
     @Override
     public void onSelectRoomButtonClicked() {
         programController.saveForNext();
@@ -95,6 +106,9 @@ public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreate
         new SelectRoomUIPresenter(iSelectRoomUI, programController);
     }
 
+    /**
+     * Create an event
+     */
     @Override
     public void onConfirmCreateEventButtonClicked() {
         this.roomNum = iCreateEventUI.getRoomNum();

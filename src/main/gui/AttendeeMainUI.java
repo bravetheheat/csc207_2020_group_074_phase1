@@ -26,7 +26,7 @@ public class AttendeeMainUI extends JFrame implements IAttendeeMainUI {
     private InboxButtonListener inboxButtonListener;
 
     public AttendeeMainUI() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setSize(600, 500);
         this.setTitle("Program X");
         this.setContentPane(panel1);

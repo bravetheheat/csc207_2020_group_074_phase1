@@ -10,6 +10,11 @@ import main.guilisteners.CancelEventButtonListener;
 
 import java.util.ArrayList;
 
+/**
+ * Presenter class for viewing a list of events of a particular user
+ *
+ * @author Steven Yuan
+ */
 @SuppressWarnings("FieldCanBeLocal")
 
 public class ViewUserEventsUIPresenter
@@ -31,6 +36,9 @@ public class ViewUserEventsUIPresenter
         iViewUserEventsUI.addRegisterEventButtonListener(this);
     }
 
+    /**
+     * Go to previous screen
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -38,6 +46,9 @@ public class ViewUserEventsUIPresenter
         new EventSignUpUIPresenter(iEventSignUpUI, programController);
     }
 
+    /**
+     * Unregister an event
+     */
     @Override
     public void onCancelEventButtonClicked() {
         String userId = authController.fetchLoggedInUser();

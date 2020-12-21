@@ -8,13 +8,13 @@ import main.guilisteners.UserManagementButtonListener;
 import javax.swing.*;
 import java.util.ArrayList;
 
-@SuppressWarnings("FieldCanBeLocal")
 
 /**
  * this file contains the UI of the screen for organizer to do the user management for organizers
  *
- * @author: Ruoming Ren
+ * @author Ruoming Ren
  */
+@SuppressWarnings("FieldCanBeLocal")
 
 public class UserManagementUI extends JFrame implements IUserManagementUI {
 

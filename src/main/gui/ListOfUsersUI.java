@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 /**
  * the file contains the screen which display the list of users
+ *
+ * @see UserManagementUI
+ * @see AdminUserManagementUI
+ * @author Ruoming Ren
  */
 @SuppressWarnings("FieldCanBeLocal")
 

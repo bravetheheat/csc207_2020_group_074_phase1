@@ -6,6 +6,12 @@ import main.guilisteners.ConfirmCreateRoomButtonListener;
 
 import javax.swing.*;
 
+/**
+ * UI class for creating a room
+ *
+ * @see EventsManagementUI
+ * @author Steven Yuan
+ */
 public class CreateRoomUI extends JFrame implements ICreateRoomUI {
     private JPanel panel1;
     private JTextField roomNumberField;

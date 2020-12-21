@@ -7,6 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * UI class for viewing available events
+ *
+ * @see EventsManagementUI
+ * @author Steven Yuan
+ */
 public class SeeScheduleUI extends JFrame implements ISeeScheduleUI {
 
     private JPanel jPanel;

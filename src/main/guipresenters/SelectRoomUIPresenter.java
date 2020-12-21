@@ -11,6 +11,11 @@ import main.guilisteners.ConfirmSelectRoomButtonListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Presenter class for selecting roms
+ *
+ * @author Steven Yuan
+ */
 public class SelectRoomUIPresenter
         implements BackButtonListener, ConfirmSelectRoomButtonListener {
 
@@ -29,6 +34,9 @@ public class SelectRoomUIPresenter
         iSelectRoomUI.addSelectButtonListener(this);
     }
 
+    /**
+     * Go to the previous screen
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -48,6 +56,11 @@ public class SelectRoomUIPresenter
         }
     }
 
+    /**
+     * Return the index of the room chosen by the user, -1 if none is chosen
+     * @param category constraints for rooms
+     * @return room index
+     */
     @Override
     public int onConfirmSelectRoomButtonClicked(ArrayList<String> category) {
         List<Integer> rooms = organizerController.getEventController().

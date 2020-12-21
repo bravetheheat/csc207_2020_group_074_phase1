@@ -8,6 +8,14 @@ import main.guilisteners.DeleteSpeakerButtonListener;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * UI class for modifying speakers
+ *
+ * @see EventsManagementUI
+ * @author Steven Yuan
+ */
+@SuppressWarnings("FieldCanBeLocal")
+
 public class ModifySpeakerUI extends JFrame implements IModifySpeakerUI {
 
     private JPanel jPanel;
