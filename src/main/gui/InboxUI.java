@@ -6,6 +6,11 @@ import main.guilisteners.BackButtonListener;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * The inbox screen of the application.
+ *
+ * @author Yi Tao Li
+ */
 public class InboxUI extends JFrame implements IInboxUI {
     private ArrayList<String> events;
     private JButton backButton;

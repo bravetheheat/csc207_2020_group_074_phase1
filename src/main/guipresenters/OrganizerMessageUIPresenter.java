@@ -11,6 +11,11 @@ import main.usecases.UsersManager;
 
 import java.util.ArrayList;
 
+/**
+ * The presenter for <code>OrganizerMessageUI</code>
+ *
+ * @author Yi Tao Li
+ */
 public class OrganizerMessageUIPresenter implements BackButtonListener, SendButtonListener, EveryoneButtonListener,
         AllAttendeesButtonListener, AllSpeakersButtonListener {
     private ProgramController programController;
