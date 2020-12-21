@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 /**
  * the file contains the presenter for the users management screen
+ *
+ * @author Ruoming Ren
  */
 public class UserManagementUIPresenter implements UserManagementButtonListener,
         BackButtonListener, GetUserListButtonListener {
@@ -23,6 +25,9 @@ public class UserManagementUIPresenter implements UserManagementButtonListener,
     IOrganizerMainUI iOrganizerMainUI;
     IListOfUsersUI iListOfUsersUI;
 
+    /**
+     * Default constructor called by <code>AdminUserManagementUIPresenter</code>
+     */
     public UserManagementUIPresenter() {
 
     }
@@ -37,6 +42,9 @@ public class UserManagementUIPresenter implements UserManagementButtonListener,
         iUserManagementUI.addGetUserListButtonListener(this);
     }
 
+    /**
+     * Go to the previous screen
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -44,6 +52,9 @@ public class UserManagementUIPresenter implements UserManagementButtonListener,
         new OrganizerMainUIPresenter(iOrganizerMainUI, programController);
     }
 
+    /**
+     * Create a user(excluding admin)
+     */
     @Override
     public void onUserManagementButtonClicked() {
         String userType = iUserManagementUI.getUserType();
@@ -69,6 +80,9 @@ public class UserManagementUIPresenter implements UserManagementButtonListener,
         }
     }
 
+    /**
+     * See a list of users
+     */
     @Override
     public void onGetUserListButtonClicked() {
         ArrayList<String> listOfUserInfo = this.programController.

@@ -5,6 +5,11 @@ import main.gui_interface.IEventsManagementUI;
 import main.gui_interface.ISeeRoomsUI;
 import main.guilisteners.BackButtonListener;
 
+/**
+ * Presenter class for viewing rooms
+ *
+ * @author Steven Yuan
+ */
 public class SeeRoomsUIPresenter implements BackButtonListener {
 
     ProgramController programController;
@@ -17,6 +22,9 @@ public class SeeRoomsUIPresenter implements BackButtonListener {
         iSeeRoomsUI.addBackButtonListener(this);
     }
 
+    /**
+     * Go to the previous screen
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
