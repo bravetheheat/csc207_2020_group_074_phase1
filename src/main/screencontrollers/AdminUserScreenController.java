@@ -13,6 +13,7 @@ import java.util.List;
  * @author Leyi Wang
  * @version 2.0
  */
+@Deprecated
 public class AdminUserScreenController extends ScreenController{
 
     private AdminUserScreen adminUserScreen;

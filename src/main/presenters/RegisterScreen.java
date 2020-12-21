@@ -5,6 +5,7 @@ package main.presenters;
  *
  * @author David Zhao
  */
+@Deprecated
 public class RegisterScreen {
 
     public RegisterScreen() {

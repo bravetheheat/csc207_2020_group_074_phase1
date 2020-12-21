@@ -13,6 +13,7 @@ import java.util.List;
  * @version 1.1
  * @since 2020-11-11
  */
+@Deprecated
 public class AttendeeScreenController extends ScreenController {
 
     private AttendeeScreen attendeeScreen;

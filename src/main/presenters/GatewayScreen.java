@@ -5,6 +5,7 @@ package main.presenters;
  *
  * @author David Zhao
  */
+@Deprecated
 public class GatewayScreen {
 
     public void welcomeMessage() {

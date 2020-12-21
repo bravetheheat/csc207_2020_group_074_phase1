@@ -2,6 +2,7 @@ package main.presenters;
 
 import java.util.List;
 
+@Deprecated
 public class SpeakerMessageScreen {
 
 

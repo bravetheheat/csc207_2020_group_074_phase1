@@ -7,6 +7,7 @@ package main.presenters;
  * @version 2.0
  * @since 2020-11-11
  */
+@Deprecated
 public class EventSignUpScreen {
 
     /**

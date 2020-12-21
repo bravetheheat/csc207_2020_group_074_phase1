@@ -14,6 +14,7 @@ import java.util.Map;
  *
  * @author David Zhao
  */
+@Deprecated
 public class InboxScreenController extends ScreenController {
 
     InboxScreen presenter = new InboxScreen();

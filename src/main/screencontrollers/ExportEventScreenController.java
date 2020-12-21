@@ -15,7 +15,7 @@ import java.util.*;
  * @author Leyi Wang
  * @version 1.0
  */
-
+@Deprecated
 public class ExportEventScreenController extends ScreenController{
     ExportEventScreen presenter;
     OrganizerController organizerController;

@@ -7,6 +7,7 @@ import java.util.Scanner;
 /**
  * The ScreenController is an abstract class for all controllers that interact with a presenter class.
  */
+@Deprecated
 public abstract class ScreenController {
 
     public ProgramController programController;

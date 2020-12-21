@@ -11,6 +11,7 @@ import java.util.List;
  * @version 3.6
  * @since 2020-11-11
  */
+@Deprecated
 public class EventsManagementScreen {
 
     /**

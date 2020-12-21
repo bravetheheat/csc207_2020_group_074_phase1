@@ -13,6 +13,7 @@ import java.util.*;
  * @author Ruoming Ren
  * @since 2020-11-13
  */
+@Deprecated
 public class SpeakerMessageScreenController extends ScreenController{
 
     SpeakerMessageScreen speakerMessageScreen = new SpeakerMessageScreen();

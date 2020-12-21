@@ -14,7 +14,7 @@ import java.util.Arrays;
  * @version 3.0
  * @since 2020-11-12
  */
-
+@Deprecated
 public class SpeakerScreenController extends ScreenController {
     private final SpeakerScreen presenter;
     private final String loggedInSpeaker;

@@ -20,8 +20,8 @@ public class ProgramController {
     MessageManager messageManager;
     AuthController authController;
     EventController eventController;
-    Deque<ScreenController> screenControllerHistory = new ArrayDeque<>();
-    ScreenController currentScreenController;
+    Deque<ScreenController> screenControllerHistory = new ArrayDeque<>(); // Deprecated
+    ScreenController currentScreenController; // Deprecated
     InboxManager inboxManager;
     RoomManager roomManager;
     MessageController messageController;
@@ -126,6 +126,7 @@ public class ProgramController {
      *
      * @param screenController the next page
      */
+    @Deprecated
     public void setNewScreenController(ScreenController screenController) {
         this.screenControllerHistory.push(this.currentScreenController);
         this.currentScreenController = screenController;
@@ -136,6 +137,7 @@ public class ProgramController {
      * Takes the previous "page" and sets it as the "current page".
      * Does not switch pages. You need to run the next controller's start method for that.
      */
+    @Deprecated
     public void goToPreviousScreenController() {
         ScreenController previousScreenController = this.screenControllerHistory.pop();
         this.currentScreenController = previousScreenController;
@@ -144,6 +146,7 @@ public class ProgramController {
     /**
      * Clears the history of pages.
      */
+    @Deprecated
     public void clearScreenHistory() {
         this.screenControllerHistory = new ArrayDeque<>();
     }

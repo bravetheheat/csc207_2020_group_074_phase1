@@ -11,6 +11,7 @@ import java.util.List;
  * @version 1.0
  * @since 2020-11-13
  */
+@Deprecated
 public class AttendeeMessageScreen {
 
     protected List<String> recipients;

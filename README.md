@@ -165,8 +165,17 @@ a string, it represents a list of Speaker IDs
 
 UML Diagram
 ------------
-![UML Diagram](./uml-without-connections.png)
 
-![UML Diagram with Connections](./main-with-connections.png)
+Model Layer
+![Model Layer](./docs/model-layer.png)
+
+View Layer (No Connections)
+![View Layer](./docs/view.png)
+
+Presenter Layer (No Connections)
+![Presenter Layer](./docs/presenter.png)
+
+[Model-View-Presenter Relationships](./docs/model-view-presenter-relationships.pdf)
+
  
 
