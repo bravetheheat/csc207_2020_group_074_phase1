@@ -9,6 +9,9 @@ import main.guilisteners.DeleteUserButtonListener;
 
 import java.util.ArrayList;
 
+/**
+ * Presenter class for admin's user management
+ */
 public class AdminUserManagementUIPresenter extends UserManagementUIPresenter
         implements BackButtonListener, DeleteUserButtonListener {
 
@@ -16,8 +19,12 @@ public class AdminUserManagementUIPresenter extends UserManagementUIPresenter
     private AuthController authController;
     private IAdminUserManagementUI iAdminUserManagementUI;
 
+    /**
+     * Instantiate the presenter
+     * @param adminUserManagementUI admin user management UI
+     * @param programController model
+     */
     public AdminUserManagementUIPresenter(IAdminUserManagementUI adminUserManagementUI, ProgramController programController) {
-//        super(adminUserManagementUI, programController);
         this.programController = programController;
         this.authController = this.programController.getAuthController();
         this.iAdminUserManagementUI = adminUserManagementUI;
@@ -27,12 +34,18 @@ public class AdminUserManagementUIPresenter extends UserManagementUIPresenter
         iAdminUserManagementUI.addDeleteUserButtonListener(this);
     }
 
+    /**
+     * Switch to the previous screen when the back button is clicked.
+     */
     @Override
     public void onBackButtonClicked() {
         IAdminMainUI iAdminMainUI = this.iAdminUserManagementUI.goToAdminMainUI();
         new AdminMainUIPresenter(iAdminMainUI, this.programController);
     }
 
+    /**
+     * Delete a user
+     */
     @Override
     public void onDeleteUserButtonClicked() {
         String userToBeDeleted = iAdminUserManagementUI.getDeletedUser();
@@ -49,6 +62,9 @@ public class AdminUserManagementUIPresenter extends UserManagementUIPresenter
         }
     }
 
+    /**
+     * Add a user
+     */
     @Override
     public void onUserManagementButtonClicked() {
         String userType = iAdminUserManagementUI.getUserType();
@@ -76,6 +92,9 @@ public class AdminUserManagementUIPresenter extends UserManagementUIPresenter
         }
     }
 
+    /**
+     * See the entire list of users
+     */
     @Override
     public void onGetUserListButtonClicked() {
         ArrayList<String> listOfUserInfo = this.programController.
