@@ -10,6 +10,7 @@ import main.presenters.LoginScreen;
  * @author David Zhao, Leyi Wang
  * @version 1.0
  */
+@Deprecated
 public class LoginScreenController extends ScreenController {
     private final LoginScreen presenter = new LoginScreen();
     private final AuthController authController;

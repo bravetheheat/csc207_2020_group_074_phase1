@@ -9,6 +9,7 @@ import main.presenters.MessageDetailScreen;
  *
  * @author Yile Xie
  */
+@Deprecated
 public class MessageDetailScreenController extends ScreenController {
     String messageId;
     MessageDetailScreen presenter;

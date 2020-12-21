@@ -3,7 +3,7 @@ package main.presenters;
 import main.usecases.UsersManager;
 
 import java.util.List;
-
+@Deprecated
 public class OrganizerMessageScreen extends AttendeeMessageScreen {
 
     public OrganizerMessageScreen(UsersManager usersManager, List<String> recipients) {

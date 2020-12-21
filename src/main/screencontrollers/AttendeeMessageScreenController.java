@@ -15,6 +15,7 @@ import java.util.List;
  * @version 1.1
  * @since 11/13/2020
  */
+@Deprecated
 public class AttendeeMessageScreenController extends ScreenController {
 
     protected AttendeeMessageScreen attendeeMessageScreen;

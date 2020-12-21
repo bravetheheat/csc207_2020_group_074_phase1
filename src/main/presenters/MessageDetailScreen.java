@@ -1,5 +1,6 @@
 package main.presenters;
 
+@Deprecated
 public class MessageDetailScreen {
     public MessageDetailScreen() {}
 

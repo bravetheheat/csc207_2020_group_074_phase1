@@ -9,6 +9,7 @@ import main.presenters.RegisterScreen;
  *
  * @author David Zhao
  */
+@Deprecated
 public class RegisterScreenController extends ScreenController {
 
     private final RegisterScreen presenter = new RegisterScreen();

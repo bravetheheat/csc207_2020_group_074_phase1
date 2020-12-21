@@ -8,6 +8,7 @@ import main.presenters.AnonymousScreen;
  *
  * @author David Zhao
  */
+@Deprecated
 public class AnonymousScreenController extends ScreenController {
     AnonymousScreen presenter = new AnonymousScreen();
 
