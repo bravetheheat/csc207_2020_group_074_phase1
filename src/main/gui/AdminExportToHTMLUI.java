@@ -7,6 +7,11 @@ import main.guilisteners.ExportButtonListener;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * The export events schedule to HTML screen for an Admin type account.
+ *
+ * @author Yi Tao Li
+ */
 public class AdminExportToHTMLUI extends JFrame implements IAdminExportToHTMLUI {
     private JButton backButton;
     private BackButtonListener backButtonListener;

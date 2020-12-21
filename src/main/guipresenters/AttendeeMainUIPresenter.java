@@ -13,6 +13,11 @@ import main.guilisteners.RegisterForEventsButtonListener;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The presenter for <code>AttendeeMainUI</code>
+ *
+ * @author Yi Tao Li
+ */
 public class AttendeeMainUIPresenter implements LogoutButtonListener, RegisterForEventsButtonListener, MessageButtonListener, InboxButtonListener {
 
     private IAttendeeMainUI iAttendeeMainUI;

@@ -12,7 +12,8 @@ import main.guilisteners.UserManagementButtonListener;
 import java.util.ArrayList;
 
 /**
- * the file contains the presenter for the users management screen
+ * the file contains the presenter for the users management screen for Organizers
+ * @author Ruoming Ren
  */
 public class UserManagementUIPresenter implements UserManagementButtonListener,
         BackButtonListener, GetUserListButtonListener {

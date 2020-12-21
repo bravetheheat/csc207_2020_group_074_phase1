@@ -10,6 +10,11 @@ import main.guilisteners.BackButtonListener;
 import main.guilisteners.BroadcastButtonListener;
 import main.guilisteners.SendButtonListener;
 
+/**
+ * The presenter for <code>SpeakerMessageUI</code>
+ *
+ * @author Yi Tao Li
+ */
 public class SpeakerMessageUIPresenter implements BackButtonListener, BroadcastButtonListener, SendButtonListener {
     private ProgramController programController;
     private AuthController authController;

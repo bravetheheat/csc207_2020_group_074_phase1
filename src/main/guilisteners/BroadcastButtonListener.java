@@ -1,7 +1,10 @@
 package main.guilisteners;
 
-import main.gui_interface.IView;
-
+/**
+ * An interface that listens to actions performed on the broadcast button in the speaker's messaging screen.
+ *
+ * @author Yi Tao Li
+ */
 public interface BroadcastButtonListener {
     void onBroadcastButtonClicked();
 }

@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The presenter for <code>AdminExportToHTMLUI</code>
+ *
+ * @author Yi Tao Li
+ */
 public class AdminExportToHTMLUIPresenter implements BackButtonListener, ExportButtonListener {
     private ProgramController programController;
     private EventsManager eventsManager;

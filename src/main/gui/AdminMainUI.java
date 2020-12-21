@@ -6,6 +6,11 @@ import main.guilisteners.*;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * The home screen of the application for an Admin type account.
+ *
+ * @author Yi Tao Li
+ */
 public class AdminMainUI extends JFrame implements IAdminMainUI {
     private JPanel panel1;
     private JButton logOutButton;

@@ -10,6 +10,11 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * The home screen of the application for a Speaker type account.
+ *
+ * @author Yi Tao Li
+ */
 public class SpeakerMainUI extends JFrame implements ISpeakerMainUI {
     private ArrayList<String> events;
     private JPanel panel1;

@@ -4,9 +4,13 @@ import main.gui_interface.*;
 import main.guilisteners.*;
 
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * The home screen of the application for an Organizer type account.
+ *
+ * @author Yi Tao Li
+ */
 public class OrganizerMainUI extends JFrame implements IOrganizerMainUI {
     private JPanel panel1;
     private JButton logOutButton;
