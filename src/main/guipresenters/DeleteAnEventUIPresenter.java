@@ -9,6 +9,9 @@ import main.guilisteners.BackButtonListener;
 import main.guilisteners.DeleteEventButtonListener;
 import main.guilisteners.SelectEventButtonListener;
 
+/**
+ * Presenter class for deleting an event or selecting an event for future modification
+ */
 public class DeleteAnEventUIPresenter
         implements BackButtonListener, DeleteEventButtonListener, SelectEventButtonListener {
 
@@ -30,6 +33,9 @@ public class DeleteAnEventUIPresenter
         iDeleteAnEventUI.addSelectEventButtonListener(this);
     }
 
+    /**
+     * Go to the previous frame
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -37,6 +43,9 @@ public class DeleteAnEventUIPresenter
         new ModifyEventUIPresenter(iModifyEventUI, programController);
     }
 
+    /**
+     * Delete an event
+     */
     @Override
     public void onDeleteEventButtonClicked() {
         if (eventController.getAllEvents().size() > 0) {
@@ -53,6 +62,10 @@ public class DeleteAnEventUIPresenter
         }
     }
 
+    /**
+     * Select an event for future modification
+     * @return an event index
+     */
     @Override
     public int onSelectEventButtonClicked() {
         programController.saveForNext();

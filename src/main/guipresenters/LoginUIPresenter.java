@@ -37,6 +37,9 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
         this.iLoginUI.addBackButtonListener(this);
     }
 
+    /**
+     * Log in according to user type
+     */
     @Override
     public void onLoginButtonClicked() {
             String username = iLoginUI.getUserName();
@@ -90,6 +93,9 @@ public class LoginUIPresenter implements LoginUIListener, BackButtonListener {
             }
     }
 
+    /**
+     * Go to the previous screen
+     */
     @Override
     public void onBackButtonClicked() {
         this.iLandingUI = iLoginUI.goToLandingUI();

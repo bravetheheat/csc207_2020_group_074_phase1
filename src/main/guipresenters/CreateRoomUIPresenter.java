@@ -7,6 +7,9 @@ import main.gui_interface.IEventsManagementUI;
 import main.guilisteners.BackButtonListener;
 import main.guilisteners.ConfirmCreateRoomButtonListener;
 
+/**
+ * Presenter class for creating room UI
+ */
 public class CreateRoomUIPresenter
         implements BackButtonListener, ConfirmCreateRoomButtonListener {
 
@@ -24,6 +27,9 @@ public class CreateRoomUIPresenter
         iCreateRoomUI.addConfirmButtonListener(this);
     }
 
+    /**
+     * Go to the previous screen
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -31,6 +37,9 @@ public class CreateRoomUIPresenter
         new EventsManagementUIPresenter(iEventsManagementUI, programController);
     }
 
+    /**
+     * Create a room
+     */
     @Override
     public void onConfirmCreateRoomButtonClicked() {
         String roomNum = iCreateRoomUI.getRoomNum();

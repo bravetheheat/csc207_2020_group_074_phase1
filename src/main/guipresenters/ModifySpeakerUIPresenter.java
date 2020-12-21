@@ -12,6 +12,9 @@ import main.guilisteners.DeleteSpeakerButtonListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Presenter class for modifying a speaker
+ */
 public class ModifySpeakerUIPresenter
         implements BackButtonListener, ConfirmSelectSpeakerButtonListener, DeleteSpeakerButtonListener {
 
@@ -33,6 +36,9 @@ public class ModifySpeakerUIPresenter
         iModifySpeakerUI.addDeleteSpeakerButtonListener(this);
     }
 
+    /**
+     * Go to the previous frame
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -41,6 +47,9 @@ public class ModifySpeakerUIPresenter
         new ModifyEventUIPresenter(iModifyEventUI, programController);
     }
 
+    /**
+     * Modify a speaker
+     */
     @Override
     public void onConfirmSelectSpeakerButtonClicked() {
         this.eventIndex = iModifySpeakerUI.getEventIndex();
@@ -88,6 +97,9 @@ public class ModifySpeakerUIPresenter
         }
     }
 
+    /**
+     * Delete a speaker
+     */
     @Override
     public void onDeleteSpeakerButtonClicked() {
         eventIndex = iModifySpeakerUI.getEventIndex();

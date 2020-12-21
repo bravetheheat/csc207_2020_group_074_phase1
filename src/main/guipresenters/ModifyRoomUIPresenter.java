@@ -10,6 +10,9 @@ import main.guilisteners.ConfirmModifyRoomButtonListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Presenter class for modifying rooms
+ */
 public class ModifyRoomUIPresenter
         implements BackButtonListener, ConfirmModifyRoomButtonListener {
 
@@ -27,6 +30,9 @@ public class ModifyRoomUIPresenter
         iModifyRoomUI.addConfirmButtonListener(this);
     }
 
+    /**
+     * Go to the previous frame
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -34,6 +40,9 @@ public class ModifyRoomUIPresenter
         new EventsManagementUIPresenter(iEventsManagementUI, programController);
     }
 
+    /**
+     * Modify the room
+     */
     @Override
     public void onConfirmModifyRoomButtonClicked() {
         try {

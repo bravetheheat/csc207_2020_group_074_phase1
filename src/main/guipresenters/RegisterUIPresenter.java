@@ -29,6 +29,7 @@ public class RegisterUIPresenter implements RegisterUIListener, BackButtonListen
         registerUI.addRegisterUIListener(this);
         registerUI.addBackButtonListener(this);
     }
+
     @Override
     public void onConfirmButtonClicked() {
             String userType = iRegisterUI.getUserType();

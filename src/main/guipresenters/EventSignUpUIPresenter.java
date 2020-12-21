@@ -10,6 +10,9 @@ import main.guilisteners.ViewEventsButtonListener;
 
 import java.util.ArrayList;
 
+/**
+ * The presenter class for event registration
+ */
 @SuppressWarnings("FieldCanBeLocal")
 
 public class EventSignUpUIPresenter implements SignUpButtonListener,
@@ -36,6 +39,9 @@ public class EventSignUpUIPresenter implements SignUpButtonListener,
         iEventSignUpUI.addBackButtonListener(this);
     }
 
+    /**
+     * Go to the screen for sign up events
+     */
     @Override
     public void onSignUpButtonClicked() {
         ArrayList<String> listOfEvents = eventController.getEventsInfoList();
@@ -43,6 +49,9 @@ public class EventSignUpUIPresenter implements SignUpButtonListener,
         new DisplayAllEventsUIPresenter(iDisplayAllEventsUI, programController);
     }
 
+    /**
+     * Go to the screen to view events
+     */
     @Override
     public void onViewEventsButtonClicked() {
         String userId = this.authController.fetchLoggedInUser();
@@ -51,6 +60,9 @@ public class EventSignUpUIPresenter implements SignUpButtonListener,
         new ViewUserEventsUIPresenter(iViewUserEventsUI, programController);
     }
 
+    /**
+     * Go to the previous screen according to the user type
+     */
     @Override
     public void onBackButtonClicked() {
         String userType = this.authController.getUserType();

@@ -8,6 +8,9 @@ import main.guilisteners.*;
 
 import java.util.ArrayList;
 
+/**
+ * Presenter class for events management
+ */
 public class EventsManagementUIPresenter implements BackButtonListener,
         CreateRoomButtonListener, ModifyRoomButtonListener, CreateEventButtonListener, ModifyEventButtonListener, SeeRoomsButtonListener, SeeScheduleButtonListener {
 
@@ -36,6 +39,9 @@ public class EventsManagementUIPresenter implements BackButtonListener,
     }
 
 
+    /**
+     * Go to the previous frame
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -43,6 +49,9 @@ public class EventsManagementUIPresenter implements BackButtonListener,
         new OrganizerMainUIPresenter(iOrganizerMainUI, programController);
     }
 
+    /**
+     * Go to the screen for creating a room
+     */
     @Override
     public void onCreateRoomButtonClicked() {
         programController.saveForNext();
@@ -50,6 +59,9 @@ public class EventsManagementUIPresenter implements BackButtonListener,
         new CreateRoomUIPresenter(iCreateRoomUI, programController);
     }
 
+    /**
+     * Go to screen for modifying a room
+     */
     @Override
     public void onModifyRoomButtonClicked() {
         programController.saveForNext();
@@ -57,6 +69,9 @@ public class EventsManagementUIPresenter implements BackButtonListener,
         new ModifyRoomUIPresenter(iModifyRoomUI, programController);
     }
 
+    /**
+     * Go to the screen for creating an event
+     */
     @Override
     public void onCreateEventButtonClicked() {
         programController.saveForNext();
@@ -64,6 +79,9 @@ public class EventsManagementUIPresenter implements BackButtonListener,
         new CreateEventUIPresenter(iCreateEventUI, programController);
     }
 
+    /**
+     * Go to the screen for modifying an event
+     */
     @Override
     public void onModifyEventButtonClicked() {
         programController.saveForNext();
@@ -71,6 +89,9 @@ public class EventsManagementUIPresenter implements BackButtonListener,
         new ModifyEventUIPresenter(iModifyEventUI, programController);
     }
 
+    /**
+     * Go to the screen to see a list of rooms
+     */
     @Override
     public void onSeeRoomsButtonClicked() {
         programController.saveForNext();
@@ -88,6 +109,9 @@ public class EventsManagementUIPresenter implements BackButtonListener,
         new SeeRoomsUIPresenter(iSeeRoomsUI, programController);
     }
 
+    /**
+     * Go to the screen to see a list of events
+     */
     @Override
     public void onSeeScheduleButtonClicked() {
         programController.saveForNext();

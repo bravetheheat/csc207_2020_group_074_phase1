@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Presenter class for modifying an event
+ */
 public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButtonListener,
         ModifySpeakerButtonListener, ConfirmModifyEventButtonListener, SelectRoomButtonListener {
 
@@ -39,6 +42,9 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
         iModifyEventUI.addSelectRoomButtonListener(this);
     }
 
+    /**
+     * Go to previous frame
+     */
     @Override
     public void onBackButtonClicked() {
         programController.saveForNext();
@@ -46,6 +52,9 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
         new EventsManagementUIPresenter(iEventsManagementUI, programController);
     }
 
+    /**
+     * Modify an event
+     */
     @Override
     public void onConfirmModifyEventButtonClicked() {
         this.eventIndex = iModifyEventUI.getEventIndex();
@@ -143,6 +152,9 @@ public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButt
         }
     }
 
+    /**
+     * Select a room
+     */
     @Override
     public void onSelectRoomButtonClicked() {
         programController.saveForNext();
