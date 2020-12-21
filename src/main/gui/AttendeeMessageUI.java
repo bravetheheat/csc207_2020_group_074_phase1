@@ -9,6 +9,11 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import java.util.ArrayList;
 
+/**
+ * The message screen for an Attendee type account.
+ *
+ * @author Yi Tao Li
+ */
 public class AttendeeMessageUI extends JFrame implements IAttendeeMessageUI {
     private JButton backButton;
     private BackButtonListener backButtonListener;

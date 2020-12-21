@@ -11,6 +11,11 @@ import main.guilisteners.SendButtonListener;
 import javax.swing.event.ListSelectionEvent;
 import java.util.List;
 
+/**
+ * The presenter for <code>AttendeeMessageUI</code>
+ *
+ * @author Yi Tao Li
+ */
 public class AttendeeMessageUIPresenter implements BackButtonListener, SendButtonListener, ListSelectionListener {
     IAttendeeMessageUI iAttendeeMessageUI;
     ProgramController programController;

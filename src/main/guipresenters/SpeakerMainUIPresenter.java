@@ -13,6 +13,11 @@ import main.usecases.UsersManager;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The presenter for <code>SpeakerMainUI</code>
+ *
+ * @author Yi Tao Li
+ */
 public class SpeakerMainUIPresenter implements LogoutButtonListener, MessageButtonListener, InboxButtonListener {
     ProgramController programController;
     AuthController authController;

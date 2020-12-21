@@ -11,6 +11,11 @@ import main.usecases.UsersManager;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The presenter for <code>AdminMainUI</code>
+ *
+ * @author Yi Tao Li
+ */
 public class AdminMainUIPresenter implements LogoutButtonListener, UserManagementButtonListener, MessageButtonListener,
         InboxButtonListener, RegisteredEventsButtonListener, ExportEventsButtonListener {
 

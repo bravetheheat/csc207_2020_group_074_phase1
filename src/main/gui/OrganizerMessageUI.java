@@ -6,6 +6,11 @@ import main.guilisteners.*;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * The messaging screen of the application for an Organizer or Admin type account.
+ *
+ * @author Yi Tao Li
+ */
 public class OrganizerMessageUI extends JFrame implements IOrganizerMessageUI  {
     private JButton backButton;
     private BackButtonListener backButtonListener;
