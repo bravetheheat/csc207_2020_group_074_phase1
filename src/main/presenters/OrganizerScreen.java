@@ -7,6 +7,7 @@ package main.presenters;
  * @version 1.0
  * @since 2020-11-11
  */
+@Deprecated
 public class OrganizerScreen {
     /**
      * Constructor of an OrganizerScreen.

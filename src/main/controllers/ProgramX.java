@@ -15,8 +15,6 @@ public class ProgramX {
     }
 
     public static void main(String[] args) {
-//        ProgramController program = new ProgramController();
-//        program.start();
         SwingUtilities.invokeLater(ProgramX::new);
     }
 }

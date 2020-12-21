@@ -6,6 +6,7 @@ package main.presenters;
  * @author Leyi Wang
  * @version 1.0
  */
+@Deprecated
 public class AdminUserScreen {
     /**
      * Constructor of an Admin User Screen.

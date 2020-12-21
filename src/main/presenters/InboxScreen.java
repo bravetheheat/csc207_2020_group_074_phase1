@@ -7,6 +7,7 @@ import java.util.List;
  *
  * @author David Zhao
  */
+@Deprecated
 public class InboxScreen {
 
     public void welcomeMessage() {

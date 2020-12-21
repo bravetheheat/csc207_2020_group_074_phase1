@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * @version 4.0
  * @since 2020-11-11
  */
+@Deprecated
 public class EventSignUpScreenController extends ScreenController {
     EventSignUpScreen presenter = new EventSignUpScreen();
     OrganizerController organizerController;

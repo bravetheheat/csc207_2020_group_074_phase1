@@ -11,6 +11,7 @@ import main.usecases.UsersManager;
  * @author Leyi Wang
  * @version 1.0
  */
+@Deprecated
 public class UserManagementScreenController extends ScreenController {
 
     OrganizerController organizerController;

@@ -5,6 +5,7 @@ package main.presenters;
  *
  * @author David Zhao, Leyi Wang
  */
+@Deprecated
 public class LoginScreen {
 
     /**

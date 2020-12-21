@@ -13,6 +13,7 @@ import java.util.Arrays;
  * @version 1.0
  * @since 2020-11-13
  */
+@Deprecated
 public class OrganizerMessageScreenController extends AttendeeMessageScreenController {
 
     private final OrganizerMessageScreen organizerMessageScreen;

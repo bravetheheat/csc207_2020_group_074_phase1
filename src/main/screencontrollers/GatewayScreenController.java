@@ -12,6 +12,7 @@ import java.util.List;
  *
  * @author David Zhao
  */
+@Deprecated
 public class GatewayScreenController extends ScreenController {
 
     private final GatewayScreen presenter = new GatewayScreen();
