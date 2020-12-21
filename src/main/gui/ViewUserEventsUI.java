@@ -8,6 +8,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * UI class for viewing events of a particular user
+ *
+ * @see EventSignUpUI
+ * @see main.guipresenters.EventSignUpUIPresenter
+ * @author Steven Yuan
+ */
 @SuppressWarnings("FieldCanBeLocal")
 
 public class ViewUserEventsUI extends JFrame implements IViewUserEventsUI {

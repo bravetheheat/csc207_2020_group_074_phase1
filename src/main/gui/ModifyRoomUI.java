@@ -6,6 +6,14 @@ import main.guilisteners.ConfirmModifyRoomButtonListener;
 
 import javax.swing.*;
 
+/**
+ * UI class for modifying a room
+ *
+ * @see EventsManagementUI
+ * @author Steven Yuan
+ */
+@SuppressWarnings("FieldCanBeLocal")
+
 public class ModifyRoomUI extends JFrame implements IModifyRoomUI {
 
     private JTextField roomNumField;

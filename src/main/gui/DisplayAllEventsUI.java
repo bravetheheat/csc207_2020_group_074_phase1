@@ -8,6 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * UI class for displaying events
+ *
+ * @see EventSignUpUI
+ * @author Steven Yuan
+ */
 @SuppressWarnings("FieldCanBeLocal")
 
 public class DisplayAllEventsUI extends JFrame implements IDisplayAllEventsUI {

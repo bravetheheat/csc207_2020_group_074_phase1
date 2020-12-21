@@ -7,6 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * UI class for viewing available rooms
+ *
+ * @see EventsManagementUI
+ * @author Steven Yuan
+ */
 @SuppressWarnings("FieldCanBeLocal")
 
 public class SeeRoomsUI extends JFrame implements ISeeRoomsUI {

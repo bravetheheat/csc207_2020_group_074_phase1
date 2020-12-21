@@ -6,6 +6,12 @@ import main.guilisteners.*;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * UI class for modifying an event
+ *
+ * @see EventsManagementUI
+ * @author Steven Yuan
+ */
 public class ModifyEventUI extends JFrame implements IModifyEventUI {
 
     private JButton getEventButton;

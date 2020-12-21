@@ -10,6 +10,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * UI class for creating an event
+ *
+ * @see EventsManagementUI
+ * @see SelectRoomUI
+ * @author Steven Yuan
+ */
+@SuppressWarnings("FieldCanBeLocal")
+
 public class CreateEventUI extends JFrame implements ICreateEventUI {
 
     private JPanel panel1;

@@ -11,7 +11,7 @@ import javax.swing.*;
 /**
  * this file contains the UI of the screen for organizer to do the user management for admins
  *
- * @author: Ruoming Ren
+ * @author Ruoming Ren
  */
 public class AdminUserManagementUI extends UserManagementUI implements IAdminUserManagementUI {
 

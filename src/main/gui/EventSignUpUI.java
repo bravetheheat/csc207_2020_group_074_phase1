@@ -8,6 +8,11 @@ import main.guilisteners.ViewEventsButtonListener;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * UI class for event registration
+ *
+ * @author Steven Yuan
+ */
 @SuppressWarnings("FieldCanBeLocal")
 
 public class EventSignUpUI extends JFrame implements IEventSignUpUI {
