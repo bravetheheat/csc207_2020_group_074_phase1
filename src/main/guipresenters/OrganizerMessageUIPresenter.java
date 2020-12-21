@@ -88,18 +88,35 @@ public class OrganizerMessageUIPresenter implements BackButtonListener, SendButt
 
     @Override
     public void onSendButtonClicked() {
-        ArrayList<String> users = new ArrayList<>(this.iOrganizerMessageUI.getUsersList().getSelectedValuesList());
+//        ArrayList<String> users = new ArrayList<>(this.iOrganizerMessageUI.getUsersList().getSelectedValuesList());
+//        String message = iOrganizerMessageUI.getMessage();
+//        if (!users.isEmpty() && !(message.equals(""))) {
+//            ArrayList<String> userIDs = new ArrayList<>();
+//            for (String user:users) {
+//                String username;
+//                int i = user.indexOf(",");
+//                username = user.substring(i + 2);
+//                userIDs.add(this.usersManager.getIDFromUsername(username));
+//            }
+//            this.messageController.broadCast(this.programController.getAuthController().fetchLoggedInUser(),
+//                    userIDs, message);
+//            programController.saveForNext();
+//            iOrganizerMessageUI.sendMessageSuccessful();
+//        }
+//        else {
+//            iOrganizerMessageUI.sendMessageError();
+//        }
+        int[] userIndices = iOrganizerMessageUI.getUsersList().getSelectedIndices();
         String message = iOrganizerMessageUI.getMessage();
-        if (!users.isEmpty() && !(message.equals(""))) {
-            ArrayList<String> userIDs = new ArrayList<>();
-            for (String user:users) {
-                String username;
-                int i = user.indexOf(",");
-                username = user.substring(i + 2);
-                userIDs.add(this.usersManager.getIDFromUsername(username));
+        if (userIndices.length != 0 || !message.equals("")) {
+            ArrayList<String> userIds = (ArrayList<String>) this.messageController.
+                    receiversForAttendeeAndOrganizer(this.programController.
+                            getAuthController().fetchLoggedInUser());
+            for (int index : userIndices) {
+                this.messageController.sendMessage(this.programController.
+                                getAuthController().fetchLoggedInUser(),
+                        userIds.get(index), message);
             }
-            this.messageController.broadCast(this.programController.getAuthController().fetchLoggedInUser(),
-                    userIDs, message);
             programController.saveForNext();
             iOrganizerMessageUI.sendMessageSuccessful();
         }
