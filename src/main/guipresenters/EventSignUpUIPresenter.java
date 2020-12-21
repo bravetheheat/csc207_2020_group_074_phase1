@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 /**
  * The presenter class for event registration
+ *
+ * @author Steven Yuan
  */
 @SuppressWarnings("FieldCanBeLocal")
 

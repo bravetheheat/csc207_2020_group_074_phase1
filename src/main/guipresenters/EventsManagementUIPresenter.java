@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 /**
  * Presenter class for events management
+ *
+ * @author Steven Yuan
  */
 public class EventsManagementUIPresenter implements BackButtonListener,
         CreateRoomButtonListener, ModifyRoomButtonListener, CreateEventButtonListener, ModifyEventButtonListener, SeeRoomsButtonListener, SeeScheduleButtonListener {

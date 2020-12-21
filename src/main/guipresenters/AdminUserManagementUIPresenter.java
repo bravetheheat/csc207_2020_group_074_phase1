@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 /**
  * Presenter class for admin's user management
+ *
+ * @author Ruoming Ren
  */
 public class AdminUserManagementUIPresenter extends UserManagementUIPresenter
         implements BackButtonListener, DeleteUserButtonListener {

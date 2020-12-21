@@ -9,6 +9,8 @@ import main.guilisteners.BackButtonListener;
 
 /**
  * the file contains the presenter to show the list of users
+ *
+ * @author Ruoming Ren
  */
 @SuppressWarnings("FieldCanBeLocal")
 

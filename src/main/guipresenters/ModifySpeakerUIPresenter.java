@@ -14,6 +14,8 @@ import java.util.List;
 
 /**
  * Presenter class for modifying a speaker
+ *
+ * @author Steven Yuan
  */
 public class ModifySpeakerUIPresenter
         implements BackButtonListener, ConfirmSelectSpeakerButtonListener, DeleteSpeakerButtonListener {

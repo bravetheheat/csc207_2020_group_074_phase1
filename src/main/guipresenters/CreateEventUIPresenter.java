@@ -17,6 +17,8 @@ import java.util.List;
 
 /**
  * Presenter for creating an event UI
+ *
+ * @author Steven Yuan
  */
 public class CreateEventUIPresenter implements BackButtonListener, ConfirmCreateEventButtonListener, SelectRoomButtonListener {
 

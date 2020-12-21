@@ -10,6 +10,8 @@ import main.guilisteners.RegisterEventButtonListener;
 
 /**
  * The presenter for display all the events
+ *
+ * @author Steven Yuan
  */
 @SuppressWarnings("FieldCanBeLocal")
 

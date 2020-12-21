@@ -11,6 +11,8 @@ import main.guilisteners.SelectEventButtonListener;
 
 /**
  * Presenter class for deleting an event or selecting an event for future modification
+ *
+ * @author Steven Yuan
  */
 public class DeleteAnEventUIPresenter
         implements BackButtonListener, DeleteEventButtonListener, SelectEventButtonListener {

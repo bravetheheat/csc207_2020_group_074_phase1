@@ -15,6 +15,8 @@ import java.util.List;
 
 /**
  * Presenter class for modifying an event
+ *
+ * @author Steven Yuan
  */
 public class ModifyEventUIPresenter implements BackButtonListener, GetEventsButtonListener,
         ModifySpeakerButtonListener, ConfirmModifyEventButtonListener, SelectRoomButtonListener {

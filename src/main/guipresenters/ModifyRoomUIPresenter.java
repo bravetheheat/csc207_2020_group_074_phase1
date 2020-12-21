@@ -12,6 +12,8 @@ import java.util.Arrays;
 
 /**
  * Presenter class for modifying rooms
+ *
+ * @author Steven Yuan
  */
 public class ModifyRoomUIPresenter
         implements BackButtonListener, ConfirmModifyRoomButtonListener {

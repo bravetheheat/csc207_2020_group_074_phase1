@@ -9,6 +9,8 @@ import main.guilisteners.ConfirmCreateRoomButtonListener;
 
 /**
  * Presenter class for creating room UI
+ *
+ * @author Steven Yuan
  */
 public class CreateRoomUIPresenter
         implements BackButtonListener, ConfirmCreateRoomButtonListener {
