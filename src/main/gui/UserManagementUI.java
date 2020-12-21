@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @SuppressWarnings("FieldCanBeLocal")
 
 /**
- * this file contains the UI of the screen for organizer to do the user management
+ * this file contains the UI of the screen for organizer to do the user management for organizers
  *
  * @author: Ruoming Ren
  */

@@ -9,6 +9,10 @@ import main.guilisteners.DeleteUserButtonListener;
 
 import java.util.ArrayList;
 
+/**
+ * the file contains the presenter for the users management screen for Admins
+ * @author Ruoming Ren
+ */
 public class AdminUserManagementUIPresenter extends UserManagementUIPresenter
         implements BackButtonListener, DeleteUserButtonListener {
 
