@@ -1,0 +1,15 @@
+
+main.controllers
+main.entities
+main.export
+main.gateways
+main.gateways.beans
+main.gateways.converters
+main.gateways.sqlgateway
+main.gui
+main.gui_interface
+main.guilisteners
+main.guipresenters
+main.presenters
+main.screencontrollers
+main.usecases
