@@ -18,8 +18,6 @@ public interface IAdminMainUI extends IView {
 
     void addExportEventsButtonListener(ExportEventsButtonListener listener);
 
-//    void addDataManagementButtonListener(DataManagementButtonListener listener);
-
     void notifyListenerOnLogoutButtonClicked();
 
     void notifyListenerOnUserManagementButtonClicked();
@@ -32,13 +30,9 @@ public interface IAdminMainUI extends IView {
 
     void notifyListenerOnExportEventsButtonClicked();
 
-//    void notifyListenerOnDataManagementButtonClicked();
-
     ILandingUI goToLandingUI();
 
     IEventSignUpUI goToEventSignUpUI();
-
-    IGatewayUI goToGatewayUI();
 
     IAdminUserManagementUI goToAdminUserManagementUI();
 
