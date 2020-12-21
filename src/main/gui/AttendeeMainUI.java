@@ -9,6 +9,11 @@ import main.guilisteners.RegisterForEventsButtonListener;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * The home screen of the application for an Attendee type account.
+ *
+ * @author Yi Tao Li
+ */
 public class AttendeeMainUI extends JFrame implements IAttendeeMainUI {
     private JPanel panel1;
     private JButton logOutButton;

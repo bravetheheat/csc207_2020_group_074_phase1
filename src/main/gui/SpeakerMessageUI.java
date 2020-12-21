@@ -8,6 +8,11 @@ import main.guilisteners.SendButtonListener;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * The messaging screen of the application for a Speaker type account.
+ *
+ * @author Yi Tao Li
+ */
 public class SpeakerMessageUI extends JFrame implements ISpeakerMessageUI {
     ArrayList<String> events;
     private JPanel panel1;
